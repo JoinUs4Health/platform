@@ -1,0 +1,27 @@
+/*
+Theme Name: Ju4H
+Template: astra
+*/
+
+body {
+    background-color: #f7f7f7;
+}
+.ideapush-container i, .ideapush-container a, .ideapush-container .idea-item-tag:hover, .ideapush-container .idea-item-file:hover, .ideapush-dialog .close-button, .ideapush-dialog-image .close-button, .idea-page-number.active, .idea-page-number:hover {
+    color: green !important;
+    }
+
+
+
+    .idea-item {
+        display: table;
+        padding: 16px !important;
+        border: 1px solid #e7e7e7 !important;
+        background-color: #ffffff;
+        border-radius: 4px;
+        width: 100%;
+        margin-bottom: 12px !important;
+        }
+
+.idea-vote-container {
+    border-color: #efe733 !important;
+}
