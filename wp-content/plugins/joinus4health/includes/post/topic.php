@@ -89,9 +89,11 @@ add_action('init', 'ju4htopic_custom_post_type', 0);
  * @param type $post
  */
 function add_meta_boxes_ju4htopic_callback($post) {
+    add_meta_box('container_topimage', __('Top image'), 'add_meta_box_ju4htopic_topimage_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4htopic_description_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4htopic_additional_fields_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_topics', __('Related suggestions'), 'add_meta_box_ju4htopic_related_suggestions_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_attachments', __('Attachments'), 'add_meta_box_ju4htopic_attachments_callback', 'ju4htopic', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
 
@@ -146,6 +148,8 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
         }
     }
     
+    
+    
     $related_suggestions = get_post_meta($post->ID, 'm_related_suggestions');
     echo '<div id="related-suggestions">';
     
@@ -191,6 +195,31 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
 }
 
 /**
+ * Adds meta box "Attachments"
+ * - @todo
+ * 
+ * @global type $meta_status
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_attachments_callback($post) {
+    wp_nonce_field(basename( __FILE__ ), 'topic_attachments_nonce');
+    html_admin_file_multiple_meta_box($post, 'attachments');
+}
+
+/**
+ * Adds meta box "Attachments"
+ * - @todo
+ * 
+ * @global type $meta_status
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_topimage_callback($post) {
+    wp_nonce_field(basename( __FILE__ ), 'topic_attachments_nonce');
+    html_admin_file_meta_box($post, 'm_top_image', 'topimage');
+}
+
+
+/**
  * Save topic post method
  * 
  * @param type $post_id
@@ -199,10 +228,11 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
 function save_post_ju4htopic_callback($post_id) {
     global $meta_status, $meta_countries, $meta_source, $meta_target_group;
     
-    $nonces= array(
+    $nonces = array(
         'topic_additional_fields_nonce', 
         'topic_description_nonce', 
-        'topic_related_suggestions_nonce'
+        'topic_related_suggestions_nonce',
+        'topic_attachments_nonce'
     );
     
     //checking nonces
@@ -293,6 +323,59 @@ function save_post_ju4htopic_callback($post_id) {
     foreach ($related_suggestions_to_remove as $value) {
         delete_post_meta($post_id, 'm_related_suggestions', $value);
     }
+    
+    //
+    if (isset($_POST['m_attachments_file']) && is_array($_POST['m_attachments_file']) && isset($_POST['m_attachments_text']) && is_array($_POST['m_attachments_text'])) {
+        $_POST_attachments = array();
+        
+        foreach ($_POST['m_attachments_file'] as $index => $value) {
+            $obj = new stdClass();
+            $obj->file = $_POST['m_attachments_file'][$index];
+            $obj->text = $_POST['m_attachments_text'][$index];
+            $_POST_attachments[] = str_replace('\/', '/', json_encode($obj));
+    
+        }
+
+        $_POST_attachments = array_diff($_POST_attachments, array(""));
+    } else {
+        $_POST_attachments = array();
+    }
+    
+    //getting attachments
+    $attachments = get_post_meta($post_id, 'm_attachments');
+
+    //making intersection between attachments from POST & existing attachments
+    //result should be keeped in db
+    $intersect = array_intersect($_POST_attachments, $attachments);
+
+    //removing attachments which should be keeped from POSTed attachments
+    //result will be added to db
+    $attachments_to_add = array_diff($_POST_attachments, $intersect);
+    
+    //removing attachments which should be keeped from existing attachments
+    //result will be removed from db
+    $attachments_to_remove = array_diff($attachments, $intersect);
+
+    //looping add operation of new attachments
+    foreach ($attachments_to_add as $value) {
+        add_post_meta($post_id, 'm_attachments', $value);
+    }
+
+    //looping remove operation of related suggestions which should be removed
+    foreach ($attachments_to_remove as $value) {
+        delete_post_meta($post_id, 'm_attachments', $value);
+    }
+    
+    
+    if ($_POST['m_top_image_file'] != '') {
+        $obj = new stdClass();
+        $obj->file = $_POST['m_top_image_file'];
+        $obj->text = $_POST['m_top_image_text'];
+        update_post_meta($post_id, 'm_topimage', str_replace('\/', '/', json_encode($obj)));
+    } else {
+        delete_post_meta($post_id, 'm_topimage');
+    }
+    
     
     //saving select box fields
     foreach ($selectbox_fields as $value) {

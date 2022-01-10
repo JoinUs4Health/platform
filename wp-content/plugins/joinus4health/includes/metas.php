@@ -282,6 +282,7 @@ $meta_status = array(
 );
 
 $meta_sortby = array(
+    '' => __('Default'),
     'popular' => __('Popular'),
     'recent'  => __('Recent'),
     'trending' => __('Trending'),

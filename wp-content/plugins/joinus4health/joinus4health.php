@@ -103,3 +103,11 @@ add_action('admin_notices', '_location_admin_notices');
 function time_ago($post) {
     return human_time_diff(get_post_time('U', false, $post), current_time('timestamp')) . " " . __('ago');
 }
+
+function count_comments($comments) {
+    $count = count($comments);
+    foreach ($comments as $comment) {
+        $count += count_comments($comment->get_children());
+    }
+    return $count;
+}

@@ -86,10 +86,11 @@ function js_script_follow($url) {
 }
 
 function html_topic($post) {
+    global $meta_status;
     ob_start();
     $meta = get_post_meta($post->ID);
     $tags = wp_get_post_terms($post->ID, 'ju4htopictag');
-    
+    $m_status = get_post_meta($post->ID, 'm_status', true);
     $m_votes = get_post_meta($post->ID, "m_votes");
     $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
     ?>        <div class="topic-item">
@@ -101,7 +102,7 @@ function html_topic($post) {
             </div>
             <div class="content-col" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <h5><a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>"><?= $post->post_title ?></a></h5>
-                <div class="tag">co-creation</div>
+                <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
                 <div class="date-time">submitted by <?= get_the_author() ?></div>
                 <div class="content"><?= get_post_meta(get_the_ID(), 'm_description', true) ?></div>
                 <?php if (count($tags) > 0): ?>
@@ -113,9 +114,31 @@ function html_topic($post) {
                 <?php endif; ?>
             </div>
             <div class="image-col" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
-                <div class="image"></div>
+                <?php $m_imageurl = get_post_meta($post->ID, 'm_topimage', true) ?>
+                <?php if ($m_imageurl != null) { $m_imageurl = json_decode($m_imageurl); } else { $m_imageurl = null; } ?>
+                <?php if ($m_imageurl != null) { $m_imageurl = ' style="background-image: url('.home_url().'/wp-content/'.$m_imageurl->file.');"'; } ?>
+                <div class="image"<?= $m_imageurl ?>></div>
             </div>
         </div><?php
     $output = ob_get_clean();
     return $output;
+}
+
+
+function html_comment($comment, $offset_left, $enabled_reply = true) {
+    ?>
+            <div class="comment"<?php if ($offset_left > 0): ?> style="padding-left: <?= $offset_left ?>px;"<?php endif; ?>>
+                <div class="avatar"></div>
+                <div class="container">
+                    <div class="author"><?= $comment->comment_author ?></div>
+                    <div class="date"><?= $comment->comment_date ?></div>
+                    <div class="txt"><?= $comment->comment_content ?></div>
+                    <?php if ($enabled_reply): ?>
+                    <div class="urls">
+                        <a href="#reply-comment" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+    <?php
 }

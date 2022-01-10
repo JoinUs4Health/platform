@@ -5,13 +5,14 @@ if (!defined('ABSPATH')) {
 }
 
 the_post();
-
+?>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<?php
 $meta = get_post_meta(get_the_ID());
 get_header();
 echo js_script_voting(get_the_permalink());
 echo js_script_follow(get_the_permalink());
 ?>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <style>
         .ast-container {
             align-items: flex-start;
@@ -73,7 +74,6 @@ echo js_script_follow(get_the_permalink());
         .ast-container .top-column-2-colspan .image {
             width: 100%;
             height: 346px;
-            background-image: url(<?= home_url() ?>/d28c65af4044b1d2bc8ff5f058d7.webp);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
@@ -727,7 +727,10 @@ echo js_script_follow(get_the_permalink());
         <?php $m_votes = get_post_meta($post->ID, "m_votes"); ?>
         <?php $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote' ?>
         <?php $m_votes_count = count($m_votes) ?>
-        <div class="image"></div>
+        <?php $m_imageurl = get_post_meta(get_the_ID(), 'm_topimage', true) ?>
+        <?php if ($m_imageurl != null) { $m_imageurl = json_decode($m_imageurl); } else { $m_imageurl = null; } ?>
+        <?php if ($m_imageurl != null) { $m_imageurl = ' style="background-image: url('.home_url().'/wp-content/'.$m_imageurl->file.');"'; } ?>
+        <div class="image"<?= $m_imageurl ?>></div>
         <div class="title-and-buttons">
             <div class="voting <?= $vote_class ?>" id="item-vote-<?= $post->ID ?>">
                 <div class="counter" id="item-votes-<?= $post->ID ?>"><?= count($m_votes) ?></div>
@@ -754,23 +757,18 @@ echo js_script_follow(get_the_permalink());
             </div>
             <div class="separator"></div>
             <?php endif; ?>
+            <?php $attachments = get_post_meta(get_the_ID(), 'm_attachments') ?>
+            <?php if (count($attachments) > 0): ?>
             <h6>Attachments</h6>
             <div class="attachments">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
+                <?php foreach ($attachments as $attachment): ?>
+                <?php $attachment_obj = json_decode($attachment) ?>
+                <a href="<?= home_url() ?>/wp-content/<?= $attachment_obj->file ?>" target="_blank"><?= $attachment_obj->text ?></a>
+                <?php endforeach; ?>
             </div>
             <div class="separator"></div>
-            <h6>Related tasks</h6>
+            <?php endif; ?>
+            <h6>Related tasks (todo)</h6>
             <div class="related-tasks">
                 <div class="related-task column-common-border-style">
                     <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
@@ -832,74 +830,61 @@ echo js_script_follow(get_the_permalink());
                 </div>
             </div>
         </div>
-        <h6 class="comments">Comments (16)</h6>
+        <?php if (comments_open(get_the_ID())): ?>
+        <?php
+        $comment_args = array(
+            'status'                     => 'approve',
+            'post_id'                    => $post->ID,
+            'update_comment_meta_cache'  => false,
+            'hierarchical'               => 'threaded',
+        );
+
+        if (is_user_logged_in()) {
+            $comment_args['include_unapproved'] = array(get_current_user_id());
+        }
+
+        $comment_query = new WP_Comment_Query($comment_args);
+        $comments = &$comment_query->get_comments();
+        $count_comments = count_comments($comments);
+        ?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.comment > .container > .urls > a').click(function() {
+                    comment_reply_id = $(this).attr('id').split('-')[2];
+                    $('#comment_parent').val(comment_reply_id);
+                    comment_reply_to = $(this).parent().parent().find('.author').html();
+                    $('.add-comment .caption').html("<?= _('Reply to') ?> " + comment_reply_to + " <?= _('comment') ?>");
+                });
+            });
+        </script>
+        <a id="reply-comment"></a>
+        <h6 class="comments"><?= _('Comments') ?> (<?= $count_comments ?>)</h6>
         <div class="add-comment">
-            <div class="caption">Add comment</div>
-            <form>
-                <input type="text" class="new-comment" />
-                <input type="submit" value="Submit" class="submit" />
+            <div class="caption"><?= _('Add comment') ?></div>
+            <form action="<?= home_url() ?>/wp-comments-post.php" method="post">
+                <input type="text" class="new-comment" name="comment" />
+                <input type="submit" value="<?= _('Submit') ?>" class="submit" name="submit" />
+                <input type="hidden" name="comment_post_ID" value="<?= get_the_ID() ?>" id="comment_post_ID">
+                <input type="hidden" name="comment_parent" id="comment_parent" value="0">
             </form>
-            <div class="sub">Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.</div>
+            <div class="sub"><?= _('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.') ?></div>
         </div>
         <div class="comments">
-            <div class="comment">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                    <div class="urls">
-                        <a href="#">Reply</a>
-                        <a href="#">Edit</a>
-                    </div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 72px;">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 144px">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
-            
-            <div class="comment">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                    <div class="urls">
-                        <a href="#">Reply</a>
-                        <a href="#">Edit</a>
-                    </div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 72px;">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 144px">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
+            <?php
+            foreach ($comments as $comment) {
+                html_comment($comment, 0);
+                
+                foreach ($comment->get_children() as $comment_) {
+                    html_comment($comment_, 72);
+                    
+                    foreach ($comment_->get_children() as $comment__) {
+                        html_comment($comment__, 144, false);
+                    }
+                }
+            }
+            ?>
         </div>
+        <?php endif; ?>
     </div>
     <div class="second-column">
         <div class="details column-common-border-style">
@@ -907,7 +892,7 @@ echo js_script_follow(get_the_permalink());
                 <div class="avatar"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
-                    <div class="sub">Sub</div>
+                    <div class="sub">Subtitle (todo/question)</div>
                 </div>
             </div>
             <div class="separator"></div>
@@ -922,7 +907,7 @@ echo js_script_follow(get_the_permalink());
                 <div>Created</div>
                 <div>Valid thru</div>
                 <div class="value"><?= time_ago($post) ?></div>
-                <div class="value">31 dec 2021</div>
+                <div class="value">31 dec 2021 (todo)</div>
                 <div class="space"></div>
                 <div class="space"></div>
                 <div>Following</div>
@@ -955,39 +940,19 @@ echo js_script_follow(get_the_permalink());
             <?php endif; ?>
         </div>
         <div class="links column-common-border-style">
-            <h6>Assigned working group</h6>
+            <h6>Assigned working group (todo)</h6>
             <div class="url-list">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
+                <a href="#">Working team (one link)</a>
             </div>
             <div class="separator"></div>
-            <h6>Outcomes</h6>
+            <h6>Outcomes (todo/questions)</h6>
             <div class="url-list">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
+                <a href="#">Not ready yet #1</a>
+                <a href="#">Not ready yet #2</a>
+                <a href="#">Not ready yet #3</a>
             </div>
             <div class="separator"></div>
-            <h6>Original suggestions</h6>
+            <h6>Original suggestions (todo)</h6>
             <div class="url-list">
                 <a href="#">File cancer</a>
                 <a href="#">File turbo</a>
