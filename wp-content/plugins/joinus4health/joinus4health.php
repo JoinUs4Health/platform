@@ -20,6 +20,7 @@ include_once 'includes/metas.php';
 //register post types (suggestion, topic) & taxonomies (topictag)
 include_once 'includes/post/suggestion.php';
 include_once 'includes/post/topic.php';
+include_once 'includes/post/task.php';
 
 //admin fields methods
 include_once 'includes/admin_fields.php';
@@ -42,6 +43,8 @@ function filter_page_template($page_template) {
             return WP_PLUGIN_DIR.'/joinus4health/pages/suggestion.php';
         case 'ju4htopics':
             return WP_PLUGIN_DIR.'/joinus4health/pages/topic.php';
+        case 'ju4htasks':
+            return WP_PLUGIN_DIR.'/joinus4health/pages/task.php';
         default:
             return $page_template;
     }
@@ -55,7 +58,7 @@ add_filter('page_template', 'filter_page_template');
  * @param type $template
  * @return type
  */
-function filter_single_tempalte($template) {
+function filter_single_template($template) {
     global $post;
     
     $folder = 'singles';
@@ -69,11 +72,13 @@ function filter_single_tempalte($template) {
             return WP_PLUGIN_DIR.'/joinus4health/'.$folder.'/suggestion.php';
         case 'ju4htopic':
             return WP_PLUGIN_DIR.'/joinus4health/'.$folder.'/topic.php';
+        case 'ju4htask':
+            return WP_PLUGIN_DIR.'/joinus4health/'.$folder.'/task.php';
         default:
             return $template;
     }
 }
-add_filter('single_template', "filter_single_tempalte");
+add_filter('single_template', "filter_single_template");
 
 /**
  * Admin notices while saving posts
@@ -97,8 +102,6 @@ function _location_admin_notices() {
     remove_action('admin_notices', '_location_admin_notices');
 }
 add_action('admin_notices', '_location_admin_notices');
-
-//flush_rewrite_rules();
 
 function time_ago($post) {
     return human_time_diff(get_post_time('U', false, $post), current_time('timestamp')) . " " . __('ago');

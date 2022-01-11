@@ -142,3 +142,17 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
             </div>
     <?php
 }
+
+function html_task($post) {
+    ?>
+            <div class="task-item">
+                <div class="two-line-content">
+                    <a href="<?= get_the_permalink($post->ID) ?>" class="title"><?= $post->post_title ?></a>
+                    <div class="days-left">91 days left</div>
+                    <div class="submit-by">submitted by me</div>
+                </div>
+                <div class="tag">review</div>
+                <div class="tag">3 hours</div>
+            </div>
+    <?php
+}
