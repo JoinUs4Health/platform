@@ -68,7 +68,7 @@ if (isset($_GET['date_till'])) {
             
             $('#filter-results').click(function(){
                 params = new URLSearchParams(location.search);
-                fields = ["language", "duration", "type", "level", "source", "group"];
+                fields = ["language", "duration", "type", "level", "source", "group", "date_since", "date_till"];
                 fields.forEach(function (item, index) {
                     val_ = $('#input-'+item).val();
                     if (val_ == '') {
