@@ -90,12 +90,26 @@ add_action('init', 'ju4htopic_custom_post_type', 0);
  */
 function add_meta_boxes_ju4htopic_callback($post) {
     add_meta_box('container_topimage', __('Top image'), 'add_meta_box_ju4htopic_topimage_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_intro', __('Introduction'), 'add_meta_box_ju4htopic_intro_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4htopic_description_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4htopic_additional_fields_callback', 'ju4htopic', 'normal', 'low');
-    add_meta_box('container_topics', __('Related suggestions'), 'add_meta_box_ju4htopic_related_suggestions_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_suggestions', __('Related suggestions'), 'add_meta_box_ju4htopic_related_suggestions_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_tasks', __('Related tasks'), 'add_meta_box_ju4htopic_related_tasks_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_attachments', __('Attachments'), 'add_meta_box_ju4htopic_attachments_callback', 'ju4htopic', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
+
+
+/**
+ * Adds meta box "Description"
+ * - textarea field with description of topic
+ * 
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_intro_callback($post) {
+    wp_nonce_field(basename( __FILE__ ), 'topic_intro_nonce');
+    html_admin_textarea("m_intro", get_post_meta($post->ID, 'm_intro', true));
+}
 
 /**
  * Adds meta box "Description"
@@ -118,6 +132,7 @@ function add_meta_box_ju4htopic_description_callback($post) {
 function add_meta_box_ju4htopic_additional_fields_callback($post) {
     global $meta_status, $meta_countries, $meta_source, $meta_target_group;
     wp_nonce_field(basename( __FILE__ ), 'topic_additional_fields_nonce');
+    html_admin_date_input(__('Valid thru'), 'm_valid_thru', get_post_meta($post->ID, 'm_valid_thru', true));
     html_admin_select_box(__('Status'), 'm_status', $meta_status, get_post_meta($post->ID, 'm_status', true));
     html_admin_select_box(__('Language'), 'm_language', $meta_countries, get_post_meta($post->ID, "m_language", true));
     html_admin_select_box(__('Source'), 'm_source', $meta_source, get_post_meta($post->ID, "m_source", true));
@@ -154,7 +169,7 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
     echo '<div id="related-suggestions">';
     
     foreach ($related_suggestions as $related_suggestion) {
-        echo '<p><label>'.__('Topic').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_suggestions[]">';
+        echo '<p><label>'.__('Suggestion').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_suggestions[]">';
         echo '<option value="">None</option>';
         foreach ($topics as $key => $value) {
             $selected = '';
@@ -163,17 +178,17 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
             }
             echo '<option value="'.$key.'"'.$selected.'>'.$value.'</option>';
         }
-        echo '</select>&nbsp;&nbsp;&nbsp;<a class="related-topic-remove" style="cursor: pointer">'.__('Remove').'</a>';
+        echo '</select>&nbsp;&nbsp;&nbsp;<a class="related-suggestion-remove" style="cursor: pointer">'.__('Remove suggestion').'</a>';
         echo '</p>';
     }
     echo '</div>';
     
-    $append_html = '<p><label>'.__('Topic').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_suggestions[]">';
+    $append_html = '<p><label>'.__('Suggestion').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_suggestions[]">';
     $append_html .= '<option value="">None</option>';
     foreach ($topics as $key => $value) {
         $append_html .= '<option value="'.$key.'">'.$value.'</option>';
     }
-    $append_html .= '</select>&nbsp;&nbsp;&nbsp;<a class="related-topic-remove" style="cursor: pointer">'.__('Remove').'</a>';
+    $append_html .= '</select>&nbsp;&nbsp;&nbsp;<a class="related-suggestion-remove" style="cursor: pointer">'.__('Remove suggestion').'</a>';
     $append_html .= '</p>';
     ?>
     
@@ -185,7 +200,7 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
                 $('#related-suggestions').append(html);
             });
             
-            $(".related-topic-remove").click(function(){
+            $(".related-suggestion-remove").click(function(){
                 $(this).parent().remove();
             });
         });
@@ -193,6 +208,78 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
     <?php
     echo '<a id="add-related-suggestion" style="cursor: pointer">'.__('Add related suggestion').'</a>';
 }
+
+
+/**
+ * Adds meta box "Related tasks"
+ * - select field with related topic
+ * - anchors to add new related topic
+ * - anchors to remove existing related topic
+ * 
+ * @global type $meta_status
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_related_tasks_callback($post) {
+    global $meta_status;
+    
+    wp_nonce_field(basename( __FILE__ ), 'topic_related_tasks_nonce');
+    $tasks = array();
+    $query = new WP_Query(array('post_type' => 'ju4htask', 'posts_per_page' => -1));
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $postloop = $query->post;
+            $meta = get_post_meta($postloop->ID);
+            $tasks[$postloop->ID] = $postloop->post_title;
+        }
+    }
+    
+    
+    
+    $related_tasks = get_post_meta($post->ID, 'm_related_tasks');
+    echo '<div id="related-tasks">';
+    
+    foreach ($related_tasks as $related_task) {
+        echo '<p><label>'.__('Task').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_tasks[]">';
+        echo '<option value="">None</option>';
+        foreach ($tasks as $key => $value) {
+            $selected = '';
+            if ($key == $related_task) {
+                $selected = ' selected';
+            }
+            echo '<option value="'.$key.'"'.$selected.'>'.$value.'</option>';
+        }
+        echo '</select>&nbsp;&nbsp;&nbsp;<a class="related-task-remove" style="cursor: pointer">'.__('Remove task').'</a>';
+        echo '</p>';
+    }
+    echo '</div>';
+    
+    $append_html = '<p><label>'.__('Task').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_tasks[]">';
+    $append_html .= '<option value="">None</option>';
+    foreach ($tasks as $key => $value) {
+        $append_html .= '<option value="'.$key.'">'.$value.'</option>';
+    }
+    $append_html .= '</select>&nbsp;&nbsp;&nbsp;<a class="related-task-remove" style="cursor: pointer">'.__('Remove task').'</a>';
+    $append_html .= '</p>';
+    ?>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#add-related-task").click(function(){
+                html = '<?= $append_html ?>';
+                $('#related-tasks').append(html);
+            });
+            
+            $(".related-task-remove").click(function(){
+                $(this).parent().remove();
+            });
+        });
+    </script>
+    <?php
+    echo '<a id="add-related-task" style="cursor: pointer">'.__('Add related task').'</a>';
+}
+
 
 /**
  * Adds meta box "Attachments"
@@ -214,7 +301,7 @@ function add_meta_box_ju4htopic_attachments_callback($post) {
  * @param type $post
  */
 function add_meta_box_ju4htopic_topimage_callback($post) {
-    wp_nonce_field(basename( __FILE__ ), 'topic_attachments_nonce');
+    wp_nonce_field(basename( __FILE__ ), 'topic_topimage_nonce');
     html_admin_file_meta_box($post, 'm_top_image', 'topimage');
 }
 
@@ -281,6 +368,9 @@ function save_post_ju4htopic_callback($post_id) {
         }
     }
     
+    
+    
+    
     //looping over related suggestions & chacking if any is not numeric, if it is throw error
     if (isset($_POST['m_related_suggestions'])) {
         foreach ($_POST['m_related_suggestions'] as $related_suggestion) {
@@ -304,15 +394,15 @@ function save_post_ju4htopic_callback($post_id) {
     
     //making intersection between related suggestions from POST & existing related suggestions
     //result should be keeped in db
-    $intersect = array_intersect($_POST['m_related_suggestions'], $related_suggestions);
+    $related_suggestions_intersect = array_intersect($_POST['m_related_suggestions'], $related_suggestions);
 
     //removing related suggestions which should be keeped from POSTed related suggestions
     //result will be added to db
-    $related_suggestions_to_add = array_diff($_POST['m_related_suggestions'], $intersect);
+    $related_suggestions_to_add = array_diff($_POST['m_related_suggestions'], $related_suggestions_intersect);
     
     //removing related suggestions which should be keeped from existing related suggestions
     //result will be removed from db
-    $related_suggestions_to_remove = array_diff($related_suggestions, $intersect);
+    $related_suggestions_to_remove = array_diff($related_suggestions, $related_suggestions_intersect);
 
     //looping add operation of new related suggestions
     foreach ($related_suggestions_to_add as $value) {
@@ -323,6 +413,54 @@ function save_post_ju4htopic_callback($post_id) {
     foreach ($related_suggestions_to_remove as $value) {
         delete_post_meta($post_id, 'm_related_suggestions', $value);
     }
+    
+    
+    
+    
+    //looping over related suggestions & chacking if any is not numeric, if it is throw error
+    if (isset($_POST['m_related_tasks'])) {
+        foreach ($_POST['m_related_tasks'] as $related_task) {
+            if (!is_numeric($related_task)) {
+                add_settings_error('missing-fields', 'missing-fields', __("You must fill all fields"), 'error');
+                set_transient('settings_errors', get_settings_errors(), 30);
+                return;
+            }
+        }
+    }
+    
+    //
+    if (isset($_POST['m_related_tasks']) && is_array($_POST['m_related_tasks'])) {
+        $_POST['m_related_tasks'] = array_diff($_POST['m_related_tasks'], array(""));
+    } else {
+        $_POST['m_related_tasks'] = array();
+    }
+    
+    //getting related tasks
+    $related_tasks = get_post_meta($post_id, 'm_related_tasks');
+    
+    //making intersection between related tasks from POST & existing related tasks
+    //result should be keeped in db
+    $related_tasks_intersect = array_intersect($_POST['m_related_tasks'], $related_tasks);
+
+    //removing related tasks which should be keeped from POSTed related tasks
+    //result will be added to db
+    $related_tasks_to_add = array_diff($_POST['m_related_tasks'], $related_tasks_intersect);
+    
+    //removing related tasks which should be keeped from existing related tasks
+    //result will be removed from db
+    $related_tasks_to_remove = array_diff($related_tasks, $related_tasks_intersect);
+
+    //looping add operation of new related tasks
+    foreach ($related_tasks_to_add as $value) {
+        add_post_meta($post_id, 'm_related_tasks', $value);
+    }
+
+    //looping remove operation of related tasks which should be removed
+    foreach ($related_tasks_to_remove as $value) {
+        delete_post_meta($post_id, 'm_related_tasks', $value);
+    }
+    
+    
     
     //
     if (isset($_POST['m_attachments_file']) && is_array($_POST['m_attachments_file']) && isset($_POST['m_attachments_text']) && is_array($_POST['m_attachments_text'])) {
@@ -346,15 +484,15 @@ function save_post_ju4htopic_callback($post_id) {
 
     //making intersection between attachments from POST & existing attachments
     //result should be keeped in db
-    $intersect = array_intersect($_POST_attachments, $attachments);
+    $attachments_intersect = array_intersect($_POST_attachments, $attachments);
 
     //removing attachments which should be keeped from POSTed attachments
     //result will be added to db
-    $attachments_to_add = array_diff($_POST_attachments, $intersect);
+    $attachments_to_add = array_diff($_POST_attachments, $attachments_intersect);
     
     //removing attachments which should be keeped from existing attachments
     //result will be removed from db
-    $attachments_to_remove = array_diff($attachments, $intersect);
+    $attachments_to_remove = array_diff($attachments, $attachments_intersect);
 
     //looping add operation of new attachments
     foreach ($attachments_to_add as $value) {
@@ -367,6 +505,7 @@ function save_post_ju4htopic_callback($post_id) {
     }
     
     
+    
     if ($_POST['m_top_image_file'] != '') {
         $obj = new stdClass();
         $obj->file = $_POST['m_top_image_file'];
@@ -375,6 +514,7 @@ function save_post_ju4htopic_callback($post_id) {
     } else {
         delete_post_meta($post_id, 'm_topimage');
     }
+    
     
     
     //saving select box fields
@@ -388,8 +528,21 @@ function save_post_ju4htopic_callback($post_id) {
         }
     }
     
+    //saving intro textarea field
+    update_post_meta($post_id, 'm_intro', esc_html($_POST['m_intro']));
+    
     //saving description textarea field
-    update_post_meta($post_id, 'm_description', $_POST['m_description']);
+    update_post_meta($post_id, 'm_description', esc_html($_POST['m_description']));
+    
+    
+    
+    if (isset($_POST['m_valid_thru_d']) && isset($_POST['m_valid_thru_m']) && isset($_POST['m_valid_thru_Y']) &&
+            is_numeric($_POST['m_valid_thru_d']) && is_numeric($_POST['m_valid_thru_m']) && is_numeric($_POST['m_valid_thru_Y'])) {
+        $time = DateTime::createFromFormat("d-m-Y", $_POST['m_valid_thru_d'].'-'.$_POST['m_valid_thru_m'].'-'.$_POST['m_valid_thru_Y']);
+        update_post_meta($post_id, 'm_valid_thru', $time->getTimestamp());
+    } else {
+        update_post_meta($post_id, 'm_valid_thru', '');
+    }
 }
 add_action('save_post_ju4htopic', 'save_post_ju4htopic_callback', 10, 2);
 

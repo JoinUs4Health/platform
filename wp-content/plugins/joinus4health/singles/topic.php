@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 the_post();
+$topic_post = $post;
 ?>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <?php
@@ -12,6 +13,7 @@ $meta = get_post_meta(get_the_ID());
 get_header();
 echo js_script_voting(get_the_permalink());
 echo js_script_follow(get_the_permalink());
+echo js_load_href();
 ?>
     <style>
         .ast-container {
@@ -362,9 +364,8 @@ echo js_script_follow(get_the_permalink());
         .ast-container .first-column .separator {
             width: 100%;
             height: 1px;
-            margin-top: 24px;
-            margin-bottom: 24px;
             background-color: #dde1e5;
+            margin-bottom: 24px;
         }
         
         .ast-container .first-column .content {
@@ -383,6 +384,7 @@ echo js_script_follow(get_the_permalink());
             font-style: normal;
             line-height: 1.33;
             letter-spacing: normal;
+            padding-bottom: 12px;
         }
 
         .ast-container .first-column .content p {
@@ -393,20 +395,19 @@ echo js_script_follow(get_the_permalink());
             line-height: 1.5;
             letter-spacing: normal;
             margin-bottom: 0;
-            
             display: block;
             width: 100%;
             line-height: 24px;
             color: #3b4045;
             padding-left: 20px;
-            padding-top: 12px;
+            padding-bottom: 24px;
         }
         
         .ast-container .first-column .content .tags {
             display: block;
             width: 100%;
             padding-left: 16px;
-            padding-top: 12px;
+            padding-bottom: 12px;
         }
         
         .ast-container .first-column .content .tags a {
@@ -415,7 +416,7 @@ echo js_script_follow(get_the_permalink());
             padding-left: 12px;
             padding-right: 12px;
             margin-right: 8px;
-            margin-top: 12px;
+            margin-bottom: 12px;
             font-size: 12px;
             text-align: center;
             border-radius: 16px;
@@ -435,12 +436,12 @@ echo js_script_follow(get_the_permalink());
         .ast-container .first-column .content .attachments {
             width: 100%;
             padding-left: 20px;
-            padding-top: 4px;
+            margin-bottom: 12px;
         }
         
         .ast-container .first-column .content .attachments a {
             display: inline-block;
-            margin: 0 16px 0 0;
+            margin: 0 16px 12px 0;
             font-size: 14px;
             font-weight: 500;
             font-stretch: normal;
@@ -480,8 +481,7 @@ echo js_script_follow(get_the_permalink());
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
-
+            text-overflow: ellipsis; 
             font-size: 16px;
             font-weight: 500;
             font-stretch: normal;
@@ -724,41 +724,46 @@ echo js_script_follow(get_the_permalink());
         <a href="<?= home_url() ?>/ju4htopics/" class="txt">Topics</a>
     </div>
     <div class="top-column-2-colspan column-common-border-style">
-        <?php $m_votes = get_post_meta($post->ID, "m_votes"); ?>
+        <?php $m_votes = get_post_meta($topic_post->ID, "m_votes"); ?>
         <?php $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote' ?>
         <?php $m_votes_count = count($m_votes) ?>
-        <?php $m_imageurl = get_post_meta(get_the_ID(), 'm_topimage', true) ?>
+        <?php $m_imageurl = get_post_meta($topic_post->ID, 'm_topimage', true) ?>
         <?php if ($m_imageurl != null) { $m_imageurl = json_decode($m_imageurl); } else { $m_imageurl = null; } ?>
         <?php if ($m_imageurl != null) { $m_imageurl = ' style="background-image: url('.home_url().'/wp-content/'.$m_imageurl->file.');"'; } ?>
         <div class="image"<?= $m_imageurl ?>></div>
         <div class="title-and-buttons">
-            <div class="voting <?= $vote_class ?>" id="item-vote-<?= $post->ID ?>">
-                <div class="counter" id="item-votes-<?= $post->ID ?>"><?= count($m_votes) ?></div>
+            <div class="voting <?= $vote_class ?>" id="item-vote-<?= $topic_post->ID ?>">
+                <div class="counter" id="item-votes-<?= $topic_post->ID ?>"><?= count($m_votes) ?></div>
                 <span></span>
             </div>
             <div class="title"><?php the_title() ?></div>
             <a href="#" class="btn">Share</a>
-            <?php $m_follows = get_post_meta($post->ID, "m_follows"); ?>
+            <?php $m_follows = get_post_meta($topic_post->ID, "m_follows"); ?>
             <?php $follow_class = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ? 'item-unfollow' : 'item-follow' ?>
-            <div class="btn <?= $follow_class ?>" id="item-follow-<?= $post->ID ?>">Follow</div>
+            <div class="btn <?= $follow_class ?>" id="item-follow-<?= $topic_post->ID ?>">Follow</div>
             <div class="black-btn">Contribute</div>
         </div>
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
             <h6>Topic details</h6>
-            <p><?= get_post_meta(get_the_ID(), 'm_description', true) ?></p>
-            <?php $tags = wp_get_post_terms(get_the_ID(), 'ju4htopictag') ?>
+            <p><?= get_post_meta(get_the_ID(), 'm_intro', true) ?></p>
+            <?php 
+            $m_description = trim(get_post_meta(get_the_ID(), 'm_description', true));
+            $m_description = str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m_description);
+            echo '<p>'.$m_description.'</p>';
+            ?>
+            <?php $tags = wp_get_post_terms($topic_post->ID, 'ju4htopictag') ?>
             <?php if (count($tags)): ?>
             <div class="tags">
                 <?php foreach ($tags as $tag): ?>
                 <a href="<?= get_home_url() ?>/ju4htopics/?topictag=<?= $tag->term_id ?>"><?= $tag->name ?></a>
                 <?php endforeach; ?>
             </div>
-            <div class="separator"></div>
             <?php endif; ?>
-            <?php $attachments = get_post_meta(get_the_ID(), 'm_attachments') ?>
+            <?php $attachments = get_post_meta($topic_post->ID, 'm_attachments') ?>
             <?php if (count($attachments) > 0): ?>
+            <div class="separator"></div>
             <h6>Attachments</h6>
             <div class="attachments">
                 <?php foreach ($attachments as $attachment): ?>
@@ -766,77 +771,44 @@ echo js_script_follow(get_the_permalink());
                 <a href="<?= home_url() ?>/wp-content/<?= $attachment_obj->file ?>" target="_blank"><?= $attachment_obj->text ?></a>
                 <?php endforeach; ?>
             </div>
-            <div class="separator"></div>
             <?php endif; ?>
-            <h6>Related tasks (todo)</h6>
+            <?php $m_tasks = get_post_meta($topic_post->ID, 'm_related_tasks') ?>
+            <?php if (!empty($m_tasks)): ?>
+            <div class="separator"></div>
+            <h6><?= _('Related tasks') ?></h6>
             <div class="related-tasks">
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
+                <?php
+                $query_params = array('post_type' => 'ju4htask', 'posts_per_page' => -1, 'post__in' => $m_tasks);
+                $query_related_tasks = new WP_Query($query_params);
+                ?>
+                <?php while ($query_related_tasks->have_posts()): ?>
+                <?php 
+                $query_related_tasks->the_post(); 
+                $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
+                $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
+                ?>
+                <div class="related-task column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
+                    <a class="title" href="<?= get_the_permalink($post->ID) ?>"><?= $post->post_title ?></a>
+                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
                     <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
+                        <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
+                        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
+                        <div><?= $meta_contribute_duration[$m_duration] ?></div>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
+                <?php endwhile; ?>
             </div>
+            <?php endif; ?>
         </div>
-        <?php if (comments_open(get_the_ID())): ?>
+        <?php if (comments_open($topic_post->ID)): ?>
         <?php
         $comment_args = array(
             'status'                     => 'approve',
-            'post_id'                    => $post->ID,
+            'post_id'                    => $topic_post->ID,
             'update_comment_meta_cache'  => false,
             'hierarchical'               => 'threaded',
+            'order'                      => 'ASC'
         );
 
         if (is_user_logged_in()) {
@@ -864,7 +836,7 @@ echo js_script_follow(get_the_permalink());
             <form action="<?= home_url() ?>/wp-comments-post.php" method="post">
                 <input type="text" class="new-comment" name="comment" />
                 <input type="submit" value="<?= _('Submit') ?>" class="submit" name="submit" />
-                <input type="hidden" name="comment_post_ID" value="<?= get_the_ID() ?>" id="comment_post_ID">
+                <input type="hidden" name="comment_post_ID" value="<?= $topic_post->ID ?>" id="comment_post_ID">
                 <input type="hidden" name="comment_parent" id="comment_parent" value="0">
             </form>
             <div class="sub"><?= _('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.') ?></div>
@@ -897,27 +869,28 @@ echo js_script_follow(get_the_permalink());
             </div>
             <div class="separator"></div>
             <div class="tags-info">
-                <?php $m_status = get_post_meta($post->ID, 'm_status', true) ?>
+                <?php $m_status = get_post_meta($topic_post->ID, 'm_status', true) ?>
                 <?= isset($meta_status[$m_status]) ? '<div>'.$meta_status[$m_status].'</div>' : "" ?>
             </div>
 
             <div class="rows">
-                <?php $m_follows = get_post_meta($post->ID, 'm_follows') ?>
-                <?php $m_contributes = get_post_meta($post->ID, 'm_contributes') ?>
+                <?php $m_follows = get_post_meta($topic_post->ID, 'm_follows') ?>
+                <?php $m_contributes = get_post_meta($topic_post->ID, 'm_contributes') ?>
+                <?php $m_valid_thru = get_post_meta($topic_post->ID, 'm_valid_thru', true) ?>
                 <div>Created</div>
                 <div>Valid thru</div>
-                <div class="value"><?= time_ago($post) ?></div>
-                <div class="value">31 dec 2021 (todo)</div>
+                <div class="value"><?= time_ago($topic_post) ?></div>
+                <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
                 <div class="space"></div>
                 <div class="space"></div>
                 <div>Following</div>
                 <div>Contributing</div>
-                <div class="value" id="item-follows-<?= $post->ID ?>"><?= count($m_follows) ?></div>
+                <div class="value" id="item-follows-<?= $topic_post->ID ?>"><?= count($m_follows) ?></div>
                 <div class="value"><?= count($m_contributes) ?></div>
             </div>
-            <?php $m_language = get_post_meta($post->ID, 'm_language', true) ?>
-            <?php $m_target_group = get_post_meta($post->ID, 'm_target_group', true) ?>
-            <?php $m_source = get_post_meta($post->ID, 'm_source', true) ?>
+            <?php $m_language = get_post_meta($topic_post->ID, 'm_language', true) ?>
+            <?php $m_target_group = get_post_meta($topic_post->ID, 'm_target_group', true) ?>
+            <?php $m_source = get_post_meta($topic_post->ID, 'm_source', true) ?>
             <?php if (isset($m_language) || isset($m_target_group) || isset($m_source)): ?>
             <div class="separator"></div>
             <div class="rows2">
@@ -951,22 +924,23 @@ echo js_script_follow(get_the_permalink());
                 <a href="#">Not ready yet #2</a>
                 <a href="#">Not ready yet #3</a>
             </div>
+            <?php
+            $m_suggestions = get_post_meta($topic_post->ID, 'm_related_suggestions');
+            ?>
+            <?php if (!empty($m_suggestions)): ?>
+            <?php
+            $query_params = array('post_type' => 'ju4hsuggestion', 'posts_per_page' => -1, 'post__in' => $m_suggestions);
+            $query_related_suggestions = new WP_Query($query_params);
+            ?>
             <div class="separator"></div>
-            <h6>Original suggestions (todo)</h6>
+            <h6>Original suggestions</h6>
             <div class="url-list">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
+                <?php while ($query_related_suggestions->have_posts()): ?>
+                <?php $query_related_suggestions->the_post(); ?>
+                <a href="<?= get_the_permalink($post->ID) ?>"><?= $post->post_title ?></a>
+                <?php endwhile; ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 <?php get_footer(); ?>

@@ -252,8 +252,22 @@ $meta_types = array(
 );
 
 $meta_contribute_duration = array(
+    5 => "5 min",
+    10 => "10 min",
+    20 => "20 min",
     30 => "30 min", 
-    60*24 => "1 day"
+    60 => "1 hour", 
+    90 => "1h 30 min", 
+    120 => "2 hours",
+    180 => "3 hours",
+    240 => "4 hours",
+    300 => "5 hours",
+    360 => "6 hours",
+    420 => "7 hours",
+    480 => "8 hours",
+    540 => "9 hours",
+    600 => "10 hours",
+    60*24 => "24 hours",
 );
 
 $meta_level = array(
@@ -281,9 +295,21 @@ $meta_status = array(
     6 => __("Completed")
 );
 
-$meta_sortby = array(
+$meta_sortby_topic = array(
     '' => __('Default'),
     'popular' => __('Popular'),
     'recent'  => __('Recent'),
     'trending' => __('Trending'),
+);
+
+$meta_sortby_task = array(
+    '' => __('Default'),
+    'recent'  => __('Recent'),
+    'oldest'  => __('Oldest first'),
+);
+
+$meta_sortby_suggestion = array(
+    '' => __('Default'),
+    'recent'  => __('Recent'),
+    'oldest'  => __('Oldest first'),
 );

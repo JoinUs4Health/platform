@@ -58,6 +58,19 @@ add_action('add_meta_boxes_ju4htask', 'add_meta_boxes_ju4htask_callback');
 function add_meta_box_ju4htask_additional_fields_callback($post) {
     global $meta_countries, $meta_types, $meta_target_group, $meta_contribute_duration, $meta_level, $meta_source;
     wp_nonce_field(basename( __FILE__ ), 'task_additional_fields_nonce');
+    $topics = array();
+    $query = new WP_Query(array('post_type' => 'ju4htopic', 'posts_per_page' => -1));
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $postloop = $query->post;
+            $meta = get_post_meta($postloop->ID);
+            $topics[$postloop->ID] = $postloop->post_title;
+        }
+    }
+    
+    html_admin_select_box(__('Related topic'), 'm_related_topic', $topics, get_post_meta($post->ID, 'm_related_topic', true));
+    html_admin_date_input(__('Valid thru'), 'm_valid_thru', get_post_meta($post->ID, 'm_valid_thru', true));
     html_admin_select_box(__('Language'), 'm_language', $meta_countries, get_post_meta($post->ID, "m_language", true));
     html_admin_select_box(__('Duration'), 'm_duration', $meta_contribute_duration, get_post_meta($post->ID, "m_duration", true));
     html_admin_select_box(__('Type'), 'm_type', $meta_types, get_post_meta($post->ID, "m_type", true));
@@ -83,7 +96,7 @@ function save_post_ju4htask_callback($post_id) {
         return;
     }
     
-    $fields = array("m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group", "m_description");
+    $fields = array("m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group", "m_description", "m_related_topic");
     foreach ($fields as $value) {
         if (!isset($_POST[$value])) {
             add_settings_error('missing-fields', 'missing-fields', __("You must fill all fields"), 'error');
@@ -97,9 +110,19 @@ function save_post_ju4htask_callback($post_id) {
             if ($_REQUEST[$value] == '') {
                 delete_post_meta($post_id, $value);
             } else {
-                update_post_meta($post_id, $value, sanitize_text_field($_POST[$value]));
+                update_post_meta($post_id, $value, esc_html($_POST[$value]));
             }
         }
+    }
+    
+    
+    
+    if (isset($_POST['m_valid_thru_d']) && isset($_POST['m_valid_thru_m']) && isset($_POST['m_valid_thru_Y']) &&
+            is_numeric($_POST['m_valid_thru_d']) && is_numeric($_POST['m_valid_thru_m']) && is_numeric($_POST['m_valid_thru_Y'])) {
+        $time = DateTime::createFromFormat("d-m-Y", $_POST['m_valid_thru_d'].'-'.$_POST['m_valid_thru_m'].'-'.$_POST['m_valid_thru_Y']);
+        update_post_meta($post_id, 'm_valid_thru', $time->getTimestamp());
+    } else {
+        update_post_meta($post_id, 'm_valid_thru', '');
     }
 }
 add_action('save_post_ju4htask', 'save_post_ju4htask_callback', 10, 2);
@@ -141,4 +164,3 @@ function manage_ju4htask_posts_custom_column_callback($column, $post_id) {
     }
 }
 add_action('manage_ju4htask_posts_custom_column', 'manage_ju4htask_posts_custom_column_callback', 10, 2);
-

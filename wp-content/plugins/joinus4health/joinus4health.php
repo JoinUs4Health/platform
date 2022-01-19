@@ -37,7 +37,7 @@ include_once 'includes/layouts.php';
  */
 function filter_page_template($page_template) {
     global $post;
-    
+
     switch ($post->post_name) {
         case 'ju4hsuggestions':
             return WP_PLUGIN_DIR.'/joinus4health/pages/suggestion.php';
@@ -49,7 +49,44 @@ function filter_page_template($page_template) {
             return $page_template;
     }
 }
-add_filter('page_template', 'filter_page_template');
+//add_filter('page_template', 'filter_page_template');
+
+
+/**
+ * Filtering page templates and adding own pages from plugin
+ * 
+ * @global type $post
+ * @param type $page_template
+ * @return type
+ */
+function filter_index_template($page_template) {
+    return WP_PLUGIN_DIR.'/joinus4health/pages/topic.php';
+}
+add_filter('index_template', 'filter_index_template');
+
+
+/**
+ * Filtering page templates and adding own pages from plugin
+ * 
+ * @global type $post
+ * @param type $page_template
+ * @return type
+ */
+function filter_archive_template($page_template) {
+    global $post;
+
+    switch ($post->post_type) {
+        case 'ju4hsuggestion':
+            return WP_PLUGIN_DIR.'/joinus4health/pages/suggestion.php';
+        case 'ju4htopic':
+            return WP_PLUGIN_DIR.'/joinus4health/pages/topic.php';
+        case 'ju4htask':
+            return WP_PLUGIN_DIR.'/joinus4health/pages/task.php';
+        default:
+            return $page_template;
+    }
+}
+add_filter('archive_template', 'filter_archive_template');
 
 /**
  * Filtering single templates and adding own singles from plugin
@@ -103,8 +140,17 @@ function _location_admin_notices() {
 }
 add_action('admin_notices', '_location_admin_notices');
 
-function time_ago($post) {
-    return human_time_diff(get_post_time('U', false, $post), current_time('timestamp')) . " " . __('ago');
+function time_ago($post, $suffix = 'ago') {
+    return human_time_diff(get_post_time('U', false, $post), current_time('timestamp')) . " " . __($suffix);
+}
+
+function time_left($time) {
+    $current_time = current_time('timestamp');
+    if ($current_time > $time) {
+        return _('expired').' '.human_time_diff($time, $current_time).' '._('ago');
+    } else {
+        return human_time_diff($time, $current_time)." "._('left');
+    }
 }
 
 function count_comments($comments) {

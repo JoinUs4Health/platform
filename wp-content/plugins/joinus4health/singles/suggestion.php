@@ -4,15 +4,17 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
-$meta = get_post_meta(get_the_ID());
-$labels = array(__("Country"), __("Language"), __("Duration"), __("Type"), __("Level"), __('Source'), __("Target stakeholder group"));
-$names = array("m_country", "m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group");
-$values = array($meta_countries, $meta_countries, $meta_contribute_duration, $meta_types, $meta_level, $meta_source, $meta_target_group);
+the_post();
+$suggestion_post = $post;
 ?>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<?php js_script_voting() ?>
-<?php get_header(); ?>
-
+<?php
+$meta = get_post_meta(get_the_ID());
+get_header();
+echo js_script_voting(get_the_permalink());
+echo js_script_follow(get_the_permalink());
+echo js_load_href();
+?>
     <style>
         .ast-container {
             align-items: flex-start;
@@ -32,8 +34,27 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             padding-bottom: 24px;
         }
         
-        .ast-container .bread-crumb a {
-            font-family: Manrope;
+        .ast-container .bread-crumb a.homepage {
+            width: 14px;
+            height: 14px;
+            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/home.svg);
+            background-color: #808a95;
+            mask-size: 14px;
+        }
+        
+        .ast-container .bread-crumb span {
+            width: 13px;
+            height: 13px;
+            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/chevron-right.svg);
+            background-color: #808a95;
+            mask-size: 13px;
+            margin-top: 1px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+        
+        .ast-container .bread-crumb a.txt {
+            font-family: 'Manrope', sans-serif;
             font-size: 12px;
             font-weight: 600;
             font-stretch: normal;
@@ -43,19 +64,13 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             color: #808a95;
         }
         
+        .ast-container .bread-crumb a.txt:hover {
+            text-decoration: underline;
+        }
+        
         .ast-container .top-column-2-colspan {
             flex: 0 1 100%;
             margin-bottom: 24px;
-        }
-        
-        .ast-container .top-column-2-colspan .image {
-            width: 100%;
-            height: 346px;
-            background-image: url(http://zryjto.linuxpl.info/platforma_dev/d28c65af4044b1d2bc8ff5f058d7.webp);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
-            border-radius: 4px 4px 0 0;
         }
         
         .ast-container .top-column-2-colspan .title-and-buttons {
@@ -65,14 +80,24 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
         }
         
         .ast-container .top-column-2-colspan .title-and-buttons .voting {
+            width: 88px;
             height: 48px;
             border-radius: 4px;
-            border: solid 1px #dde1e5;
-            background-color: #f9f9fa;
-
             margin-left: 20px;
+            display: flex;
+            cursor: pointer;
         }
 
+        .ast-container .top-column-2-colspan .title-and-buttons .item-upvote {
+            border: solid 1px #dde1e5;
+            background-color: #f9f9fa;
+        }
+
+        .ast-container .top-column-2-colspan .title-and-buttons .item-downvote {
+            border: solid 1px #efe733;
+            background-color: #efe733;
+        }
+        
         .ast-container .top-column-2-colspan .title-and-buttons .voting .counter {
             height: 40px;
             margin-top: 3px;
@@ -81,9 +106,23 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             line-height: 40px;
             background-color: #ffffff;
             margin-left: 3px;
-            margin-right: 38px;
-            padding-left: 8px;
-            padding-right: 8px;
+            text-align: center;
+            flex: 1 0 0;
+        }
+
+        .ast-container .top-column-2-colspan .title-and-buttons .voting span {
+            width: 18px;
+            height: 18px;
+            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/thumbs-up.svg);
+            mask-size: 18px;
+            background-color: #3b4045;
+            margin-top: 13px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+        
+        .ast-container .top-column-2-colspan .title-and-buttons .voting span:hover {
+            background-color: #000000;
         }
         
         .ast-container .top-column-2-colspan .title-and-buttons .title {
@@ -92,7 +131,7 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             font-size: 28px;
         }
         
-        .ast-container .top-column-2-colspan .title-and-buttons a.btn {
+        .ast-container .top-column-2-colspan .title-and-buttons .btn {
             border: solid 1px #dde1e5;
             border-radius: 4px;
             height: 48px;
@@ -100,7 +139,6 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             padding-right: 24px;
             margin-right: 12px;
             background-color: #f9f9fa;
-            
             font-size: 16px;
             font-weight: 500;
             font-stretch: normal;
@@ -109,20 +147,21 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             letter-spacing: normal;
             text-align: center;
             color: #000000;
+            cursor: pointer;
         }
         
-        .ast-container .top-column-2-colspan .title-and-buttons a.btn:hover {
+        .ast-container .top-column-2-colspan .title-and-buttons .btn:hover {
             background-color: #ededed;
         }
         
-        .ast-container .top-column-2-colspan .title-and-buttons a.black-btn {
+        .ast-container .top-column-2-colspan .title-and-buttons .black-btn {
             border-radius: 4px;
             height: 48px;
             padding-left: 24px;
             padding-right: 24px;
             margin-right: 12px;
             background-color: #000000;
-            
+            cursor: pointer;
             font-size: 16px;
             font-weight: 500;
             font-stretch: normal;
@@ -133,7 +172,7 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             color: #dde1e5;
         }
         
-        .ast-container .top-column-2-colspan .title-and-buttons a.black-btn:hover {
+        .ast-container .top-column-2-colspan .title-and-buttons .black-btn:hover {
             background-color: #777777;
         }
         
@@ -158,7 +197,6 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
         
         .ast-container .first-column .add-comment {
             width: 100%;
-            height: 126px;
             margin: 16px 0 20px;
             padding: 15px 16px 16px;
             border-radius: 4px;
@@ -192,7 +230,8 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             flex-flow: row wrap;
             align-items: flex-start;
             padding-top: 8px;
-            padding-bottom: 8px;
+            padding-bottom: 0;
+            margin-bottom: 8px;
         }
         
         .ast-container .first-column .add-comment form input.new-comment {
@@ -222,6 +261,10 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             color: #ffffff;
             margin-left: 8px;
         }
+
+        .ast-container .first-column .add-comment form input.submit:hover {
+            background-color: #777777;
+        }
         
         .ast-container .first-column .comments {
             
@@ -239,8 +282,7 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             border-radius: 28px;
             border: solid 1px #dde1e5;
             background-color: #f9f9fa;
-            
-            background-image: url('http://zryjto.linuxpl.info/platforma_dev/d28c65af4044b1d2bc8ff5f058d7.webp');
+            background-image: url(<?= home_url() ?>/d28c65af4044b1d2bc8ff5f058d7.webp);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
@@ -313,9 +355,8 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
         .ast-container .first-column .separator {
             width: 100%;
             height: 1px;
-            margin-top: 24px;
-            margin-bottom: 24px;
             background-color: #dde1e5;
+            margin-bottom: 24px;
         }
         
         .ast-container .first-column .content {
@@ -334,6 +375,7 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             font-style: normal;
             line-height: 1.33;
             letter-spacing: normal;
+            padding-bottom: 12px;
         }
 
         .ast-container .first-column .content p {
@@ -344,20 +386,19 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             line-height: 1.5;
             letter-spacing: normal;
             margin-bottom: 0;
-            
             display: block;
             width: 100%;
             line-height: 24px;
             color: #3b4045;
             padding-left: 20px;
-            padding-top: 12px;
+            padding-bottom: 24px;
         }
         
         .ast-container .first-column .content .tags {
             display: block;
             width: 100%;
             padding-left: 16px;
-            padding-top: 12px;
+            padding-bottom: 12px;
         }
         
         .ast-container .first-column .content .tags a {
@@ -366,7 +407,7 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             padding-left: 12px;
             padding-right: 12px;
             margin-right: 8px;
-            margin-top: 12px;
+            margin-bottom: 12px;
             font-size: 12px;
             text-align: center;
             border-radius: 16px;
@@ -386,12 +427,12 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
         .ast-container .first-column .content .attachments {
             width: 100%;
             padding-left: 20px;
-            padding-top: 4px;
+            margin-bottom: 12px;
         }
         
         .ast-container .first-column .content .attachments a {
             display: inline-block;
-            margin: 0 16px 0 0;
+            margin: 0 16px 12px 0;
             font-size: 14px;
             font-weight: 500;
             font-stretch: normal;
@@ -431,8 +472,7 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
-
+            text-overflow: ellipsis; 
             font-size: 16px;
             font-weight: 500;
             font-stretch: normal;
@@ -609,7 +649,7 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
         }
         
         .ast-container .second-column .details .rows2 div {
-            flex: 1 0 50%;
+            flex: 1 0 146px;
             font-size: 14px;
             font-weight: 500;
             font-stretch: normal;
@@ -620,304 +660,224 @@ $values = array($meta_countries, $meta_countries, $meta_contribute_duration, $me
             margin-bottom: 16px;
         }
         
+        .ast-container .second-column .details .rows2 span {
+            width: 12px;
+            height: 12px;
+            background-color: #3b4045;
+            margin-top: 3px;
+            margin-right: 9px;
+        }
+        
+        .ast-container .second-column .details .rows2 span.flag {
+            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/flag.svg);
+            mask-size: 12px;
+        }
+        
+        .ast-container .second-column .details .rows2 span.users {
+            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/users.svg);
+            mask-size: 12px;
+        }
+                
+        .ast-container .second-column .details .rows2 span.disc {
+            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/disc.svg);
+            mask-size: 12px;
+        }
+        
         .ast-container .second-column .details .rows2 div.value {
             text-align: right;
             color: #3b4045;
         }
-        
-        .ast-container .second-column .links {
-            margin-top: 24px;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            background-color: #f9f9fa;
-        }
-        
-        .ast-container .second-column .links .url-list {
-            font-size: 14px;
-        }
-        
-        .ast-container .second-column .links .url-list a {
-            display: block;
-            padding-left: 20px;
-            width: 100%;
-            font-size: 14px;
-            color: #2570ae;
-            text-decoration: underline;
-        }
     </style>
 
     <div class="bread-crumb">
-        <a href="#">Topics</a>
+        <a href="<?= home_url() ?>" class="homepage"></a>
+        <span></span>
+        <a href="<?= home_url() ?>/ju4hsuggestion/" class="txt">Suggestions</a>
     </div>
     <div class="top-column-2-colspan column-common-border-style">
-        <div class="image"></div>
+        <?php $m_votes = get_post_meta($suggestion_post->ID, "m_votes"); ?>
+        <?php $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote' ?>
+        <?php $m_votes_count = count($m_votes) ?>
         <div class="title-and-buttons">
-            <div class="voting">
-                <div class="counter">340</div>
+            <div class="voting <?= $vote_class ?>" id="item-vote-<?= $suggestion_post->ID ?>">
+                <div class="counter" id="item-votes-<?= $suggestion_post->ID ?>"><?= count($m_votes) ?></div>
+                <span></span>
             </div>
             <div class="title"><?php the_title() ?></div>
             <a href="#" class="btn">Share</a>
-            <a href="#" class="btn">Follow</a>
-            <a href="#" class="black-btn">Contribute</a>
+            <?php $m_follows = get_post_meta($suggestion_post->ID, "m_follows"); ?>
+            <?php $follow_class = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ? 'item-unfollow' : 'item-follow' ?>
+            <div class="btn <?= $follow_class ?>" id="item-follow-<?= $suggestion_post->ID ?>">Follow</div>
+            <div class="black-btn">Contribute</div>
         </div>
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
-            <h6>Topic details</h6>
-            <p>Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim a turpis. Etiam bibendum, nunc eget posuere egestas, enim lorem euismod diam, quis tincidunt turpis lacus sed ipsum. Praesent convallis nibh lectus, a dignissim lectus tincidunt et. Donec ut enim mi. Quisque eu mi sed massa euismod cursus.</p>
-            <p>Sed suscipit tortor eu consectetur consequat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam pellentesque vehicula commodo. Fusce vitae libero vitae risus pharetra facilisis mattis vel quam. Duis vitae consequat lectus, ut sollicitudin quam. </p>
+            <h6>Suggestions details</h6>
+            <p><?= get_post_meta(get_the_ID(), 'm_intro', true) ?></p>
+            <?php 
+            $m_description = trim(get_post_meta(get_the_ID(), 'm_description', true));
+            $m_description = str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m_description);
+            echo '<p>'.$m_description.'</p>';
+            ?>
+            <?php $tags = wp_get_post_terms($suggestion_post->ID, 'ju4htopictag') ?>
+            <?php if (count($tags)): ?>
             <div class="tags">
-                <a href="#">cancer</a>
-                <a href="#">turbo</a>
-                <a href="#">engine</a>
-                <a href="#">bridge</a>
-                <a href="#">antenna</a>
-                <a href="#">cryptography</a>
-                <a href="#">cancer</a>
-                <a href="#">turbo</a>
-                <a href="#">engine</a>
-                <a href="#">bridge</a>
-                <a href="#">antenna</a>
-                <a href="#">cryptography</a>
+                <?php foreach ($tags as $tag): ?>
+                <a href="<?= get_home_url() ?>/ju4hsuggestion/?topictag=<?= $tag->term_id ?>"><?= $tag->name ?></a>
+                <?php endforeach; ?>
             </div>
+            <?php endif; ?>
+            <?php $attachments = get_post_meta($suggestion_post->ID, 'm_attachments') ?>
+            <?php if (count($attachments) > 0): ?>
             <div class="separator"></div>
             <h6>Attachments</h6>
             <div class="attachments">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
+                <?php foreach ($attachments as $attachment): ?>
+                <?php $attachment_obj = json_decode($attachment) ?>
+                <a href="<?= home_url() ?>/wp-content/<?= $attachment_obj->file ?>" target="_blank"><?= $attachment_obj->text ?></a>
+                <?php endforeach; ?>
             </div>
+            <?php endif; ?>
+            <?php $m_tasks = get_post_meta($suggestion_post->ID, 'm_related_tasks') ?>
+            <?php if (!empty($m_tasks)): ?>
             <div class="separator"></div>
-            <h6>Related tasks</h6>
+            <h6><?= _('Related tasks') ?></h6>
             <div class="related-tasks">
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
+                <?php
+                $query_params = array('post_type' => 'ju4htask', 'posts_per_page' => -1, 'post__in' => $m_tasks);
+                $query_related_tasks = new WP_Query($query_params);
+                ?>
+                <?php while ($query_related_tasks->have_posts()): ?>
+                <?php 
+                $query_related_tasks->the_post(); 
+                $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
+                $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
+                ?>
+                <div class="related-task column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
+                    <a class="title" href="<?= get_the_permalink($post->ID) ?>"><?= $post->post_title ?></a>
+                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
                     <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
+                        <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
+                        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
+                        <div><?= $meta_contribute_duration[$m_duration] ?></div>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
-
-                <div class="related-task column-common-border-style">
-                    <div class="title">Link between fertilisers and agricultural pesticides to fertilisers</div>
-                    <div class="days-left">2 days left</div>
-                    <div class="tags-info">
-                        <div>review</div>
-                        <div>3 hours</div>
-                    </div>
-                </div>
+                <?php endwhile; ?>
             </div>
+            <?php endif; ?>
         </div>
-        <h6 class="comments">Comments (16)</h6>
+        <?php if (comments_open($suggestion_post->ID)): ?>
+        <?php
+        $comment_args = array(
+            'status'                     => 'approve',
+            'post_id'                    => $suggestion_post->ID,
+            'update_comment_meta_cache'  => false,
+            'hierarchical'               => 'threaded',
+            'order'                      => 'ASC'
+        );
+
+        if (is_user_logged_in()) {
+            $comment_args['include_unapproved'] = array(get_current_user_id());
+        }
+
+        $comment_query = new WP_Comment_Query($comment_args);
+        $comments = &$comment_query->get_comments();
+        $count_comments = count_comments($comments);
+        ?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.comment > .container > .urls > a').click(function() {
+                    comment_reply_id = $(this).attr('id').split('-')[2];
+                    $('#comment_parent').val(comment_reply_id);
+                    comment_reply_to = $(this).parent().parent().find('.author').html();
+                    $('.add-comment .caption').html("<?= _('Reply to') ?> " + comment_reply_to + " <?= _('comment') ?>");
+                });
+            });
+        </script>
+        <a id="reply-comment"></a>
+        <h6 class="comments"><?= _('Comments') ?> (<?= $count_comments ?>)</h6>
         <div class="add-comment">
-            <div class="caption">Add comment</div>
-            <form>
-                <input type="text" class="new-comment" />
-                <input type="submit" value="Submit" class="submit" />
+            <div class="caption"><?= _('Add comment') ?></div>
+            <form action="<?= home_url() ?>/wp-comments-post.php" method="post">
+                <input type="text" class="new-comment" name="comment" />
+                <input type="submit" value="<?= _('Submit') ?>" class="submit" name="submit" />
+                <input type="hidden" name="comment_post_ID" value="<?= $suggestion_post->ID ?>" id="comment_post_ID">
+                <input type="hidden" name="comment_parent" id="comment_parent" value="0">
             </form>
-            <div class="sub">Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.</div>
+            <div class="sub"><?= _('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.') ?></div>
         </div>
         <div class="comments">
-            <div class="comment">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                    <div class="urls">
-                        <a href="#">Reply</a>
-                        <a href="#">Edit</a>
-                    </div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 72px;">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 144px">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
-            
-            <div class="comment">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                    <div class="urls">
-                        <a href="#">Reply</a>
-                        <a href="#">Edit</a>
-                    </div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 72px;">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
-            <div class="comment" style="padding-left: 144px">
-                <div class="avatar"></div>
-                <div class="container">
-                    <div class="author">root</div>
-                    <div class="date">6 September 2019, 11:10 am</div>
-                    <div class="txt">Vivamus sed nunc at est elementum elementum. Nulla pretium tincidunt libero eget lobortis. Aliquam erat volutpat. Proin porta ex nec feugiat suscipit. Vivamus diam magna, iaculis eget placerat at, dignissim.</div>
-                </div>
-            </div>
+            <?php
+            foreach ($comments as $comment) {
+                html_comment($comment, 0);
+                
+                foreach ($comment->get_children() as $comment_) {
+                    html_comment($comment_, 72);
+                    
+                    foreach ($comment_->get_children() as $comment__) {
+                        html_comment($comment__, 144, false);
+                    }
+                }
+            }
+            ?>
         </div>
+        <?php endif; ?>
     </div>
     <div class="second-column">
         <div class="details column-common-border-style">
             <div class="author">
                 <div class="avatar"></div>
                 <div class="lines">
-                    <div class="name">Author</div>
-                    <div class="sub">Sub</div>
+                    <div class="name"><?php the_author() ?></div>
+                    <div class="sub">Subtitle (todo/question)</div>
                 </div>
             </div>
             <div class="separator"></div>
             <div class="tags-info">
-                <div>review</div>
-                <div>1 hours</div>
-                <div>review 2nd</div>
-                <div>3 hours</div>
-                <div>1st review</div>
-                <div>12 hours</div>
-                <div>review again</div>
-                <div>33 hours</div>
+                <?php $m_status = get_post_meta($suggestion_post->ID, 'm_status', true) ?>
+                <?= isset($meta_status[$m_status]) ? '<div>'.$meta_status[$m_status].'</div>' : "" ?>
             </div>
+
             <div class="rows">
+                <?php $m_follows = get_post_meta($suggestion_post->ID, 'm_follows') ?>
+                <?php $m_contributes = get_post_meta($suggestion_post->ID, 'm_contributes') ?>
+                <?php $m_valid_thru = get_post_meta($suggestion_post->ID, 'm_valid_thru', true) ?>
                 <div>Created</div>
                 <div>Valid thru</div>
-                <div class="value">2 days ago</div>
-                <div class="value">31 dec 2021</div>
+                <div class="value"><?= time_ago($suggestion_post) ?></div>
+                <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
                 <div class="space"></div>
                 <div class="space"></div>
                 <div>Following</div>
                 <div>Contributing</div>
-                <div class="value">31</div>
-                <div class="value">12</div>
+                <div class="value" id="item-follows-<?= $suggestion_post->ID ?>"><?= count($m_follows) ?></div>
+                <div class="value"><?= count($m_contributes) ?></div>
             </div>
+            <?php $m_language = get_post_meta($suggestion_post->ID, 'm_language', true) ?>
+            <?php $m_target_group = get_post_meta($suggestion_post->ID, 'm_target_group', true) ?>
+            <?php $m_source = get_post_meta($suggestion_post->ID, 'm_source', true) ?>
+            <?php if (isset($m_language) || isset($m_target_group) || isset($m_source)): ?>
             <div class="separator"></div>
             <div class="rows2">
-                <div>Language</div>
-                <div class="value">German</div>
-                <div>Stakeholder group</div>
-                <div class="value">Policy makers</div>
-                <div>Source</div>
-                <div class="value">Platform user</div>
-            </div>        
-        </div>
-        <div class="links column-common-border-style">
-            <h6>Assigned working group</h6>
-            <div class="url-list">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
+                <?php if (isset($m_language)): ?>
+                <span class="flag"></span>
+                <div><?= __('Language') ?></div>
+                <div class="value"><?= $meta_countries[$m_language] ?></div>
+                <?php endif; ?>
+                <?php if (isset($m_target_group)): ?>
+                <span class="users"></span>
+                <div><?= __('Stakeholder group') ?></div>
+                <div class="value"><?= $meta_target_group[$m_target_group] ?></div>
+                <?php endif; ?>
+                <?php if (isset($m_source)): ?>
+                <span class="disc"></span>
+                <div><?= __('Source') ?></div>
+                <div class="value"><?= $meta_source[$m_source] ?></div>
+                <?php endif; ?>
             </div>
-            <div class="separator"></div>
-            <h6>Outcomes</h6>
-            <div class="url-list">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-            </div>
-            <div class="separator"></div>
-            <h6>Original suggestions</h6>
-            <div class="url-list">
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-                <a href="#">File cancer</a>
-                <a href="#">File turbo</a>
-                <a href="#">File engine</a>
-                <a href="#">File bridge</a>
-                <a href="#">File antenna</a>
-                <a href="#">File cryptography</a>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 <?php get_footer(); ?>

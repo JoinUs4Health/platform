@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 the_post();
+$task = $post;
 ?>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <?php
@@ -12,6 +13,7 @@ $meta = get_post_meta(get_the_ID());
 get_header();
 echo js_script_voting(get_the_permalink());
 echo js_script_follow(get_the_permalink());
+echo js_load_href();
 ?>
     <style>
         .ast-container {
@@ -80,7 +82,6 @@ echo js_script_follow(get_the_permalink());
         .ast-container .first-column .separator {
             width: 100%;
             height: 1px;
-            margin-top: 24px;
             margin-bottom: 24px;
             background-color: #dde1e5;
         }
@@ -99,6 +100,7 @@ echo js_script_follow(get_the_permalink());
             letter-spacing: normal;
             color: #3b4045;
             margin-left: 20px;
+            margin-bottom: 28px;
         }
         
         .ast-container .first-column .content h6 {
@@ -113,6 +115,7 @@ echo js_script_follow(get_the_permalink());
             font-style: normal;
             line-height: 1.33;
             letter-spacing: normal;
+            margin-bottom: 12px;
         }
 
         .ast-container .first-column .content p {
@@ -122,14 +125,14 @@ echo js_script_follow(get_the_permalink());
             font-style: normal;
             line-height: 1.5;
             letter-spacing: normal;
-            margin-bottom: 0;
+            margin-bottom: 24px;;
             
             display: block;
             width: 100%;
             line-height: 24px;
             color: #3b4045;
             padding-left: 20px;
-            padding-top: 12px;
+            padding-right: 20px;
         }
         
         .ast-container .first-column .content .tags {
@@ -451,20 +454,34 @@ echo js_script_follow(get_the_permalink());
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
-            <h2><?= $post->post_title ?></h2>
+            <h2><?= $task->post_title ?></h2>
             <div class="separator"></div>
             <h6><?= _('Task details') ?></h6>
-            <p><?= get_post_meta(get_the_ID(), 'm_description', true) ?></p>
+            <?php
+            $m_description = trim(get_post_meta(get_the_ID(), 'm_description', true));
+            $m_description = str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m_description);
+            echo '<p>'.$m_description.'</p>';
+            ?>
+            <?php $m_related_topic = get_post_meta($task->ID, 'm_related_topic', true) ?>
+            <?php if (is_numeric($m_related_topic)): ?>
+            <?php
+            $query_params = array('post_type' => 'ju4htopic', 'posts_per_page' => 1, 'post__in' => array($m_related_topic));
+            $query_related_tasks = new WP_Query($query_params);
+            ?>
+            <?php while ($query_related_tasks->have_posts()): ?>
+            <?php $query_related_tasks->the_post(); ?>
             <div class="separator"></div>
-            <h6>Related topic (todo)</h6>
-            <div class="related-topic column-common-border-style">
+            <h6>Related topic</h6>
+            <div class="related-topic column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <div class="two-line-content">
-                    <a href="#" class="title">title</a>
-                    <div class="days-left">2 days left</div>
-                    <div class="submit-by">submitted by me</div>
+                    <a href="<?= get_the_permalink($post) ?>" class="title"><?= get_the_title($post->ID) ?></a>
+                    <div class="days-left"><?= time_ago($post) ?></div>
+                    <div class="submit-by"><?php the_author() ?></div>
                 </div>
                 <div class="tag">tag</div>
             </div>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </div>
     </div>
     <div class="second-column">
@@ -478,19 +495,21 @@ echo js_script_follow(get_the_permalink());
             </div>
             <div class="separator"></div>
             <div class="tags-info">
-                <?php $m_status = get_post_meta($post->ID, 'm_status', true) ?>
+                <?php $m_status = get_post_meta($task->ID, 'm_status', true) ?>
                 <?= isset($meta_status[$m_status]) ? '<div>'.$meta_status[$m_status].'</div>' : "" ?>
             </div>
             <div class="rows">
+                <?php $m_valid_thru = get_post_meta($task->ID, 'm_valid_thru', true) ?>
                 <div>Created</div>
                 <div>Valid thru</div>
-                <div class="value"><?= time_ago($post) ?></div>
-                <div class="value">31 dec 2021 (todo)</div>
+                <div class="value"><?= time_ago($task) ?></div>
+                <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
             </div>
-            <?php $m_language = get_post_meta($post->ID, 'm_language', true) ?>
-            <?php $m_target_group = get_post_meta($post->ID, 'm_target_group', true) ?>
-            <?php $m_source = get_post_meta($post->ID, 'm_source', true) ?>
-            <?php if (isset($m_language) || isset($m_target_group) || isset($m_source)): ?>
+            <?php $m_language = get_post_meta($task->ID, 'm_language', true) ?>
+            <?php $m_target_group = get_post_meta($task->ID, 'm_target_group', true) ?>
+            <?php $m_source = get_post_meta($task->ID, 'm_source', true) ?>
+            <?php $m_level = get_post_meta($task->ID, 'm_level', true) ?>
+            <?php if (isset($m_language) || isset($m_target_group) || isset($m_source) || isset($m_level)): ?>
             <div class="separator"></div>
             <div class="rows2">
                 <?php if (isset($m_language)): ?>
@@ -508,18 +527,21 @@ echo js_script_follow(get_the_permalink());
                 <div><?= __('Source') ?></div>
                 <div class="value"><?= $meta_source[$m_source] ?></div>
                 <?php endif; ?>
-                <?php if (isset($m_source)): ?>
+                <?php if (isset($m_level)): ?>
                 <span class="disc"></span>
-                <div><?= __('Level (todo)') ?></div>
-                <div class="value"><?= $meta_source[$m_source] ?></div>
+                <div><?= __('Level') ?></div>
+                <div class="value"><?= $meta_level[$m_level] ?></div>
                 <?php endif; ?>
             </div>
             <?php endif; ?>
         </div>
+        <?php $m_duration = get_post_meta($task->ID, 'm_duration', true) ?>
+        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
         <div class="estimate column-common-border-style">
             <h6>Time estimate</h6>
-            <div class="time">2 hours</div>
+            <div class="time"><?= $meta_contribute_duration[$m_duration] ?></div>
             <input type="button" class="btn-contribute" value="<?= _('Contribute') ?>" />
         </div>
+        <?php endif; ?>
     </div>
 <?php get_footer(); ?>

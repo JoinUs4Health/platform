@@ -25,7 +25,6 @@ get_header();
             
             $('input.searchbox').on('keypress', function (e) {
                 if (e.which === 13) {
-                    $(this).attr("disabled", "disabled");
                     var params = new URLSearchParams(location.search);
                     params.set('search_content', this.value);
                     window.location.search = params.toString();
@@ -410,10 +409,10 @@ get_header();
     ?>
     <h1><?= __('Topics') ?></h1>
     <div class="topic-filtering">
-        <input type="text" class="searchbox" value="<?= esc_attr($_GET['search_content']) ?>" />
+        <input type="text" class="searchbox" placeholder="<?= _('Search by title...') ?>" value="<?= esc_attr($_GET['search_content']) ?>" />
         <div class="orderby"><?= __('Order by') ?></div>
         <select class="orderby" name="sortby">
-            <?php foreach ($meta_sortby as $index => $value): ?>
+            <?php foreach ($meta_sortby_topic as $index => $value): ?>
             <?php $selected = (isset($_GET['sortby']) && $_GET['sortby'] == $index) ? ' selected' : '' ?> 
             <option value="<?= $index ?>"<?= $selected ?>><?= $value ?></option>
             <?php endforeach; ?>

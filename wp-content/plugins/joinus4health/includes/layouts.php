@@ -103,8 +103,8 @@ function html_topic($post) {
             <div class="content-col" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <h5><a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>"><?= $post->post_title ?></a></h5>
                 <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
-                <div class="date-time">submitted by <?= get_the_author() ?></div>
-                <div class="content"><?= get_post_meta(get_the_ID(), 'm_description', true) ?></div>
+                <div class="date-time">submitted by <?= get_the_author() ?> / <?= get_the_date('j F Y, g:i a', $post) ?></div>
+                <div class="content"><?= get_post_meta(get_the_ID(), 'm_intro', true) ?></div>
                 <?php if (count($tags) > 0): ?>
                 <div class="tags">
                     <?php foreach ($tags as $tag): ?>
@@ -131,7 +131,7 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                 <div class="avatar"></div>
                 <div class="container">
                     <div class="author"><?= $comment->comment_author ?></div>
-                    <div class="date"><?= $comment->comment_date ?></div>
+                    <div class="date"><?= get_comment_date('j F Y, g:i a', $comment) ?></div>
                     <div class="txt"><?= $comment->comment_content ?></div>
                     <?php if ($enabled_reply): ?>
                     <div class="urls">
@@ -144,15 +144,39 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
 }
 
 function html_task($post) {
+    global $post, $meta_contribute_duration;
+    $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
+    $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
     ?>
             <div class="task-item">
                 <div class="two-line-content">
                     <a href="<?= get_the_permalink($post->ID) ?>" class="title"><?= $post->post_title ?></a>
-                    <div class="days-left">91 days left</div>
-                    <div class="submit-by">submitted by me</div>
+                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
+                    <div class="submit-by">submitted by <?= get_the_author() ?></div>
                 </div>
-                <div class="tag">review</div>
-                <div class="tag">3 hours</div>
+                <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
+                <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
+                <div class="tag"><?= $meta_contribute_duration[$m_duration] ?></div>
+                <?php endif; ?>
+            </div>
+    <?php
+}
+
+function html_suggestion($post) {
+    global $post, $meta_contribute_duration;
+    $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
+    $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
+    ?>
+            <div class="suggestion-item">
+                <div class="two-line-content">
+                    <a href="<?= get_the_permalink($post->ID) ?>" class="title"><?= $post->post_title ?></a>
+                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
+                    <div class="submit-by">submitted by <?= get_the_author() ?></div>
+                </div>
+                <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
+                <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
+                <div class="tag"><?= $meta_contribute_duration[$m_duration] ?></div>
+                <?php endif; ?>
             </div>
     <?php
 }

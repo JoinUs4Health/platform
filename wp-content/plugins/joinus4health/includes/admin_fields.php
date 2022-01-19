@@ -4,6 +4,47 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
+function html_admin_date_input($title, $name, $value) {
+    $val_d = '';
+    $val_m = '';
+    $val_Y = '';
+    
+    if (is_numeric($value)) {
+        $value = (int)$value;
+        $val_d = date('d', $value);
+        $val_m = date('m', $value);
+        $val_Y = date('Y', $value);
+    }
+?>
+    <p>
+        <label for="<?= $name ?>" style="padding-right: 30px;"><?= $title ?></label>
+        <select name="<?= $name ?>_Y">
+            <option value=''></option>
+            <?php for ($Y = date('Y') - 40; $Y < date('Y') + 40; $Y++): ?>
+            <?php $selected = ($Y == $val_Y) ? ' selected' : ''; ?>
+            <option value="<?= $Y ?>"<?= $selected ?>><?= $Y ?></option>
+            <?php endfor; ?>
+        </select>
+        -
+        <select name="<?= $name ?>_m">
+            <option value=''></option>
+            <?php for ($m = 1; $m <= 12; $m++): ?>
+            <?php $selected = ($m == $val_m) ? ' selected' : ''; ?>
+            <option value="<?= $m ?>"<?= $selected ?>><?= $m ?></option>
+            <?php endfor; ?>
+        </select>
+        -
+        <select name="<?= $name ?>_d">
+            <option value=''></option>
+            <?php for ($d = 1; $d <= 31; $d++): ?>
+            <?php $selected = ($d == $val_d) ? ' selected' : ''; ?>
+            <option value="<?= $d ?>"<?= $selected ?>><?= $d ?></option>
+            <?php endfor; ?>
+        </select>
+    </p>
+<?php
+}
+
 function html_admin_select_box($title, $name, $values, $key_selected = null) {
 ?>
     <p>
