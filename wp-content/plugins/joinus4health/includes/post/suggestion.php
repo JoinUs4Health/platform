@@ -56,7 +56,7 @@ add_action('add_meta_boxes_ju4hsuggestion', 'add_meta_boxes_ju4hsuggestion_callb
 
 
 function add_meta_box_ju4hsuggestion_additional_fields_callback($post) {
-    global $meta_countries, $meta_types, $meta_target_group, $meta_contribute_duration, $meta_level, $meta_source;
+    global $meta_countries, $meta_types, $meta_target_group, $meta_contribute_duration, $meta_level, $meta_source, $meta_infrastructure, $meta_methodology, $meta_content;
     wp_nonce_field(basename( __FILE__ ), 'suggestion_additional_fields_nonce');
     html_admin_select_box(__('Country'), 'm_country', $meta_countries, get_post_meta($post->ID, "m_country", true));
     html_admin_select_box(__('Language'), 'm_language', $meta_countries, get_post_meta($post->ID, "m_language", true));
@@ -65,6 +65,9 @@ function add_meta_box_ju4hsuggestion_additional_fields_callback($post) {
     html_admin_select_box(__('Level'), 'm_level', $meta_level, get_post_meta($post->ID, "m_level", true));
     html_admin_select_box(__('Source'), 'm_source', $meta_source, get_post_meta($post->ID, "m_source", true));
     html_admin_select_box(__('Targeted stakeholder group'), 'm_target_group', $meta_target_group, get_post_meta($post->ID, "m_target_group", true));
+    html_admin_select_box(__('Infrastructure'), 'm_infrastructure', $meta_infrastructure, get_post_meta($post->ID, "m_infrastructure", true));
+    html_admin_select_box(__('Methodology'), 'm_methodology', $meta_methodology, get_post_meta($post->ID, "m_methodology", true));
+    html_admin_select_box(__('Content'), 'm_content', $meta_content, get_post_meta($post->ID, "m_content", true));
 }
 
 
@@ -84,7 +87,7 @@ function save_post_ju4hsuggestion_callback($post_id) {
         return;
     }
     
-    $fields = array("m_country", "m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group", "m_description");
+    $fields = array("m_country", "m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group", "m_description", "m_infrastructure", "m_methodology", "m_content");
     foreach ($fields as $value) {
         if (!isset($_POST[$value])) {
             add_settings_error('missing-fields', 'missing-fields', __("You must fill all fields"), 'error');

@@ -313,3 +313,24 @@ $meta_sortby_suggestion = array(
     'recent'  => __('Recent'),
     'oldest'  => __('Oldest first'),
 );
+
+$meta_infrastructure = array(
+    '1' => __('Infrastructure #1'),
+    '2' => __('Infrastructure #2'),
+    '3' => __('Infrastructure #3'),
+    '4' => __('Infrastructure #4'),
+);
+
+$meta_methodology = array(
+    '1' => __('Methodology #1'),
+    '2' => __('Methodology #2'),
+    '3' => __('Methodology #3'),
+    '4' => __('Methodology #4'),
+);
+
+$meta_content = array(
+    '1' => __('Content #1'),
+    '2' => __('Content #2'),
+    '3' => __('Content #3'),
+    '4' => __('Content #4'),
+);

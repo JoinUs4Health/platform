@@ -88,7 +88,7 @@ function html_admin_file_multiple($name, $value, $prefix, $id) {
         <input type="hidden" id="<?= $prefix ?>-input-iframe-upload-<?= $id ?>" name="<?= $name ?>_file[]" value="<?= $value->file ?>" />
         <iframe id="<?= $prefix ?>-iframe-upload-<?= $id ?>" src="<?= home_url() ?>/wp-content/plugins/joinus4health/includes/upload.php?id=<?= $id ?>&amp;prefix=<?= $prefix ?>&amp;type=image" style="width: 400px; height: 30px;"></iframe>
         <br/>
-        <a class="attachments-remove" style="cursor: pointer"><?= __('Remove file') ?></a>
+        <a class="<?= $prefix ?>-remove" style="cursor: pointer"><?= __('Remove file') ?></a>
     </div>
 <?php
     $output = ob_get_clean();
@@ -110,7 +110,7 @@ function html_admin_file_multiple_meta_box($post, $prefix) {
     $append_html = html_admin_file_multiple('m_'.$prefix, null, $prefix, 'new');
     ?>
     
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
     <script type="text/javascript">
         function <?= $prefix?>_handle_upload(object_js) {
             if (object_js.error) {
@@ -174,7 +174,7 @@ function html_admin_file_meta_box($post, $name, $prefix) {
         <label><?= __('File name') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_text" value="<?= $value->text ?>" id="<?= $prefix ?>-filename-iframe-upload-0" /><br/><br/>
         <a id="<?= $prefix ?>-remove-iframe-upload-0" style="cursor: pointer;"><?= __('Remove file') ?></a>
     </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
     <script type="text/javascript">
         function <?= $prefix?>_handle_upload(object_js) {
             if (object_js.error) {
@@ -200,4 +200,71 @@ function html_admin_file_meta_box($post, $name, $prefix) {
         });
     </script>
     <?php
+}
+
+
+function html_admin_hyperlink_multiple($name, $value, $prefix, $id) {
+        ob_start();
+        if ($value == null) {
+            $value = new stdClass();
+            $value->text = '';
+            $value->url = '';
+        } else {
+            $value = json_decode($value);
+        }
+       
+?>
+    <div id="<?= $prefix ?>-hyperlink-div-<?= $id ?>" style="border: 1px solid black; margin-bottom: 10px; padding: 15px;">
+        <div style="margin-bottom: 10px;">
+            <label><?= __('Title') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_text[]" value="<?= $value->text ?>" id="<?= $prefix ?>-hyperlink-text-<?= $id ?>" />
+            <label><?= __('Url') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_url[]" value="<?= $value->url ?>" id="<?= $prefix ?>-hyperlink-url-<?= $id ?>" />
+        </div>
+        <br/>
+        <a class="<?= $prefix ?>-remove" style="cursor: pointer"><?= __('Remove item') ?></a>
+    </div>
+<?php
+    $output = ob_get_clean();
+    return $output;
+}
+
+
+
+function html_admin_hyperlink_multiple_meta_box($post, $prefix) {
+    $items = get_post_meta($post->ID, 'm_'.$prefix);
+    
+    echo '<div id="'.$prefix.'">';
+    $i = 0;
+    foreach ($items as $item) {
+        echo html_admin_hyperlink_multiple('m_'.$prefix, $item, $prefix, $i++);
+    }
+    echo '</div>';
+    
+    $append_html = html_admin_hyperlink_multiple('m_'.$prefix, null, $prefix, 'new');
+    ?>
+    
+    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#add-<?= $prefix ?>").click(function(){
+                if ($("#<?= $prefix ?> > div").length == 0) {
+                    val_id = 0;
+                } else {
+                    val_id = parseInt($('#<?= $prefix ?> > div:last').attr('id').split('-')[4]);
+                    val_id = val_id + 1;
+                }
+
+                html = '<?= str_replace(array("\r", "\n"), '', $append_html) ?>';
+                $('#<?= $prefix ?>').append(html);
+                $(".<?= $prefix ?>-remove").click(function(){
+                    $(this).parent().remove();
+                });
+            });
+
+            $(".<?= $prefix ?>-remove").click(function(){
+                $(this).parent().remove();
+            });
+        });
+    </script>
+    <?php
+    echo '<a id="add-'.$prefix.'" style="cursor: pointer;">'.__('Add another').'</a>';
 }

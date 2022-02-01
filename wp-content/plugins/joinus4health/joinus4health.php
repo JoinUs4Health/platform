@@ -160,3 +160,13 @@ function count_comments($comments) {
     }
     return $count;
 }
+
+function get_query($array) {
+    $m = array();
+    
+    foreach ($array as $key => $value) {
+        $m[] = $key.'='.$value;
+    }
+    
+    return join('&amp;', $m);
+}

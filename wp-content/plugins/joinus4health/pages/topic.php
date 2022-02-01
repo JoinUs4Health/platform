@@ -6,37 +6,55 @@ if (!defined('ABSPATH')) {
 
 get_header();
 ?>
-    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/feather.min.js"></script>
+    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/moment.min.js"></script>
+    <link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/flatpickr.min.css">
+    <script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/flatpickr.min.js"></script>
     <?php
-    echo js_script_voting();
-    echo js_load_href();
+    echo get_js_script_voting();
+    echo get_js_load_href();
     ?>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('select.orderby').on('change', function() {
+            $('select#sortby').on('change', function() {
                 var params = new URLSearchParams(location.search);
-                params.set('sortby', this.value);
+                if (this.value == '') {
+                    params.delete('sortby');
+                } else {
+                    params.set('sortby', this.value);
+                }
+                params.delete('page');
                 window.location.search = params.toString();
             });
-            
+
+            $('select#language').on('change', function() {
+                var params = new URLSearchParams(location.search);
+                params.set('language', this.value);
+                params.delete('page');
+                window.location.search = params.toString();
+            });
+
             $('input.searchbox').on('keypress', function (e) {
                 if (e.which === 13) {
                     var params = new URLSearchParams(location.search);
-                    params.set('search_content', this.value);
+                    if (this.value == '') {
+                        params.delete('search_content');
+                    } else {
+                        params.set('search_content', this.value);
+                    }
+                    params.delete('page');
                     window.location.search = params.toString();
                 }
             });
+            
+            feather.replace();
         });
     </script>
     <style>
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
-            padding-bottom: 100px;
         }
         
         .ast-container h1 {
@@ -74,21 +92,35 @@ get_header();
         
         .ast-container .topic-filtering input.searchbox {
             height: 40px;
-            padding: 0 8px 0 10px;
+            padding: 0 35px 0 10px;
             border-radius: 4px;
             border: solid 1px #ced4d9;
             background-color: #fff;
             flex: 1 0 0;
-            margin-right: 134px;
+        }
+        
+        .ast-container .topic-filtering .search-icon {
+            width: 0;
+            height: 0;
+            position: relative;
+            left: -30px;
+            top: 8px;
+        }
+        
+        .ast-container .topic-filtering .search-icon svg {
+            width: 17px;
+            height: 17px;
+            left: 30px;
         }
         
         .ast-container .topic-filtering select.orderby {
+            width: 212px;
             height: 40px;
             padding: 0 6px 0 10px;
             border-radius: 4px;
             border: solid 1px #ced4d9;
             background-color: #fff;
-            flex: 0 0 286px;
+            flex: 0 0 212px;
         }
         
         .ast-container .topic-filtering div.orderby {
@@ -101,7 +133,8 @@ get_header();
             letter-spacing: normal;
             color: #656d75;
             flex: 0 0 auto;
-            margin-right: 15px;
+            margin-right: 12px;
+            margin-left: 24px;
         }
         
         .ast-container .topic-list {
@@ -162,19 +195,17 @@ get_header();
             flex: 1 0 0;
         }
 
-        .ast-container .topic-list .topic-item .voting-col .voting span {
+        .ast-container .topic-list .topic-item .voting-col .voting svg {
             width: 18px;
             height: 18px;
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/thumbs-up.svg);
-            mask-size: 18px;
-            background-color: #3b4045;
+            stroke: #3b4045;
             margin-top: 13px;
             margin-right: 10px;
             margin-left: 10px;
         }
         
-        .ast-container .topic-list .topic-item .voting-col .voting span:hover {
-            background-color: #000000;
+        .ast-container .topic-list .topic-item .voting-col .voting svg:hover {
+            stroke: #000000;
         }
         
         .ast-container .topic-list .topic-item .content-col {
@@ -332,60 +363,61 @@ get_header();
             display: inline-block;
         }
         
-        .ast-container .pagination-down a.icon span {
+        .ast-container .pagination-down a.icon svg {
             display: inline-block;
             width: 20px;
             height: 20px;
             margin-bottom: 3px;
-            background-color: #808a95;
+            stroke: #808a95;
             vertical-align: middle;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-        
-        .ast-container .pagination-down a.icon span.prev {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/chevron-left.svg);
-            mask-size: 20px;
-        }
-        
-        .ast-container .pagination-down a.icon span.next {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/chevron-right.svg);
-            mask-size: 20px;
         }
     </style>
     <?php
     $query_params = array('post_type' => 'ju4htopic');
     $meta_query = array();
     $tax_query = array();
-
-    $names = array('topictag', 'sortby');
-    foreach ($names as $name) {
+    $get_params = array();
+    
+    $names = array(
+        'topictag' => '',
+        'sortby' => '',
+        'language' => $meta_countries
+    );
+    
+    foreach ($names as $name => $values) {
         if (isset($_GET[$name]) && $_GET[$name] != '') {
             if ($name == 'sortby') {
                 if ($_GET[$name] == 'popular') {
                     $query_params['orderby'] = array('m_votes_count' => 'DESC', 'date' => 'DESC');
                     $query_params['meta_type'] = 'NUMERIC';
-                    $query_params['meta_key'] = 'm_votes_count';
+                    $query_params['meta_key'] = 'm_votes_count';                    
+                    $get_params['sortby'] = $_GET['sortby'];                    
                 } else if ($_GET[$name] == 'recent') {
                     $query_params['orderby'] = array('date' => 'DESC');
+                    $get_params['sortby'] = $_GET['sortby'];
                 } else if ($_GET[$name] == 'trending') {
                     $query_params['orderby'] = array('m_trending_votes' => 'DESC');
                     $query_params['meta_type'] = 'NUMERIC';
                     $query_params['meta_key'] = 'm_trending_votes';
+                    $get_params['sortby'] = $_GET['sortby'];
                 }
-            } else if ($name == 'topictag') {
+            } else if ($name == 'topictag' && is_numeric($_GET[$name])) {
                 $tax_query = array(
                     array(
                         'taxonomy' => 'ju4htopictag',
                         'field'    => 'term_id',
                         'terms'    => $_GET[$name],
                  ));
-            } else {
+                
+                $get_params['topictag'] = $_GET['topictag'];
+            } else if (array_key_exists($_GET[$name], $values)) {
                 $meta_query['relation'] = 'AND';
                 $meta_query[$name."_clause"] = array(
                     'key' => 'm_'.$name,
                     'value' => $_GET[$name]
                 );
+                
+                $get_params[$name] = $_GET[$name];
             }
         }
     }
@@ -399,50 +431,69 @@ get_header();
 
     if (isset($_GET['search_content']) && $_GET['search_content'] != '') {
         $query_params['s'] = $_GET['search_content'];
+        $get_params['search_content'] = esc_attr($_GET['search_content']);
     }
 
     $page_ranges_left_right = 2;
-    $query_params['posts_per_page'] = 12;
-    $paged = isset($_GET['paged']) && is_numeric($_GET['paged']) ? (int)$_GET['paged'] : 1;
-    $query_params['paged'] = $paged;
+    $query_params['posts_per_page'] = 2;
+    $get_page = get_query_var('page');
+    $current_page = isset($get_page) && is_numeric($get_page) ? (int)$get_page : 1;
+    $query_params['paged'] = $current_page;
     $query = new WP_Query($query_params);
     ?>
     <h1><?= __('Topics') ?></h1>
     <div class="topic-filtering">
         <input type="text" class="searchbox" placeholder="<?= _('Search by title...') ?>" value="<?= esc_attr($_GET['search_content']) ?>" />
+        <div class="search-icon">
+            <i data-feather="search"></i>
+        </div>
+        <div class="orderby"><?= __('Language') ?></div>
+        <select class="orderby" name="language" id="language">
+            <option value=""<?= (isset($_GET['language']) && $_GET['language'] == '') ? ' selected' : '' ?>><?= _('any') ?></option>
+            <?php foreach ($meta_countries as $index => $value): ?>
+            <?php $selected = (isset($_GET['language']) && $_GET['language'] == $index) ? ' selected' : '' ?> 
+            <option value="<?= $index ?>"<?= $selected ?>><?= $value ?></option>
+            <?php endforeach; ?>
+        </select>
         <div class="orderby"><?= __('Order by') ?></div>
-        <select class="orderby" name="sortby">
+        <select class="orderby" name="sortby" id="sortby">
             <?php foreach ($meta_sortby_topic as $index => $value): ?>
             <?php $selected = (isset($_GET['sortby']) && $_GET['sortby'] == $index) ? ' selected' : '' ?> 
             <option value="<?= $index ?>"<?= $selected ?>><?= $value ?></option>
             <?php endforeach; ?>
         </select>
     </div>
-    <div class="topics-found-counter"><?= $query->found_posts ?> topics found</div>
+    <div class="topics-found-counter"><?= $query->found_posts ?> <?= _('topics found') ?></div>
     <?php if ($query->have_posts()): ?>
     <div class="topic-list">
+    <?php $i = 1 ?>
     <?php while ($query->have_posts()): ?>
         <?php $query->the_post(); ?>
         <?= html_topic($post) ?>
+        <?php if ($query->post_count != $i++): ?>
         <div class="separator"></div>
+        <?php endif; ?>
     <?php endwhile; ?>
     </div>
     <?php endif; ?>
     <?php if ($query->max_num_pages > 1): ?>
     <div class="pagination-down">
-        <?php $visible_pages = $page_ranges_left_right * 2 + 1 ?>
+        <?php 
+        $visible_pages = $page_ranges_left_right * 2 + 1;
+        $get_query = get_query($get_params);
+        ?>
         <?php if ($query->max_num_pages <= $visible_pages): ?>
-            <?php for ($page = 1; $page <= $query->max_num_pages; $page++): ?>
-            <?php $selected = ($paged == $page) ? ' class="selected"' : ''; ?>
-            <a href="?paged=<?= $page ?>"<?= $selected ?>><?= $page ?></a>
+            <?php for ($pagei = 1; $pagei <= $query->max_num_pages; $pagei++): ?>
+            <?php $selected = ($current_page == $pagei) ? ' class="selected"' : ''; ?>
+            <a href="?page=<?= $pagei ?>&amp;<?= $get_query ?>"<?= $selected ?>><?= $pagei ?></a>
             <?php endfor; ?>
         <?php else: ?>
             <?php
             $prev = true;
             $next = true;
             
-            $range_min = $paged - $page_ranges_left_right;
-            $range_max = $paged + $page_ranges_left_right;
+            $range_min = $current_page - $page_ranges_left_right;
+            $range_max = $current_page + $page_ranges_left_right;
             
             if ($range_min < 1) {
                 $range_min = 1;
@@ -455,14 +506,14 @@ get_header();
             } 
             ?>
             <?php if ($prev): ?>
-            <a href="?paged=<?= $paged - 1 ?>" class="icon"><span class="prev"></span></a>
+            <a href="?page=<?= $current_page - 1 ?>&amp;<?= $get_query ?>" class="icon"><i data-feather="chevron-left"></i></a>
             <?php endif; ?>
-            <?php for ($page = $range_min; $page <= $range_max; $page++): ?>
-            <?php $selected = ($paged == $page) ? ' class="selected"' : ''; ?>
-            <a href="?paged=<?= $page ?>"<?= $selected ?>><?= $page ?></a>
+            <?php for ($pagei = $range_min; $pagei <= $range_max; $pagei++): ?>
+            <?php $selected = ($current_page == $pagei) ? ' class="selected"' : ''; ?>
+            <a href="?page=<?= $pagei ?>&amp;<?= $get_query ?>"<?= $selected ?>><?= $pagei ?></a>
             <?php endfor; ?>
             <?php if ($next): ?>
-            <a href="?paged=<?= $paged + 1 ?>" class="icon"><span class="next"></span></a>
+            <a href="?page=<?= $current_page + 1 ?>&amp;<?= $get_query ?>" class="icon"><i data-feather="chevron-right"></i></a>
             <?php endif; ?>
         <?php endif; ?>
     </div>

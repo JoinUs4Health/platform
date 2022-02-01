@@ -7,19 +7,20 @@ if (!defined('ABSPATH')) {
 the_post();
 $task = $post;
 ?>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/feather.min.js"></script>
+<script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
 <?php
 $meta = get_post_meta(get_the_ID());
 get_header();
-echo js_script_voting(get_the_permalink());
-echo js_script_follow(get_the_permalink());
-echo js_load_href();
+echo get_js_script_voting(get_the_permalink());
+echo get_js_script_follow(get_the_permalink());
+echo get_js_load_href();
+js_feather_replace();
 ?>
     <style>
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
-            padding-bottom: 100px;
         }
         
         .column-common-border-style {
@@ -35,20 +36,17 @@ echo js_load_href();
             flex: 0 0 100%;
         }
         
-        .ast-container .bread-crumb a.homepage {
+        .ast-container .bread-crumb a.homepage svg {
             width: 14px;
             height: 14px;
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/home.svg);
-            background-color: #808a95;
-            mask-size: 14px;
+            stroke: #808a95;
+            margin: 0;
         }
         
-        .ast-container .bread-crumb span {
+        .ast-container .bread-crumb svg {
             width: 13px;
             height: 13px;
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/chevron-right.svg);
-            background-color: #808a95;
-            mask-size: 13px;
+            stroke: #808a95;
             margin-top: 1px;
             margin-right: 10px;
             margin-left: 10px;
@@ -376,27 +374,12 @@ echo js_load_href();
             margin-bottom: 16px;
         }
         
-        .ast-container .second-column .details .rows2 span {
+        .ast-container .second-column .details .rows2 svg {
             width: 12px;
             height: 12px;
-            background-color: #3b4045;
+            stroke: #3b4045;
             margin-top: 3px;
             margin-right: 9px;
-        }
-        
-        .ast-container .second-column .details .rows2 span.flag {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/flag.svg);
-            mask-size: 12px;
-        }
-        
-        .ast-container .second-column .details .rows2 span.users {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/users.svg);
-            mask-size: 12px;
-        }
-                
-        .ast-container .second-column .details .rows2 span.disc {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/disc.svg);
-            mask-size: 12px;
         }
         
         .ast-container .second-column .details .rows2 div.value {
@@ -448,9 +431,9 @@ echo js_load_href();
         }
     </style>
     <div class="bread-crumb">
-        <a href="<?= home_url() ?>" class="homepage"></a>
-        <span></span>
-        <a href="<?= home_url() ?>/ju4htasks/" class="txt">Tasks</a>
+        <a href="<?= home_url() ?>" class="homepage"><i data-feather="home"></i></a>
+        <i data-feather="chevron-right"></i>
+        <a href="<?= home_url() ?>/<?= $task->post_type ?>/" class="txt"><?= _('Tasks') ?></a>
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
@@ -470,6 +453,7 @@ echo js_load_href();
             ?>
             <?php while ($query_related_tasks->have_posts()): ?>
             <?php $query_related_tasks->the_post(); ?>
+            <?php $m_status = get_post_meta($post->ID, 'm_status', true); ?>
             <div class="separator"></div>
             <h6>Related topic</h6>
             <div class="related-topic column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
@@ -478,7 +462,7 @@ echo js_load_href();
                     <div class="days-left"><?= time_ago($post) ?></div>
                     <div class="submit-by"><?php the_author() ?></div>
                 </div>
-                <div class="tag">tag</div>
+                <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
             </div>
             <?php endwhile; ?>
             <?php endif; ?>
@@ -490,7 +474,7 @@ echo js_load_href();
                 <div class="avatar"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
-                    <div class="sub">Subtitle (todo/question)</div>
+                    <div class="sub"><?= _('facilitator') ?></div>
                 </div>
             </div>
             <div class="separator"></div>
@@ -500,8 +484,8 @@ echo js_load_href();
             </div>
             <div class="rows">
                 <?php $m_valid_thru = get_post_meta($task->ID, 'm_valid_thru', true) ?>
-                <div>Created</div>
-                <div>Valid thru</div>
+                <div><?= _('Created') ?></div>
+                <div><?= _('Valid thru') ?></div>
                 <div class="value"><?= time_ago($task) ?></div>
                 <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
             </div>
@@ -509,36 +493,26 @@ echo js_load_href();
             <?php $m_target_group = get_post_meta($task->ID, 'm_target_group', true) ?>
             <?php $m_source = get_post_meta($task->ID, 'm_source', true) ?>
             <?php $m_level = get_post_meta($task->ID, 'm_level', true) ?>
-            <?php if (isset($m_language) || isset($m_target_group) || isset($m_source) || isset($m_level)): ?>
             <div class="separator"></div>
             <div class="rows2">
-                <?php if (isset($m_language)): ?>
-                <span class="flag"></span>
+                <i data-feather="flag"></i>
                 <div><?= __('Language') ?></div>
-                <div class="value"><?= $meta_countries[$m_language] ?></div>
-                <?php endif; ?>
-                <?php if (isset($m_target_group)): ?>
-                <span class="users"></span>
+                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : _('not specified') ?></div>
+                <i data-feather="users"></i>
                 <div><?= __('Stakeholder group') ?></div>
-                <div class="value"><?= $meta_target_group[$m_target_group] ?></div>
-                <?php endif; ?>
-                <?php if (isset($m_source)): ?>
-                <span class="disc"></span>
+                <div class="value"><?= $m_target_group!= '' ? $meta_target_group[$m_target_group] : _('not specified') ?></div>
+                <i data-feather="disc"></i>
                 <div><?= __('Source') ?></div>
-                <div class="value"><?= $meta_source[$m_source] ?></div>
-                <?php endif; ?>
-                <?php if (isset($m_level)): ?>
-                <span class="disc"></span>
+                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : _('not specified') ?></div>
+                <i data-feather="layers"></i>
                 <div><?= __('Level') ?></div>
-                <div class="value"><?= $meta_level[$m_level] ?></div>
-                <?php endif; ?>
+                <div class="value"><?= $m_level != '' ? $meta_level[$m_level] : _('not specified') ?></div>
             </div>
-            <?php endif; ?>
         </div>
         <?php $m_duration = get_post_meta($task->ID, 'm_duration', true) ?>
         <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
         <div class="estimate column-common-border-style">
-            <h6>Time estimate</h6>
+            <h6><?= _('Time estimate') ?></h6>
             <div class="time"><?= $meta_contribute_duration[$m_duration] ?></div>
             <input type="button" class="btn-contribute" value="<?= _('Contribute') ?>" />
         </div>

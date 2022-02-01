@@ -1,8 +1,8 @@
 <?php
 $allowed_referers = array( //todo move to config
-    "http://zryjto.linuxpl.info/platforma_dev/wp-admin/post-new.php",
-    "http://zryjto.linuxpl.info/platforma_dev/wp-admin/post.php",
-    "http://zryjto.linuxpl.info/platforma_dev/wp-content/plugins/joinus4health/includes/upload.php"
+    get_site_url()."/wp-admin/post-new.php",
+    get_site_url()."/wp-admin/post.php",
+    get_site_url()."/wp-content/plugins/joinus4health/includes/upload.php"
 );
 
 $server_http_referer = $_SERVER['HTTP_REFERER'];

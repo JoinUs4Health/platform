@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
-function js_load_href() {
+function get_js_load_href() {
     ob_start()
 ?>
 <script type="text/javascript">
@@ -16,14 +16,19 @@ function js_load_href() {
     return $output;
 }
 
-function js_script_voting($url = null) {
+function get_js_script_voting($url = null) {
     ob_start()
 ?>  
 <script type="text/javascript">
     $(document).ready(function() {
         $(".item-upvote,.item-downvote").click(function() {
-            elOperation = $(this).attr("class").split("-")[1];
-            elId = $(this).attr("id").split("-")[2];
+            if ($(this).hasClass("item-upvote")) {
+                elOperation = "upvote";
+            } else {
+                elOperation = "downvote";
+            }
+            
+            elId = $(this).attr("data-id");
             elUrl = $("#item-url-" + elId).attr("href");
             $.ajax({
                 type: 'GET',
@@ -53,14 +58,19 @@ function js_script_voting($url = null) {
     return $output;
 }
 
-function js_script_follow($url) {
+function get_js_script_follow($url) {
     ob_start()
 ?>  
 <script type="text/javascript">
     $(document).ready(function() {
         $(".item-follow,.item-unfollow").click(function() {
-            elOperation = $(this).attr("class").split("-")[1];
-            elId = $(this).attr("id").split("-")[2];
+            if ($(this).hasClass("item-follow")) {
+                elOperation = "follow";
+            } else {
+                elOperation = "unfollow";
+            }
+            
+            elId = $(this).attr("data-id");
             $.ajax({
                 type: 'GET',
                 url: "<?= $url ?>?operation=" + elOperation,
@@ -69,11 +79,66 @@ function js_script_follow($url) {
                     if (data.error) {
                         alert(data.error);
                     } else {
+                        if (elOperation == 'follow') {
+                            $('.item-follow > div.text').html("<?= _("Following") ?>");
+                            $('.item-follow > svg').replaceWith(feather.icons['check'].toSvg());
+                        } else {
+                            $('.item-unfollow > div.text').html("<?= _("Follow") ?>");
+                            $('.item-unfollow > svg').replaceWith(feather.icons['eye'].toSvg());
+                        }
+                        
                         $('#item-follows-' + elId).text(data.follows);
+                        
                         if (elOperation == "follow") {
                             $("#item-follow-" + elId).attr("class", "btn item-unfollow");
                         } else {
                             $("#item-follow-" + elId).attr("class", "btn item-follow");
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script><?php
+    $output = ob_get_clean();
+    return $output;
+}
+
+function get_js_script_contribute($url) {
+    ob_start()
+?>  
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".item-contribute,.item-uncontribute").click(function() {
+            if ($(this).hasClass("item-contribute")) {
+                elOperation = "contribute";
+            } else {
+                elOperation = "uncontribute";
+            }
+            
+            elId = $(this).attr("data-id");
+            $.ajax({
+                type: 'GET',
+                url: "<?= $url ?>?operation=" + elOperation,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        if (elOperation == 'contribute') {
+                            $('.item-contribute > div.text').html("<?= _("Contributing") ?>");
+                            $('.item-contribute > svg').replaceWith(feather.icons['check'].toSvg());
+                        } else {
+                            $('.item-uncontribute > div.text').html("<?= _("Contribute") ?>");
+                            $('.item-uncontribute > svg').replaceWith(feather.icons['user-plus'].toSvg());
+                        }
+                        
+                        $('#item-contributes-' + elId).text(data.contributes);
+                        
+                        if (elOperation == "contribute") {
+                            $("#item-contribute-" + elId).attr("class", "black-btn item-uncontribute");
+                        } else {
+                            $("#item-contribute-" + elId).attr("class", "black-btn item-contribute");
                         }
                     }
                 }
@@ -95,20 +160,20 @@ function html_topic($post) {
     $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
     ?>        <div class="topic-item">
             <div class="voting-col">
-                <div class="voting <?= $vote_class ?>" id="item-vote-<?= $post->ID ?>">
+                <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>">
                     <div class="counter" id="item-votes-<?= $post->ID ?>"><?= count($m_votes) ?></div>
-                    <span></span>
+                    <i data-feather="thumbs-up"></i>
                 </div>
             </div>
             <div class="content-col" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <h5><a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>"><?= $post->post_title ?></a></h5>
                 <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
-                <div class="date-time">submitted by <?= get_the_author() ?> / <?= get_the_date('j F Y, g:i a', $post) ?></div>
+                <div class="date-time">submitted by <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 <div class="content"><?= get_post_meta(get_the_ID(), 'm_intro', true) ?></div>
                 <?php if (count($tags) > 0): ?>
                 <div class="tags">
                     <?php foreach ($tags as $tag): ?>
-                    <a href="<?= get_home_url() ?>/ju4htopics/?topictag=<?= $tag->term_id ?>"><?= $tag->name ?></a>
+                    <a href="<?= get_home_url() ?>/ju4htopic/?topictag=<?= $tag->term_id ?>"><?= $tag->name ?></a>
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
@@ -131,7 +196,7 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                 <div class="avatar"></div>
                 <div class="container">
                     <div class="author"><?= $comment->comment_author ?></div>
-                    <div class="date"><?= get_comment_date('j F Y, g:i a', $comment) ?></div>
+                    <div class="date"><?= get_comment_date('j F Y, H:i', $comment) ?></div>
                     <div class="txt"><?= $comment->comment_content ?></div>
                     <?php if ($enabled_reply): ?>
                     <div class="urls">
@@ -166,12 +231,18 @@ function html_suggestion($post) {
     global $post, $meta_contribute_duration;
     $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
     $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
+    $m_votes = get_post_meta($post->ID, "m_votes");
+    $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
     ?>
             <div class="suggestion-item">
-                <div class="two-line-content">
-                    <a href="<?= get_the_permalink($post->ID) ?>" class="title"><?= $post->post_title ?></a>
+                <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>">
+                    <div class="counter" id="item-votes-<?= $post->ID ?>"><?= count($m_votes) ?></div>
+                    <i data-feather="thumbs-up"></i>
+                </div>
+                <div class="two-line-content" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
+                    <a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>" class="title"><?= $post->post_title ?></a>
                     <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
-                    <div class="submit-by">submitted by <?= get_the_author() ?></div>
+                    <div class="submit-by"><?= _('submitted by') ?> <?= get_the_author() ?></div>
                 </div>
                 <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
                 <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
@@ -179,4 +250,82 @@ function html_suggestion($post) {
                 <?php endif; ?>
             </div>
     <?php
+}
+
+function html_modal_share($permalink) {
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#do-action').click(function(){
+                var copyText = document.getElementById("url-share");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+            });
+        });
+    </script>
+    <div id="share" class="modal">
+    <h4><?= _('Share this page') ?></h4>
+    <div class="separator"></div>
+    <div class="methods">
+        <div class="method">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=#url" class="fb"><i data-feather="facebook"></i></a>
+            <span><?= _('Facebook') ?></span>
+        </div>
+        <div class="method">
+            <a href="http://twitter.com/share?url=<?= $permalink ?>" class="twitter"><i data-feather="twitter"></i></a>
+            <span><?= _('Twitter') ?></span>
+        </div>
+        <div class="method">
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= $permalink ?>" class="linkedin"><i data-feather="linkedin"></i></a>
+            <span><?= _('Linkedin') ?></span>
+        </div>
+    </div>
+    <div class="buttons">
+        <input type="text" id="url-share" value="<?= get_permalink($topic_post->ID) ?>" />
+        <div id="do-action">
+            <i data-feather="copy"></i>
+            <div class="text"><?= _('Copy') ?></div>
+        </div>
+    </div>
+</div>
+<?php
+}
+
+function js_feather_replace() {
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            feather.replace();
+        });
+    </script>
+    <?php
+}
+
+function js_add_or_reply_comment() {
+    ?>
+    <script type="text/javascript">
+    $(document).ready(function(){        
+        $('.comment > .container > .urls > a').click(function() {
+            comment_reply_id = $(this).attr('id').split('-')[2];
+            $('#comment_parent').val(comment_reply_id);
+            comment_reply_to = $(this).parent().parent().find('.author').html();
+            $('.add-comment .caption').html("<?= _('Reply to') ?> " + comment_reply_to + " <?= _('comment') ?>");
+        });
+    });
+    </script>
+    <?php
+}
+
+function html_modal_uncontribute($permalink) {
+    ?>
+    <div id="modal-uncontriubute" class="modal">
+    <h4><?= _('Confirm action') ?></h4>
+    <div class="text"><?= _('Do you want to cancel your contribution?') ?></div>
+    <div class="buttons">
+        <input type="button" id="yes" value="<?= _('Yes') ?>" />
+        <input type="button" id="no" value="<?= _('No') ?>" />
+    </div>
+</div>
+<?php
 }

@@ -96,6 +96,7 @@ function add_meta_boxes_ju4htopic_callback($post) {
     add_meta_box('container_suggestions', __('Related suggestions'), 'add_meta_box_ju4htopic_related_suggestions_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_tasks', __('Related tasks'), 'add_meta_box_ju4htopic_related_tasks_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_attachments', __('Attachments'), 'add_meta_box_ju4htopic_attachments_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_externals', __('External links'), 'add_meta_box_ju4htopic_externals_callback', 'ju4htopic', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
 
@@ -132,6 +133,18 @@ function add_meta_box_ju4htopic_description_callback($post) {
 function add_meta_box_ju4htopic_additional_fields_callback($post) {
     global $meta_status, $meta_countries, $meta_source, $meta_target_group;
     wp_nonce_field(basename( __FILE__ ), 'topic_additional_fields_nonce');
+    $topics = array();
+    $query = new WP_Query(array('post_type' => 'topic', 'posts_per_page' => -1));
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $postloop = $query->post;
+            $meta = get_post_meta($postloop->ID);
+            $topics[$postloop->ID] = $postloop->post_title;
+        }
+    }
+    
+    html_admin_select_box(__('BBpress topic'), 'm_bbpress_topic', $topics, get_post_meta($post->ID, 'm_bbpress_topic', true));
     html_admin_date_input(__('Valid thru'), 'm_valid_thru', get_post_meta($post->ID, 'm_valid_thru', true));
     html_admin_select_box(__('Status'), 'm_status', $meta_status, get_post_meta($post->ID, 'm_status', true));
     html_admin_select_box(__('Language'), 'm_language', $meta_countries, get_post_meta($post->ID, "m_language", true));
@@ -192,7 +205,7 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
     $append_html .= '</p>';
     ?>
     
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $("#add-related-suggestion").click(function(){
@@ -300,6 +313,18 @@ function add_meta_box_ju4htopic_attachments_callback($post) {
  * @global type $meta_status
  * @param type $post
  */
+function add_meta_box_ju4htopic_externals_callback($post) {
+    wp_nonce_field(basename( __FILE__ ), 'topic_attachments_nonce');
+    html_admin_hyperlink_multiple_meta_box($post, 'externals');
+}
+
+/**
+ * Adds meta box "Attachments"
+ * - @todo
+ * 
+ * @global type $meta_status
+ * @param type $post
+ */
 function add_meta_box_ju4htopic_topimage_callback($post) {
     wp_nonce_field(basename( __FILE__ ), 'topic_topimage_nonce');
     html_admin_file_meta_box($post, 'm_top_image', 'topimage');
@@ -339,7 +364,7 @@ function save_post_ju4htopic_callback($post_id) {
         "m_status",
         "m_language",
         "m_source",
-        "m_target_group"
+        "m_target_group",
     );
     
     //select options
@@ -506,6 +531,60 @@ function save_post_ju4htopic_callback($post_id) {
     
     
     
+    
+    
+    
+    //
+    if (isset($_POST['m_externals_text']) && is_array($_POST['m_externals_text']) && isset($_POST['m_externals_url']) && is_array($_POST['m_externals_url'])) {
+        $_POST_externals = array();
+        
+        foreach ($_POST['m_externals_url'] as $index => $value) {
+            $obj = new stdClass();
+            $obj->url = $_POST['m_externals_url'][$index];
+            $obj->text = $_POST['m_externals_text'][$index];
+            $_POST_externals[] = str_replace('\/', '/', json_encode($obj));
+    
+        }
+
+        $_POST_externals = array_diff($_POST_externals, array(""));
+    } else {
+        $_POST_externals = array();
+    }
+    
+    //getting attachments
+    $externals = get_post_meta($post_id, 'm_externals');
+
+    //making intersection between attachments from POST & existing attachments
+    //result should be keeped in db
+    $externals_intersect = array_intersect($_POST_externals, $externals);
+
+    //removing attachments which should be keeped from POSTed attachments
+    //result will be added to db
+    $externals_to_add = array_diff($_POST_externals, $externals_intersect);
+    
+    //removing attachments which should be keeped from existing attachments
+    //result will be removed from db
+    $externals_to_remove = array_diff($externals, $externals_intersect);
+
+    //looping add operation of new attachments
+    foreach ($externals_to_add as $value) {
+        add_post_meta($post_id, 'm_externals', $value);
+    }
+
+    //looping remove operation of related suggestions which should be removed
+    foreach ($externals_to_remove as $value) {
+        delete_post_meta($post_id, 'm_externals', $value);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     if ($_POST['m_top_image_file'] != '') {
         $obj = new stdClass();
         $obj->file = $_POST['m_top_image_file'];
@@ -534,7 +613,7 @@ function save_post_ju4htopic_callback($post_id) {
     //saving description textarea field
     update_post_meta($post_id, 'm_description', esc_html($_POST['m_description']));
     
-    
+    update_post_meta($post_id, 'm_bbpress_topic', esc_html($_POST['m_bbpress_topic']));
     
     if (isset($_POST['m_valid_thru_d']) && isset($_POST['m_valid_thru_m']) && isset($_POST['m_valid_thru_Y']) &&
             is_numeric($_POST['m_valid_thru_d']) && is_numeric($_POST['m_valid_thru_m']) && is_numeric($_POST['m_valid_thru_Y'])) {

@@ -1,25 +1,31 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 the_post();
 $topic_post = $post;
 ?>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/feather.min.js"></script>
+<script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
+<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/jquery.modal.min.css" />
 <?php
 $meta = get_post_meta(get_the_ID());
 get_header();
-echo js_script_voting(get_the_permalink());
-echo js_script_follow(get_the_permalink());
-echo js_load_href();
+js_feather_replace();
+js_add_or_reply_comment();
+echo get_js_script_voting(get_the_permalink());
+echo get_js_script_follow(get_the_permalink());
+echo get_js_script_contribute(get_the_permalink());
+echo get_js_load_href();
+html_modal_share(get_the_permalink());
 ?>
     <style>
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
-            padding-bottom: 100px;
         }
         
         .column-common-border-style {
@@ -34,20 +40,17 @@ echo js_load_href();
             padding-bottom: 24px;
         }
         
-        .ast-container .bread-crumb a.homepage {
+        .ast-container .bread-crumb a.homepage svg {
             width: 14px;
             height: 14px;
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/home.svg);
-            background-color: #808a95;
-            mask-size: 14px;
+            stroke: #808a95;
+            margin: 0;
         }
         
-        .ast-container .bread-crumb span {
+        .ast-container .bread-crumb svg {
             width: 13px;
             height: 13px;
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/chevron-right.svg);
-            background-color: #808a95;
-            mask-size: 13px;
+            stroke: #808a95;
             margin-top: 1px;
             margin-right: 10px;
             margin-left: 10px;
@@ -119,28 +122,28 @@ echo js_load_href();
             flex: 1 0 0;
         }
 
-        .ast-container .top-column-2-colspan .title-and-buttons .voting span {
+        .ast-container .top-column-2-colspan .title-and-buttons .voting svg {
             width: 18px;
             height: 18px;
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/thumbs-up.svg);
-            mask-size: 18px;
-            background-color: #3b4045;
+            stroke: #3b4045;
             margin-top: 13px;
             margin-right: 10px;
             margin-left: 10px;
         }
         
-        .ast-container .top-column-2-colspan .title-and-buttons .voting span:hover {
-            background-color: #000000;
+        .ast-container .top-column-2-colspan .title-and-buttons .voting svg:hover {
+            stroke: #000000;
         }
         
         .ast-container .top-column-2-colspan .title-and-buttons .title {
+            font-family: Recoleta;
             margin-left: 16px;
             flex: 1 0 0;
             font-size: 28px;
         }
         
         .ast-container .top-column-2-colspan .title-and-buttons .btn {
+            display: inline-block;
             border: solid 1px #dde1e5;
             border-radius: 4px;
             height: 48px;
@@ -163,7 +166,24 @@ echo js_load_href();
             background-color: #ededed;
         }
         
+        .ast-container .top-column-2-colspan .title-and-buttons .item-unfollow {
+            background-color: #eceef0;
+        }
+        
+        .ast-container .top-column-2-colspan .title-and-buttons .btn svg {
+            float: left;
+            width: 17px;
+            height: 17px;
+            margin-top: 14px;
+            margin-right: 8px;
+        }
+        
+        .ast-container .top-column-2-colspan .title-and-buttons .btn div.text {
+            float: left;
+        }
+        
         .ast-container .top-column-2-colspan .title-and-buttons .black-btn {
+            display: inline-block;
             border-radius: 4px;
             height: 48px;
             padding-left: 24px;
@@ -183,6 +203,28 @@ echo js_load_href();
         
         .ast-container .top-column-2-colspan .title-and-buttons .black-btn:hover {
             background-color: #777777;
+        }
+        
+        .ast-container .top-column-2-colspan .title-and-buttons .black-btn svg {
+            float: left;
+            width: 17px;
+            height: 17px;
+            margin-top: 14px;
+            margin-right: 8px;
+        }
+        
+        .ast-container .top-column-2-colspan .title-and-buttons .black-btn div.text {
+            float: left;
+        }
+        
+        .ast-container .top-column-2-colspan .title-and-buttons .item-contribute {
+            background-color: #000000;
+            color: #dde1e5;
+        }
+        
+        .ast-container .top-column-2-colspan .title-and-buttons .item-uncontribute {
+            background-color: #efe733;
+            color: #000000;
         }
         
         .ast-container .first-column {
@@ -274,11 +316,7 @@ echo js_load_href();
         .ast-container .first-column .add-comment form input.submit:hover {
             background-color: #777777;
         }
-        
-        .ast-container .first-column .comments {
-            
-        }
-        
+
         .ast-container .first-column .comments .comment {
             display: flex;
             flex-flow: row wrap;
@@ -291,7 +329,6 @@ echo js_load_href();
             border-radius: 28px;
             border: solid 1px #dde1e5;
             background-color: #f9f9fa;
-            background-image: url(<?= home_url() ?>/d28c65af4044b1d2bc8ff5f058d7.webp);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
@@ -490,8 +527,7 @@ echo js_load_href();
             letter-spacing: normal;
             color: #3b4045;
         }
-        
-        
+
         .ast-container .first-column .content .related-tasks .related-task .tags-info {
             display: block;
             width: 100%;
@@ -509,8 +545,7 @@ echo js_load_href();
             background-color: #eceef0;
             color: #808a95;
         }
-        
-                
+
         .ast-container .first-column .content .related-tasks .related-task .days-left {
             font-size: 12px;
             font-weight: 500;
@@ -669,27 +704,12 @@ echo js_load_href();
             margin-bottom: 16px;
         }
         
-        .ast-container .second-column .details .rows2 span {
+        .ast-container .second-column .details .rows2 svg {
             width: 12px;
             height: 12px;
-            background-color: #3b4045;
+            stroke: #3b4045;
             margin-top: 3px;
             margin-right: 9px;
-        }
-        
-        .ast-container .second-column .details .rows2 span.flag {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/flag.svg);
-            mask-size: 12px;
-        }
-        
-        .ast-container .second-column .details .rows2 span.users {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/users.svg);
-            mask-size: 12px;
-        }
-                
-        .ast-container .second-column .details .rows2 span.disc {
-            mask: url(<?= home_url() ?>/wp-content/plugins/joinus4health/assets/svg/disc.svg);
-            mask-size: 12px;
         }
         
         .ast-container .second-column .details .rows2 div.value {
@@ -719,9 +739,9 @@ echo js_load_href();
     </style>
 
     <div class="bread-crumb">
-        <a href="<?= home_url() ?>" class="homepage"></a>
-        <span></span>
-        <a href="<?= home_url() ?>/ju4htopics/" class="txt">Topics</a>
+        <a href="<?= home_url() ?>" class="homepage"><i data-feather="home"></i></a>
+        <i data-feather="chevron-right"></i>
+        <a href="<?= home_url() ?>/<?= $topic_post->post_type ?>/" class="txt">Topics</a>
     </div>
     <div class="top-column-2-colspan column-common-border-style">
         <?php $m_votes = get_post_meta($topic_post->ID, "m_votes"); ?>
@@ -732,21 +752,29 @@ echo js_load_href();
         <?php if ($m_imageurl != null) { $m_imageurl = ' style="background-image: url('.home_url().'/wp-content/'.$m_imageurl->file.');"'; } ?>
         <div class="image"<?= $m_imageurl ?>></div>
         <div class="title-and-buttons">
-            <div class="voting <?= $vote_class ?>" id="item-vote-<?= $topic_post->ID ?>">
+            <div class="voting <?= $vote_class ?>" data-id="<?= $topic_post->ID ?>" id="item-vote-<?= $topic_post->ID ?>">
                 <div class="counter" id="item-votes-<?= $topic_post->ID ?>"><?= count($m_votes) ?></div>
-                <span></span>
+                <i data-feather="thumbs-up"></i>
             </div>
             <div class="title"><?php the_title() ?></div>
-            <a href="#" class="btn">Share</a>
+            <a href='#share' class="btn" rel="modal:open"><?= _('Share') ?></a>
             <?php $m_follows = get_post_meta($topic_post->ID, "m_follows"); ?>
-            <?php $follow_class = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ? 'item-unfollow' : 'item-follow' ?>
-            <div class="btn <?= $follow_class ?>" id="item-follow-<?= $topic_post->ID ?>">Follow</div>
-            <div class="black-btn">Contribute</div>
+            <?php $is_following = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ?>
+            <div class="btn <?= $is_following ? 'item-unfollow' : 'item-follow' ?>" data-id="<?= $topic_post->ID ?>" id="item-follow-<?= $topic_post->ID ?>">
+                <i data-feather="<?= $is_following ? 'check' : 'eye' ?>"></i>
+                <div class="text"><?= _($is_following ? 'Following' : "Follow") ?></div>
+            </div>
+            <?php $m_contributes = get_post_meta($topic_post->ID, "m_contributes"); ?>
+            <?php $is_contributing = (is_array($m_contributes) && in_array(get_current_user_id(), $m_contributes)) ?>
+            <div class="black-btn <?= $is_contributing ? 'item-uncontribute' : 'item-contribute' ?>" data-id="<?= $topic_post->ID ?>" id="item-contribute-<?= $topic_post->ID ?>">
+                <i data-feather="<?= $is_contributing ? 'check' : 'user-plus' ?>"></i>
+                <div class="text"><?= _($is_contributing ? 'Contributing' : "Contribute") ?></div>
+            </div>
         </div>
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
-            <h6>Topic details</h6>
+            <h6><?= _('Topic details') ?></h6>
             <p><?= get_post_meta(get_the_ID(), 'm_intro', true) ?></p>
             <?php 
             $m_description = trim(get_post_meta(get_the_ID(), 'm_description', true));
@@ -757,14 +785,14 @@ echo js_load_href();
             <?php if (count($tags)): ?>
             <div class="tags">
                 <?php foreach ($tags as $tag): ?>
-                <a href="<?= get_home_url() ?>/ju4htopics/?topictag=<?= $tag->term_id ?>"><?= $tag->name ?></a>
+                <a href="<?= get_home_url() ?>/<?= $topic_post->post_type ?>/?topictag=<?= $tag->term_id ?>"><?= $tag->name ?></a>
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>
             <?php $attachments = get_post_meta($topic_post->ID, 'm_attachments') ?>
             <?php if (count($attachments) > 0): ?>
             <div class="separator"></div>
-            <h6>Attachments</h6>
+            <h6><?= _('Attachments') ?></h6>
             <div class="attachments">
                 <?php foreach ($attachments as $attachment): ?>
                 <?php $attachment_obj = json_decode($attachment) ?>
@@ -819,16 +847,6 @@ echo js_load_href();
         $comments = &$comment_query->get_comments();
         $count_comments = count_comments($comments);
         ?>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('.comment > .container > .urls > a').click(function() {
-                    comment_reply_id = $(this).attr('id').split('-')[2];
-                    $('#comment_parent').val(comment_reply_id);
-                    comment_reply_to = $(this).parent().parent().find('.author').html();
-                    $('.add-comment .caption').html("<?= _('Reply to') ?> " + comment_reply_to + " <?= _('comment') ?>");
-                });
-            });
-        </script>
         <a id="reply-comment"></a>
         <h6 class="comments"><?= _('Comments') ?> (<?= $count_comments ?>)</h6>
         <div class="add-comment">
@@ -864,7 +882,7 @@ echo js_load_href();
                 <div class="avatar"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
-                    <div class="sub">Subtitle (todo/question)</div>
+                    <div class="sub"><?= _('facilitator') ?></div>
                 </div>
             </div>
             <div class="separator"></div>
@@ -872,58 +890,63 @@ echo js_load_href();
                 <?php $m_status = get_post_meta($topic_post->ID, 'm_status', true) ?>
                 <?= isset($meta_status[$m_status]) ? '<div>'.$meta_status[$m_status].'</div>' : "" ?>
             </div>
-
             <div class="rows">
                 <?php $m_follows = get_post_meta($topic_post->ID, 'm_follows') ?>
                 <?php $m_contributes = get_post_meta($topic_post->ID, 'm_contributes') ?>
                 <?php $m_valid_thru = get_post_meta($topic_post->ID, 'm_valid_thru', true) ?>
-                <div>Created</div>
-                <div>Valid thru</div>
+                <div><?= _('Created') ?></div>
+                <div><?= _('Valid thru') ?></div>
                 <div class="value"><?= time_ago($topic_post) ?></div>
                 <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
                 <div class="space"></div>
                 <div class="space"></div>
-                <div>Following</div>
-                <div>Contributing</div>
+                <div><?= _('Following') ?></div>
+                <div><?= _('Contributing') ?></div>
                 <div class="value" id="item-follows-<?= $topic_post->ID ?>"><?= count($m_follows) ?></div>
-                <div class="value"><?= count($m_contributes) ?></div>
+                <div class="value" id="item-contributes-<?= $topic_post->ID ?>"><?= count($m_contributes) ?></div>
             </div>
             <?php $m_language = get_post_meta($topic_post->ID, 'm_language', true) ?>
             <?php $m_target_group = get_post_meta($topic_post->ID, 'm_target_group', true) ?>
             <?php $m_source = get_post_meta($topic_post->ID, 'm_source', true) ?>
-            <?php if (isset($m_language) || isset($m_target_group) || isset($m_source)): ?>
             <div class="separator"></div>
             <div class="rows2">
-                <?php if (isset($m_language)): ?>
-                <span class="flag"></span>
+                <i data-feather="flag"></i>
                 <div><?= __('Language') ?></div>
-                <div class="value"><?= $meta_countries[$m_language] ?></div>
-                <?php endif; ?>
-                <?php if (isset($m_target_group)): ?>
-                <span class="users"></span>
+                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : _('not specified') ?></div>
+                <i data-feather="users"></i>
                 <div><?= __('Stakeholder group') ?></div>
-                <div class="value"><?= $meta_target_group[$m_target_group] ?></div>
-                <?php endif; ?>
-                <?php if (isset($m_source)): ?>
-                <span class="disc"></span>
+                <div class="value"><?= $m_target_group != '' ? $meta_target_group[$m_target_group] : _('not specified') ?></div>
+                <i data-feather="disc"></i>
                 <div><?= __('Source') ?></div>
-                <div class="value"><?= $meta_source[$m_source] ?></div>
-                <?php endif; ?>
+                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : _('not specified') ?></div>
             </div>
-            <?php endif; ?>
         </div>
         <div class="links column-common-border-style">
-            <h6>Assigned working group (todo)</h6>
+            <?php $m_bbpress_topic = get_post_meta($topic_post->ID, 'm_bbpress_topic', true) ?>
+            <?php if (is_numeric($m_bbpress_topic)): ?>
+            <?php
+            $query_params = array('post_type' => 'topic', 'posts_per_page' => 1, 'post__in' => array($m_bbpress_topic));
+            $query_bbpress_topics = new WP_Query($query_params);
+            ?>
+            <?php while ($query_bbpress_topics->have_posts()): ?>
+            <?php $query_bbpress_topics->the_post(); ?>
+            <h6><?= _('Assigned working group') ?></h6>
             <div class="url-list">
-                <a href="#">Working team (one link)</a>
+                <a href="<?= get_the_permalink($post->ID) ?>"><?= get_the_title($post->ID) ?></a>
             </div>
+            <?php endwhile; ?>
+            <?php endif; ?>
+            <?php $m_externals = get_post_meta($topic_post->ID, 'm_externals') ?>
+            <?php if (!empty($m_externals)): ?>
             <div class="separator"></div>
-            <h6>Outcomes (todo/questions)</h6>
+            <h6><?= _('External links') ?></h6>
             <div class="url-list">
-                <a href="#">Not ready yet #1</a>
-                <a href="#">Not ready yet #2</a>
-                <a href="#">Not ready yet #3</a>
+                <?php foreach ($m_externals as $external): ?>
+                <?php $external_obj = json_decode($external) ?>
+                <a href="<?= $external_obj->url ?>"><?= $external_obj->text ?></a>
+                <?php endforeach; ?>
             </div>
+            <?php endif; ?>
             <?php
             $m_suggestions = get_post_meta($topic_post->ID, 'm_related_suggestions');
             ?>
@@ -933,7 +956,7 @@ echo js_load_href();
             $query_related_suggestions = new WP_Query($query_params);
             ?>
             <div class="separator"></div>
-            <h6>Original suggestions</h6>
+            <h6><?= _('Original suggestions') ?></h6>
             <div class="url-list">
                 <?php while ($query_related_suggestions->have_posts()): ?>
                 <?php $query_related_suggestions->the_post(); ?>
