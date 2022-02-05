@@ -89,6 +89,7 @@ add_action('init', 'ju4htopic_custom_post_type', 0);
  * @param type $post
  */
 function add_meta_boxes_ju4htopic_callback($post) {
+    add_meta_box('container_followers_and_contributors', __('Followers, contributors & voters'), 'add_meta_box_ju4htopic_followers_contributors_voters_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_topimage', __('Top image'), 'add_meta_box_ju4htopic_topimage_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_intro', __('Introduction'), 'add_meta_box_ju4htopic_intro_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4htopic_description_callback', 'ju4htopic', 'normal', 'low');
@@ -100,6 +101,31 @@ function add_meta_boxes_ju4htopic_callback($post) {
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
 
+/**
+ * 
+ * 
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_followers_contributors_voters_callback($post) {
+    $m_followers = get_post_meta($post->ID, 'm_follows');
+    $m_contributors = get_post_meta($post->ID, 'm_contributes');
+    $m_votes = get_post_meta($post->ID, 'm_votes');
+    $users = array(_('Followers') => $m_followers, _('Contributors') => $m_contributors, _('Votes') => $m_votes);
+    
+    foreach ($users as $caption => $list) {
+        $i = 0;
+        echo '<p><b>'.$caption.'</b>';
+        if (!empty($list)) {
+            $query = new WP_User_Query(array('include' => $list));
+            foreach ($query->get_results() as $user) {
+                echo (($i++ == 0) ? ': ' : ', ').'<a href="'. bp_core_get_userlink($user->ID, false, true).'">'.$user->display_name.'</a>';
+            }
+        } else {
+            echo 'No users found.';
+        }
+        echo '</p>';
+    }
+}
 
 /**
  * Adds meta box "Description"

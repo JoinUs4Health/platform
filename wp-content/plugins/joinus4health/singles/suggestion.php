@@ -21,6 +21,7 @@ echo get_js_load_href();
 js_feather_replace();
 js_add_or_reply_comment();
 html_modal_share(get_the_permalink());
+html_modal_uncontribute();
 ?>
     <style>
         .ast-container {
@@ -588,6 +589,9 @@ html_modal_share(get_the_permalink());
             border-radius: 28px;
             border: solid 1px #dde1e5;
             background-color: #f9f9fa;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             flex: 0 0 40px;
         }
         
@@ -851,7 +855,7 @@ html_modal_share(get_the_permalink());
     <div class="second-column">
         <div class="details column-common-border-style">
             <div class="author">
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url(<?= bp_core_fetch_avatar(array('item_id' => $suggestion_post->post_author, 'html' => false, 'width' => 40, 'height' => 40)) ?>);"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
                     <div class="sub"><?= _('creator') ?></div>

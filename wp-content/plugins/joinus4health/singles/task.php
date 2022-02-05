@@ -277,6 +277,9 @@ js_feather_replace();
             border-radius: 28px;
             border: solid 1px #dde1e5;
             background-color: #f9f9fa;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             flex: 0 0 40px;
         }
         
@@ -471,7 +474,7 @@ js_feather_replace();
     <div class="second-column">
         <div class="details column-common-border-style">
             <div class="author">
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url(<?= bp_core_fetch_avatar(array('item_id' => $task->post_author, 'html' => false, 'width' => 40, 'height' => 40)) ?>);"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
                     <div class="sub"><?= _('facilitator') ?></div>

@@ -142,6 +142,7 @@ get_header();
             border-radius: 4px;
             border: solid 1px #dde1e5;
             background-color: #ffffff;
+            margin-bottom: 50px;
         }
         
         .ast-container .topic-list .separator {
@@ -435,7 +436,7 @@ get_header();
     }
 
     $page_ranges_left_right = 2;
-    $query_params['posts_per_page'] = 2;
+    $query_params['posts_per_page'] = $per_page_topic;
     $get_page = get_query_var('page');
     $current_page = isset($get_page) && is_numeric($get_page) ? (int)$get_page : 1;
     $query_params['paged'] = $current_page;

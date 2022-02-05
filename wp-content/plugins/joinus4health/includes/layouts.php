@@ -109,14 +109,10 @@ function get_js_script_contribute($url) {
 ?>  
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".item-contribute,.item-uncontribute").click(function() {
-            if ($(this).hasClass("item-contribute")) {
-                elOperation = "contribute";
-            } else {
-                elOperation = "uncontribute";
-            }
+        $(document).on('click', ".item-contribute", function() {
+            elOperation = "contribute";
+            elId = $(".item-contribute").attr("data-id");
             
-            elId = $(this).attr("data-id");
             $.ajax({
                 type: 'GET',
                 url: "<?= $url ?>?operation=" + elOperation,
@@ -125,21 +121,35 @@ function get_js_script_contribute($url) {
                     if (data.error) {
                         alert(data.error);
                     } else {
-                        if (elOperation == 'contribute') {
-                            $('.item-contribute > div.text').html("<?= _("Contributing") ?>");
-                            $('.item-contribute > svg').replaceWith(feather.icons['check'].toSvg());
-                        } else {
-                            $('.item-uncontribute > div.text').html("<?= _("Contribute") ?>");
-                            $('.item-uncontribute > svg').replaceWith(feather.icons['user-plus'].toSvg());
-                        }
-                        
+                        $('.item-contribute > div.text').html("<?= _("Contributing") ?>");
+                        $('.item-contribute > svg').replaceWith(feather.icons['check'].toSvg());            
                         $('#item-contributes-' + elId).text(data.contributes);
-                        
-                        if (elOperation == "contribute") {
-                            $("#item-contribute-" + elId).attr("class", "black-btn item-uncontribute");
-                        } else {
-                            $("#item-contribute-" + elId).attr("class", "black-btn item-contribute");
-                        }
+                        $("#item-contribute-" + elId).attr("class", "black-btn item-uncontribute");
+                    }
+                }
+            });
+        });
+        
+        $(document).on('click', ".item-uncontribute", function() {
+            $("#modal-uncontriubute").modal();
+        });
+        
+        $(document).on('click', "#uncontriubute-yes", function() {
+            elOperation = "uncontribute";
+            elId = $(".item-uncontribute").attr("data-id");
+
+            $.ajax({
+                type: 'GET',
+                url: "<?= $url ?>?operation=" + elOperation,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        $('.item-uncontribute > div.text').html("<?= _("Contribute") ?>");
+                        $('.item-uncontribute > svg').replaceWith(feather.icons['user-plus'].toSvg());
+                        $('#item-contributes-' + elId).text(data.contributes);
+                        $("#item-contribute-" + elId).attr("class", "black-btn item-contribute");
                     }
                 }
             });
@@ -193,7 +203,7 @@ function html_topic($post) {
 function html_comment($comment, $offset_left, $enabled_reply = true) {
     ?>
             <div class="comment"<?php if ($offset_left > 0): ?> style="padding-left: <?= $offset_left ?>px;"<?php endif; ?>>
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url(<?= bp_core_fetch_avatar(array('item_id' => $comment->user_id, 'html' => false)) ?>);"></div>
                 <div class="container">
                     <div class="author"><?= $comment->comment_author ?></div>
                     <div class="date"><?= get_comment_date('j F Y, H:i', $comment) ?></div>
@@ -317,14 +327,14 @@ function js_add_or_reply_comment() {
     <?php
 }
 
-function html_modal_uncontribute($permalink) {
-    ?>
-    <div id="modal-uncontriubute" class="modal">
+function html_modal_uncontribute() {
+?>
+<div id="modal-uncontriubute" class="modal">
     <h4><?= _('Confirm action') ?></h4>
     <div class="text"><?= _('Do you want to cancel your contribution?') ?></div>
     <div class="buttons">
-        <input type="button" id="yes" value="<?= _('Yes') ?>" />
-        <input type="button" id="no" value="<?= _('No') ?>" />
+        <a href="#" rel="modal:close" id="uncontriubute-yes" class="blackbtn"><?= _('Yes') ?></a>
+        <a href="#" rel="modal:close"><?= _('No') ?></a>
     </div>
 </div>
 <?php

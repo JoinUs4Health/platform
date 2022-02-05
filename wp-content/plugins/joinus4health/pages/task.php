@@ -108,6 +108,7 @@ js_feather_replace();
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
+            margin-bottom: 50px;
         }
         
         .ast-container .first-column {
@@ -621,7 +622,7 @@ js_feather_replace();
         }
 
         $page_ranges_left_right = 2;
-        $query_params['posts_per_page'] = 1;
+        $query_params['posts_per_page'] = $per_page_task;
         $paged = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
         $query_params['paged'] = $paged;
         $query = new WP_Query($query_params);

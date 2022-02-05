@@ -109,21 +109,64 @@ if (isset($_GET['date_till'])) {
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
+            margin-bottom: 50px;
         }
         
         .ast-container .first-column {
             flex: 0 0 300px;
             width: 300px;
-            padding: 16px;
-            border-radius: 8px;
-            border: solid 1px #dde1e5;
-            background-color: #f9f9fa;
             display: flex;
             align-items: flex-start;
             flex-flow: row wrap;
         }
         
-        .ast-container .first-column div.filterheader {
+        .ast-container .first-column .push-your-idea {
+            width: 100%;
+            padding: 20px 16px 16px 16px;
+            border-radius: 4px;
+            background-color: #efe733;
+            margin-bottom: 24px;
+        }
+        
+        .ast-container .first-column .push-your-idea h3 {
+            font-family: Recoleta;
+            font-size: 28px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.14;
+            letter-spacing: normal;
+            color: #3b4045;
+        }
+        
+        .ast-container .first-column .push-your-idea a.btn-push-idea {
+            display: block;
+            width: 100%;
+            height: 52px;
+            margin: 16px 0 0 0;
+            border-radius: 4px;
+            background-color: #000000;
+            font-size: 16px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 52px;
+            letter-spacing: normal;
+            text-align: center;
+            color: #ffffff;
+        }
+        
+        .ast-container .first-column .filtering {
+            display: flex;
+            align-items: flex-start;
+            flex-flow: row wrap;
+            padding: 16px;
+            border-radius: 8px;
+            border: solid 1px #dde1e5;
+            background-color: #f9f9fa;
+        }
+        
+        .ast-container .first-column .filtering div.filterheader {
             width: 100%;
             display: flex;
             align-items: flex-start;
@@ -131,7 +174,7 @@ if (isset($_GET['date_till'])) {
             margin-bottom: 17px;
         }
         
-        .ast-container .first-column div.filterheader div.on-left {
+        .ast-container .first-column .filtering div.filterheader div.on-left {
             flex: 1 0 0;
             font-size: 16px;
             font-weight: bold;
@@ -142,7 +185,7 @@ if (isset($_GET['date_till'])) {
             color: #3b4045;
         }
         
-        .ast-container .first-column div.filterheader div.on-right {
+        .ast-container .first-column .filtering div.filterheader div.on-right {
             flex: 1 0 0;
             font-size: 14px;
             font-weight: bold;
@@ -156,7 +199,7 @@ if (isset($_GET['date_till'])) {
             text-decoration: underline;
         }
         
-        .ast-container .first-column div.advanced {
+        .ast-container .first-column .filtering div.advanced {
             padding: 15px 12px 0 12px;
             border-radius: 4px;
             border: solid 1px #eceef0;
@@ -168,7 +211,7 @@ if (isset($_GET['date_till'])) {
             flex-flow: row wrap;
         }
         
-        .ast-container .first-column label {
+        .ast-container .first-column .filtering label {
             font-size: 14px;
             font-weight: bold;
             font-stretch: normal;
@@ -180,7 +223,7 @@ if (isset($_GET['date_till'])) {
             margin-bottom: 7px;
         }
         
-        .ast-container .first-column select {
+        .ast-container .first-column .filtering select {
             height: 40px;
             padding: 0 6px 0 10px;
             border-radius: 4px;
@@ -191,7 +234,7 @@ if (isset($_GET['date_till'])) {
             margin-bottom: 15px;
         }
 
-        .ast-container .first-column input.text {
+        .ast-container .first-column .filtering input.text {
             height: 40px;
             padding: 0 6px 0 10px;
             border-radius: 4px;
@@ -202,7 +245,7 @@ if (isset($_GET['date_till'])) {
             margin-bottom: 15px;
         }
         
-        .ast-container .first-column input.btns {
+        .ast-container .first-column .filtering input.btns {
             height: 52px;
             border-radius: 4px;
             background-color: #000000;
@@ -536,69 +579,75 @@ if (isset($_GET['date_till'])) {
         }
     </style>
     <div class="first-column">
-        <div class="filterheader">
-            <div class="on-left"><?= _('Filter') ?></div>
-            <div class="on-right" id="clear-all"><?= _('Clear all filters') ?></div>
+        <div class="push-your-idea">
+            <h3><?= _('Take part in our project — suggest your idea!') ?></h3>
+            <a href="#" class="btn-push-idea"><?= _('Push your idea') ?></a>
         </div>
-        <label><?= _('Language') ?></label>
-        <select name="language" id="input-language">
-            <option value=''><?= _('any') ?></option>
-            <?php foreach ($meta_countries as $key => $value): ?>
-            <option value="<?= $key ?>"<?= ($key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label><?= _('Country of submission') ?></label>
-        <select name="country" id="input-country">
-            <option value=''><?= _('any') ?></option>
-            <?php foreach ($meta_countries as $key => $value): ?>
-            <option value="<?= $key ?>"<?= ($key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label><?= _('Stakeholder group') ?></label>
-        <select name="target_group" id="input-group">
-            <option value=''><?= _('any') ?></option>
-            <?php foreach ($meta_target_group as $key => $value): ?>
-            <option value="<?= $key ?>"<?= ($key == $_GET['target_group']) ? ' selected' : '' ?>><?= $value ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label><?= _('Type') ?></label>
-        <select name="type" id="input-type">
-            <option value=''><?= _('any') ?></option>
-            <?php foreach ($meta_types as $key => $value): ?>
-            <option value="<?= $key ?>"<?= ($key == $_GET['type']) ? ' selected' : '' ?>><?= $value ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label><?= _('Time period / from') ?></label>
-        <input type="text" class="text" name="date_since" id="input-date_since" />
-        <label><?= _('Time period / to') ?></label>
-        <input type="text" class="text" name="date_till" id="input-date_till" />
-        <div class="advanced">
+        <div class="filtering">
             <div class="filterheader">
-                <div class="on-left"><?= _('Advanced filters') ?></div>
+                <div class="on-left"><?= _('Filter') ?></div>
+                <div class="on-right" id="clear-all"><?= _('Clear all filters') ?></div>
             </div>
-            <label><?= _('Infrastructure') ?></label>
-            <select name="infrastructure" id="input-infrastructure">
-                <option value=''>any</option>
-                <?php foreach ($meta_infrastructure as $key => $value): ?>
-                <option value="<?= $key ?>"<?= ($key == $_GET['infrastructure']) ? ' selected' : '' ?>><?= $value ?></option>
+            <label><?= _('Language') ?></label>
+            <select name="language" id="input-language">
+                <option value=''><?= _('any') ?></option>
+                <?php foreach ($meta_countries as $key => $value): ?>
+                <option value="<?= $key ?>"<?= ($key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
-            <label><?= _('Methodology') ?></label>
-            <select name="methodology" id="input-methodology">
-                <option value=''>any</option>
-                <?php foreach ($meta_methodology as $key => $value): ?>
-                <option value="<?= $key ?>"<?= ($key == $_GET['methodology']) ? ' selected' : '' ?>><?= $value ?></option>
+            <label><?= _('Country of submission') ?></label>
+            <select name="country" id="input-country">
+                <option value=''><?= _('any') ?></option>
+                <?php foreach ($meta_countries as $key => $value): ?>
+                <option value="<?= $key ?>"<?= ($key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
-            <label><?= _('Content') ?></label>
-            <select name="content" id="input-content">
-                <option value=''>any</option>
-                <?php foreach ($meta_content as $key => $value): ?>
-                <option value="<?= $key ?>"<?= ($key == $_GET['content']) ? ' selected' : '' ?>><?= $value ?></option>
+            <label><?= _('Stakeholder group') ?></label>
+            <select name="target_group" id="input-group">
+                <option value=''><?= _('any') ?></option>
+                <?php foreach ($meta_target_group as $key => $value): ?>
+                <option value="<?= $key ?>"<?= ($key == $_GET['target_group']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
+            <label><?= _('Type') ?></label>
+            <select name="type" id="input-type">
+                <option value=''><?= _('any') ?></option>
+                <?php foreach ($meta_types as $key => $value): ?>
+                <option value="<?= $key ?>"<?= ($key == $_GET['type']) ? ' selected' : '' ?>><?= $value ?></option>
+                <?php endforeach; ?>
+            </select>
+            <label><?= _('Time period / from') ?></label>
+            <input type="text" class="text" name="date_since" id="input-date_since" />
+            <label><?= _('Time period / to') ?></label>
+            <input type="text" class="text" name="date_till" id="input-date_till" />
+            <div class="advanced">
+                <div class="filterheader">
+                    <div class="on-left"><?= _('Advanced filters') ?></div>
+                </div>
+                <label><?= _('Infrastructure') ?></label>
+                <select name="infrastructure" id="input-infrastructure">
+                    <option value=''>any</option>
+                    <?php foreach ($meta_infrastructure as $key => $value): ?>
+                    <option value="<?= $key ?>"<?= ($key == $_GET['infrastructure']) ? ' selected' : '' ?>><?= $value ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label><?= _('Methodology') ?></label>
+                <select name="methodology" id="input-methodology">
+                    <option value=''>any</option>
+                    <?php foreach ($meta_methodology as $key => $value): ?>
+                    <option value="<?= $key ?>"<?= ($key == $_GET['methodology']) ? ' selected' : '' ?>><?= $value ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label><?= _('Content') ?></label>
+                <select name="content" id="input-content">
+                    <option value=''>any</option>
+                    <?php foreach ($meta_content as $key => $value): ?>
+                    <option value="<?= $key ?>"<?= ($key == $_GET['content']) ? ' selected' : '' ?>><?= $value ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <input type="button" class="btns" id="filter-results" value="<?= _('Filter results') ?>"  />
         </div>
-        <input type="button" class="btns" id="filter-results" value="<?= _('Filter results') ?>"  />
     </div>
     <div class="second-column">
         <h1><?= _('Suggestions') ?></h1>
@@ -693,7 +742,7 @@ if (isset($_GET['date_till'])) {
         }
 
         $page_ranges_left_right = 2;
-        $query_params['posts_per_page'] = 1;
+        $query_params['posts_per_page'] = $per_page_suggestion;
         $paged = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
         $query_params['paged'] = $paged;
         $query = new WP_Query($query_params);

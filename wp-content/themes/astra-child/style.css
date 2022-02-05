@@ -20,23 +20,14 @@ body {
 
 
 
-/*** IDEA PUSH ***/
-
-/* main listing filters container */
-.ideapush-container-idea-header {
-    border-bottom: 0;
-}
-
 /* single listing entry container */
-.idea-item, .entry-content {
+entry-content {
     border: 1px solid #e7e7e7 !important;
     background-color: #ffffff;
     border-radius: 4px;
     width: 100%;
     margin-bottom: 12px !important;
 }
-
-
 
 
 /* ramka z liczbą głosów i kciukami */
@@ -57,8 +48,8 @@ body {
 }
 
 
-
-/* typografia */
+/*
+ typografia 
 .ast-single-post .entry-content a {
     text-decoration: none;
     color: #707070;
@@ -69,7 +60,7 @@ body {
 
 .ast-single-post .entry-content a.idea-title:hover {
     opacity: 0.8;
-}
+}*/
 
 
 /* ramka admin functions */
@@ -244,6 +235,77 @@ Share modal style - start
 
 #share div.buttons #do-action div.text {
     float: left;
+}
+
+.site-header { 
+    z-index: auto;
+}
+
+.main-header-bar {
+    z-index: auto;
+}
+/*
+Share modal - end
+*/
+
+
+/*
+Uncontribute modal style - start
+*/
+#modal-uncontriubute {
+    width: 500px;
+    padding: 0;
+}
+
+#modal-uncontriubute h4 {
+    padding-left: 24px;
+    line-height: 72px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #3b4045;
+}
+
+#modal-uncontriubute div.text {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #3b4045;
+    padding: 0 25px;
+}
+
+#modal-uncontriubute div.buttons {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 0 24px 24px 24px;
+}
+
+#modal-uncontriubute div.buttons a {
+    display: inline-block;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 4px;
+    border: solid 1px #dde1e5;
+    background-color: #f9f9fa;
+    margin-right: 12px;
+    margin-top: 20px;
+    flex: 0 0 auto;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+    padding: 0 25px 0 25px;
+}
+
+
+#modal-uncontriubute div.buttons a.blackbtn {
+    background-color: #000000;
+    color: #ffffff;
 }
 
 .site-header { 

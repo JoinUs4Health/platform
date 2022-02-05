@@ -1,83 +1,50 @@
-#buddypress ul.item-list li {
-    padding: 20px 0 0 20px;
+/*
+
+
+#buddypress div.item-list-tabs ul li a, #buddypress div.item-list-tabs ul li span {
+    padding: 0 15px;
+    line-height: 45px;
 }
 
-#buddypress ul.item-list li div.action {
-    right: 20px;
+#buddypress div.item-list-tabs ul li a span, #buddypress div.item-list-tabs ul li a span {
+
 }
 
-.ast-single-post .entry-content a {
-    font-size: 18px;
-    font-weight: 500;
+#buddypress ul.item-list li div.meta {
+    margin-top: 0;
+}
+
+
+#buddypress div#subnav {
+    margin: 0;
+}
+
+*/
+
+.ast-single-post .entry-title {
+    font-family: Recoleta;
+    font-size: 28px;
+    font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.33;
+    line-height: 1.14;
     letter-spacing: normal;
     color: #3b4045;
+    margin-bottom: 20px;
 }
 
-#buddypress span.activity {
-  font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.33;
-  letter-spacing: normal;
-  color: #abb4bd;
-}
-
-#buddypress ul.item-list li div.item-desc {
-    width: auto;
-    margin-right: 20px;
-    margin-top: 10px;
-}
-
-#buddypress ul.item-list li div.item-meta {
-    line-height: 1;
-}
-
-.entry-content p {
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  color: #808a95;
-}
-
-#pag-bottom .pag-count {
-    margin-left: 0;
-}
-
-#buddypress div.dir-search {
-    margin-top: -60px;
-}
-
-#buddypress div.dir-search #groups_search {
-    height: 40px;
-    padding: 10px 8px 10px 10px;
-    border-radius: 4px;
-    border: solid 1px #ced4d9;
-    background-color: #fff;
-}
-
-#buddypress div.dir-search #groups_search_submit {
-    height: 40px;
-    line-height: 1;
-    border-radius: 4px;
-    background-color: #000000;
-    font-size: 16px;
+#buddypress div.item-list-tabs#subnav ul li.last label {
+    font-size: 14px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
+    line-height: 1;
     letter-spacing: normal;
-    text-align: center;
-    color: #ffffff;
+    color: #656d75;
+    margin-right: 10px;
 }
 
-
-#groups-order-select #groups-order-by {
+#buddypress div.item-list-tabs#subnav ul li.last select {
     height: 40px;
     border-radius: 4px;
     border: solid 1px #ced4d9;
@@ -92,54 +59,189 @@
     color: #656d75;
     margin-right: 20px;
 }
+/*
+.ast-single-post .entry-content a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #3b4045;
+}*/
 
-#groups-order-select label {
+#buddypress ul.item-list li div.item-meta {
+    line-height: 1;
+}
+
+.groups-list .item item-title a {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #808a95;
+}
+
+#buddypress #groups_search {
+    width: 400px;
+}
+
+#buddypress #group-dir-count-top {
+    margin-left: 10px;
+}
+
+#buddypress #item-header {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.has-cover-image a img {
+    display: none;
+}
+
+.bp-group-short-description-title a {
+    display: none;
+}
+
+.bp-group-preview-cover a img {
+    display: none;
+}
+
+.bp-group-short-description {
+    height: 30px;
+}
+
+#activity-filter-select label {
+}
+
+#activity-filter-select #activity-filter-by {
+    height: 40px;
+    border-radius: 4px;
+    border: solid 1px #ced4d9;
+    background-color: #fff;
+    line-height: 1 !important;
+    font-size: 14px !important;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #656d75;
+    margin-right: 20px;    
+}
+
+
+.activity-header p {
+    font-size: 13px;
+}
+
+.activity-header p a {
+    color: #555;
+    opacity: 0.9;
+    font-weight: 700;
+}
+        
+.activity-header p a img {
+    display: none;
+}
+
+ul#groups-list li div.item div.item-title a {
+    font-size: 18px;
+    font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: 1;
     letter-spacing: normal;
-    color: #656d75;
-    margin-right: 10px;
+    color: #3b4045;
+    text-decoration: none;
 }
 
-#item-actions h2 {
-    font-size: 14px;
+#item-body {
+    margin-top: 10px;
 }
 
-#buddypress div.item-list-tabs ul li a, #buddypress div.item-list-tabs ul li span {
-    padding: 0 15px;
-    font-size: 13px;
-    line-height: 45px;
+#item-header-content {
+    width: 85%;
 }
 
-#buddypress div.item-list-tabs ul li a span, #buddypress div.item-list-tabs ul li a span {
-    padding: 3px 13px;
-    line-height: 30px;
-    border-radius: 15px;
-    font-size: 13px;
+#item-header-content #item-meta {
+    float: left;
 }
 
-#buddypress ul.item-list li div.meta {
-    margin-top: 0;
+#item-header-content #item-meta p {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #3b4045;
+    margin-bottom: 10px;
 }
 
-#buddypress div.item-list-tabs ul li {
-    border-right: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
+#item-header-cover-image #item-header-avatar a img {
+    border-radius: 4px;
 }
 
-#buddypress div#subnav {
+#item-body > #bbpress-forums > #bbpress-forums {
+    padding: 0 20px;
+}
+
+#item-body > #bbpress-forums > h2 {
+    display: none;
+}
+
+#item-body > h3 {
+    display: none;
+}
+
+#item-body .standard-form { 
+    padding: 0 20px 20px 20px;
+}
+
+#task_breaker-intranet-projects {
+    padding: 20px;
+}
+
+#task_breaker-intranet-projects p {
+    padding: 16px 0 0 0;
     margin: 0;
 }
 
-#buddypress div#subnav ul li {
-    border-right: none;
-    border-bottom: none;
+#group-create-body {
+    padding: 0 20px 20px 20px;
 }
 
-.ast-single-post .entry-title {
+#buddypress div.item-list-tabs#subnav ul li.groups-members-search {
+    border: none;
+    margin-left: 20px;
+}
+
+#buddypress div.item-list-tabs#subnav ul li.groups-members-search input[type="text"] {
+    width: 400px;
+}
+
+ul#groups-list li div.item div.item-desc p {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #808a95;
+}
+
+#register-page form#signup_form p {
+    padding: 20px;
+}
+
+#register-page .register-section {
+    margin-top: 30px;
+}
+
+#register-page .register-section h2 {
     font-family: Recoleta;
     font-size: 28px;
     font-weight: normal;
@@ -151,9 +253,169 @@
     margin-bottom: 20px;
 }
 
-.ast-container .first-column input.btns {
-    height: 52px;
+#register-page #basic-details-section input {
+    width: 90% !important;
+}
+
+#register-page #signup_form .submit {
+    margin-bottom: 50px;
+}
+
+#profile-details-section .field_type_selectbox fieldset select,
+#profile-details-section .field_type_number fieldset input {
+    width: 90% !important;
+}
+
+
+#profile-details-section .field_type_datebox fieldset label {
+    margin-right: 5px;
+    margin-left: 15px;
+}
+
+
+#profile-details-section .field_type_checkbox fieldset label {
+    margin: 5px 0;
+}
+
+#profile-details-section .field_type_checkbox fieldset input {
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.bp_register > .entry-content > #buddypress {
+    background-color: #f9f9fa !important;
+}
+
+.entry-content > #buddypress {
+    border-radius: 8px;
+    border: solid 1px #dde1e5;
+    margin-bottom: 50px;
+}
+
+#item-body #members-group-list ul#member-list li {
+    height: 100px;
+}
+
+#item-body #members-group-list ul#member-list li h5 {
+    clear: none;
+    margin-bottom: 0;
+}
+
+#item-body #members-group-list ul#member-list li h5 a {
+    text-decoration: none;
+    color: #555;
+}
+
+#item-body #members-group-list #pag-top #member-count-top {
+    margin-left: 10px;
+}
+
+div#item-header-content div#item-buttons div.group-button a.group-button {
+    cursor: pointer;
+    outline: none;
+    padding: 4px 10px;
+    text-decoration: none;
+    height: 40px;
+    line-height: 1;
     border-radius: 4px;
     background-color: #000000;
-    flex: 0 0 100%;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+#buddypress #item-body #bbpress-forums #bbpress-forums .bbp-topics {
+    font-size: 15px;
+    text-decoration: none;
+}
+
+#buddypress #item-body #bbpress-forums #bbpress-forums .bbp-topics a {
+    color: #3b4045;
+    text-decoration: none;
+}
+
+.bbp-topic-form form#new-post fieldset.bbp-form div label {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 15px 0 5px 0;
+}
+
+.bbp-topic-form form#new-post fieldset.bbp-form div input[type="text"],
+.bbp-topic-form form#new-post fieldset.bbp-form div select {
+    width: 60%;
+    color: #737373;
+    font: inherit;
+    font-size: 14px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 4px;
+    border: solid 1px #ced4d9;
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #abb4bd;
+}
+
+#bbp_topic_content {
+    background-color: #ffffff;
+}
+
+#bbp_topic_submit {
+    cursor: pointer;
+    outline: none;
+    padding: 4px 10px;
+    text-decoration: none;
+    height: 40px;
+    line-height: 1;
+    border-radius: 4px;
+    background-color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;    
+}
+
+#bbpress-forums #subscription-toggle span a.subscription-toggle {
+    color: #3b4045;
+    
+}
+
+.group-members-list ul.item-list li div.item div.item-title a {
+    color: #3b4045;
+    text-decoration: none;
+}
+
+.taskbreaker-project-item-wrap a, #task_breaker-projects-lists a {
+    color: #3b4045;
+    text-decoration: none;
+}
+
+#task_breaker-project-tab-li li a {
+    color: #3b4045;
+    text-decoration: none;
+}
+
+#task_breaker-dashboard-at-a-glance ul li .task_breaker-dashboard-at-a-glance-box {
+    color: #3b4045;
+    text-decoration: none;
+}
+
+.single-project .task_breaker-tabs-tabs ul li a {
+    color: #3b4045;
+    text-decoration: none;
+}
+
+.single-project .task_breaker-tabs-tabs ul li .task_breaker-task-count {
+    background-color: #3b4045;
 }

@@ -21,6 +21,7 @@ echo get_js_script_follow(get_the_permalink());
 echo get_js_script_contribute(get_the_permalink());
 echo get_js_load_href();
 html_modal_share(get_the_permalink());
+html_modal_uncontribute();
 ?>
     <style>
         .ast-container {
@@ -274,7 +275,6 @@ html_modal_share(get_the_permalink());
             letter-spacing: normal;
             color: #abb4bd;
         }
-        
         
         .ast-container .first-column .add-comment form {
             display: flex;
@@ -603,6 +603,9 @@ html_modal_share(get_the_permalink());
             border: solid 1px #dde1e5;
             background-color: #f9f9fa;
             flex: 0 0 40px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
         }
         
         
@@ -879,7 +882,7 @@ html_modal_share(get_the_permalink());
     <div class="second-column">
         <div class="details column-common-border-style">
             <div class="author">
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url(<?= bp_core_fetch_avatar(array('item_id' => $topic_post->post_author, 'html' => false, 'width' => 40, 'height' => 40)) ?>);"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
                     <div class="sub"><?= _('facilitator') ?></div>
@@ -928,7 +931,7 @@ html_modal_share(get_the_permalink());
             $query_params = array('post_type' => 'topic', 'posts_per_page' => 1, 'post__in' => array($m_bbpress_topic));
             $query_bbpress_topics = new WP_Query($query_params);
             ?>
-            <?php while ($query_bbpress_topics->have_posts()): ?>
+            <?php while ($query_bbpress_topics->have_posts()): ?> 
             <?php $query_bbpress_topics->the_post(); ?>
             <h6><?= _('Assigned working group') ?></h6>
             <div class="url-list">

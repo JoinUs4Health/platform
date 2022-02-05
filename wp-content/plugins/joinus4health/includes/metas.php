@@ -4,6 +4,10 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
+$per_page_topic = 10;
+$per_page_task = 10;
+$per_page_suggestion = 10;
+
 $meta_countries = array(
     "AF" => "Afghanistan", 
     "AL" => "Albania", 
