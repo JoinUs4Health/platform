@@ -60,6 +60,14 @@ function html_admin_select_box($title, $name, $values, $key_selected = null) {
 <?php
 }
 
+function html_admin_text($name, $value) {
+?>
+    <p>
+        <input type="text" name="<?= $name ?>" style="width: 100%;" value="<?= sanitize_text_field($value) ?>" />
+    </p>
+<?php
+}
+
 function html_admin_textarea($name, $value) {
 ?>
     <p>

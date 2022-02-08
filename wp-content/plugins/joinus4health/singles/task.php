@@ -6,21 +6,18 @@ if (!defined('ABSPATH')) {
 
 the_post();
 $task = $post;
-?>
-<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/feather.min.js"></script>
-<script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
-<?php
 $meta = get_post_meta(get_the_ID());
 get_header();
 echo get_js_script_voting(get_the_permalink());
 echo get_js_script_follow(get_the_permalink());
 echo get_js_load_href();
-js_feather_replace();
+$preferred_language = get_preferred_language();
 ?>
     <style>
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
+            margin-bottom: 40px;
         }
         
         .column-common-border-style {
@@ -34,6 +31,7 @@ js_feather_replace();
             flex-flow: row wrap;
             padding-bottom: 24px;
             flex: 0 0 100%;
+            line-height: normal;
         }
         
         .ast-container .bread-crumb a.homepage svg {
@@ -436,13 +434,13 @@ js_feather_replace();
     <div class="bread-crumb">
         <a href="<?= home_url() ?>" class="homepage"><i data-feather="home"></i></a>
         <i data-feather="chevron-right"></i>
-        <a href="<?= home_url() ?>/<?= $task->post_type ?>/" class="txt"><?= _('Tasks') ?></a>
+        <a href="<?= home_url() ?>/<?= $task->post_type ?>/" class="txt"><?= __('Tasks', 'joinus4health') ?></a>
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
             <h2><?= $task->post_title ?></h2>
             <div class="separator"></div>
-            <h6><?= _('Task details') ?></h6>
+            <h6><?= __('Task details', 'joinus4health') ?></h6>
             <?php
             $m_description = trim(get_post_meta(get_the_ID(), 'm_description', true));
             $m_description = str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m_description);
@@ -461,7 +459,7 @@ js_feather_replace();
             <h6>Related topic</h6>
             <div class="related-topic column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <div class="two-line-content">
-                    <a href="<?= get_the_permalink($post) ?>" class="title"><?= get_the_title($post->ID) ?></a>
+                    <a href="<?= get_the_permalink($post) ?>" class="title"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a>
                     <div class="days-left"><?= time_ago($post) ?></div>
                     <div class="submit-by"><?php the_author() ?></div>
                 </div>
@@ -477,7 +475,7 @@ js_feather_replace();
                 <div class="avatar" style="background-image: url(<?= bp_core_fetch_avatar(array('item_id' => $task->post_author, 'html' => false, 'width' => 40, 'height' => 40)) ?>);"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
-                    <div class="sub"><?= _('facilitator') ?></div>
+                    <div class="sub"><?= __('facilitator', 'joinus4health') ?></div>
                 </div>
             </div>
             <div class="separator"></div>
@@ -487,8 +485,8 @@ js_feather_replace();
             </div>
             <div class="rows">
                 <?php $m_valid_thru = get_post_meta($task->ID, 'm_valid_thru', true) ?>
-                <div><?= _('Created') ?></div>
-                <div><?= _('Valid thru') ?></div>
+                <div><?= __('Created', 'joinus4health') ?></div>
+                <div><?= __('Valid thru', 'joinus4health') ?></div>
                 <div class="value"><?= time_ago($task) ?></div>
                 <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
             </div>
@@ -499,26 +497,26 @@ js_feather_replace();
             <div class="separator"></div>
             <div class="rows2">
                 <i data-feather="flag"></i>
-                <div><?= __('Language') ?></div>
-                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : _('not specified') ?></div>
+                <div><?= __('Language', 'joinus4health') ?></div>
+                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="users"></i>
-                <div><?= __('Stakeholder group') ?></div>
-                <div class="value"><?= $m_target_group!= '' ? $meta_target_group[$m_target_group] : _('not specified') ?></div>
+                <div><?= __('Stakeholder group', 'joinus4health') ?></div>
+                <div class="value"><?= $m_target_group!= '' ? $meta_target_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="disc"></i>
-                <div><?= __('Source') ?></div>
-                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : _('not specified') ?></div>
+                <div><?= __('Source', 'joinus4health') ?></div>
+                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="layers"></i>
-                <div><?= __('Level') ?></div>
-                <div class="value"><?= $m_level != '' ? $meta_level[$m_level] : _('not specified') ?></div>
+                <div><?= __('Level', 'joinus4health') ?></div>
+                <div class="value"><?= $m_level != '' ? $meta_level[$m_level] : __('not specified', 'joinus4health') ?></div>
             </div>
         </div>
         <?php $m_duration = get_post_meta($task->ID, 'm_duration', true) ?>
         <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
         <div class="estimate column-common-border-style">
-            <h6><?= _('Time estimate') ?></h6>
+            <h6><?= __('Time estimate', 'joinus4health') ?></h6>
             <div class="time"><?= $meta_contribute_duration[$m_duration] ?></div>
-            <input type="button" class="btn-contribute" value="<?= _('Contribute') ?>" />
+            <input type="button" class="btn-contribute" value="<?= __('Contribute', 'joinus4health') ?>" />
         </div>
         <?php endif; ?>
     </div>
-<?php get_footer(); ?>
+<?php get_footer();

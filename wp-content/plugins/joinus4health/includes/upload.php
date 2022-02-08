@@ -1,11 +1,13 @@
 <?php
+require_once('../../../../wp-load.php');
+
 $allowed_referers = array( //todo move to config
     get_site_url()."/wp-admin/post-new.php",
     get_site_url()."/wp-admin/post.php",
     get_site_url()."/wp-content/plugins/joinus4health/includes/upload.php"
 );
 
-$server_http_referer = $_SERVER['HTTP_REFERER'];
+$server_http_referer = explode('?', $_SERVER['HTTP_REFERER'])[0];
 $is_allowed_referer = false;
 
 foreach ($allowed_referers as $allowed_referer) {
@@ -18,7 +20,6 @@ if (!$is_allowed_referer) {
     exit;
 }
 
-require_once('../../../../wp-load.php');
 
 if (!current_user_can('upload_files')) {
     die(__("You do not have sufficient permissions to access this page."));
@@ -31,7 +32,9 @@ if (!current_user_can('upload_files')) {
 *  @param string $mime is the type of file can be "image","audio" or "file"
 *  @param string $file_type  is the mimetype of the field
 */
-function valid_mime($mime, $file_type) {
+function valid_mime($file) {
+    $mime = mime_content_type($file['tmp_name']);
+    
     $imagesExts = array(
       'image/gif',
       'image/jpeg',
@@ -47,14 +50,10 @@ function valid_mime($mime, $file_type) {
       'audio/mp3'
     );
 
-    if ($file_type == "image" && in_array($mime, $imagesExts)) {
+    if ($mime == 'application/pdf') {
         return true;
-    } else if ($file_type == "audio" && in_array($mime, $audioExts)) {
+    } else if (in_array($mime, $imagesExts)) {
         return true;
-    } else {
-      // @todo : here users should be set what mime types
-      // are safety for the "files" type of field
-      return true;
     }
     
     return false;
@@ -75,9 +74,9 @@ function valid_mime($mime, $file_type) {
 
             if (isset($_FILES['file']) && (!empty($_FILES['file']['tmp_name']))) {
                 if ($_FILES['file']['error'] == UPLOAD_ERR_OK) {
-                    if (valid_mime($_FILES['file']['type'], $_POST['type'])) {
+                    if (valid_mime($_FILES['file'])) {
                         if (!wp_verify_nonce($_POST['checking'], 'nonce_upload_file')) {
-                            $resp['msg'] = __('Sorry, your nonce did not verify.');
+                            $resp->msg = __('Sorry, your nonce did not verify.');
                         } else {
                             $special_chars = array(
                                 ' ','`','"','\'','\\','/'," ","#","$","%","^","&",
@@ -102,7 +101,7 @@ function valid_mime($mime, $file_type) {
                             $resp->error = false;
                         }
                     } else {
-                        $resp->msg = __("Failed to upload the file!");
+                        $resp->msg = __("File type not supported");
                     }
                 } else if ($_FILES['file']['error'] == UPLOAD_ERR_INI_SIZE) {
                     $resp->msg = __('The uploaded file exceeds the maximum upload limit!');
@@ -182,7 +181,7 @@ function valid_mime($mime, $file_type) {
     <body>
         <form name="iform" action="" method="post" enctype="multipart/form-data">
             <?php wp_nonce_field('nonce_upload_file', 'checking') ?>
-            <label for="file"><?php _e('File'); ?>:</label>&nbsp;&nbsp;&nbsp;
+            <label for="file"><?= __('File') ?>:</label>&nbsp;&nbsp;&nbsp;
             <input id="file" type="file" name="file" onchange="upload()" />
             <input type="hidden" name="id" value="<?= $get_id ?>" />
             <input type="hidden" name="type" value="<?= $get_type ?>" />

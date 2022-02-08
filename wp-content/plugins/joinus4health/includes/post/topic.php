@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 /**
@@ -91,6 +91,7 @@ add_action('init', 'ju4htopic_custom_post_type', 0);
 function add_meta_boxes_ju4htopic_callback($post) {
     add_meta_box('container_followers_and_contributors', __('Followers, contributors & voters'), 'add_meta_box_ju4htopic_followers_contributors_voters_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_topimage', __('Top image'), 'add_meta_box_ju4htopic_topimage_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_title', __('Title'), 'add_meta_box_ju4htopic_title_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_intro', __('Introduction'), 'add_meta_box_ju4htopic_intro_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4htopic_description_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4htopic_additional_fields_callback', 'ju4htopic', 'normal', 'low');
@@ -121,7 +122,7 @@ function add_meta_box_ju4htopic_followers_contributors_voters_callback($post) {
                 echo (($i++ == 0) ? ': ' : ', ').'<a href="'. bp_core_get_userlink($user->ID, false, true).'">'.$user->display_name.'</a>';
             }
         } else {
-            echo 'No users found.';
+            echo ': '._('No users found.');
         }
         echo '</p>';
     }
@@ -134,8 +135,31 @@ function add_meta_box_ju4htopic_followers_contributors_voters_callback($post) {
  * @param type $post
  */
 function add_meta_box_ju4htopic_intro_callback($post) {
+    global $meta_translations;
     wp_nonce_field(basename( __FILE__ ), 'topic_intro_nonce');
+    echo '<p>English:<br>';
     html_admin_textarea("m_intro", get_post_meta($post->ID, 'm_intro', true));
+    echo '</p>';
+    foreach ($meta_translations as $key => $value) {
+        echo '<p>'.$value.':<br>';
+        html_admin_textarea("m_intro_".$key, get_post_meta($post->ID, 'm_intro_'.$key, true));
+        echo '</p>';
+    }
+}
+
+/**
+ * Adds meta box "Title"
+ * - text field with title of topic
+ * 
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_title_callback($post) {
+    global $meta_translations;
+    foreach ($meta_translations as $key => $value) {
+        echo '<p>'.$value.':<br>';
+        html_admin_text("m_title_".$key, get_post_meta($post->ID, 'm_title_'.$key, true));
+        echo '</p>';
+    }
 }
 
 /**
@@ -145,8 +169,16 @@ function add_meta_box_ju4htopic_intro_callback($post) {
  * @param type $post
  */
 function add_meta_box_ju4htopic_description_callback($post) {
+    global $meta_translations;
     wp_nonce_field(basename( __FILE__ ), 'topic_description_nonce');
+    echo '<p>English:<br>';
     html_admin_textarea("m_description", get_post_meta($post->ID, 'm_description', true));
+    echo '</p>';
+    foreach ($meta_translations as $key => $value) {
+        echo '<p>'.$value.':<br>';
+        html_admin_textarea("m_description_".$key, get_post_meta($post->ID, 'm_description_'.$key, true));
+        echo '</p>';
+    }
 }
 
 /**
@@ -160,7 +192,7 @@ function add_meta_box_ju4htopic_additional_fields_callback($post) {
     global $meta_status, $meta_countries, $meta_source, $meta_target_group;
     wp_nonce_field(basename( __FILE__ ), 'topic_additional_fields_nonce');
     $topics = array();
-    $query = new WP_Query(array('post_type' => 'topic', 'posts_per_page' => -1));
+    $query = new WP_Query(array('post_type' => 'forum', 'posts_per_page' => -1));
     if ($query->have_posts()) {
         while ($query->have_posts()) {
             $query->the_post();
@@ -364,7 +396,7 @@ function add_meta_box_ju4htopic_topimage_callback($post) {
  * @return type
  */
 function save_post_ju4htopic_callback($post_id) {
-    global $meta_status, $meta_countries, $meta_source, $meta_target_group;
+    global $meta_status, $meta_countries, $meta_source, $meta_target_group, $meta_translations;
     
     $nonces = array(
         'topic_additional_fields_nonce', 
@@ -633,11 +665,18 @@ function save_post_ju4htopic_callback($post_id) {
         }
     }
     
+    
     //saving intro textarea field
     update_post_meta($post_id, 'm_intro', esc_html($_POST['m_intro']));
     
     //saving description textarea field
     update_post_meta($post_id, 'm_description', esc_html($_POST['m_description']));
+    
+    foreach ($meta_translations as $key => $value) {
+        update_post_meta($post_id, 'm_title_'.$key, esc_html($_POST['m_title_'.$key]));
+        update_post_meta($post_id, 'm_intro_'.$key, esc_html($_POST['m_intro_'.$key]));
+        update_post_meta($post_id, 'm_description_'.$key, esc_html($_POST['m_description_'.$key]));
+    }
     
     update_post_meta($post_id, 'm_bbpress_topic', esc_html($_POST['m_bbpress_topic']));
     

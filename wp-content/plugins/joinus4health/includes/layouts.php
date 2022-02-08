@@ -80,10 +80,10 @@ function get_js_script_follow($url) {
                         alert(data.error);
                     } else {
                         if (elOperation == 'follow') {
-                            $('.item-follow > div.text').html("<?= _("Following") ?>");
+                            $('.item-follow > div.text').html("<?= __("Following", 'joinus4health') ?>");
                             $('.item-follow > svg').replaceWith(feather.icons['check'].toSvg());
                         } else {
-                            $('.item-unfollow > div.text').html("<?= _("Follow") ?>");
+                            $('.item-unfollow > div.text').html("<?= __("Follow", 'joinus4health') ?>");
                             $('.item-unfollow > svg').replaceWith(feather.icons['eye'].toSvg());
                         }
                         
@@ -121,7 +121,7 @@ function get_js_script_contribute($url) {
                     if (data.error) {
                         alert(data.error);
                     } else {
-                        $('.item-contribute > div.text').html("<?= _("Contributing") ?>");
+                        $('.item-contribute > div.text').html("<?= __("Contributing", 'joinus4health') ?>");
                         $('.item-contribute > svg').replaceWith(feather.icons['check'].toSvg());            
                         $('#item-contributes-' + elId).text(data.contributes);
                         $("#item-contribute-" + elId).attr("class", "black-btn item-uncontribute");
@@ -146,7 +146,7 @@ function get_js_script_contribute($url) {
                     if (data.error) {
                         alert(data.error);
                     } else {
-                        $('.item-uncontribute > div.text').html("<?= _("Contribute") ?>");
+                        $('.item-uncontribute > div.text').html("<?= __("Contribute", 'joinus4health') ?>");
                         $('.item-uncontribute > svg').replaceWith(feather.icons['user-plus'].toSvg());
                         $('#item-contributes-' + elId).text(data.contributes);
                         $("#item-contribute-" + elId).attr("class", "black-btn item-contribute");
@@ -168,6 +168,7 @@ function html_topic($post) {
     $m_status = get_post_meta($post->ID, 'm_status', true);
     $m_votes = get_post_meta($post->ID, "m_votes");
     $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
+    $preferred_language = get_preferred_language();
     ?>        <div class="topic-item">
             <div class="voting-col">
                 <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>">
@@ -176,10 +177,10 @@ function html_topic($post) {
                 </div>
             </div>
             <div class="content-col" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
-                <h5><a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>"><?= $post->post_title ?></a></h5>
+                <h5><a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a></h5>
                 <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
                 <div class="date-time">submitted by <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
-                <div class="content"><?= get_post_meta(get_the_ID(), 'm_intro', true) ?></div>
+                <div class="content"><?= get_translated_field($post, 'm_intro', $preferred_language) ?></div>
                 <?php if (count($tags) > 0): ?>
                 <div class="tags">
                     <?php foreach ($tags as $tag): ?>
@@ -243,6 +244,7 @@ function html_suggestion($post) {
     $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
     $m_votes = get_post_meta($post->ID, "m_votes");
     $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
+    $preferred_language = get_preferred_language();
     ?>
             <div class="suggestion-item">
                 <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>">
@@ -250,9 +252,9 @@ function html_suggestion($post) {
                     <i data-feather="thumbs-up"></i>
                 </div>
                 <div class="two-line-content" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
-                    <a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>" class="title"><?= $post->post_title ?></a>
-                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
-                    <div class="submit-by"><?= _('submitted by') ?> <?= get_the_author() ?></div>
+                    <a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>" class="title"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a>
+                    <?php if ($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
+                    <div class="submit-by"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?></div>
                 </div>
                 <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
                 <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
@@ -275,41 +277,31 @@ function html_modal_share($permalink) {
         });
     </script>
     <div id="share" class="modal">
-    <h4><?= _('Share this page') ?></h4>
+    <h4><?= __('Share this page', 'joinus4health') ?></h4>
     <div class="separator"></div>
     <div class="methods">
         <div class="method">
             <a href="https://www.facebook.com/sharer/sharer.php?u=#url" class="fb"><i data-feather="facebook"></i></a>
-            <span><?= _('Facebook') ?></span>
+            <span><?= __('Facebook', 'joinus4health') ?></span>
         </div>
         <div class="method">
             <a href="http://twitter.com/share?url=<?= $permalink ?>" class="twitter"><i data-feather="twitter"></i></a>
-            <span><?= _('Twitter') ?></span>
+            <span><?= __('Twitter', 'joinus4health') ?></span>
         </div>
         <div class="method">
             <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= $permalink ?>" class="linkedin"><i data-feather="linkedin"></i></a>
-            <span><?= _('Linkedin') ?></span>
+            <span><?= __('Linkedin', 'joinus4health') ?></span>
         </div>
     </div>
     <div class="buttons">
-        <input type="text" id="url-share" value="<?= get_permalink($topic_post->ID) ?>" />
+        <input type="text" id="url-share" value="<?= $permalink ?>" />
         <div id="do-action">
             <i data-feather="copy"></i>
-            <div class="text"><?= _('Copy') ?></div>
+            <div class="text"><?= __('Copy', 'joinus4health') ?></div>
         </div>
     </div>
 </div>
 <?php
-}
-
-function js_feather_replace() {
-    ?>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            feather.replace();
-        });
-    </script>
-    <?php
 }
 
 function js_add_or_reply_comment() {
@@ -320,7 +312,7 @@ function js_add_or_reply_comment() {
             comment_reply_id = $(this).attr('id').split('-')[2];
             $('#comment_parent').val(comment_reply_id);
             comment_reply_to = $(this).parent().parent().find('.author').html();
-            $('.add-comment .caption').html("<?= _('Reply to') ?> " + comment_reply_to + " <?= _('comment') ?>");
+            $('.add-comment .caption').html("<?= __('Reply to', 'joinus4health') ?> " + comment_reply_to + " <?= __('comment', 'joinus4health') ?>");
         });
     });
     </script>
@@ -330,11 +322,11 @@ function js_add_or_reply_comment() {
 function html_modal_uncontribute() {
 ?>
 <div id="modal-uncontriubute" class="modal">
-    <h4><?= _('Confirm action') ?></h4>
-    <div class="text"><?= _('Do you want to cancel your contribution?') ?></div>
+    <h4><?= __('Confirm action', 'joinus4health') ?></h4>
+    <div class="text"><?= __('Do you want to cancel your contribution?', 'joinus4health') ?></div>
     <div class="buttons">
-        <a href="#" rel="modal:close" id="uncontriubute-yes" class="blackbtn"><?= _('Yes') ?></a>
-        <a href="#" rel="modal:close"><?= _('No') ?></a>
+        <a href="#" rel="modal:close" id="uncontriubute-yes" class="blackbtn"><?= __('Yes', 'joinus4health') ?></a>
+        <a href="#" rel="modal:close"><?= __('No', 'joinus4health') ?></a>
     </div>
 </div>
 <?php

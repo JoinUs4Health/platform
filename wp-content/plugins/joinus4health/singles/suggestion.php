@@ -5,20 +5,18 @@ if (!defined('ABSPATH')) {
 }
 
 the_post();
+$preferred_language = get_preferred_language();
 $suggestion_post = $post;
+$meta = get_post_meta(get_the_ID());
+get_header();
 ?>
-<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/feather.min.js"></script>
-<script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
 <script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/jquery.modal.min.css" />
 <?php
-$meta = get_post_meta(get_the_ID());
-get_header();
 echo get_js_script_voting(get_the_permalink());
 echo get_js_script_follow(get_the_permalink());
 echo get_js_script_contribute(get_the_permalink());
 echo get_js_load_href();
-js_feather_replace();
 js_add_or_reply_comment();
 html_modal_share(get_the_permalink());
 html_modal_uncontribute();
@@ -27,6 +25,7 @@ html_modal_uncontribute();
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
+            margin-bottom: 40px;
         }
         
         .column-common-border-style {
@@ -39,6 +38,7 @@ html_modal_uncontribute();
             display: flex;
             flex-flow: row wrap;
             padding-bottom: 24px;
+            line-height: normal;
         }
         
         .ast-container .bread-crumb a.homepage svg {
@@ -323,7 +323,6 @@ html_modal_uncontribute();
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
-            
             flex: 0 0 56px;
         }
         
@@ -711,42 +710,39 @@ html_modal_uncontribute();
     <div class="bread-crumb">
         <a href="<?= home_url() ?>" class="homepage"><i data-feather="home"></i></a>
         <i data-feather="chevron-right"></i>
-        <a href="<?= home_url() ?>/<?= $suggestion_post->post_type ?>/" class="txt"><?= _('Suggestions') ?></a>
+        <a href="<?= home_url() ?>/<?= $suggestion_post->post_type ?>/" class="txt"><?= __('Suggestions', 'joinus4health') ?></a>
     </div>
     <div class="top-column-2-colspan column-common-border-style">
-        <?php $m_votes = get_post_meta($suggestion_post->ID, "m_votes"); ?>
-        <?php $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote' ?>
-        <?php $m_votes_count = count($m_votes) ?>
+        <?php 
+        $m_votes = get_post_meta($suggestion_post->ID, "m_votes");
+        $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
+        $m_votes_count = count($m_votes);
+        ?>
         <div class="title-and-buttons">
             <div class="voting <?= $vote_class ?>" data-id="<?= $suggestion_post->ID ?>" id="item-vote-<?= $suggestion_post->ID ?>">
                 <div class="counter" id="item-votes-<?= $suggestion_post->ID ?>"><?= count($m_votes) ?></div>
                 <i data-feather="thumbs-up"></i>
             </div>
-            <div class="title"><?php the_title() ?></div>
-            <a href='#share' class="btn" rel="modal:open"><?= _('Share') ?></a>
+            <div class="title"><?= get_translated_title($suggestion_post, 'm_title', $preferred_language) ?></div>
+            <a href='#share' class="btn" rel="modal:open"><?= __('Share', 'joinus4health') ?></a>
             <?php $m_follows = get_post_meta($suggestion_post->ID, "m_follows"); ?>
             <?php $is_following = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ?>
             <div class="btn <?= $is_following ? 'item-unfollow' : 'item-follow' ?>" data-id="<?= $suggestion_post->ID ?>" id="item-follow-<?= $suggestion_post->ID ?>">
                 <i data-feather="<?= $is_following ? 'check' : 'eye' ?>"></i>
-                <div class="text"><?= _($is_following ? 'Following' : "Follow") ?></div>
+                <div class="text"><?= $is_following ? __('Following', 'joinus4health') : __("Follow", 'joinus4health') ?></div>
             </div>
             <?php $m_contributes = get_post_meta($suggestion_post->ID, "m_contributes"); ?>
             <?php $is_contributing = (is_array($m_contributes) && in_array(get_current_user_id(), $m_contributes)) ?>
             <div class="black-btn <?= $is_contributing ? 'item-uncontribute' : 'item-contribute' ?>" data-id="<?= $suggestion_post->ID ?>" id="item-contribute-<?= $suggestion_post->ID ?>">
                 <i data-feather="<?= $is_contributing ? 'check' : 'user-plus' ?>"></i>
-                <div class="text"><?= _($is_following ? 'Contributing' : "Contribute") ?></div>
+                <div class="text"><?= $is_following ? __('Contributing', 'joinus4health') : __("Contribute", 'joinus4health') ?></div>
             </div>
         </div>
     </div> 
     <div class="first-column">
         <div class="content column-common-border-style">
-            <h6>Suggestions details</h6>
-            <p><?= get_post_meta(get_the_ID(), 'm_intro', true) ?></p>
-            <?php 
-            $m_description = trim(get_post_meta(get_the_ID(), 'm_description', true));
-            $m_description = str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m_description);
-            echo '<p>'.$m_description.'</p>';
-            ?>
+            <h6><?= __('Suggestions details', 'joinus4health') ?></h6>
+            <?= '<p>'.get_translated_field_paragraph($suggestion_post, 'm_description', $preferred_language).'</p>' ?>
             <?php $tags = wp_get_post_terms($suggestion_post->ID, 'ju4htopictag') ?>
             <?php if (count($tags)): ?>
             <div class="tags">
@@ -769,7 +765,7 @@ html_modal_uncontribute();
             <?php $m_tasks = get_post_meta($suggestion_post->ID, 'm_related_tasks') ?>
             <?php if (!empty($m_tasks)): ?>
             <div class="separator"></div>
-            <h6><?= _('Related tasks') ?></h6>
+            <h6><?= __('Related tasks', 'joinus4health') ?></h6>
             <div class="related-tasks">
                 <?php
                 $query_params = array('post_type' => 'ju4htask', 'posts_per_page' => -1, 'post__in' => $m_tasks);
@@ -819,21 +815,21 @@ html_modal_uncontribute();
                     comment_reply_id = $(this).attr('id').split('-')[2];
                     $('#comment_parent').val(comment_reply_id);
                     comment_reply_to = $(this).parent().parent().find('.author').html();
-                    $('.add-comment .caption').html("<?= _('Reply to') ?> " + comment_reply_to + " <?= _('comment') ?>");
+                    $('.add-comment .caption').html("<?= __('Reply to', 'joinus4health') ?> " + comment_reply_to + " <?= __('comment', 'joinus4health') ?>");
                 });
             });
         </script>
         <a id="reply-comment"></a>
-        <h6 class="comments"><?= _('Comments') ?> (<?= $count_comments ?>)</h6>
+        <h6 class="comments"><?= __('Comments', 'joinus4health') ?> (<?= $count_comments ?>)</h6>
         <div class="add-comment">
-            <div class="caption"><?= _('Add comment') ?></div>
+            <div class="caption"><?= __('Add comment', 'joinus4health') ?></div>
             <form action="<?= home_url() ?>/wp-comments-post.php" method="post">
                 <input type="text" class="new-comment" name="comment" />
-                <input type="submit" value="<?= _('Submit') ?>" class="submit" name="submit" />
+                <input type="submit" value="<?= __('Submit', 'joinus4health') ?>" class="submit" name="submit" />
                 <input type="hidden" name="comment_post_ID" value="<?= $suggestion_post->ID ?>" id="comment_post_ID">
                 <input type="hidden" name="comment_parent" id="comment_parent" value="0">
             </form>
-            <div class="sub"><?= _('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.') ?></div>
+            <div class="sub"><?= __('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.', 'joinus4health') ?></div>
         </div>
         <div class="comments">
             <?php
@@ -858,7 +854,7 @@ html_modal_uncontribute();
                 <div class="avatar" style="background-image: url(<?= bp_core_fetch_avatar(array('item_id' => $suggestion_post->post_author, 'html' => false, 'width' => 40, 'height' => 40)) ?>);"></div>
                 <div class="lines">
                     <div class="name"><?php the_author() ?></div>
-                    <div class="sub"><?= _('creator') ?></div>
+                    <div class="sub"><?= __('creator', 'joinus4health') ?></div>
                 </div>
             </div>
             <div class="separator"></div>
@@ -870,14 +866,14 @@ html_modal_uncontribute();
             <div class="rows">
                 <?php $m_follows = get_post_meta($suggestion_post->ID, 'm_follows') ?>
                 <?php $m_contributes = get_post_meta($suggestion_post->ID, 'm_contributes') ?>
-                <div><?= _('Created') ?></div>
+                <div><?= __('Created', 'joinus4health') ?></div>
                 <div></div>
                 <div class="value"><?= time_ago($suggestion_post) ?></div>
                 <div class="value"></div>
                 <div class="space"></div>
                 <div class="space"></div>
-                <div><?= _('Following') ?></div>
-                <div><?= _('Contributing') ?></div>
+                <div><?= __('Following', 'joinus4health') ?></div>
+                <div><?= __('Contributing', 'joinus4health') ?></div>
                 <div class="value" id="item-follows-<?= $suggestion_post->ID ?>"><?= count($m_follows) ?></div>
                 <div class="value" id="item-contributes-<?= $suggestion_post->ID ?>"><?= count($m_contributes) ?></div>
             </div>
@@ -887,15 +883,15 @@ html_modal_uncontribute();
             <div class="separator"></div>
             <div class="rows2">
                 <i data-feather="flag"></i>
-                <div><?= __('Language') ?></div>
-                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : _('not specified') ?></div>
+                <div><?= __('Language', 'joinus4health') ?></div>
+                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="users"></i>
-                <div><?= __('Stakeholder group') ?></div>
-                <div class="value"><?= $m_target_group != '' ? $meta_target_group[$m_target_group] : _('not specified') ?></div>
+                <div><?= __('Stakeholder group', 'joinus4health') ?></div>
+                <div class="value"><?= $m_target_group != '' ? $meta_target_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="disc"></i>
-                <div><?= __('Source') ?></div>
-                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : _('not specified') ?></div>
+                <div><?= __('Source', 'joinus4health') ?></div>
+                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : __('not specified', 'joinus4health') ?></div>
             </div>
         </div>
     </div>
-<?php get_footer(); ?>
+<?php get_footer();

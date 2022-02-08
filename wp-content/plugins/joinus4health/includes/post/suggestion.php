@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 function ju4hsuggestion_custom_post_type() {
@@ -48,6 +48,8 @@ add_action('init', 'ju4hsuggestion_custom_post_type', 0);
 
 
 function add_meta_boxes_ju4hsuggestion_callback($post) {
+    add_meta_box('container_followers_and_contributors', __('Followers, contributors & voters'), 'add_meta_box_ju4hsuggestion_followers_contributors_voters_callback', 'ju4hsuggestion', 'normal', 'low');
+    add_meta_box('container_title', __('Title'), 'add_meta_box_ju4hsuggestion_title_callback', 'ju4hsuggestion', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4hsuggestion_description_callback', 'ju4hsuggestion', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4hsuggestion_additional_fields_callback', 'ju4hsuggestion', 'normal', 'low');
 }
@@ -71,14 +73,64 @@ function add_meta_box_ju4hsuggestion_additional_fields_callback($post) {
 }
 
 
+/**
+ * 
+ * 
+ * @param type $post
+ */
+function add_meta_box_ju4hsuggestion_followers_contributors_voters_callback($post) {
+    $m_followers = get_post_meta($post->ID, 'm_follows');
+    $m_contributors = get_post_meta($post->ID, 'm_contributes');
+    $m_votes = get_post_meta($post->ID, 'm_votes');
+    $users = array(__('Followers') => $m_followers, __('Contributors') => $m_contributors, __('Votes') => $m_votes);
+    
+    foreach ($users as $caption => $list) {
+        $i = 0;
+        echo '<p><b>'.$caption.'</b>';
+        if (!empty($list)) {
+            $query = new WP_User_Query(array('include' => $list));
+            foreach ($query->get_results() as $user) {
+                echo (($i++ == 0) ? ': ' : ', ').'<a href="'. bp_core_get_userlink($user->ID, false, true).'">'.$user->display_name.'</a>';
+            }
+        } else {
+            echo ': '._('No users found.');
+        }
+        echo '</p>';
+    }
+}
+
+/**
+ * Adds meta box "Title"
+ * - textarea field with description of topic
+ * 
+ * @param type $post
+ */
+function add_meta_box_ju4hsuggestion_title_callback($post) {
+    global $meta_translations;
+    foreach ($meta_translations as $key => $value) {
+        echo '<p>'.$value.':<br>';
+        html_admin_text("m_title_".$key, get_post_meta($post->ID, 'm_title_'.$key, true));
+        echo '</p>';
+    }
+}
 
 function add_meta_box_ju4hsuggestion_description_callback($post) {
+    global $meta_translations;
     wp_nonce_field(basename( __FILE__ ), 'suggestion_description_nonce');
+    echo '<p>English:<br>';
     html_admin_textarea("m_description", get_post_meta($post->ID, 'm_description', true));
+    echo '</p>';
+    foreach ($meta_translations as $key => $value) {
+        echo '<p>'.$value.':<br>';
+        html_admin_textarea("m_description_".$key, get_post_meta($post->ID, 'm_description_'.$key, true));
+        echo '</p>';
+    }
 }
 
 
 function save_post_ju4hsuggestion_callback($post_id) {
+    global $meta_translations;
+    
     if (!isset($_POST['suggestion_additional_fields_nonce']) || !wp_verify_nonce($_POST['suggestion_additional_fields_nonce'], basename(__FILE__))) {
         return;
     }
@@ -88,6 +140,11 @@ function save_post_ju4hsuggestion_callback($post_id) {
     }
     
     $fields = array("m_country", "m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group", "m_description", "m_infrastructure", "m_methodology", "m_content");
+    foreach ($meta_translations as $key => $value) {
+        $fields[] = 'm_title_'.$key;
+        $fields[] = 'm_description_'.$key;
+    }
+    
     foreach ($fields as $value) {
         if (!isset($_POST[$value])) {
             add_settings_error('missing-fields', 'missing-fields', __("You must fill all fields"), 'error');

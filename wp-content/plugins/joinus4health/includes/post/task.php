@@ -1,7 +1,7 @@
 <?php
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 function ju4htask_custom_post_type() {
@@ -82,8 +82,16 @@ function add_meta_box_ju4htask_additional_fields_callback($post) {
 
 
 function add_meta_box_ju4htask_description_callback($post) {
+    global $meta_translations;
     wp_nonce_field(basename( __FILE__ ), 'task_description_nonce');
+    echo '<p>English:<br>';
     html_admin_textarea("m_description", get_post_meta($post->ID, 'm_description', true));
+    echo '</p>';
+    foreach ($meta_translations as $key => $value) {
+        echo '<p>'.$value.':<br>';
+        html_admin_textarea("m_description_".$key, get_post_meta($post->ID, 'm_description_'.$key, true));
+        echo '</p>';
+    }
 }
 
 

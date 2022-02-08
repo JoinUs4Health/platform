@@ -11,7 +11,7 @@ Version: 0.1
 */
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 //metas definition
@@ -140,16 +140,16 @@ function _location_admin_notices() {
 }
 add_action('admin_notices', '_location_admin_notices');
 
-function time_ago($post, $suffix = 'ago') {
-    return human_time_diff(get_post_time('U', false, $post), current_time('timestamp')) . " " . __($suffix);
+function time_ago($post) {
+    return human_time_diff(get_post_time('U', false, $post), current_time('timestamp')) . " " . __('ago', 'joinus4health');
 }
 
 function time_left($time) {
     $current_time = current_time('timestamp');
     if ($current_time > $time) {
-        return _('expired').' '.human_time_diff($time, $current_time).' '._('ago');
+        return __('expired', 'joinus4health').' '.human_time_diff($time, $current_time).' '.__('ago', 'joinus4health');
     } else {
-        return human_time_diff($time, $current_time)." "._('left');
+        return human_time_diff($time, $current_time)." ".__('left', 'joinus4health');
     }
 }
 
@@ -169,4 +169,47 @@ function get_query($array) {
     }
     
     return join('&amp;', $m);
+}
+
+function add_jquery_feather_icons_script() {
+    wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery.min.js");
+    wp_enqueue_script('ju4h-feather', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.min.js");
+    wp_enqueue_script('ju4h-feather-replace', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.replace.js");
+}
+
+add_action('wp_enqueue_scripts', 'add_jquery_feather_icons_script');
+
+
+function get_preferred_language() {
+    $user_id = get_current_user_id();
+    
+    if ($user_id == 0) {
+        return 'en';
+    } else {
+        $obj = xprofile_get_field(2, $user_id, true); //2 is field id of extra fields in user profile bbpress
+        
+        if (isset($obj->data) && isset($obj->data->value) && is_string($obj->data->value)) {
+            return strtolower($obj->data->value);
+        } else {
+            return 'en';
+        }
+    }
+}
+
+function get_translated_title($post, $field, $preferred_language) {
+    $translated = get_post_meta($post->ID, $field.'_'.$preferred_language, true);
+    $m = trim(empty($translated) ? get_the_title($post) : $translated);
+    return $m;
+}
+
+function get_translated_field($post, $field, $preferred_language) {
+    $translated = get_post_meta($post->ID, $field.'_'.$preferred_language, true);
+    $m = trim(empty($translated) ? get_post_meta($post->ID, $field, true) : $translated);
+    return $m;
+}
+
+function get_translated_field_paragraph($post, $field, $preferred_language) {
+    $translated = get_post_meta($post->ID, $field.'_'.$preferred_language, true);
+    $m = trim(empty($translated) ? get_post_meta($post->ID, $field, true) : $translated);
+    return str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m);
 }

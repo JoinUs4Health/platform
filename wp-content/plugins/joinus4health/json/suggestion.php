@@ -11,7 +11,7 @@ $get_var_operation = $_GET['operation'];
 $response = new stdClass();
 
 if (!is_user_logged_in()) {
-    $response->error = __('User must be logged in');
+    $response->error = __('You must be logged in', 'joinus4health');
 } else if ($get_var_operation == 'upvote' && !in_array(get_current_user_id(), $meta['m_votes'])) {
     add_post_meta(get_the_ID(), 'm_votes', get_current_user_id());
 } else if ($get_var_operation == 'downvote' && in_array(get_current_user_id(), $meta['m_votes'])) {
@@ -25,7 +25,7 @@ if (!is_user_logged_in()) {
 } else if ($get_var_operation == 'uncontribute' && in_array(get_current_user_id(), $meta['m_contributes'])) {
     delete_post_meta(get_the_ID(), 'm_contributes', get_current_user_id());
 } else {
-    $response->error = __("You already voted");
+    $response->error = __("You already voted", 'joinus4health');
 }
 
 $meta = get_post_meta(get_the_ID());

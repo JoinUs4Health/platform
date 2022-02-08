@@ -3,23 +3,16 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
-?>
-<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/feather.min.js"></script>
-<script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/moment.min.js"></script>
-<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/flatpickr.min.css">
-<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/flatpickr.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        feather.replace();
-    });
-</script>
-<?php
-echo get_js_script_voting();
-echo get_js_load_href();
 
 $meta = get_post_meta(get_the_ID());
 get_header();
+?>
+<script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/moment.min.js"></script>
+<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/flatpickr.min.css">
+<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/flatpickr.min.js"></script>
+<?php
+echo get_js_script_voting();
+echo get_js_load_href();
 
 $date_since = null;
 $date_till = null;
@@ -43,7 +36,6 @@ if (isset($_GET['date_till'])) {
         var fields = ["language", "country", "group", "type", "date_since", "date_till", "infrastructure", "methodology", "content"];
         
         $(document).ready(function(){
-            feather.replace();
             
             $("#input-date_since").flatpickr({
                 dateFormat: "Y-m-d",
@@ -580,83 +572,83 @@ if (isset($_GET['date_till'])) {
     </style>
     <div class="first-column">
         <div class="push-your-idea">
-            <h3><?= _('Take part in our project — suggest your idea!') ?></h3>
-            <a href="#" class="btn-push-idea"><?= _('Push your idea') ?></a>
+            <h3><?= __('Take part in our project — suggest your idea!', 'joinus4health') ?></h3>
+            <a href="#" class="btn-push-idea"><?= __('Create new suggestion', 'joinus4health') ?></a>
         </div>
         <div class="filtering">
             <div class="filterheader">
-                <div class="on-left"><?= _('Filter') ?></div>
-                <div class="on-right" id="clear-all"><?= _('Clear all filters') ?></div>
+                <div class="on-left"><?= __('Filter', 'joinus4health') ?></div>
+                <div class="on-right" id="clear-all"><?= __('Clear all filters', 'joinus4health') ?></div>
             </div>
-            <label><?= _('Language') ?></label>
+            <label><?= __('Language', 'joinus4health') ?></label>
             <select name="language" id="input-language">
-                <option value=''><?= _('any') ?></option>
+                <option value=''><?= __('any', 'joinus4health') ?></option>
                 <?php foreach ($meta_countries as $key => $value): ?>
-                <option value="<?= $key ?>"<?= ($key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
+                <option value="<?= $key ?>"<?= (isset($_GET['language']) && $key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
-            <label><?= _('Country of submission') ?></label>
+            <label><?= __('Country of submission', 'joinus4health') ?></label>
             <select name="country" id="input-country">
-                <option value=''><?= _('any') ?></option>
+                <option value=''><?= __('any', 'joinus4health') ?></option>
                 <?php foreach ($meta_countries as $key => $value): ?>
-                <option value="<?= $key ?>"<?= ($key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
+                <option value="<?= $key ?>"<?= (isset($_GET['language']) && $key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
-            <label><?= _('Stakeholder group') ?></label>
+            <label><?= __('Stakeholder group', 'joinus4health') ?></label>
             <select name="target_group" id="input-group">
-                <option value=''><?= _('any') ?></option>
+                <option value=''><?= __('any', 'joinus4health') ?></option>
                 <?php foreach ($meta_target_group as $key => $value): ?>
-                <option value="<?= $key ?>"<?= ($key == $_GET['target_group']) ? ' selected' : '' ?>><?= $value ?></option>
+                <option value="<?= $key ?>"<?= (isset($_GET['target_group']) && $key == $_GET['target_group']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
-            <label><?= _('Type') ?></label>
+            <label><?= __('Type', 'joinus4health') ?></label>
             <select name="type" id="input-type">
-                <option value=''><?= _('any') ?></option>
+                <option value=''><?= __('any', 'joinus4health') ?></option>
                 <?php foreach ($meta_types as $key => $value): ?>
-                <option value="<?= $key ?>"<?= ($key == $_GET['type']) ? ' selected' : '' ?>><?= $value ?></option>
+                <option value="<?= $key ?>"<?= (isset($_GET['type']) && $key == $_GET['type']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
-            <label><?= _('Time period / from') ?></label>
+            <label><?= __('Time period / from', 'joinus4health') ?></label>
             <input type="text" class="text" name="date_since" id="input-date_since" />
-            <label><?= _('Time period / to') ?></label>
+            <label><?= __('Time period / to', 'joinus4health') ?></label>
             <input type="text" class="text" name="date_till" id="input-date_till" />
             <div class="advanced">
                 <div class="filterheader">
-                    <div class="on-left"><?= _('Advanced filters') ?></div>
+                    <div class="on-left"><?= __('Advanced filters', 'joinus4health') ?></div>
                 </div>
-                <label><?= _('Infrastructure') ?></label>
+                <label><?= __('Infrastructure', 'joinus4health') ?></label>
                 <select name="infrastructure" id="input-infrastructure">
-                    <option value=''>any</option>
+                    <option value=''><?= __('any', 'joinus4health') ?></option>
                     <?php foreach ($meta_infrastructure as $key => $value): ?>
-                    <option value="<?= $key ?>"<?= ($key == $_GET['infrastructure']) ? ' selected' : '' ?>><?= $value ?></option>
+                    <option value="<?= $key ?>"<?= (isset($_GET['infrastructure']) && $key == $_GET['infrastructure']) ? ' selected' : '' ?>><?= $value ?></option>
                     <?php endforeach; ?>
                 </select>
-                <label><?= _('Methodology') ?></label>
+                <label><?= __('Methodology', 'joinus4health') ?></label>
                 <select name="methodology" id="input-methodology">
-                    <option value=''>any</option>
+                    <option value=''><?= __('any', 'joinus4health') ?></option>
                     <?php foreach ($meta_methodology as $key => $value): ?>
-                    <option value="<?= $key ?>"<?= ($key == $_GET['methodology']) ? ' selected' : '' ?>><?= $value ?></option>
+                    <option value="<?= $key ?>"<?= (isset($_GET['methodology']) &&$key == $_GET['methodology']) ? ' selected' : '' ?>><?= $value ?></option>
                     <?php endforeach; ?>
                 </select>
-                <label><?= _('Content') ?></label>
+                <label><?= __('Content', 'joinus4health') ?></label>
                 <select name="content" id="input-content">
-                    <option value=''>any</option>
+                    <option value=''><?= __('any', 'joinus4health') ?></option>
                     <?php foreach ($meta_content as $key => $value): ?>
-                    <option value="<?= $key ?>"<?= ($key == $_GET['content']) ? ' selected' : '' ?>><?= $value ?></option>
+                    <option value="<?= $key ?>"<?= (isset($_GET['content']) && $key == $_GET['content']) ? ' selected' : '' ?>><?= $value ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <input type="button" class="btns" id="filter-results" value="<?= _('Filter results') ?>"  />
+            <input type="button" class="btns" id="filter-results" value="<?= __('Filter results', 'joinus4health') ?>"  />
         </div>
     </div>
     <div class="second-column">
-        <h1><?= _('Suggestions') ?></h1>
+        <h1><?= __('Suggestions', 'joinus4health') ?></h1>
         <div class="suggestion-filtering">
-            <input type="text" class="searchbox" placeholder="<?= _('Search by title...') ?>" value="<?= esc_attr($_GET['search_content']) ?>" />
+            <input type="text" class="searchbox" placeholder="<?= __('Search by title...', 'joinus4health') ?>" value="<?= isset($_GET['search_content']) ? esc_attr($_GET['search_content']) : '' ?>" />
             <div class="search-icon">
                 <i data-feather="search"></i>
             </div>
-            <div class="orderby"><?= __('Order by') ?></div>
+            <div class="orderby"><?= __('Order by', 'joinus4health') ?></div>
             <select class="orderby" name="sortby">
                 <?php foreach ($meta_sortby_suggestion as $index => $value): ?>
                 <?php $selected = (isset($_GET['sortby']) && $_GET['sortby'] == $index) ? ' selected' : '' ?> 
@@ -670,7 +662,7 @@ if (isset($_GET['date_till'])) {
         $tax_query = array();
         $get_params = array();
 
-        if ($date_since_obj || $date_till_obj) {
+        if (isset($date_since_obj) || isset($date_till_obj)) {
             $query_params['date_query'] = array();
 
             if ($date_since_obj) {
@@ -711,12 +703,14 @@ if (isset($_GET['date_till'])) {
         foreach ($names as $name => $values) {
             if (isset($_GET[$name]) && $_GET[$name] != '') {
                 if ($name == 'sortby') {
-                    if ($_GET[$name] == 'recent') {
+                    if ($_GET[$name] == 'votes') {
+                        $query_params['orderby'] = array('m_votes_count' => 'DESC', 'date' => 'DESC');
+                        $query_params['meta_type'] = 'NUMERIC';
+                        $query_params['meta_key'] = 'm_votes_count';                    
+                        $get_params['sortby'] = $_GET['sortby'];                    
+                    } else {
                         $query_params['orderby'] = array('date' => 'DESC');
-                        $get_params['sortby'] = $_GET[$name];
-                    } else if ($_GET[$name] == 'oldest') {
-                        $query_params['orderby'] = array('date' => 'ASC');
-                        $get_params['sortby'] = $_GET[$name];
+                        $get_params['sortby'] = '';
                     }
                 } else if (array_key_exists($_GET[$name], $values)) {
                     $meta_query['relation'] = 'AND';
@@ -747,46 +741,46 @@ if (isset($_GET['date_till'])) {
         $query_params['paged'] = $paged;
         $query = new WP_Query($query_params);
         ?>
-        <div class="suggestions-found"><?= $query->found_posts ?> <?= _('suggestions found') ?></div>
+        <div class="suggestions-found"><?= $query->found_posts ?> <?= __('suggestions found', 'joinus4health') ?></div>
         <div class="search-tags">
             <?php
             $tags_html = null;
             $filter_count = 0;
             $filters = array(
                 'language' => array(
-                    '_' => 'language',
+                    '_' => __('language', 'joinus4health'),
                     'items' => $meta_countries,
                 ),
                 'duration' => array(
-                    '_' => 'duration',
+                    '_' => __('duration', 'joinus4health'),
                     'items' => $meta_contribute_duration,
                 ),
                 'type' => array(
-                    '_' => 'type',
+                    '_' => __('type', 'joinus4health'),
                     'items' => $meta_types,
                 ),
                 'level' => array(
-                    '_' => 'level',
+                    '_' => __('level', 'joinus4health'),
                     'items' => $meta_level,
                 ),
                 'source' => array(
-                    '_' => 'source',
+                    '_' => __('source', 'joinus4health'),
                     'items' => $meta_source,
                 ),
                 'target_group' => array(
-                    '_' => 'targeted stakeholder group',
+                    '_' => __('targeted stakeholder group', 'joinus4health'),
                     'items' => $meta_target_group,
                 ),
                 'infrastructure' => array(
-                    '_' => 'infrastructure',
+                    '_' => __('infrastructure', 'joinus4health'),
                     'items' => $meta_infrastructure,
                 ), 
                 'methodology' => array(
-                    '_' => 'methodology',
+                    '_' => __('methodology', 'joinus4health'),
                     'items' => $meta_methodology,
                 ), 
                 'content' => array(
-                    '_' => 'content',
+                    '_' => __('content', 'joinus4health'),
                     'items' => $meta_content,
                 ),
             );
@@ -794,29 +788,29 @@ if (isset($_GET['date_till'])) {
             <?php foreach ($filters as $key => $value): ?>
                 <?php 
                 if (isset($_GET[$key]) && isset($value['items'][$_GET[$key]])) {
-                    $tags_html .= '<div id="remove-filter-'.$key.'" class="chip"><i data-feather="x-circle"></i><div class="text">'._($value['_']).': '.$value['items'][$_GET[$key]].'</div></div>';
+                    $tags_html .= '<div id="remove-filter-'.$key.'" class="chip"><i data-feather="x-circle"></i><div class="text">'.$value['_'].': '.$value['items'][$_GET[$key]].'</div></div>';
                     $filter_count++;
                 }
                 ?>
             <?php endforeach; ?>
             <?php 
             if (isset($_GET['search_content'])) {
-                $tags_html .= '<div id="remove-filter-search_content" class="chip"><i data-feather="x-circle"></i><div class="text">'._('search').': '.esc_attr($_GET['search_content']).'</div></div>';
+                $tags_html .= '<div id="remove-filter-search_content" class="chip"><i data-feather="x-circle"></i><div class="text">'.__('search', 'joinus4health').': '.esc_attr($_GET['search_content']).'</div></div>';
                 $filter_count++;
             }
             
             if (isset($get_params['date_since'])) {
-                $tags_html .= '<div id="remove-filter-date_since" class="chip"><i data-feather="x-circle"></i><div class="text">'._('date since').': '.$get_params['date_since'].'</div></div>';
+                $tags_html .= '<div id="remove-filter-date_since" class="chip"><i data-feather="x-circle"></i><div class="text">'.__('date since', 'joinus4health').': '.$get_params['date_since'].'</div></div>';
                 $filter_count++;
             }
             
             if (isset($get_params['date_till'])) {
-                $tags_html .= '<div id="remove-filter-date_till" class="chip"><i data-feather="x-circle"></i><div class="text">'._('date till').': '.$get_params['date_till'].'</div></div>';
+                $tags_html .= '<div id="remove-filter-date_till" class="chip"><i data-feather="x-circle"></i><div class="text">'.__('date till', 'joinus4health').': '.$get_params['date_till'].'</div></div>';
                 $filter_count++;
             }
             ?>
             <?php if ($tags_html != null): ?>
-            <div id="remove-filter-" class="chip"><i data-feather="x-circle"></i><div class="text"><?= _('clear filters') ?> (<?= $filter_count ?>)</div></div>
+            <div id="remove-filter-" class="chip"><i data-feather="x-circle"></i><div class="text"><?= __('clear filters', 'joinus4health') ?> (<?= $filter_count ?>)</div></div>
             <?= $tags_html ?>
             <?php endif; ?>
         </div>

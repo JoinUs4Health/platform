@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 $per_page_topic = 10;
@@ -250,91 +250,93 @@ $meta_countries = array(
 );
 
 $meta_types = array(
-    1 => __("Information need"), 
-    2 => __("Research question"), 
-    3 => __("Task")
+    1 => __("Information need", 'joinus4health'), 
+    2 => __("Research question", 'joinus4health'), 
+    3 => __("Task", 'joinus4health')
 );
 
 $meta_contribute_duration = array(
-    5 => "5 min",
-    10 => "10 min",
-    20 => "20 min",
-    30 => "30 min", 
-    60 => "1 hour", 
-    90 => "1h 30 min", 
-    120 => "2 hours",
-    180 => "3 hours",
-    240 => "4 hours",
-    300 => "5 hours",
-    360 => "6 hours",
-    420 => "7 hours",
-    480 => "8 hours",
-    540 => "9 hours",
-    600 => "10 hours",
-    60*24 => "24 hours",
+    5 => __("5 min", 'joinus4health'),
+    10 => __("10 min", 'joinus4health'),
+    20 => __("20 min", 'joinus4health'),
+    30 => __("30 min", 'joinus4health'),
+    60 => __("1 hour", 'joinus4health'),
+    90 => __("1h 30 min", 'joinus4health'), 
+    120 => __("2 hours", 'joinus4health'),
+    180 => __("3 hours", 'joinus4health'),
+    240 => __("4 hours", 'joinus4health'),
+    300 => __("5 hours", 'joinus4health'),
+    360 => __("6 hours", 'joinus4health'),
+    420 => __("7 hours", 'joinus4health'),
+    480 => __("8 hours", 'joinus4health'),
+    540 => __("9 hours", 'joinus4health'),
+    600 => __("10 hours", 'joinus4health'),
+    60*24 => __("24 hours", 'joinus4health'),
 );
 
 $meta_level = array(
-    1 => __("community"), 
-    2 => __("team"), 
-    3 => __("individual")
+    1 => __("community", 'joinus4health'), 
+    2 => __("team", 'joinus4health'), 
+    3 => __("individual", 'joinus4health')
 );
 
 $meta_source = array(
-    1 => __("platform"), 
-    2 => __("working team")
+    1 => __("platform", 'joinus4health'), 
+    2 => __("working team", 'joinus4health')
 );
 
 $meta_target_group = array(
-    1 => __("anybody"), 
-    2 => __("science")
+    1 => __("anybody", 'joinus4health'), 
+    2 => __("science", 'joinus4health')
 );
 
 $meta_status = array(
-    1 => __("Open"), 
-    2 => __("Reviewed"), 
-    3 => __("Approved"),
-    4 => __("Declined"),
-    5 => __("In Progress"),
-    6 => __("Completed")
+    1 => __("Open", 'joinus4health'), 
+    2 => __("Reviewed", 'joinus4health'), 
+    3 => __("Approved", 'joinus4health'),
+    4 => __("Declined", 'joinus4health'),
+    5 => __("In Progress", 'joinus4health'),
+    6 => __("Completed", 'joinus4health')
 );
 
 $meta_sortby_topic = array(
-    '' => __('Default'),
-    'popular' => __('Popular'),
-    'recent'  => __('Recent'),
-    'trending' => __('Trending'),
+    '' => __('Date of publication', 'joinus4health'),
+    'votes' => __('Votes', 'joinus4health'),
 );
 
 $meta_sortby_task = array(
-    '' => __('Default'),
-    'recent'  => __('Recent'),
-    'oldest'  => __('Oldest first'),
+    '' => __('Date of publication', 'joinus4health'),
+    'contribution'  => __('Time of contribution', 'joinus4health'),
 );
 
 $meta_sortby_suggestion = array(
-    '' => __('Default'),
-    'recent'  => __('Recent'),
-    'oldest'  => __('Oldest first'),
+    '' => __('Date of publication', 'joinus4health'),
+    'votes' => __('Votes', 'joinus4health'),
 );
 
 $meta_infrastructure = array(
-    '1' => __('Infrastructure #1'),
-    '2' => __('Infrastructure #2'),
-    '3' => __('Infrastructure #3'),
-    '4' => __('Infrastructure #4'),
+    '1' => __('Infrastructure #1', 'joinus4health'),
+    '2' => __('Infrastructure #2', 'joinus4health'),
+    '3' => __('Infrastructure #3', 'joinus4health'),
+    '4' => __('Infrastructure #4', 'joinus4health'),
 );
 
 $meta_methodology = array(
-    '1' => __('Methodology #1'),
-    '2' => __('Methodology #2'),
-    '3' => __('Methodology #3'),
-    '4' => __('Methodology #4'),
+    '1' => __('Methodology #1', 'joinus4health'),
+    '2' => __('Methodology #2', 'joinus4health'),
+    '3' => __('Methodology #3', 'joinus4health'),
+    '4' => __('Methodology #4', 'joinus4health'),
 );
 
 $meta_content = array(
-    '1' => __('Content #1'),
-    '2' => __('Content #2'),
-    '3' => __('Content #3'),
-    '4' => __('Content #4'),
+    '1' => __('Content #1', 'joinus4health'),
+    '2' => __('Content #2', 'joinus4health'),
+    '3' => __('Content #3', 'joinus4health'),
+    '4' => __('Content #4', 'joinus4health'),
+);
+
+$meta_translations = array(
+    'de' => 'German',
+    'nl' => 'Dutch',
+    'pl' => 'Polish',
 );

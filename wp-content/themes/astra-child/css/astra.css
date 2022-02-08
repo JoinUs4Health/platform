@@ -419,3 +419,13 @@ div#item-header-content div#item-buttons div.group-button a.group-button {
 .single-project .task_breaker-tabs-tabs ul li .task_breaker-task-count {
     background-color: #3b4045;
 }
+
+#task_breaker-modal-heading {
+    background-color: #000000 !important;
+}
+
+.task_breaker-form-field .field-description .task-breaker-message {
+    background-color: #000000;
+    padding: 10px 15px !important;
+    margin-top: 20px !important;
+}

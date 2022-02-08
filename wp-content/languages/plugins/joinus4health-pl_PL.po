@@ -1,0 +1,564 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2022-02-08 04:33+0100\n"
+"PO-Revision-Date: 2022-02-08 04:33+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ../../plugins/joinus4health\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
+"|| n%100>14) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: ;__\n"
+"X-Poedit-SearchPath-0: singles/suggestion.php\n"
+"X-Poedit-SearchPath-1: singles/task.php\n"
+"X-Poedit-SearchPath-2: singles/topic.php\n"
+"X-Poedit-SearchPath-3: pages/suggestion.php\n"
+"X-Poedit-SearchPath-4: pages/task.php\n"
+"X-Poedit-SearchPath-5: pages/topic.php\n"
+"X-Poedit-SearchPath-6: json/suggestion.php\n"
+"X-Poedit-SearchPath-7: json/topic.php\n"
+"X-Poedit-SearchPath-8: includes/layouts.php\n"
+"X-Poedit-SearchPath-9: includes/metas.php\n"
+"X-Poedit-SearchPath-10: joinus4health.php\n"
+"X-Poedit-SearchPath-11: includes/layouts.php\n"
+"X-Poedit-SearchPath-12: includes/metas.php\n"
+
+#: includes/layouts.php:83 singles/suggestion.php:732
+#: singles/suggestion.php:875 singles/topic.php:769 singles/topic.php:905
+msgid "Following"
+msgstr ""
+
+#: includes/layouts.php:86 singles/suggestion.php:732 singles/topic.php:769
+msgid "Follow"
+msgstr ""
+
+#: includes/layouts.php:124 singles/suggestion.php:738
+#: singles/suggestion.php:876 singles/topic.php:775 singles/topic.php:906
+msgid "Contributing"
+msgstr ""
+
+#: includes/layouts.php:149 singles/suggestion.php:738 singles/task.php:518
+#: singles/topic.php:775
+msgid "Contribute"
+msgstr ""
+
+#: includes/layouts.php:257
+msgid "submitted by"
+msgstr ""
+
+#: includes/layouts.php:280
+msgid "Share this page"
+msgstr ""
+
+#: includes/layouts.php:285
+msgid "Facebook"
+msgstr ""
+
+#: includes/layouts.php:289
+msgid "Twitter"
+msgstr ""
+
+#: includes/layouts.php:293
+msgid "Linkedin"
+msgstr ""
+
+#: includes/layouts.php:300
+msgid "Copy"
+msgstr ""
+
+#: includes/layouts.php:315 singles/suggestion.php:818
+msgid "Reply to"
+msgstr ""
+
+#: includes/layouts.php:315 singles/suggestion.php:818
+msgid "comment"
+msgstr ""
+
+#: includes/layouts.php:325
+msgid "Confirm action"
+msgstr ""
+
+#: includes/layouts.php:326
+msgid "Do you want to cancel your contribution?"
+msgstr ""
+
+#: includes/layouts.php:328
+msgid "Yes"
+msgstr ""
+
+#: includes/layouts.php:329
+msgid "No"
+msgstr ""
+
+#: includes/metas.php:253
+msgid "Information need"
+msgstr ""
+
+#: includes/metas.php:254
+msgid "Research question"
+msgstr ""
+
+#: includes/metas.php:255
+msgid "Task"
+msgstr ""
+
+#: includes/metas.php:259
+msgid "5 min"
+msgstr ""
+
+#: includes/metas.php:260
+msgid "10 min"
+msgstr ""
+
+#: includes/metas.php:261
+msgid "20 min"
+msgstr ""
+
+#: includes/metas.php:262
+msgid "30 min"
+msgstr ""
+
+#: includes/metas.php:263
+msgid "1 hour"
+msgstr ""
+
+#: includes/metas.php:264
+msgid "1h 30 min"
+msgstr ""
+
+#: includes/metas.php:265
+msgid "2 hours"
+msgstr ""
+
+#: includes/metas.php:266
+msgid "3 hours"
+msgstr ""
+
+#: includes/metas.php:267
+msgid "4 hours"
+msgstr ""
+
+#: includes/metas.php:268
+msgid "5 hours"
+msgstr ""
+
+#: includes/metas.php:269
+msgid "6 hours"
+msgstr ""
+
+#: includes/metas.php:270
+msgid "7 hours"
+msgstr ""
+
+#: includes/metas.php:271
+msgid "8 hours"
+msgstr ""
+
+#: includes/metas.php:272
+msgid "9 hours"
+msgstr ""
+
+#: includes/metas.php:273
+msgid "10 hours"
+msgstr ""
+
+#: includes/metas.php:274
+msgid "24 hours"
+msgstr ""
+
+#: includes/metas.php:278
+msgid "community"
+msgstr ""
+
+#: includes/metas.php:279
+msgid "team"
+msgstr ""
+
+#: includes/metas.php:280
+msgid "individual"
+msgstr ""
+
+#: includes/metas.php:284
+msgid "platform"
+msgstr ""
+
+#: includes/metas.php:285
+msgid "working team"
+msgstr ""
+
+#: includes/metas.php:289
+msgid "anybody"
+msgstr ""
+
+#: includes/metas.php:290
+msgid "science"
+msgstr ""
+
+#: includes/metas.php:294
+msgid "Open"
+msgstr ""
+
+#: includes/metas.php:295
+msgid "Reviewed"
+msgstr ""
+
+#: includes/metas.php:296
+msgid "Approved"
+msgstr ""
+
+#: includes/metas.php:297
+msgid "Declined"
+msgstr ""
+
+#: includes/metas.php:298
+msgid "In Progress"
+msgstr ""
+
+#: includes/metas.php:299
+msgid "Completed"
+msgstr ""
+
+#: includes/metas.php:303 includes/metas.php:308 includes/metas.php:313
+msgid "Date of publication"
+msgstr ""
+
+#: includes/metas.php:304 includes/metas.php:314
+msgid "Votes"
+msgstr ""
+
+#: includes/metas.php:309
+msgid "Time of contribution"
+msgstr ""
+
+#: includes/metas.php:318
+msgid "Infrastructure #1"
+msgstr ""
+
+#: includes/metas.php:319
+msgid "Infrastructure #2"
+msgstr ""
+
+#: includes/metas.php:320
+msgid "Infrastructure #3"
+msgstr ""
+
+#: includes/metas.php:321
+msgid "Infrastructure #4"
+msgstr ""
+
+#: includes/metas.php:325
+msgid "Methodology #1"
+msgstr ""
+
+#: includes/metas.php:326
+msgid "Methodology #2"
+msgstr ""
+
+#: includes/metas.php:327
+msgid "Methodology #3"
+msgstr ""
+
+#: includes/metas.php:328
+msgid "Methodology #4"
+msgstr ""
+
+#: includes/metas.php:332
+msgid "Content #1"
+msgstr ""
+
+#: includes/metas.php:333
+msgid "Content #2"
+msgstr ""
+
+#: includes/metas.php:334
+msgid "Content #3"
+msgstr ""
+
+#: includes/metas.php:335
+msgid "Content #4"
+msgstr ""
+
+#: joinus4health.php:144 joinus4health.php:150
+msgid "ago"
+msgstr ""
+
+#: joinus4health.php:150
+msgid "expired"
+msgstr ""
+
+#: joinus4health.php:152
+msgid "left"
+msgstr ""
+
+#: json/suggestion.php:14 json/topic.php:14
+msgid "You must be logged in"
+msgstr "Musisz być zalogowany"
+
+#: json/suggestion.php:28
+msgid "You already voted"
+msgstr ""
+
+#: json/topic.php:41
+msgid "You already make an operation"
+msgstr ""
+
+#: pages/suggestion.php:575
+msgid "Take part in our project — suggest your idea!"
+msgstr ""
+
+#: pages/suggestion.php:576
+msgid "Create new suggestion"
+msgstr ""
+
+#: pages/suggestion.php:580
+msgid "Filter"
+msgstr ""
+
+#: pages/suggestion.php:581 pages/task.php:480
+msgid "Clear all filters"
+msgstr ""
+
+#: pages/suggestion.php:583 pages/task.php:482 pages/topic.php:445
+#: singles/suggestion.php:886 singles/task.php:500 singles/topic.php:916
+msgid "Language"
+msgstr ""
+
+#: pages/suggestion.php:585 pages/suggestion.php:592 pages/suggestion.php:599
+#: pages/suggestion.php:606 pages/suggestion.php:621 pages/suggestion.php:628
+#: pages/suggestion.php:635 pages/task.php:484 pages/task.php:491
+#: pages/task.php:498 pages/task.php:505 pages/task.php:512 pages/task.php:519
+#: pages/topic.php:447
+msgid "any"
+msgstr ""
+
+#: pages/suggestion.php:590
+msgid "Country of submission"
+msgstr ""
+
+#: pages/suggestion.php:597 singles/suggestion.php:889 singles/task.php:503
+#: singles/topic.php:919
+msgid "Stakeholder group"
+msgstr ""
+
+#: pages/suggestion.php:604 pages/task.php:496
+msgid "Type"
+msgstr ""
+
+#: pages/suggestion.php:611 pages/task.php:524
+msgid "Time period / from"
+msgstr ""
+
+#: pages/suggestion.php:613 pages/task.php:526
+msgid "Time period / to"
+msgstr ""
+
+#: pages/suggestion.php:617
+msgid "Advanced filters"
+msgstr ""
+
+#: pages/suggestion.php:619
+msgid "Infrastructure"
+msgstr ""
+
+#: pages/suggestion.php:626
+msgid "Methodology"
+msgstr ""
+
+#: pages/suggestion.php:633
+msgid "Content"
+msgstr ""
+
+#: pages/suggestion.php:641 pages/task.php:528
+msgid "Filter results"
+msgstr ""
+
+#: pages/suggestion.php:645 singles/suggestion.php:713
+msgid "Suggestions"
+msgstr "Sugestie"
+
+#: pages/suggestion.php:647 pages/task.php:533 pages/topic.php:441
+msgid "Search by title..."
+msgstr ""
+
+#: pages/suggestion.php:651 pages/task.php:537 pages/topic.php:453
+msgid "Order by"
+msgstr ""
+
+#: pages/suggestion.php:744
+msgid "suggestions found"
+msgstr ""
+
+#: pages/suggestion.php:751 pages/task.php:635
+msgid "language"
+msgstr ""
+
+#: pages/suggestion.php:755 pages/task.php:639
+msgid "duration"
+msgstr ""
+
+#: pages/suggestion.php:759 pages/task.php:643
+msgid "type"
+msgstr ""
+
+#: pages/suggestion.php:763 pages/task.php:647
+msgid "level"
+msgstr ""
+
+#: pages/suggestion.php:767 pages/task.php:651
+msgid "source"
+msgstr ""
+
+#: pages/suggestion.php:771 pages/task.php:655
+msgid "targeted stakeholder group"
+msgstr ""
+
+#: pages/suggestion.php:775
+msgid "infrastructure"
+msgstr ""
+
+#: pages/suggestion.php:779
+msgid "methodology"
+msgstr ""
+
+#: pages/suggestion.php:783
+msgid "content"
+msgstr ""
+
+#: pages/suggestion.php:798 pages/task.php:670
+msgid "search"
+msgstr ""
+
+#: pages/suggestion.php:803 pages/task.php:675
+msgid "date since"
+msgstr ""
+
+#: pages/suggestion.php:808 pages/task.php:680
+msgid "date till"
+msgstr ""
+
+#: pages/suggestion.php:813 pages/task.php:685
+msgid "clear filters"
+msgstr ""
+
+#: pages/task.php:479
+msgid "Filtering"
+msgstr ""
+
+#: pages/task.php:489
+msgid "Duration"
+msgstr ""
+
+#: pages/task.php:503 singles/task.php:509
+msgid "Level"
+msgstr ""
+
+#: pages/task.php:510 singles/suggestion.php:892 singles/task.php:506
+#: singles/topic.php:922
+msgid "Source"
+msgstr ""
+
+#: pages/task.php:517
+msgid "Targeted stakeholder group"
+msgstr ""
+
+#: pages/task.php:531 singles/task.php:437
+msgid "Tasks"
+msgstr ""
+
+#: pages/task.php:628
+msgid "tasks found"
+msgstr ""
+
+#: pages/topic.php:439 singles/topic.php:746
+msgid "Topics"
+msgstr ""
+
+#: pages/topic.php:461
+msgid "topics found"
+msgstr ""
+
+#: singles/suggestion.php:727 singles/topic.php:764
+msgid "Share"
+msgstr ""
+
+#: singles/suggestion.php:744
+msgid "Suggestions details"
+msgstr ""
+
+#: singles/suggestion.php:768 singles/topic.php:808
+msgid "Related tasks"
+msgstr ""
+
+#: singles/suggestion.php:823 singles/topic.php:853
+msgid "Comments"
+msgstr ""
+
+#: singles/suggestion.php:825 singles/topic.php:855
+msgid "Add comment"
+msgstr ""
+
+#: singles/suggestion.php:828 singles/topic.php:858
+msgid "Submit"
+msgstr ""
+
+#: singles/suggestion.php:832 singles/topic.php:862
+msgid ""
+"Comments and replies are moderated. Your comment will appear here once the "
+"site administrator accepts it."
+msgstr ""
+
+#: singles/suggestion.php:857
+msgid "creator"
+msgstr ""
+
+#: singles/suggestion.php:869 singles/task.php:488 singles/topic.php:899
+msgid "Created"
+msgstr ""
+
+#: singles/suggestion.php:887 singles/suggestion.php:890
+#: singles/suggestion.php:893 singles/task.php:501 singles/task.php:504
+#: singles/task.php:507 singles/task.php:510 singles/topic.php:917
+#: singles/topic.php:920 singles/topic.php:923
+msgid "not specified"
+msgstr ""
+
+#: singles/task.php:443
+msgid "Task details"
+msgstr ""
+
+#: singles/task.php:478 singles/topic.php:887
+msgid "facilitator"
+msgstr ""
+
+#: singles/task.php:489 singles/topic.php:900
+msgid "Valid thru"
+msgstr ""
+
+#: singles/task.php:516
+msgid "Time estimate"
+msgstr ""
+
+#: singles/topic.php:781
+msgid "Topic details"
+msgstr ""
+
+#: singles/topic.php:797
+msgid "Attachments"
+msgstr ""
+
+#: singles/topic.php:940
+msgid "Assigned working group"
+msgstr ""
+
+#: singles/topic.php:948
+msgid "External links"
+msgstr ""
+
+#: singles/topic.php:962
+msgid "Original suggestions"
+msgstr ""

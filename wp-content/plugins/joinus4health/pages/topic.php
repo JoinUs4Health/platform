@@ -1,13 +1,11 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 get_header();
 ?>
-    <script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/feather.min.js"></script>
-    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/moment.min.js"></script>
     <link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/flatpickr.min.css">
     <script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/flatpickr.min.js"></script>
@@ -55,6 +53,7 @@ get_header();
         .ast-container {
             align-items: flex-start;
             flex-flow: row wrap;
+            margin-bottom: 40px;
         }
         
         .ast-container h1 {
@@ -388,19 +387,14 @@ get_header();
     foreach ($names as $name => $values) {
         if (isset($_GET[$name]) && $_GET[$name] != '') {
             if ($name == 'sortby') {
-                if ($_GET[$name] == 'popular') {
+                if ($_GET[$name] == 'votes') {
                     $query_params['orderby'] = array('m_votes_count' => 'DESC', 'date' => 'DESC');
                     $query_params['meta_type'] = 'NUMERIC';
                     $query_params['meta_key'] = 'm_votes_count';                    
                     $get_params['sortby'] = $_GET['sortby'];                    
-                } else if ($_GET[$name] == 'recent') {
+                } else {
                     $query_params['orderby'] = array('date' => 'DESC');
-                    $get_params['sortby'] = $_GET['sortby'];
-                } else if ($_GET[$name] == 'trending') {
-                    $query_params['orderby'] = array('m_trending_votes' => 'DESC');
-                    $query_params['meta_type'] = 'NUMERIC';
-                    $query_params['meta_key'] = 'm_trending_votes';
-                    $get_params['sortby'] = $_GET['sortby'];
+                    $get_params['sortby'] = '';
                 }
             } else if ($name == 'topictag' && is_numeric($_GET[$name])) {
                 $tax_query = array(
@@ -442,21 +436,21 @@ get_header();
     $query_params['paged'] = $current_page;
     $query = new WP_Query($query_params);
     ?>
-    <h1><?= __('Topics') ?></h1>
+    <h1><?= __('Topics', 'joinus4health') ?></h1>
     <div class="topic-filtering">
-        <input type="text" class="searchbox" placeholder="<?= _('Search by title...') ?>" value="<?= esc_attr($_GET['search_content']) ?>" />
+        <input type="text" class="searchbox" placeholder="<?= __('Search by title...', 'joinus4health') ?>" value="<?= isset($_GET['search_content']) ? esc_attr($_GET['search_content']) : '' ?>" />
         <div class="search-icon">
             <i data-feather="search"></i>
         </div>
-        <div class="orderby"><?= __('Language') ?></div>
+        <div class="orderby"><?= __('Language', 'joinus4health') ?></div>
         <select class="orderby" name="language" id="language">
-            <option value=""<?= (isset($_GET['language']) && $_GET['language'] == '') ? ' selected' : '' ?>><?= _('any') ?></option>
+            <option value=""<?= (isset($_GET['language']) && $_GET['language'] == '') ? ' selected' : '' ?>><?= __('any', 'joinus4health') ?></option>
             <?php foreach ($meta_countries as $index => $value): ?>
             <?php $selected = (isset($_GET['language']) && $_GET['language'] == $index) ? ' selected' : '' ?> 
             <option value="<?= $index ?>"<?= $selected ?>><?= $value ?></option>
             <?php endforeach; ?>
         </select>
-        <div class="orderby"><?= __('Order by') ?></div>
+        <div class="orderby"><?= __('Order by', 'joinus4health') ?></div>
         <select class="orderby" name="sortby" id="sortby">
             <?php foreach ($meta_sortby_topic as $index => $value): ?>
             <?php $selected = (isset($_GET['sortby']) && $_GET['sortby'] == $index) ? ' selected' : '' ?> 
@@ -464,7 +458,7 @@ get_header();
             <?php endforeach; ?>
         </select>
     </div>
-    <div class="topics-found-counter"><?= $query->found_posts ?> <?= _('topics found') ?></div>
+    <div class="topics-found-counter"><?= $query->found_posts ?> <?= __('topics found', 'joinus4health') ?></div>
     <?php if ($query->have_posts()): ?>
     <div class="topic-list">
     <?php $i = 1 ?>
@@ -518,4 +512,4 @@ get_header();
             <?php endif; ?>
         <?php endif; ?>
     </div>
-    <?php endif; ?>
+    <?php endif;
