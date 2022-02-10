@@ -153,8 +153,8 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['type
         <?php endif; ?>
         <label><?= __('Type', 'joinus4health') ?></label>
         <select name="type">
-            <?php foreach ($meta_types as $index => $value): ?>
-            <option value="<?= $index ?>"<?= isset($_POST['type']) && $_POST['type'] == $key ? ' selected' : '' ?>><?= $value ?></option>
+            <?php foreach ($meta_types as $key => $value): ?>
+            <option value="<?= $key ?>"<?= isset($_POST['type']) && $_POST['type'] == $key ? ' selected' : '' ?>><?= $value ?></option>
             <?php endforeach; ?>
         </select>
         <label><?= __('Title', 'joinus4health') ?></label>
