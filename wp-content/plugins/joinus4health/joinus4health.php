@@ -71,6 +71,10 @@ add_filter('index_template', 'filter_index_template');
 function filter_archive_template($page_template) {
     global $post;
 
+    if ($post == null || !isset($post->post_type)) {
+        return $page_template;
+    }
+    
     switch ($post->post_type) {
         case 'ju4hsuggestion':
             return WP_PLUGIN_DIR.'/joinus4health/pages/suggestion.php';

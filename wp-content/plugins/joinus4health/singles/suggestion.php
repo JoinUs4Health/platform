@@ -806,7 +806,7 @@ html_modal_uncontribute();
         }
 
         $comment_query = new WP_Comment_Query($comment_args);
-        $comments = &$comment_query->get_comments();
+        $comments = $comment_query->get_comments();
         $count_comments = count_comments($comments);
         ?>
         <script type="text/javascript">
