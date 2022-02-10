@@ -41,9 +41,9 @@ if (!is_user_logged_in()) {
 }
 
 $meta = get_post_meta(get_the_ID());
-$response->votes = count(isset($meta['m_votes']) ? $meta['m_votes'] : 0);
-$response->follows = count(isset($meta['m_follows']) ? $meta['m_follows'] : 0);
-$response->contributes = count(isset($meta['m_contributes']) ? $meta['m_contributes'] : 0);
+$response->votes = isset($meta['m_votes']) ? count($meta['m_votes']) : 0;
+$response->follows = isset($meta['m_follows']) ? count($meta['m_follows']) : 0;
+$response->contributes = isset($meta['m_contributes']) ? count($meta['m_contributes']) : 0;
 update_post_meta(get_the_ID(), 'm_votes_count', $response->votes);
 
 echo json_encode($response);
