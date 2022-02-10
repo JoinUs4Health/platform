@@ -456,7 +456,7 @@ $preferred_language = get_preferred_language();
             <?php $query_related_tasks->the_post(); ?>
             <?php $m_status = get_post_meta($post->ID, 'm_status', true); ?>
             <div class="separator"></div>
-            <h6>Related topic</h6>
+            <h6><?= __('Related topic', 'joinus4health') ?></h6>
             <div class="related-topic column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <div class="two-line-content">
                     <a href="<?= get_the_permalink($post) ?>" class="title"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a>

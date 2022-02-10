@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 the_post();
@@ -754,7 +754,7 @@ html_modal_uncontribute();
             <?php $attachments = get_post_meta($suggestion_post->ID, 'm_attachments') ?>
             <?php if (count($attachments) > 0): ?>
             <div class="separator"></div>
-            <h6>Attachments</h6>
+            <h6><?= __('Attachments', 'joinus4health') ?></h6>
             <div class="attachments">
                 <?php foreach ($attachments as $attachment): ?>
                 <?php $attachment_obj = json_decode($attachment) ?>

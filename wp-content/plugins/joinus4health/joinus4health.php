@@ -39,17 +39,13 @@ function filter_page_template($page_template) {
     global $post;
 
     switch ($post->post_name) {
-        case 'ju4hsuggestions':
-            return WP_PLUGIN_DIR.'/joinus4health/pages/suggestion.php';
-        case 'ju4htopics':
-            return WP_PLUGIN_DIR.'/joinus4health/pages/topic.php';
-        case 'ju4htasks':
-            return WP_PLUGIN_DIR.'/joinus4health/pages/task.php';
+        case 'ju4hsuggestion-new':
+            return WP_PLUGIN_DIR.'/joinus4health/pages/suggestion-new.php';
         default:
             return $page_template;
     }
 }
-//add_filter('page_template', 'filter_page_template');
+add_filter('page_template', 'filter_page_template');
 
 
 /**
@@ -175,24 +171,59 @@ function add_jquery_feather_icons_script() {
     wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery.min.js");
     wp_enqueue_script('ju4h-feather', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.min.js");
     wp_enqueue_script('ju4h-feather-replace', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.replace.js");
+    
+    $array = array('pl' => 'pl_PL', 'nl' => 'nl_NL', 'de' => 'de_DE');
+    $get_preferred_language = get_preferred_language();
+    $locale = isset($array[$get_preferred_language]) ? $array[$get_preferred_language] : null;
+    if ($locale != null) {
+        $mo_file = WP_CONTENT_DIR.'/languages/plugins/joinus4health-'.$locale.'.mo';
+
+        if (file_exists($mo_file)) {
+            unload_textdomain('joinus4health');
+            load_textdomain('joinus4health', $mo_file);
+        }
+    }
 }
 
 add_action('wp_enqueue_scripts', 'add_jquery_feather_icons_script');
 
 
+function my_setup() {
+
+}
+add_action('setup_theme', 'my_setup');
+
 function get_preferred_language() {
-    $user_id = get_current_user_id();
+    $field_id = 2; //ID field of language, user profile bbpress
+    $field_array_accpeted_language = array('pl', 'en', 'de', 'nl');
     
-    if ($user_id == 0) {
-        return 'en';
-    } else {
-        $obj = xprofile_get_field(2, $user_id, true); //2 is field id of extra fields in user profile bbpress
+    $current_user_id = get_current_user_id();
+    $preferred_language = null;
+    
+    if ($current_user_id > 0) {
+        $obj = xprofile_get_field($field_id, $current_user_id, true);
         
         if (isset($obj->data) && isset($obj->data->value) && is_string($obj->data->value)) {
-            return strtolower($obj->data->value);
-        } else {
-            return 'en';
+            $field_language = strtolower($obj->data->value);
+            
+            if (in_array($field_language, $field_array_accpeted_language)) {
+                $preferred_language = $field_language;
+            }
         }
+    }
+    
+    if ($preferred_language == null) {
+        $browser_locale = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        
+        if ($browser_locale == null) {
+            return 'en';
+        } else if (strpos($browser_locale, '_') !== false) {
+            return strtolower(explode('_', $browser_locale)[0]);
+        } else {
+            return $browser_locale;
+        }
+    } else {
+        return $preferred_language;
     }
 }
 

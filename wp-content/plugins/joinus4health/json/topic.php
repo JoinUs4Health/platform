@@ -12,40 +12,26 @@ $response = new stdClass();
 
 if (!is_user_logged_in()) {
     $response->error = __('You must be logged in', 'joinus4health');
-} else if ($get_var_operation == 'upvote' && !in_array(get_current_user_id(), $meta['m_votes'])) {
+} else if ($get_var_operation == 'upvote' && isset($meta['m_votes']) && !in_array(get_current_user_id(), $meta['m_votes'])) {
     add_post_meta(get_the_ID(), 'm_votes', get_current_user_id());
-    add_post_meta(get_the_ID(), 'm_votes_time', get_current_user_id().":".time());
-} else if ($get_var_operation == 'downvote' && in_array(get_current_user_id(), $meta['m_votes'])) {
-    $meta_votes_time = $meta['m_votes_time'];
-
-    foreach ($meta_votes_time as $index => $m_vote_time) {
-        if (explode(':', $m_vote_time)[0] == get_current_user_id()) {
-            delete_post_meta(get_the_ID(), 'm_votes_time', $m_vote_time);
-        }
-
-        if (explode(':', $m_vote_time)[1] < (time() - 24*3600)) {
-            delete_post_meta(get_the_ID(), 'm_votes_time', $m_vote_time);
-        }
-    }
-
+} else if ($get_var_operation == 'downvote' && isset($meta['m_votes']) && in_array(get_current_user_id(), $meta['m_votes'])) {
     delete_post_meta(get_the_ID(), 'm_votes', get_current_user_id());
-} else if ($get_var_operation == 'follow' && !in_array(get_current_user_id(), $meta['m_follows'])) {
+} else if ($get_var_operation == 'follow' && isset($meta['m_follows']) && !in_array(get_current_user_id(), $meta['m_follows'])) {
     add_post_meta(get_the_ID(), 'm_follows', get_current_user_id());
-} else if ($get_var_operation == 'unfollow' && in_array(get_current_user_id(), $meta['m_follows'])) {
+} else if ($get_var_operation == 'unfollow' && isset($meta['m_follows']) && in_array(get_current_user_id(), $meta['m_follows'])) {
     delete_post_meta(get_the_ID(), 'm_follows', get_current_user_id());
-} else if ($get_var_operation == 'contribute' && !in_array(get_current_user_id(), $meta['m_contributes'])) {
+} else if ($get_var_operation == 'contribute' && isset($meta['m_contributes']) && !in_array(get_current_user_id(), $meta['m_contributes'])) {
     add_post_meta(get_the_ID(), 'm_contributes', get_current_user_id());
-} else if ($get_var_operation == 'uncontribute' && in_array(get_current_user_id(), $meta['m_contributes'])) {
+} else if ($get_var_operation == 'uncontribute' && isset($meta['m_contributes']) && in_array(get_current_user_id(), $meta['m_contributes'])) {
     delete_post_meta(get_the_ID(), 'm_contributes', get_current_user_id());
 } else {
     $response->error = __("You already make an operation", 'joinus4health');
 }
 
 $meta = get_post_meta(get_the_ID());
-$response->votes = count($meta['m_votes']);
-$response->follows = count($meta['m_follows']);
-$response->contributes = count($meta['m_contributes']);
+$response->votes = count(isset($meta['m_votes']) ? $meta['m_votes'] : 0);
+$response->follows = count(isset($meta['m_follows']) ? $meta['m_follows'] : 0);
+$response->contributes = count(isset($meta['m_contributes']) ? $meta['m_contributes'] : 0);
 update_post_meta(get_the_ID(), 'm_votes_count', $response->votes);
-update_post_meta(get_the_ID(), 'm_trending_votes', count($meta['m_votes_time']));
 
 echo json_encode($response);

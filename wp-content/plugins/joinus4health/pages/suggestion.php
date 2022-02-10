@@ -573,7 +573,7 @@ if (isset($_GET['date_till'])) {
     <div class="first-column">
         <div class="push-your-idea">
             <h3><?= __('Take part in our project — suggest your idea!', 'joinus4health') ?></h3>
-            <a href="#" class="btn-push-idea"><?= __('Create new suggestion', 'joinus4health') ?></a>
+            <a href="<?= home_url() ?>/ju4hsuggestion-new/" class="btn-push-idea"><?= __('Create new suggestion', 'joinus4health') ?></a>
         </div>
         <div class="filtering">
             <div class="filterheader">
