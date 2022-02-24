@@ -29,7 +29,7 @@ function get_js_script_voting($url = null) {
             }
             
             elId = $(this).attr("data-id");
-            elUrl = $("#item-url-" + elId).attr("href");
+            elUrl = $(this).attr('data-url');
             $.ajax({
                 type: 'GET',
                 <?php if ($url == null): ?>
@@ -171,7 +171,7 @@ function html_topic($post) {
     $preferred_language = get_preferred_language();
     ?>        <div class="topic-item">
             <div class="voting-col">
-                <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>">
+                <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>" data-url="<?= get_the_permalink($post->ID) ?>">
                     <div class="counter" id="item-votes-<?= $post->ID ?>"><?= count($m_votes) ?></div>
                     <i data-feather="thumbs-up"></i>
                 </div>
@@ -247,7 +247,7 @@ function html_suggestion($post) {
     $preferred_language = get_preferred_language();
     ?>
             <div class="suggestion-item">
-                <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>">
+                <div class="voting <?= $vote_class ?>" data-id="<?= $post->ID ?>" id="item-vote-<?= $post->ID ?>" data-url="<?= get_the_permalink($post->ID) ?>">
                     <div class="counter" id="item-votes-<?= $post->ID ?>"><?= count($m_votes) ?></div>
                     <i data-feather="thumbs-up"></i>
                 </div>

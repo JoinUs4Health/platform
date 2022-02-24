@@ -102,7 +102,6 @@ $preferred_language = get_preferred_language();
         .ast-container .first-column .content h6 {
             display: block;
             width: 100%;
-            line-height: 24px;
             color: #3b4045;
             padding-left: 20px;
             font-size: 18px;
@@ -119,10 +118,8 @@ $preferred_language = get_preferred_language();
             font-weight: normal;
             font-stretch: normal;
             font-style: normal;
-            line-height: 1.5;
             letter-spacing: normal;
-            margin-bottom: 24px;;
-            
+            margin-bottom: 24px;
             display: block;
             width: 100%;
             line-height: 24px;

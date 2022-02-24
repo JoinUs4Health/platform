@@ -228,7 +228,6 @@ html_modal_uncontribute();
             display: block;
             width: 100%;
             margin-top: 32px;
-            line-height: 24px;
             color: #3b4045;
             font-size: 16px;
             font-weight: 500;
@@ -336,7 +335,6 @@ html_modal_uncontribute();
         
         .ast-container .first-column .comments .comment .container .author {
             flex: 1 0 0;
-
             font-size: 14px;
             font-weight: bold;
             font-stretch: normal;
@@ -348,7 +346,6 @@ html_modal_uncontribute();
         
         .ast-container .first-column .comments .comment .container .date {
             flex: 0 0 300px;
-            
             font-size: 12px;
             font-weight: normal;
             font-stretch: normal;
@@ -399,10 +396,16 @@ html_modal_uncontribute();
             padding-top: 24px;
         }
         
+        .ast-container .first-column .content h2 {
+            font-family: Recoleta;
+            padding-left: 20px;
+            padding-bottom: 12px;
+            font-size: 28px;
+        }
+        
         .ast-container .first-column .content h6 {
             display: block;
             width: 100%;
-            line-height: 24px;
             color: #3b4045;
             padding-left: 20px;
             font-size: 18px;
@@ -419,7 +422,6 @@ html_modal_uncontribute();
             font-weight: normal;
             font-stretch: normal;
             font-style: normal;
-            line-height: 1.5;
             letter-spacing: normal;
             margin-bottom: 0;
             display: block;
@@ -719,11 +721,11 @@ html_modal_uncontribute();
         $m_votes_count = count($m_votes);
         ?>
         <div class="title-and-buttons">
-            <div class="voting <?= $vote_class ?>" data-id="<?= $suggestion_post->ID ?>" id="item-vote-<?= $suggestion_post->ID ?>">
+            <div class="voting <?= $vote_class ?>" data-id="<?= $suggestion_post->ID ?>" id="item-vote-<?= $suggestion_post->ID ?>" data-url="<?= get_the_permalink($suggestion_post->ID) ?>">
                 <div class="counter" id="item-votes-<?= $suggestion_post->ID ?>"><?= count($m_votes) ?></div>
                 <i data-feather="thumbs-up"></i>
             </div>
-            <div class="title"><?= get_translated_title($suggestion_post, 'm_title', $preferred_language) ?></div>
+            <div class="title"></div>
             <a href='#share' class="btn" rel="modal:open"><?= __('Share', 'joinus4health') ?></a>
             <?php $m_follows = get_post_meta($suggestion_post->ID, "m_follows"); ?>
             <?php $is_following = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ?>
@@ -741,6 +743,7 @@ html_modal_uncontribute();
     </div> 
     <div class="first-column">
         <div class="content column-common-border-style">
+            <h2><?= get_translated_title($suggestion_post, 'm_title', $preferred_language) ?></h2>
             <h6><?= __('Suggestions details', 'joinus4health') ?></h6>
             <?= '<p>'.get_translated_field_paragraph($suggestion_post, 'm_description', $preferred_language).'</p>' ?>
             <?php $tags = wp_get_post_terms($suggestion_post->ID, 'ju4htopictag') ?>

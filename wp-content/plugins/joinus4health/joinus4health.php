@@ -47,19 +47,17 @@ function filter_page_template($page_template) {
 }
 add_filter('page_template', 'filter_page_template');
 
-
 /**
- * Filtering page templates and adding own pages from plugin
+ * Filtering home template and adding own template from plugin
  * 
  * @global type $post
  * @param type $page_template
  * @return type
  */
-function filter_index_template($page_template) {
-    return WP_PLUGIN_DIR.'/joinus4health/pages/topic.php';
+function filter_home_template($page_template) {
+    return WP_PLUGIN_DIR.'/joinus4health/pages/home.php';
 }
-add_filter('index_template', 'filter_index_template');
-
+add_filter('home_template', 'filter_home_template');
 
 /**
  * Filtering page templates and adding own pages from plugin

@@ -1,0 +1,199 @@
+1. Install new wordpress instance on netcup
+
+
+
+2. Install Astra theme
+2.1. Copy astra-child theme to wp-content/themes
+2.2. Activate Ju4H theme
+2.3. Set up title: Join Us 4 Health
+2.4. Set up tagline: like above
+2.5. Check Membership as: Anyone can register
+2.6. Site language: English
+2.7. Date format: Y-m-d
+2.8. Time format: H:i
+2.9. Week Starts On: Monday
+2.10. Appeareance > Astra options:
+2.10.1 Header Builder:
+   - Primary header settings:
+     - Height: 70px
+     - Design:
+       - Margin bottom: 40px
+       - Bottom border size: 0px
+       - Background: #efe733
+2.10.1.1. Header Builder > Site Title & Logo: 
+   - Upload logo
+   - Logo width 112px
+   - Uncheck display site title & site tagline
+2.10.1.1 Header Builder > Primary Menu:
+   - Design: 
+     - Border Width: 0 0 0 0 px
+     - Menu Color > Text Link: R:0 G:0 B:0 A:50% / #000000 / #000000
+     - Menu Font:
+       - Family: Poppins
+       - Weight: Medium 500
+2.10.2. Global > Typography:
+   - Body Font Family: DM Sans
+   - Variants: Normal 400, Medium 500, Bold 700
+   - Size: 15px
+   - Weight: Normal 400
+   - Heading Font Family: DM Sans
+   - Variants: Bold 700
+   - Weight: Bold 700 Inherit
+   - H1 Size: 40px
+   - H2 Size: 30px
+   - H3 Size: 25px
+   - H4 Size: 20px
+   - H5 Size: 18px
+   - H6 Size: 15px
+2.10.3. Sidebar:
+   - Default layout: No sidebar
+   - Pages: Default
+   - Blog Posts: Default
+   - Archives: Default
+2.10.4. Global > Container:
+   - Container Width: 1230px
+   - Layout: Full Width / Contained
+   - Page Layout: Full Width / Contained
+2.10.5. Global > Colors:
+   - Text color: #3a3a3a
+   - Theme color: #efe733
+   - Link color: #fb7d66
+   - Link Hover Color: #ff6448
+   - Heading Color: #000000
+   - Content background: #ffffff
+2.10.6. Widgets:
+   - Remove all widgets
+2.10.7. Footer Builder:
+   - Remove all bottom sections
+
+   
+3. Install plugin BuddyPress, bbPress
+3.1. Permalink settings:
+   - Common Settings > Post Name
+3.2. BuddyPress:
+3.2.1. Components:
+   - Private Messaging: Enable
+   - User Groups: Enable
+3.2.2. Options:
+   - Main settings > Pack > BuddyPress Legacy
+   - Member Settings > Invitations > Allow registered members to invite people to join this network: check
+   - Activity Settings > Post Comments:  Allow activity stream commenting on posts and comments: check
+3.3. ROBERT TODO opis dodatkowych pól podczas rejestracji dla buddypressa, pamiętaj o zachowaniu kolejności pól bo inaczej mi nie zadziała interpretacja tych pól 
+   
+   
+4. Fetch locally LudicrousDB from git:
+   - git clone https://github.com/stuttter/ludicrousdb.git or download zip
+4.1. Edit wp-config.php in main wordpress directory, COPY (for later purpouse 4.3) and remove first 39 lines, especially definitions:
+   - define( 'DB_NAME', 'xxxx' );
+   - define( 'DB_USER', 'xxxx' );
+   - define( 'DB_PASSWORD', 'xxxx' );
+   - define( 'DB_HOST', 'xxxx' );
+   - define( 'DB_CHARSET', 'xxxx' );
+   - define( 'DB_COLLATE', 'xxxx' );
+4.2. Change lines 37-38 in ludicrousdb.php file from ludicrousdb folder:
+    > require_once dirname( __FILE__ ) . '/ludicrousdb/includes/functions.php';
+    > require_once dirname( __FILE__ ) . '/ludicrousdb/includes/class-ludicrousdb.php';
+    to
+    > require_once dirname( __FILE__ ) . '/includes/functions.php';
+    > require_once dirname( __FILE__ ) . '/includes/class-ludicrousdb.php';
+4.3. Take file db-config.php from drop-ins and copy it to main wordpress catalog. Remove all lines below line 95 and paste this lines:
+$table_prefix = 'wp_';
+$wpdb->add_table('1', $table_prefix."bp_activity");
+$wpdb->add_table('1', $table_prefix."bp_activity_meta");
+$wpdb->add_table('1', $table_prefix."bp_groups");
+$wpdb->add_table('1', $table_prefix."bp_groups_groupmeta");
+$wpdb->add_table('1', $table_prefix."bp_groups_members");
+$wpdb->add_table('1', $table_prefix."bp_invitations");
+$wpdb->add_table('1', $table_prefix."bp_messages_messages");
+$wpdb->add_table('1', $table_prefix."bp_messages_meta");
+$wpdb->add_table('1', $table_prefix."bp_messages_notices");
+$wpdb->add_table('1', $table_prefix."bp_messages_recipients");
+$wpdb->add_table('1', $table_prefix."bp_notifications");
+$wpdb->add_table('1', $table_prefix."bp_notifications_meta");
+$wpdb->add_table('1', $table_prefix."bp_optouts");
+$wpdb->add_table('1', $table_prefix."bp_xprofile_data");
+$wpdb->add_table('1', $table_prefix."bp_xprofile_fields");
+$wpdb->add_table('1', $table_prefix."bp_xprofile_groups");
+$wpdb->add_table('1', $table_prefix."bp_xprofile_meta");
+$wpdb->add_table('1', $table_prefix."commentmeta");
+$wpdb->add_table('1', $table_prefix."comments");
+$wpdb->add_table('1', $table_prefix."links");
+$wpdb->add_table('1', $table_prefix."options");
+$wpdb->add_table('1', $table_prefix."postmeta");
+$wpdb->add_table('1', $table_prefix."posts");
+$wpdb->add_table('1', $table_prefix."signups");
+$wpdb->add_table('1', $table_prefix."task_breaker_comments");
+$wpdb->add_table('1', $table_prefix."task_breaker_tasks");
+$wpdb->add_table('1', $table_prefix."task_breaker_tasks_user_assignment");
+$wpdb->add_table('1', $table_prefix."task_breaker_task_meta");
+$wpdb->add_table('1', $table_prefix."termmeta");
+$wpdb->add_table('1', $table_prefix."terms");
+$wpdb->add_table('1', $table_prefix."term_relationships");
+$wpdb->add_table('1', $table_prefix."term_taxonomy");
+
+$wpdb->add_table('2', $table_prefix."usermeta");
+$wpdb->add_table('2', $table_prefix."users");
+
+$wpdb->add_database(array(
+	'host'     => "xxx_1",     // If port is other than 3306, use host:port.
+	'user'     => "xxx_1",
+	'password' => "xxx_1",
+	'name'     => "xxx_1",
+	'dataset'  => "1",
+	'write'    => 1,
+    'read'     => 1,
+    'timeout'  => 1.0,
+));
+
+$wpdb->add_database(array(
+	'host'     => "xxx_2",     // If port is other than 3306, use host:port.
+	'user'     => "xxx_2",
+	'password' => "xxx_2",
+	'name'     => "xxx_2",
+	'dataset'  => "2",
+	'write'    => 1,
+    'read'     => 1,
+    'timeout'  => 1.0,
+));
+4.4. At xxx_1 & xxx_2 should be placed credentials database data like database host, user, database password and database name. For $table_prefix put table prefix.
+4.5. Create second database and put to it two tables: {prefix}_users & {prefix}_usermeta.
+4.6. Copy db.php and db-error.php from drop-ins to wp-content folder.
+4.7. Copy ludicrousdb folder (without drop-ins) with content: includes folder and ludicrousdb.php file to wp-content/plugins folder.
+4.8. After install ludicrousdb refresh page, all things should be working.
+
+
+
+5. Install joinus4health plugin
+5.1. Copy folder with plugin to wp-content/plugins 
+5.2. Activate plugin in wordpress panel
+
+
+
+6. Setup menu & page
+6.1. Add pages:
+    - Activation
+    - Activity
+    - Add new suggestion
+    - Event catalog
+    - Members
+    - Privacy Policy
+    - Report repository
+    - Sign up
+    - Working group
+6.2. BuddyPress bind pages:
+  - Pages > Directories:
+    - Members > Members
+    - Activity Stream > Activity
+    - User Groups > Working group
+    - Projects > Report Repository
+  - Pages > Registration:
+    - Register > Sign up
+    - Activate -> Activation
+6.3. Setup menu in this order:
+    - Custom Links > Navigation Label: Topics; URL: https://{website url}/ju4htopic/
+    - Custom Links > Navigation Label: Tasks; URL: https://{website url}/ju4htask/
+    - Custom Links > Navigation Label: Suggestions; URL: https://{website url}/ju4hsuggestion/
+    - Pages > Working group
+    - Pages > Report repository
+    - Pages > Event catalog
+

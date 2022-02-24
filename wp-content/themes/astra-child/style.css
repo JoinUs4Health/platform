@@ -318,3 +318,18 @@ Uncontribute modal style - start
 /*
 Share modal - end
 */
+
+ul.sub-menu li {
+    border: 1px solid #656d75;
+    background-color: #000000;    
+    color: #ffffff;
+}
+
+ul.sub-menu li a {
+    color: #ffffff !important;
+}
+
+ul.sub-menu li a:hover {
+    color: #000000 !important;
+    background-color: #efe733;
+}

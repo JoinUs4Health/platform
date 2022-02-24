@@ -237,7 +237,6 @@ html_modal_uncontribute();
             display: block;
             width: 100%;
             margin-top: 32px;
-            line-height: 24px;
             color: #3b4045;
             font-size: 16px;
             font-weight: 500;
@@ -408,10 +407,16 @@ html_modal_uncontribute();
             padding-top: 24px;
         }
         
+        .ast-container .first-column .content h2 {
+            font-family: Recoleta;
+            padding-left: 20px;
+            padding-bottom: 12px;
+            font-size: 28px;
+        }
+        
         .ast-container .first-column .content h6 {
             display: block;
             width: 100%;
-            line-height: 24px;
             color: #3b4045;
             padding-left: 20px;
             font-size: 18px;
@@ -428,7 +433,6 @@ html_modal_uncontribute();
             font-weight: normal;
             font-stretch: normal;
             font-style: normal;
-            line-height: 1.5;
             letter-spacing: normal;
             margin-bottom: 0;
             display: block;
@@ -756,11 +760,11 @@ html_modal_uncontribute();
         <?php if ($m_imageurl != null) { $m_imageurl = ' style="background-image: url('.home_url().'/wp-content/'.$m_imageurl->file.');"'; } ?>
         <div class="image"<?= $m_imageurl ?>></div>
         <div class="title-and-buttons">
-            <div class="voting <?= $vote_class ?>" data-id="<?= $topic_post->ID ?>" id="item-vote-<?= $topic_post->ID ?>">
+            <div class="voting <?= $vote_class ?>" data-id="<?= $topic_post->ID ?>" data-url="<?= get_the_permalink($topic_post->ID) ?>" id="item-vote-<?= $topic_post->ID ?>">
                 <div class="counter" id="item-votes-<?= $topic_post->ID ?>"><?= count($m_votes) ?></div>
                 <i data-feather="thumbs-up"></i>
             </div>
-            <div class="title"><?= get_translated_title($topic_post, 'm_title', $preferred_language) ?></div>
+            <div class="title"></div>
             <a href='#share' class="btn" rel="modal:open"><?= __('Share', 'joinus4health') ?></a>
             <?php $m_follows = get_post_meta($topic_post->ID, "m_follows"); ?>
             <?php $is_following = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ?>
@@ -778,6 +782,7 @@ html_modal_uncontribute();
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
+            <h2><?= get_translated_title($topic_post, 'm_title', $preferred_language) ?></h2>
             <h6><?= __('Topic details', 'joinus4health') ?></h6>
             <?php
             echo '<p>'.get_translated_field($topic_post, 'm_intro', $preferred_language).'</p>';
