@@ -513,3 +513,4 @@ get_header();
         <?php endif; ?>
     </div>
     <?php endif;
+    get_footer();

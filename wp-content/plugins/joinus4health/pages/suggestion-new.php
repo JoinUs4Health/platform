@@ -163,3 +163,5 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['type
         <textarea name="description"><?= isset($_POST['description']) ? sanitize_textarea_field($_POST['description']) : '' ?></textarea>
         <input type="submit" value="<?= __('Create new suggestion', 'joinus4health') ?>"<?= (get_current_user_id() == 0) ? ' disabled' : '' ?> />
     </form>
+    <?php
+    get_footer();

@@ -179,7 +179,7 @@ function html_topic($post) {
             <div class="content-col" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <h5><a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a></h5>
                 <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
-                <div class="date-time">submitted by <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
+                <div class="date-time"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 <div class="content"><?= get_translated_field($post, 'm_intro', $preferred_language) ?></div>
                 <?php if (count($tags) > 0): ?>
                 <div class="tags">

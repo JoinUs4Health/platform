@@ -376,6 +376,11 @@ if (isset($_GET['date_till'])) {
             line-height: 1.33;
             letter-spacing: normal;
             color: #3b4045;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
        .ast-container .second-column div.task-list div.task-item div.two-line-content div.days-left {
@@ -737,3 +742,5 @@ if (isset($_GET['date_till'])) {
         </div>
         <?php endif; ?>
     </div>
+    <?php
+    get_footer();

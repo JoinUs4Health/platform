@@ -242,6 +242,11 @@ echo get_js_load_href();
             letter-spacing: normal;
             color: #ffffff;
             margin: 24px 24px 0 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .ast-container .white-section .two-column-container .first-col div.item-topic div.tags {
@@ -295,6 +300,11 @@ echo get_js_load_href();
             color: #3b4045;
             padding-left: 16px;
             flex: 1 0 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .ast-container .white-section .two-column-container .first-col div.item-suggestion  div.voting {
@@ -484,6 +494,11 @@ echo get_js_load_href();
             letter-spacing: normal;
             color: #3b4045;
             flex: 0 0 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .ast-container .grey-section .four-column-container .item div.sup {
@@ -567,17 +582,17 @@ echo get_js_load_href();
             <div class="col1">
                 <h5><?= __('Who we are', 'joinus4health') ?></h5>
                 <p><?= __('home.who.we.are.description', 'joinus4health') ?></p>
-                <a href="#"><?= __('Read more (?)', 'joinus4health') ?> <i data-feather="external-link"></i></a>
+                <a href="#"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
             </div>
             <div class="col2">
                 <h5><?= __('How to join us', 'joinus4health') ?></h5>
                 <p><?= __('home.how.to.join.us.description', 'joinus4health') ?></p>
-                <a href="#"><?= __('Read more (?)', 'joinus4health') ?> <i data-feather="external-link"></i></a>
+                <a href="#"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
             </div>
             <div class="col3">
                 <h5><?= __('Our rules', 'joinus4health') ?></h5>
                 <p><?= __('home.our.rules.description', 'joinus4health') ?></p>
-                <a href="#"><?= __('Read more (?)', 'joinus4health') ?> <i data-feather="external-link"></i></a>
+                <a href="#"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
             </div>
         </div>
     </div>
@@ -700,7 +715,7 @@ echo get_js_load_href();
             while ($query->have_posts()):
             $query->the_post();
             ?>
-            <div class="item">
+            <div class="item" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <a href="<?= get_the_permalink($post->ID) ?>"><?= get_the_title($post->ID) ?></a>
                 <div class="sup"><?= time_ago($post) ?></div>
             </div>
@@ -749,3 +764,5 @@ echo get_js_load_href();
             </div>
         </div>
     </div>
+    <?php
+    get_footer();

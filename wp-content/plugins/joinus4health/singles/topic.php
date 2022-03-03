@@ -408,10 +408,16 @@ html_modal_uncontribute();
         }
         
         .ast-container .first-column .content h2 {
-            font-family: Recoleta;
             padding-left: 20px;
-            padding-bottom: 12px;
+            padding-bottom: 24px;
+            font-family: Recoleta;
             font-size: 28px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.14;
+            letter-spacing: normal;
+            color: #3b4045;
         }
         
         .ast-container .first-column .content h6 {
@@ -521,7 +527,7 @@ html_modal_uncontribute();
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis; 
+            text-overflow: ellipsis;
             font-size: 16px;
             font-weight: 500;
             font-stretch: normal;
