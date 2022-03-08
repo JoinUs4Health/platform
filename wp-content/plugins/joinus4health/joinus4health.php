@@ -187,6 +187,9 @@ function add_language_vars() {
     echo '<script type="text/javascript">'.
             'var possible_languages = '.json_encode($possible_languages).';'.
             'var language = "'.get_preferred_language().'";'.
+            'var sign_in_url = "'.home_url().'/sign-in/";'.
+            'var sign_in_text = "'.__('Register').'";'.
+            'var is_logged_in = '. (is_user_logged_in() ? 'true' : 'false').';'.
          '</script>';
 }
 add_action('wp_head', 'add_language_vars', 1, 1);

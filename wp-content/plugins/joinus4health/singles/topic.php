@@ -860,6 +860,7 @@ html_modal_uncontribute();
         $comments = $comment_query->get_comments();
         $count_comments = count_comments($comments);
         ?>
+        <?php if (is_user_logged_in()): ?>
         <a id="reply-comment"></a>
         <h6 class="comments"><?= __('Comments', 'joinus4health') ?> (<?= $count_comments ?>)</h6>
         <div class="add-comment">
@@ -872,6 +873,7 @@ html_modal_uncontribute();
             </form>
             <div class="sub"><?= __('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.', 'joinus4health') ?></div>
         </div>
+        <?php endif; ?>
         <div class="comments">
             <?php
             foreach ($comments as $comment) {

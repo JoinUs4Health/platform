@@ -91,6 +91,16 @@ echo get_js_load_href();
             flex-flow: row wrap;
         }
         
+        .ast-container .yellow-section ::selection {
+            background-color: #000000;
+            color: #fff;
+        }
+
+        .ast-container .yellow-section ::-moz-selection {
+            background-color: #000000;
+            color: #fff;
+        }
+        
         .ast-container .yellow-section .tri-column-container div.header {
             flex: 0 0 100%;
             margin: 64px 0 56px 0;
@@ -349,6 +359,22 @@ echo get_js_load_href();
             color: #3b4045;
         }
         
+        .ast-container .white-section .two-column-container .second-col a {
+            display: inline-block;
+            height: 48px;
+            padding: 0 28px;
+            border-radius: 4px;
+            background-color: #000000;
+            font-size: 16px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 48px;
+            letter-spacing: normal;
+            text-align: center;
+            color: #ffffff;
+        }
+        
         .ast-container .grey-section {
             background-color: #f9f9fa;
             flex: 1 0 100%;
@@ -546,6 +572,17 @@ echo get_js_load_href();
             margin-top: 56px;
         }
         
+                
+        .ast-container .grey-section .four-column-container .register-now ::selection {
+            background-color: #000000;
+            color: #fff;
+        }
+
+        .ast-container .grey-section .four-column-container .register-now ::-moz-selection {
+            background-color: #000000;
+            color: #fff;
+        }
+        
         .ast-container .grey-section .four-column-container .register-now h5 {
             font-family: 'Recoleta';
             font-size: 28px;
@@ -646,6 +683,7 @@ echo get_js_load_href();
                 <h6><?= __('What are topics?', 'joinus4health') ?></h6>
                 <p><?= __('home.what.are.topics.description.paragraph.1', 'joinus4health') ?></p>
                 <p><?= __('home.what.are.topics.description.paragraph.2', 'joinus4health') ?></p>
+                <a href="<?= home_url() ?>/ju4htopic/"><?= __('Browse topics', 'joinus4health') ?></a>
             </div>
         </div>
         <div class="two-column-container">
@@ -671,6 +709,7 @@ echo get_js_load_href();
                 <div class="separator"></div>
                 <h6><?= __('What are suggestions?', 'joinus4health') ?></h6>
                 <p><?= __('home.suggestion.description', 'joinus4health') ?></p>
+                <a href="<?= home_url() ?>/ju4hsuggestion/"><?= __('Browse suggestions', 'joinus4health') ?></a>
             </div>
         </div>
     </div>
@@ -706,7 +745,7 @@ echo get_js_load_href();
             <div class="separator"></div>
             <div class="header-with-button">
                 <h5><?= __('Working teams', 'joinus4health') ?></h5>
-                <a href="#" class="button-black"><b><?= __('See all teams', 'joinus4health') ?></b> <i data-feather="arrow-right"></i></a>
+                <a href="<?= home_url() ?>/groups/" class="button-black"><b><?= __('See all teams', 'joinus4health') ?></b> <i data-feather="arrow-right"></i></a>
             </div>
             <p><?= __('home.working.teams.description', 'joinus4health') ?></p>
             <?php
