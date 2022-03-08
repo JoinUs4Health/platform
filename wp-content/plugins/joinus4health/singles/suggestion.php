@@ -228,6 +228,7 @@ html_modal_uncontribute();
             display: block;
             width: 100%;
             margin-top: 32px;
+            margin-bottom: 16px;
             color: #3b4045;
             font-size: 16px;
             font-weight: 500;
@@ -239,7 +240,7 @@ html_modal_uncontribute();
         
         .ast-container .first-column .add-comment {
             width: 100%;
-            margin: 16px 0 20px;
+            margin: 0 0 20px;
             padding: 15px 16px 16px;
             border-radius: 4px;
             border: solid 1px #dee2e6;
@@ -828,9 +829,9 @@ html_modal_uncontribute();
                 });
             });
         </script>
-        <?php if (is_user_logged_in()): ?>
         <a id="reply-comment"></a>
         <h6 class="comments"><?= __('Comments', 'joinus4health') ?> (<?= $count_comments ?>)</h6>
+        <?php if (is_user_logged_in()): ?>
         <div class="add-comment">
             <div class="caption"><?= __('Add comment', 'joinus4health') ?></div>
             <form action="<?= home_url() ?>/wp-comments-post.php" method="post">

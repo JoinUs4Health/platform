@@ -209,7 +209,7 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                     <div class="author"><?= $comment->comment_author ?></div>
                     <div class="date"><?= get_comment_date('j F Y, H:i', $comment) ?></div>
                     <div class="txt"><?= $comment->comment_content ?></div>
-                    <?php if ($enabled_reply): ?>
+                    <?php if ($enabled_reply && is_user_logged_in()): ?>
                     <div class="urls">
                         <a href="#reply-comment" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>
                     </div>

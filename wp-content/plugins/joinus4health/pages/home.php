@@ -182,7 +182,7 @@ echo get_js_load_href();
         }
         
         .ast-container .white-section .two-column-container {
-            margin: 0 auto;
+            margin: 0 auto 20px auto;
             width: 1270px;
             display: flex;
             align-items: flex-start;
