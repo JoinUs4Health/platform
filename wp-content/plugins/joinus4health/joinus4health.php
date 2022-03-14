@@ -184,12 +184,29 @@ function add_language_vars() {
     $possible_languages['en']->text = 'English';
     $possible_languages['en']->url = home_url()."/wp-content/plugins/joinus4health/assets/png/GB.png";
     
+    $join_us = array();
+    $join_us[0] = new stdClass();
+    $join_us[0]->url = home_url()."/ju4hsuggestion/";
+    $join_us[0]->text = __('Suggestions', 'joinus4health');
+    $join_us[1] = new stdClass();
+    $join_us[1]->url = home_url()."/ju4htopic/";
+    $join_us[1]->text = __('Topics', 'joinus4health');
+    $join_us[2] = new stdClass();
+    $join_us[2]->url = home_url()."/ju4htask/";
+    $join_us[2]->text = __('Tasks', 'joinus4health');
+    
     echo '<script type="text/javascript">'.
             'var possible_languages = '.json_encode($possible_languages).';'.
+            'var join_us_items = '.json_encode($join_us).';'.
             'var language = "'.get_preferred_language().'";'.
-            'var sign_in_url = "'.home_url().'/sign-up/";'.
-            'var sign_in_text = "'.__('Register').'";'.
-            'var is_logged_in = '. (is_user_logged_in() ? 'true' : 'false').';'.
+            'var sign_up_url = "'.home_url().'/sign-up/";'.
+            'var sign_up_text = "'.__('Register').'";'.
+            'var sign_in_url = "'.home_url().'/wp-login.php";'.
+            'var sign_in_text = "'.__('Log In').'";'.
+            'var join_us_text = "'.__('Join us', 'joinus4health').'";'.
+            'var home_text = "'.__('Home', 'joinus4health').'";'.
+            'var home_url = "'. home_url().'";'.
+            'var is_logged_in = '.(is_user_logged_in() ? 'true' : 'false').';'.
          '</script>';
 }
 add_action('wp_head', 'add_language_vars', 1, 1);
@@ -273,3 +290,5 @@ function get_translated_field_paragraph($post, $field, $preferred_language) {
     $m = trim(empty($translated) ? get_post_meta($post->ID, $field, true) : $translated);
     return str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m);
 }
+
+add_filter( 'bp_is_profile_cover_image_active', '__return_false' ); 

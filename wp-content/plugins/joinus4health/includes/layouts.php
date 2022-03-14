@@ -223,10 +223,11 @@ function html_task($post) {
     global $post, $meta_contribute_duration;
     $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
     $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
+    $preferred_language = get_preferred_language();
     ?>
             <div class="task-item">
                 <div class="two-line-content">
-                    <a href="<?= get_the_permalink($post->ID) ?>" class="title"><?= $post->post_title ?></a>
+                    <a href="<?= get_the_permalink($post->ID) ?>" class="title"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a>
                     <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
                     <div class="submit-by"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 </div>

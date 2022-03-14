@@ -583,7 +583,7 @@ msgstr "We are three medical universities conducting population-based cohort stu
 
 #: pages/home.php:585 pages/home.php:590 pages/home.php:595
 msgid "Read more"
-msgstr "https://joinus4health.eu/about/cohorts/"
+msgstr "Read more"
 
 #: pages/home.php:588
 msgid "How to join us"

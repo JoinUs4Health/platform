@@ -19,7 +19,7 @@
 
 
 /* @import must be at top of file, otherwise CSS will not work */
-@import url("//hello.myfonts.net/count/3d8e75");
+/*@import url("//hello.myfonts.net/count/3d8e75");*/
   
 @font-face {
   font-family: "Recoleta";

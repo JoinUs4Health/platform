@@ -579,11 +579,11 @@ msgstr "Wer wir sind"
 
 #: pages/home.php:584
 msgid "home.who.we.are.description"
-msgstr "Wir sind drei medizinische Universitäten, die bevölkerungs-basierte Kohortenstudien in der Studienregion durchführen sowie acht weitere Partner aus Polen, den Niederlanden und Deutschland."
+msgstr "Wir sind drei medizinische Universitäten, die bevölkerungs-basierte Kohortenstudien in der Studienregion durchführen, sowie acht weitere Partner aus Polen, den Niederlanden und Deutschland."
 
 #: pages/home.php:585 pages/home.php:590 pages/home.php:595
 msgid "Read more"
-msgstr "https://joinus4health.eu/de/about/cohorts/"
+msgstr "Mehr lesen"
 
 #: pages/home.php:588
 msgid "How to join us"
@@ -611,7 +611,7 @@ msgstr "Was sind Themen?"
 
 #: pages/home.php:647
 msgid "home.what.are.topics.description.paragraph.1"
-msgstr "Die Themen werden von einem Vermittler / einer Vermittlerin unterstützt. Jede*r Plattformnutzer*in kann Vermittler*in werden, sofern er/sie sich bereit erklärt, den Austausch und die daraus entstehenden Teams ud Aufgaben zu begleiten. Ein Plan wird in der Beschreibung beschrieben. Die Nutzer*innen der Plattform sind zwei Wochen lang eingeladen, Feedback zu diesem Plan zu geben."
+msgstr "Die Themen werden von einem Vermittler / einer Vermittlerin unterstützt. Jede*r Plattformnutzer*in kann Vermittler*in werden, sofern er/sie sich bereit erklärt, den Austausch und die daraus entstehenden Teams ud Aufgaben zu begleiten. Ein Plan wird in der Beschreibung erläutert. Die Nutzer*innen der Plattform sind zwei Wochen lang eingeladen, Feedback zu diesem Plan zu geben."
 
 #: pages/home.php:648
 msgid "home.what.are.topics.description.paragraph.2"

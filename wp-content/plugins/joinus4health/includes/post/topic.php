@@ -678,6 +678,10 @@ function save_post_ju4htopic_callback($post_id) {
         update_post_meta($post_id, 'm_description_'.$key, esc_html($_POST['m_description_'.$key]));
     }
     
+    if (get_post_meta($post_id, 'm_votes_count', true) == '') {
+        update_post_meta($post_id, 'm_votes_count', 0);
+    }
+    
     update_post_meta($post_id, 'm_bbpress_topic', esc_html($_POST['m_bbpress_topic']));
     
     if (isset($_POST['m_valid_thru_d']) && isset($_POST['m_valid_thru_m']) && isset($_POST['m_valid_thru_Y']) &&

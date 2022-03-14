@@ -153,6 +153,10 @@ function save_post_ju4hsuggestion_callback($post_id) {
         }
     }
     
+    if (get_post_meta($post_id, 'm_votes_count', true) == '') {
+        update_post_meta($post_id, 'm_votes_count', 0);
+    }
+    
     foreach ($fields as $value) {
         if (isset($_REQUEST[$value])) {
             if ($_REQUEST[$value] == '') {

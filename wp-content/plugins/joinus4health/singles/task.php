@@ -435,14 +435,10 @@ $preferred_language = get_preferred_language();
     </div>
     <div class="first-column">
         <div class="content column-common-border-style">
-            <h2><?= $task->post_title ?></h2>
+            <h2><?= get_translated_title($task, 'm_title', $preferred_language) ?></h2>
             <div class="separator"></div>
             <h6><?= __('Task details', 'joinus4health') ?></h6>
-            <?php
-            $m_description = trim(get_post_meta(get_the_ID(), 'm_description', true));
-            $m_description = str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m_description);
-            echo '<p>'.$m_description.'</p>';
-            ?>
+            <?= '<p>'.get_translated_field_paragraph($task, 'm_description', $preferred_language).'</p>' ?>
             <?php $m_related_topic = get_post_meta($task->ID, 'm_related_topic', true) ?>
             <?php if (is_numeric($m_related_topic)): ?>
             <?php

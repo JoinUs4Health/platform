@@ -619,17 +619,17 @@ echo get_js_load_href();
             <div class="col1">
                 <h5><?= __('Who we are', 'joinus4health') ?></h5>
                 <p><?= __('home.who.we.are.description', 'joinus4health') ?></p>
-                <a href="#"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
+                <a href="<?= isset($homepage->who_we_are[$preferred_language]) ? $homepage->who_we_are[$preferred_language] : '#' ?>"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
             </div>
             <div class="col2">
                 <h5><?= __('How to join us', 'joinus4health') ?></h5>
                 <p><?= __('home.how.to.join.us.description', 'joinus4health') ?></p>
-                <a href="#"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
+                <a href="<?= isset($homepage->how_to_join_us[$preferred_language]) ? $homepage->how_to_join_us[$preferred_language] : '#' ?>"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
             </div>
             <div class="col3">
                 <h5><?= __('Our rules', 'joinus4health') ?></h5>
                 <p><?= __('home.our.rules.description', 'joinus4health') ?></p>
-                <a href="#"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
+                <a href="<?= isset($homepage->our_rules[$preferred_language]) ? $homepage->our_rules[$preferred_language] : '#' ?>"><?= __('Read more', 'joinus4health') ?> <i data-feather="external-link"></i></a>
             </div>
         </div>
     </div>

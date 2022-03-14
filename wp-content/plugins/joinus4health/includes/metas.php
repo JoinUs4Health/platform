@@ -8,6 +8,20 @@ $per_page_topic = 10;
 $per_page_task = 10;
 $per_page_suggestion = 10;
 
+$homepage = new stdClass();
+$homepage->who_we_are = array(
+    'en' => 'https://joinus4health.eu/about/cohorts/',
+    'de' => 'https://joinus4health.eu/de/about/cohorts/',
+);
+$homepage->how_to_join_us = array(
+    'en' => 'https://joinus4health.eu/join-us/',
+    'de' => 'https://joinus4health.eu/de/join-us/',
+);
+$homepage->our_rules = array(
+    'en' => 'https://joinus4health.eu/about/aim-and-ambition',
+    'de' => 'https://joinus4health.eu/de/about/aim-and-ambition/',
+);
+
 $meta_countries = array(
     "AF" => "Afghanistan", 
     "AL" => "Albania", 
