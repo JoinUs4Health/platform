@@ -291,4 +291,19 @@ function get_translated_field_paragraph($post, $field, $preferred_language) {
     return str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m);
 }
 
-add_filter( 'bp_is_profile_cover_image_active', '__return_false' ); 
+//function limit_username_alphanumerics ($errors, $name) {
+//    if ( ! preg_match('/^[A-Za-z0-9]{3,16}$/', $name) ){
+//       $errors->add( 'user_name', __('<strong>ERROR</strong>: Username can only contain alphanumerics (A-Z 0-9) and possible length of 16 characters') );
+//    }
+//    return $errors;
+//}
+//
+//// Restrict username registration to alphanumerics
+//add_filter('registration_errors', 'limit_username_alphanumerics', 10, 3);
+
+function test3($param) {
+    error_log("xxx");
+    return $param;
+}
+
+apply_filters('bp_signup_usermeta', 'test3');

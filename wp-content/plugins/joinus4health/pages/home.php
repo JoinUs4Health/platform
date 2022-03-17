@@ -181,6 +181,145 @@ echo get_js_load_href();
             flex: 1 0 100%;
         }
         
+        .ast-container .white-section .slider-container {
+            margin: 0 auto 20px auto;
+            width: 1270px;
+            display: flex;
+            align-items: flex-start;
+            flex-flow: row wrap;
+        }
+        
+        .ast-container .white-section .slider-container .header {
+            font-family: 'Recoleta';
+            font-size: 28px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.14;
+            letter-spacing: normal;
+            color: #3b4045;
+            flex: 0 0 100%;
+            margin-top: 40px;
+            margin-bottom: 24px;
+        }
+        
+        .ast-container .white-section .slider-container .slide {
+            flex: 0 0 100%;
+            height: 460px;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 {
+            width: 0;
+            height: 0;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 div.image {
+            width: 1270px;
+            height: 460px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            border-radius: 4px;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 div.gradient {
+            width: 1270px;
+            height: 460px;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.79), rgba(0, 0, 0, 0.28) 50%);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 div.content {
+            width: 1270px;
+            height: 460px;
+        }
+
+        .ast-container .white-section .slider-container .slide div.layer0x0 div.content h5 {
+            font-size: 40px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.2;
+            letter-spacing: normal;
+            color: #ffffff;
+            margin-left: 36px;
+            margin-right: 36px;
+            margin-top: 40px;
+            width: 480px;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 div.content p {
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.33;
+            letter-spacing: normal;
+            color: #ffffff;
+            margin-left: 36px;
+            width: 337px;
+            margin-top: 12px;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 div.content a {
+            display: inline-block;
+            height: 48px;
+            padding: 0 29px;
+            border-radius: 4px;
+            background-color: #efe733;
+            font-size: 16px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: normal;
+            text-align: center;
+            color: #000000;
+            line-height: 48px;
+            margin-left: 36px;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 .paginator {
+            margin-top: 384px;
+            margin-left: 36px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            display: flex;
+            width: max-content;
+            padding-right: 12px;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 .paginator .text {
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 40px;
+            letter-spacing: normal;
+            color: #808a95;
+            padding-left: 20px;
+            padding-right: 12px;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 .paginator .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 6px;
+            border: solid 1px #808a95;
+            margin: 14px 8px 0 8px;
+            cursor: pointer;
+        }
+        
+        .ast-container .white-section .slider-container .slide div.layer0x0 .paginator .dot-active {
+            width: 12px;
+            height: 12px;
+            border-radius: 6px;
+            border: solid 4px #000000;
+            margin: 14px 8px 0 8px;
+        }
+        
         .ast-container .white-section .two-column-container {
             margin: 0 auto 20px auto;
             width: 1270px;
@@ -634,6 +773,116 @@ echo get_js_load_href();
         </div>
     </div>
     <div class="white-section">
+        <?php
+        $slides = array();
+        
+        $slides[0] = new stdClass();
+        $slides[0]->title = "Lorem ipsum dolor sit amet";
+        $slides[0]->description = "Lorem ipsum dolor sit amet, but keep it short and simple as we want to arouse interest.";
+        $slides[0]->url = "#";
+        
+        $slides[1] = new stdClass();
+        $slides[1]->title = "Brief title, one line";
+        $slides[1]->description = "One sentence of explaination what it’s about, lut Lorem ipsum dolor sit amet to arouse interest.";
+        $slides[1]->url = "#";
+        
+        $slides[2] = new stdClass();
+        $slides[2]->title = "Lorem brief title";
+        $slides[2]->description = "One sentence of explaination what it’s about, but keep it short and simple as we want to arouse interest.";
+        $slides[2]->url = "#";
+        
+        $slides[3] = new stdClass();
+        $slides[3]->title = "Dolor sit amet";
+        $slides[3]->description = "One sentence of explaination what it’s about, but keep it short and simple as we want to arouse interest.";
+        $slides[3]->url = "#";
+        
+        $slides[4] = new stdClass();
+        $slides[4]->title = "Ipsum dolor sit amet";
+        $slides[4]->description = "One sentence of explaination what it’s about, but keep it short and simple as we want to arouse interest.";
+        $slides[4]->url = "#";
+        
+        ?>
+        <script>
+            <?php if (count($slides) > 1): ?>
+            $(document).ready(function(){
+                var slides = <?= json_encode($slides) ?>;
+                var slider_counter = 0;
+                
+                function slider_toggle() {
+                    var slide_current_index = slider_counter % slides.length;
+                    var slide_next_index = (slider_counter + 1) % slides.length;
+                    var slide = slides[slide_next_index];
+                    
+                    var current = $((slider_counter % 2 == 0) ? '#slider-odd' : '#slider-even');
+                    var next = $((slider_counter % 2 == 0) ? '#slider-even' : '#slider-odd');
+                    
+                    $('.slider-container .paginator').children('div:nth-child(' + (slide_current_index + 2) + ')').attr('class', 'dot');
+                    $('.slider-container .paginator').children('div:nth-child(' + (slide_next_index + 2) + ')').attr('class', 'dot-active');
+                    next.find('h5').html(slide.title);
+                    next.find('p').html(slide.description);
+                    
+                    var of = $(".paginator .text").attr('data-of');
+                    $(".paginator .text").html((slide_next_index + 1) + ' ' + of + ' <?= count($slides) ?>');
+                    
+                    current.hide();
+                    next.show();
+                    
+                    slider_counter++;
+                    setTimeout(slider_toggle, 4000);
+                }
+                
+                setTimeout(slider_toggle, 4000);
+            });
+            <?php endif; ?>
+        </script>
+        <div class="slider-container">
+            <div class="header"><?= __('Main focus area', 'joinus4health') ?></div>
+            <div class="slide">
+                <?php if (isset($slides[0])): ?>
+                <div id="slider-odd" class="layer0x0">
+                    <div class="layer0x0">
+                        <div class="image" style="background-image: url(<?= home_url() ?>/d28c65af4044b1d2bc8ff5f058d7.webp);"></div>
+                    </div>
+                    <div class="layer0x0">
+                        <div class="gradient"></div>
+                    </div>
+                    <div class="layer0x0">
+                        <div class="content">
+                            <h5><?= $slides[0]->title ?></h5>
+                            <p><?= $slides[0]->description ?></p>
+                            <a href="#"><?= __('Learn more', 'joinus4health') ?></a>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php if (isset($slides[1])): ?>
+                <div id="slider-even" class="layer0x0" style="display: none;">
+                    <div class="layer0x0">
+                        <div class="image" style="background-image: url(<?= home_url() ?>/d28c65af4044b1d2bc8ff5f058d7.webp);"></div>
+                    </div>
+                    <div class="layer0x0">
+                        <div class="gradient"></div>
+                    </div>
+                    <div class="layer0x0">
+                        <div class="content">
+                            <h5><?= $slides[1]->title ?></h5>
+                            <p><?= $slides[1]->description ?></p>
+                            <a href="#"><?= __('Learn more', 'joinus4health') ?></a>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <div class="layer0x0">
+                    <div class="paginator">
+                        <div class="text" data-of="<?= __('of', 'joinus4health') ?>">1 of <?= count($slides) ?></div>
+                        <?php $i = 0 ?>
+                        <?php foreach ($slides as $slide): ?>
+                        <div class="dot<?= ($i++ == 0) ? '-active' : '' ?>"></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="two-column-container">
             <div class="header"><?= __('Hot topics', 'joinus4health') ?></div>
             <div class="first-col">
