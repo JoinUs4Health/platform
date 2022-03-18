@@ -208,12 +208,16 @@ echo get_js_load_href();
             height: 460px;
         }
         
+        .ast-container .white-section .slider-container .slide .item {
+            position: relative;
+        }
+        
         .ast-container .white-section .slider-container .slide div.layer0x0 {
             width: 0;
             height: 0;
         }
         
-        .ast-container .white-section .slider-container .slide div.layer0x0 div.image {
+        .ast-container .white-section .slider-container .slide div.image {
             width: 1270px;
             height: 460px;
             background-size: cover;
@@ -222,7 +226,7 @@ echo get_js_load_href();
             border-radius: 4px;
         }
         
-        .ast-container .white-section .slider-container .slide div.layer0x0 div.gradient {
+        .ast-container .white-section .slider-container .slide div.gradient {
             width: 1270px;
             height: 460px;
             background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.79), rgba(0, 0, 0, 0.28) 50%);
@@ -230,12 +234,12 @@ echo get_js_load_href();
             cursor: pointer;
         }
         
-        .ast-container .white-section .slider-container .slide div.layer0x0 div.content {
+        .ast-container .white-section .slider-container .slide div.content {
             width: 1270px;
             height: 460px;
         }
 
-        .ast-container .white-section .slider-container .slide div.layer0x0 div.content h5 {
+        .ast-container .white-section .slider-container .slide div.content h5 {
             font-size: 40px;
             font-weight: bold;
             font-stretch: normal;
@@ -249,7 +253,7 @@ echo get_js_load_href();
             width: 480px;
         }
         
-        .ast-container .white-section .slider-container .slide div.layer0x0 div.content p {
+        .ast-container .white-section .slider-container .slide div.content p {
             font-size: 18px;
             font-weight: normal;
             font-stretch: normal;
@@ -262,7 +266,7 @@ echo get_js_load_href();
             margin-top: 12px;
         }
         
-        .ast-container .white-section .slider-container .slide div.layer0x0 div.content a {
+        .ast-container .white-section .slider-container .slide div.content a {
             display: inline-block;
             height: 48px;
             padding: 0 29px;
@@ -806,58 +810,52 @@ echo get_js_load_href();
             $(document).ready(function(){
                 var slides = <?= json_encode($slides) ?>;
                 var slider_counter = 0;
-                
-                function slider_toggle() {
+
+                function slider_toggle_1() {
                     var slide_current_index = slider_counter % slides.length;
                     var slide_next_index = (slider_counter + 1) % slides.length;
-                    var slide = slides[slide_next_index];
-                    
-                    var current = $((slider_counter % 2 == 0) ? '#slider-odd' : '#slider-even');
-                    var next = $((slider_counter % 2 == 0) ? '#slider-even' : '#slider-odd');
                     
                     $('.slider-container .paginator').children('div:nth-child(' + (slide_current_index + 2) + ')').attr('class', 'dot');
                     $('.slider-container .paginator').children('div:nth-child(' + (slide_next_index + 2) + ')').attr('class', 'dot-active');
-                    next.find('h5').html(slide.title);
-                    next.find('p').html(slide.description);
-                    next.find('div.image').attr('style', 'background-image: url('+slide.image+')');
-                    
-                    
                     var of = $(".paginator .text").attr('data-of');
                     $(".paginator .text").html((slide_next_index + 1) + ' ' + of + ' <?= count($slides) ?>');
                     
-                    current.hide();
-                    next.show();
-                    
-                    slider_counter++;
-                    setTimeout(slider_toggle, 4000);
+                    $('#slider-z-index-1').fadeOut();
+                    setTimeout(slider_toggle_2, 1000);
                 }
                 
-                setTimeout(slider_toggle, 4000);
+                function slider_toggle_2() {
+                    var zindex0 = $('#slider-z-index-0');
+                    var zindex1 = $('#slider-z-index-1');
+                    
+                    slider_counter++;
+  
+                    var slide_current_index = slider_counter % slides.length;
+                    var slide_next_index = (slider_counter + 1) % slides.length;
+                    var slide_current = slides[slide_current_index];
+                    var slide_next = slides[slide_next_index];
+                    
+                    zindex1.find('h5').html(slide_current_index+" "+slide_current.title);
+                    zindex1.find('p').html(slide_current.description);
+                    zindex1.find('div.image').attr('style', 'background-image: url(' + slide_current.image + ')');
+                    zindex1.show();
+                    
+                    zindex0.find('h5').html(slide_next_index + " " + slide_next.title);
+                    zindex0.find('p').html(slide_next.description);
+                    zindex0.find('div.image').attr('style', 'background-image: url(' + slide_next.image + ')');
+                    
+                    setTimeout(slider_toggle_1, 4000);
+                }
+                
+                setTimeout(slider_toggle_1, 4000);
             });
             <?php endif; ?>
         </script>
         <div class="slider-container">
             <div class="header"><?= __('Main focus area', 'joinus4health') ?></div>
             <div class="slide">
-                <?php if (isset($slides[0])): ?>
-                <div id="slider-odd" class="layer0x0">
-                    <div class="layer0x0">
-                        <div class="image"<?php if ($slides[0]->image != null): ?> style="background-image: url(<?= $slides[0]->image ?>);"<?php endif; ?>></div>
-                    </div>
-                    <div class="layer0x0">
-                        <div class="gradient"></div>
-                    </div>
-                    <div class="layer0x0">
-                        <div class="content">
-                            <h5><?= $slides[0]->title ?></h5>
-                            <p><?= $slides[0]->description ?></p>
-                            <a href="#"><?= __('Learn more', 'joinus4health') ?></a>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
                 <?php if (isset($slides[1])): ?>
-                <div id="slider-even" class="layer0x0" style="display: none;">
+                <div id="slider-z-index-0" class="layer0x0 item">
                     <div class="layer0x0">
                         <div class="image"<?php if ($slides[1]->image != null): ?> style="background-image: url(<?= $slides[1]->image ?>);"<?php endif; ?>></div>
                     </div>
@@ -866,14 +864,31 @@ echo get_js_load_href();
                     </div>
                     <div class="layer0x0">
                         <div class="content">
-                            <h5><?= $slides[1]->title ?></h5>
+                            <h5>1 <?= $slides[1]->title ?></h5>
                             <p><?= $slides[1]->description ?></p>
                             <a href="#"><?= __('Learn more', 'joinus4health') ?></a>
                         </div>
                     </div>
                 </div>
                 <?php endif; ?>
-                <div class="layer0x0">
+                <?php if (isset($slides[0])): ?>
+                <div id="slider-z-index-1" class="layer0x0 item">
+                    <div class="layer0x0">
+                        <div class="image"<?php if ($slides[0]->image != null): ?> style="background-image: url(<?= $slides[0]->image ?>);"<?php endif; ?>></div>
+                    </div>
+                    <div class="layer0x0">
+                        <div class="gradient"></div>
+                    </div>
+                    <div class="layer0x0">
+                        <div class="content">
+                            <h5>0 <?= $slides[0]->title ?></h5>
+                            <p><?= $slides[0]->description ?></p>
+                            <a href="#"><?= __('Learn more', 'joinus4health') ?></a>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <div class="layer0x0 item">
                     <div class="paginator">
                         <div class="text" data-of="<?= __('of', 'joinus4health') ?>">1 of <?= count($slides) ?></div>
                         <?php $i = 0 ?>
