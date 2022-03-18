@@ -774,33 +774,32 @@ echo get_js_load_href();
     </div>
     <div class="white-section">
         <?php
+        $index = 0;
         $slides = array();
+        $query = new WP_Query(array('post_type' => 'ju4hslide', 'posts_per_page' => -1));
+        while ($query->have_posts()) {
+            $query->the_post();
+
+            $slides[$index] = new stdClass();
+            $slides[$index]->title = get_the_title();
+            $slides[$index]->description = get_post_meta($post->ID, 'm_description', true);
+            $slides[$index]->url = get_post_meta($post->ID, 'm_url', true);
+            
+            $m_imageurl = get_post_meta($post->ID,'m_image', true);
+            if ($m_imageurl != null) {
+                $m_imageurl = json_decode($m_imageurl); 
+            } else { 
+                $m_imageurl = null; 
+            }
+            
+            if ($m_imageurl != null) {
+                $slides[$index]->image = home_url().'/wp-content/'.$m_imageurl->file;
+            } else {
+                $slides[$index]->image = null;
+            }
         
-        $slides[0] = new stdClass();
-        $slides[0]->title = "Lorem ipsum dolor sit amet";
-        $slides[0]->description = "Lorem ipsum dolor sit amet, but keep it short and simple as we want to arouse interest.";
-        $slides[0]->url = "#";
-        
-        $slides[1] = new stdClass();
-        $slides[1]->title = "Brief title, one line";
-        $slides[1]->description = "One sentence of explaination what it’s about, lut Lorem ipsum dolor sit amet to arouse interest.";
-        $slides[1]->url = "#";
-        
-        $slides[2] = new stdClass();
-        $slides[2]->title = "Lorem brief title";
-        $slides[2]->description = "One sentence of explaination what it’s about, but keep it short and simple as we want to arouse interest.";
-        $slides[2]->url = "#";
-        
-        $slides[3] = new stdClass();
-        $slides[3]->title = "Dolor sit amet";
-        $slides[3]->description = "One sentence of explaination what it’s about, but keep it short and simple as we want to arouse interest.";
-        $slides[3]->url = "#";
-        
-        $slides[4] = new stdClass();
-        $slides[4]->title = "Ipsum dolor sit amet";
-        $slides[4]->description = "One sentence of explaination what it’s about, but keep it short and simple as we want to arouse interest.";
-        $slides[4]->url = "#";
-        
+            $index++;
+        }
         ?>
         <script>
             <?php if (count($slides) > 1): ?>
@@ -820,6 +819,8 @@ echo get_js_load_href();
                     $('.slider-container .paginator').children('div:nth-child(' + (slide_next_index + 2) + ')').attr('class', 'dot-active');
                     next.find('h5').html(slide.title);
                     next.find('p').html(slide.description);
+                    next.find('div.image').attr('style', 'background-image: url('+slide.image+')');
+                    
                     
                     var of = $(".paginator .text").attr('data-of');
                     $(".paginator .text").html((slide_next_index + 1) + ' ' + of + ' <?= count($slides) ?>');
@@ -841,7 +842,7 @@ echo get_js_load_href();
                 <?php if (isset($slides[0])): ?>
                 <div id="slider-odd" class="layer0x0">
                     <div class="layer0x0">
-                        <div class="image" style="background-image: url(<?= home_url() ?>/d28c65af4044b1d2bc8ff5f058d7.webp);"></div>
+                        <div class="image"<?php if ($slides[0]->image != null): ?> style="background-image: url(<?= $slides[0]->image ?>);"<?php endif; ?>></div>
                     </div>
                     <div class="layer0x0">
                         <div class="gradient"></div>
@@ -858,7 +859,7 @@ echo get_js_load_href();
                 <?php if (isset($slides[1])): ?>
                 <div id="slider-even" class="layer0x0" style="display: none;">
                     <div class="layer0x0">
-                        <div class="image" style="background-image: url(<?= home_url() ?>/d28c65af4044b1d2bc8ff5f058d7.webp);"></div>
+                        <div class="image"<?php if ($slides[1]->image != null): ?> style="background-image: url(<?= $slides[1]->image ?>);"<?php endif; ?>></div>
                     </div>
                     <div class="layer0x0">
                         <div class="gradient"></div>

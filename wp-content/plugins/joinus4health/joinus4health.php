@@ -21,6 +21,7 @@ include_once 'includes/metas.php';
 include_once 'includes/post/suggestion.php';
 include_once 'includes/post/topic.php';
 include_once 'includes/post/task.php';
+include_once 'includes/post/slide.php';
 
 //admin fields methods
 include_once 'includes/admin_fields.php';
