@@ -4,24 +4,6 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-$per_page_topic = 10;
-$per_page_task = 10;
-$per_page_suggestion = 10;
-
-$homepage = new stdClass();
-$homepage->who_we_are = array(
-    'en' => 'https://joinus4health.eu/about/cohorts/',
-    'de' => 'https://joinus4health.eu/de/about/cohorts/',
-);
-$homepage->how_to_join_us = array(
-    'en' => 'https://joinus4health.eu/join-us/',
-    'de' => 'https://joinus4health.eu/de/join-us/',
-);
-$homepage->our_rules = array(
-    'en' => 'https://joinus4health.eu/about/aim-and-ambition',
-    'de' => 'https://joinus4health.eu/de/about/aim-and-ambition/',
-);
-
 $meta_countries = array(
     "AF" => "Afghanistan", 
     "AL" => "Albania", 
@@ -347,10 +329,4 @@ $meta_content = array(
     '2' => __('Content #2', 'joinus4health'),
     '3' => __('Content #3', 'joinus4health'),
     '4' => __('Content #4', 'joinus4health'),
-);
-
-$meta_translations = array(
-    'de' => 'German',
-    'nl' => 'Dutch',
-    'pl' => 'Polish',
 );

@@ -792,7 +792,6 @@ html_modal_uncontribute();
             <h2><?= get_translated_title($topic_post, 'm_title', $preferred_language) ?></h2>
             <h6><?= __('Topic details', 'joinus4health') ?></h6>
             <?php
-            echo '<p>'.get_translated_field($topic_post, 'm_intro', $preferred_language).'</p>';
             echo '<p>'.get_translated_field_paragraph($topic_post, 'm_description', $preferred_language).'</p>';
             ?>
             <?php $tags = wp_get_post_terms($topic_post->ID, 'ju4htopictag') ?>

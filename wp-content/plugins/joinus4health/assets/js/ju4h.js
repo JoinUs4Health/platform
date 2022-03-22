@@ -1,20 +1,104 @@
-$(document).ready(function(){
+$(document).ready(function() {
     
-    $('#signup_submit').attr('disabled', true);
-    $('#signup_password').keyup(function(e) {
-        if ($('#pass-strength-result').hasClass('strong')) {
-            $('#signup_submit').removeAttr('disabled');
-        } else {
-            $('#signup_submit').attr('disabled', true);
-        }
-    });
-    $('#signup_submit').click(function(e){
-        if (!$('#pass-strength-result').hasClass('strong')) {
-            e.preventDefault();
-        }
-    });
-    
+    if ($('#signup_form')) {
+        $('#signup_submit').attr('disabled', true);
+        $('#signup_username').attr('maxlength', 12);
+        $('#field_1').attr('maxlength', 12);
 
+        var signup_text_fields = ['signup_username', 'signup_email', 'signup_password', 'signup_password_confirm', 'field_1'];
+        for (index in signup_text_fields) {
+            $('#'+signup_text_fields[index]).keydown(function(e) {
+                signup_check_is_valid_action();
+            });
+            $('#'+signup_text_fields[index]).keyup(function(e) {
+                signup_check_is_valid_action();
+            });
+        }
+
+        function signup_check_is_valid() {
+            if ($('#signup_username').val().trim().length == 0)
+                return false;
+
+            if ($('#signup_username').val().trim().length > 12)
+                return false;
+
+            if ($('#field_1').val().trim().length == 0)
+                return false;
+
+            if ($('#field_1').val().trim().length > 12)
+                return false;
+
+            if ($('#signup_password').val().trim().length == 0)
+                return false;
+
+            if ($('#signup_password_confirm').val().trim().length == 0)
+                return false;
+
+            if ($('#signup_password').val() != $('#signup_password_confirm').val())
+                return false;
+
+            if (!($('#pass-strength-result').hasClass('strong')))
+                return false;
+
+            return true;
+        }
+
+        function signup_check_is_valid_action() {
+            if (signup_check_is_valid()) {
+                $('#signup_submit').removeAttr('disabled');
+            } else {
+                $('#signup_submit').attr('disabled', true);
+            }
+        }
+    }
+    
+    if ($('#settings-form')) {
+        $('#pass1,#pass2').keydown(function(e) {
+            settings_is_valid_keyaction();
+        });
+        
+        $('#pass1,#pass2').keyup(function(e) {
+            settings_is_valid_keyaction();
+        });
+        
+        $("#pass1,#pass2").bind("paste", function(e) {
+            settings_is_valid_keyaction();
+        });
+        
+        function settings_is_valid() {
+            if ($('#pass1').val().trim().length == 0)
+                return false;
+
+            if ($('#pass2').val().trim().length == 0)
+                return false;
+
+            if ($('#pass1').val() != $('#pass2').val())
+                return false;
+
+            if (!($('#pass-strength-result').hasClass('strong')))
+                return false;
+
+            return true;
+        }
+
+        function settings_is_valid_action() {
+            if (settings_is_valid()) {
+                $('#settings-form #submit').removeAttr('disabled');
+            } else {
+                $('#settings-form #submit').attr('disabled', true);
+            }
+        }
+        
+        function settings_is_valid_keyaction() {
+            if ($('#pass1').val().length > 0) {
+                $('#settings-form #submit').attr('disabled', true);
+                settings_is_valid_action();
+            } else {
+                $('#settings-form #submit').removeAttr('disabled');
+            }
+        }
+    }
+    
     $(".ast-main-header-bar-alignment").append(
         '<div class="main-header-bar-navigation">'+
             '<nav class="ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="site-navigation" aria-label="Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope">'+

@@ -231,7 +231,6 @@ echo get_js_load_href();
             height: 460px;
             background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.79), rgba(0, 0, 0, 0.28) 50%);
             border-radius: 4px;
-            cursor: pointer;
         }
         
         .ast-container .white-section .slider-container .slide div.content {
@@ -313,7 +312,6 @@ echo get_js_load_href();
             border-radius: 6px;
             border: solid 1px #808a95;
             margin: 14px 8px 0 8px;
-            cursor: pointer;
         }
         
         .ast-container .white-section .slider-container .slide div.layer0x0 .paginator .dot-active {
@@ -784,10 +782,12 @@ echo get_js_load_href();
         while ($query->have_posts()) {
             $query->the_post();
 
+            $url = get_translated_field($post, 'm_url', $preferred_language);
+            
             $slides[$index] = new stdClass();
-            $slides[$index]->title = get_the_title();
-            $slides[$index]->description = get_post_meta($post->ID, 'm_description', true);
-            $slides[$index]->url = get_post_meta($post->ID, 'm_url', true);
+            $slides[$index]->title = get_translated_title($post, 'm_title', $preferred_language);
+            $slides[$index]->description = get_translated_field($post, 'm_description', $preferred_language);
+            $slides[$index]->url = empty($url) ? null : $url;
             
             $m_imageurl = get_post_meta($post->ID,'m_image', true);
             if ($m_imageurl != null) {
@@ -805,8 +805,8 @@ echo get_js_load_href();
             $index++;
         }
         ?>
+        <?php if (count($slides) > 1): ?>
         <script>
-            <?php if (count($slides) > 1): ?>
             $(document).ready(function(){
                 var slides = <?= json_encode($slides) ?>;
                 var slider_counter = 0;
@@ -835,22 +835,38 @@ echo get_js_load_href();
                     var slide_current = slides[slide_current_index];
                     var slide_next = slides[slide_next_index];
                     
-                    zindex1.find('h5').html(slide_current_index+" "+slide_current.title);
+                    zindex1.find('h5').html(slide_current.title);
                     zindex1.find('p').html(slide_current.description);
                     zindex1.find('div.image').attr('style', 'background-image: url(' + slide_current.image + ')');
+                    var a = zindex1.find('a');
+                    a.attr('href', slide_current.url);
+                    if (slide_current.url == null) {
+                        a.hide();
+                    } else {
+                        a.show();
+                    }
+                    
                     zindex1.show();
                     
-                    zindex0.find('h5').html(slide_next_index + " " + slide_next.title);
+                    zindex0.find('h5').html(slide_next.title);
                     zindex0.find('p').html(slide_next.description);
                     zindex0.find('div.image').attr('style', 'background-image: url(' + slide_next.image + ')');
+                    var a = zindex0.find('a')
+                    a.attr('href', slide_next.url);
+                    if (slide_next.url == null) {
+                        a.hide();
+                    } else {
+                        a.show();
+                    }
                     
                     setTimeout(slider_toggle_1, 4000);
                 }
                 
                 setTimeout(slider_toggle_1, 4000);
             });
-            <?php endif; ?>
         </script>
+        <?php endif; ?>
+        <?php if (count($slides) > 0): ?>
         <div class="slider-container">
             <div class="header"><?= __('Main focus area', 'joinus4health') ?></div>
             <div class="slide">
@@ -864,9 +880,9 @@ echo get_js_load_href();
                     </div>
                     <div class="layer0x0">
                         <div class="content">
-                            <h5>1 <?= $slides[1]->title ?></h5>
+                            <h5><?= $slides[1]->title ?></h5>
                             <p><?= $slides[1]->description ?></p>
-                            <a href="#"><?= __('Learn more', 'joinus4health') ?></a>
+                            <a href="<?= $slides[1]->url ?>"<?php if (empty($slides[1]->url)): ?> style="display: none;"<?php endif; ?>><?= __('Learn more', 'joinus4health') ?></a>
                         </div>
                     </div>
                 </div>
@@ -881,13 +897,14 @@ echo get_js_load_href();
                     </div>
                     <div class="layer0x0">
                         <div class="content">
-                            <h5>0 <?= $slides[0]->title ?></h5>
+                            <h5><?= $slides[0]->title ?></h5>
                             <p><?= $slides[0]->description ?></p>
-                            <a href="#"><?= __('Learn more', 'joinus4health') ?></a>
+                            <a href="<?= $slides[0]->url ?>"<?php if (empty($slides[0]->url)): ?> style="display: none;"<?php endif; ?>><?= __('Learn more', 'joinus4health') ?></a>
                         </div>
                     </div>
                 </div>
                 <?php endif; ?>
+                <?php if (count($slides) > 1): ?>
                 <div class="layer0x0 item">
                     <div class="paginator">
                         <div class="text" data-of="<?= __('of', 'joinus4health') ?>">1 of <?= count($slides) ?></div>
@@ -897,8 +914,10 @@ echo get_js_load_href();
                         <?php endforeach; ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
+        <?php endif; ?>
         <div class="two-column-container">
             <div class="header"><?= __('Hot topics', 'joinus4health') ?></div>
             <div class="first-col">

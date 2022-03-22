@@ -14,8 +14,43 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-//metas definition
-include_once 'includes/metas.php';
+$meta_countries = array();
+$meta_types = array();
+$meta_contribute_duration = array();
+$meta_level = array();
+$meta_source = array();
+$meta_target_group = array();
+$meta_status = array();
+$meta_sortby_topic = array();
+$meta_sortby_task = array();
+$meta_sortby_suggestion = array();
+$meta_infrastructure = array();
+$meta_methodology = array();
+$meta_content = array();
+
+$meta_translations = array(
+    'de' => 'German',
+    'nl' => 'Dutch',
+    'pl' => 'Polish',
+);
+
+$per_page_topic = 10;
+$per_page_task = 10;
+$per_page_suggestion = 10;
+
+$homepage = new stdClass();
+$homepage->who_we_are = array(
+    'en' => 'https://joinus4health.eu/about/cohorts/',
+    'de' => 'https://joinus4health.eu/de/about/cohorts/',
+);
+$homepage->how_to_join_us = array(
+    'en' => 'https://joinus4health.eu/join-us/',
+    'de' => 'https://joinus4health.eu/de/join-us/',
+);
+$homepage->our_rules = array(
+    'en' => 'https://joinus4health.eu/about/aim-and-ambition',
+    'de' => 'https://joinus4health.eu/de/about/aim-and-ambition/',
+);
 
 //register post types (suggestion, topic) & taxonomies (topictag)
 include_once 'includes/post/suggestion.php';
@@ -140,7 +175,7 @@ function _location_admin_notices() {
 add_action('admin_notices', '_location_admin_notices');
 
 function time_ago($post) {
-    return human_time_diff(get_post_time('U', false, $post), current_time('timestamp')) . " " . __('ago', 'joinus4health');
+    return human_time_diff(get_post_time('U', false, $post, true), current_time('timestamp')) . " " . __('ago', 'joinus4health');
 }
 
 function time_left($time) {
@@ -195,6 +230,9 @@ function add_language_vars() {
     $join_us[2] = new stdClass();
     $join_us[2]->url = home_url()."/ju4htask/";
     $join_us[2]->text = __('Tasks', 'joinus4health');
+    $join_us[3] = new stdClass();
+    $join_us[3]->url = home_url()."/groups/";
+    $join_us[3]->text = __('Working teams', 'joinus4health');
     
     echo '<script type="text/javascript">'.
             'var possible_languages = '.json_encode($possible_languages).';'.
@@ -213,24 +251,37 @@ function add_language_vars() {
 add_action('wp_head', 'add_language_vars', 1, 1);
 
 function add_jquery_feather_icons_script() {
+    global $meta_countries, $meta_types, $meta_contribute_duration, $meta_level;
+    global $meta_source, $meta_target_group, $meta_status, $meta_sortby_topic;
+    global $meta_sortby_task, $meta_sortby_suggestion, $meta_infrastructure;
+    global $meta_methodology, $meta_content;
+
     wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery.min.js");
     wp_enqueue_script('ju4h-feather', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.min.js");
     wp_enqueue_script('ju4h-feather-replace', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.replace.js");
     wp_enqueue_script('ju4h-js-cookies', home_url().'/wp-content/plugins/joinus4health/assets/js/js.cookie.min.js');
     wp_enqueue_script('ju4h-js', home_url().'/wp-content/plugins/joinus4health/assets/js/ju4h.js');
     
-    
     $array = array('pl' => 'pl_PL', 'nl' => 'nl_NL', 'de' => 'de_DE', 'en' => 'en_GB');
     $get_preferred_language = get_preferred_language();
-    $locale = isset($array[$get_preferred_language]) ? $array[$get_preferred_language] : null;
+    $locale = isset($array[$get_preferred_language]) ? $array[$get_preferred_language] : 'en_GB';
     if ($locale != null) {
+        $mo_file_default = WP_CONTENT_DIR.'/languages/'.$locale.'.mo';
         $mo_file = WP_CONTENT_DIR.'/languages/plugins/joinus4health-'.$locale.'.mo';
 
         if (file_exists($mo_file)) {
             unload_textdomain('joinus4health');
             load_textdomain('joinus4health', $mo_file);
         }
+        
+        if (file_exists($mo_file_default)) {
+            unload_textdomain('default');
+            load_textdomain('default', $mo_file_default);
+        }
     }
+    
+    //metas definition
+    include_once 'includes/metas.php';
 }
 add_action('wp_enqueue_scripts', 'add_jquery_feather_icons_script');
 
@@ -292,19 +343,8 @@ function get_translated_field_paragraph($post, $field, $preferred_language) {
     return str_replace(array("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n", "\r\n\r\n", "\r\n", "\n\n", "\n"), '</p><p>', $m);
 }
 
-//function limit_username_alphanumerics ($errors, $name) {
-//    if ( ! preg_match('/^[A-Za-z0-9]{3,16}$/', $name) ){
-//       $errors->add( 'user_name', __('<strong>ERROR</strong>: Username can only contain alphanumerics (A-Z 0-9) and possible length of 16 characters') );
-//    }
-//    return $errors;
-//}
-//
-//// Restrict username registration to alphanumerics
-//add_filter('registration_errors', 'limit_username_alphanumerics', 10, 3);
-
-function test3($param) {
-    error_log("xxx");
-    return $param;
+function xprofile_template_display_profile_404($param) {
+    return '404';
 }
 
-apply_filters('bp_signup_usermeta', 'test3');
+add_filter('xprofile_template_display_profile', 'xprofile_template_display_profile_404', 12, 1);

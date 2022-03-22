@@ -131,6 +131,8 @@ function add_meta_box_ju4hslide_image_callback($post) {
  * @return type
  */
 function save_post_ju4hslide_callback($post_id) {
+    global $meta_translations;
+    
     $nonces = array('slide_image_nonce', 'slide_description_nonce');
     
     //checking nonces
@@ -154,7 +156,6 @@ function save_post_ju4hslide_callback($post_id) {
         delete_post_meta($post_id, 'm_image');
     }
     
-    update_post_meta($post_id, 'm_title', esc_html($_POST['m_title']));
     update_post_meta($post_id, 'm_description', esc_html($_POST['m_description']));
     update_post_meta($post_id, 'm_url', esc_html($_POST['m_url']));
     
