@@ -4,254 +4,56 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+$meta_languages = array(
+    "NL" => __("Dutch", 'joinus4health'),
+    "EN" => __("English", 'joinus4health'),
+    "DE" => __("German", 'joinus4health'),
+    "PL" => __("Polish", 'joinus4health'),
+);
+
 $meta_countries = array(
-    "AF" => "Afghanistan", 
-    "AL" => "Albania", 
-    "DZ" => "Algeria", 
-    "AS" => "American Samoa", 
-    "AD" => "Andorra",
-    "AO" => "Angola",
-    "AI" => "Anguilla", 
-    "AQ" => "Antarctica", 
-    "AG" => "Antigua and Barbuda", 
-    "AR" => "Argentina", 
-    "AM" => "Armenia",
-    "AW" => "Aruba", 
-    "AU" => "Australia", 
-    "AT" => "Austria", 
-    "AZ" => "Azerbaijan", 
-    "BS" => "Bahamas", 
-    "BH" => "Bahrain", 
-    "BD" => "Bangladesh",
-    "BB" => "Barbados", 
-    "BY" => "Belarus", 
-    "BE" => "Belgium", 
-    "BZ" => "Belize", 
-    "BJ" => "Benin", 
-    "BM" => "Bermuda", 
-    "BT" => "Bhutan", 
-    "BO" => "Bolivia",
-    "BA" => "Bosnia and Herzegovina", 
-    "BW" => "Botswana", 
-    "BV" => "Bouvet Island",
-    "BR" => "Brazil", 
-    "IO" => "British Indian Ocean Territory", 
-    "BN" => "Brunei Darussalam", 
-    "BG" => "Bulgaria",
-    "BF" => "Burkina Faso",
-    "BI" => "Burundi",
-    "KH" => "Cambodia",
-    "CM" => "Cameroon",
-    "CA" => "Canada",
-    "CV" => "Cape Verde",
-    "KY" => "Cayman Islands",
-    "CF" => "Central African Republic",
-    "TD" => "Chad",
-    "CL" => "Chile",
-    "CN" => "China",
-    "CX" => "Christmas Island",
-    "CC" => "Cocos (Keeling) Islands",
-    "CO" => "Colombia",
-    "KM" => "Comoros",
-    "CG" => "Congo",
-    "CD" => "Congo, the Democratic Republic of the",
-    "CK" => "Cook Islands",
-    "CR" => "Costa Rica",
-    "CI" => "Cote D'Ivoire",
-    "HR" => "Croatia",
-    "CU" => "Cuba",
-    "CY" => "Cyprus",
-    "CZ" => "Czech Republic",
-    "DK" => "Denmark",
-    "DJ" => "Djibouti",
-    "DM" => "Dominica",
-    "DO" => "Dominican Republic",
-    "EC" => "Ecuador",
-    "EG" => "Egypt",
-    "SV" => "El Salvador",
-    "GQ" => "Equatorial Guinea",
-    "ER" => "Eritrea",
-    "EE" => "Estonia",
-    "ET" => "Ethiopia",
-    "FK" => "Falkland Islands (Malvinas)",
-    "FO" => "Faroe Islands",
-    "FJ" => "Fiji","FI" => "Finland",
-    "FR" => "France",
-    "GF" => "French Guiana",
-    "PF" => "French Polynesia",
-    "TF" => "French Southern Territories",
-    "GA" => "Gabon",
-    "GM" => "Gambia",
-    "GE" => "Georgia",
-    "DE" => "Germany",
-    "GH" => "Ghana",
-    "GI" => "Gibraltar",
-    "GR" => "Greece",
-    "GL" => "Greenland",
-    "GD" => "Grenada",
-    "GP" => "Guadeloupe",
-    "GU" => "Guam",
-    "GT" => "Guatemala",
-    "GN" => "Guinea",
-    "GW" => "Guinea-Bissau",
-    "GY" => "Guyana",
-    "HT" => "Haiti",
-    "HM" => "Heard Island and Mcdonald Islands",
-    "VA" => "Holy See (Vatican City State)",
-    "HN" => "Honduras",
-    "HK" => "Hong Kong",
-    "HU" => "Hungary",
-    "IS" => "Iceland",
-    "IN" => "India",
-    "ID" => "Indonesia",
-    "IR" => "Iran, Islamic Republic of",
-    "IQ" => "Iraq",
-    "IE" => "Ireland",
-    "IL" => "Israel",
-    "IT" => "Italy",
-    "JM" => "Jamaica",
-    "JP" => "Japan",
-    "JO" => "Jordan",
-    "KZ" => "Kazakhstan",
-    "KE" => "Kenya",
-    "KI" => "Kiribati",
-    "KP" => "Korea, Democratic People's Republic of",
-    "KR" => "Korea, Republic of",
-    "KW" => "Kuwait",
-    "KG" => "Kyrgyzstan",
-    "LA" => "Lao People's Democratic Republic",
-    "LV" => "Latvia",
-    "LB" => "Lebanon",
-    "LS" => "Lesotho",
-    "LR" => "Liberia",
-    "LY" => "Libyan Arab Jamahiriya",
-    "LI" => "Liechtenstein",
-    "LT" => "Lithuania",
-    "LU" => "Luxembourg",
-    "MO" => "Macao",
-    "MK" => "Macedonia, the Former Yugoslav Republic of",
-    "MG" => "Madagascar",
-    "MW" => "Malawi",
-    "MY" => "Malaysia",
-    "MV" => "Maldives",
-    "ML" => "Mali",
-    "MT" => "Malta",
-    "MH" => "Marshall Islands",
-    "MQ" => "Martinique",
-    "MR" => "Mauritania",
-    "MU" => "Mauritius",
-    "YT" => "Mayotte",
-    "MX" => "Mexico",
-    "FM" => "Micronesia, Federated States of",
-    "MD" => "Moldova, Republic of",
-    "MC" => "Monaco",
-    "MN" => "Mongolia",
-    "MS" => "Montserrat",
-    "MA" => "Morocco",
-    "MZ" => "Mozambique",
-    "MM" => "Myanmar",
-    "NA" => "Namibia",
-    "NR" => "Nauru",
-    "NP" => "Nepal",
-    "NL" => "Netherlands",
-    "AN" => "Netherlands Antilles",
-    "NC" => "New Caledonia",
-    "NZ" => "New Zealand",
-    "NI" => "Nicaragua",
-    "NE" => "Niger",
-    "NG" => "Nigeria",
-    "NU" => "Niue",
-    "NF" => "Norfolk Island",
-    "MP" => "Northern Mariana Islands",
-    "NO" => "Norway",
-    "OM" => "Oman",
-    "PK" => "Pakistan",
-    "PW" => "Palau",
-    "PS" => "Palestinian Territory, Occupied",
-    "PA" => "Panama",
-    "PG" => "Papua New Guinea",
-    "PY" => "Paraguay",
-    "PE" => "Peru",
-    "PH" => "Philippines",
-    "PN" => "Pitcairn",
-    "PL" => "Poland",
-    "PT" => "Portugal",
-    "PR" => "Puerto Rico",
-    "QA" => "Qatar",
-    "RE" => "Reunion",
-    "RO" => "Romania",
-    "RU" => "Russian Federation",
-    "RW" => "Rwanda",
-    "SH" => "Saint Helena",
-    "KN" => "Saint Kitts and Nevis",
-    "LC" => "Saint Lucia",
-    "PM" => "Saint Pierre and Miquelon",
-    "VC" => "Saint Vincent and the Grenadines",
-    "WS" => "Samoa",
-    "SM" => "San Marino",
-    "ST" => "Sao Tome and Principe",
-    "SA" => "Saudi Arabia",
-    "SN" => "Senegal",
-    "CS" => "Serbia and Montenegro",
-    "SC" => "Seychelles",
-    "SL" => "Sierra Leone",
-    "SG" => "Singapore",
-    "SK" => "Slovakia",
-    "SI" => "Slovenia",
-    "SB" => "Solomon Islands",
-    "SO" => "Somalia",
-    "ZA" => "South Africa",
-    "GS" => "South Georgia and the South Sandwich Islands",
-    "ES" => "Spain",
-    "LK" => "Sri Lanka",
-    "SD" => "Sudan",
-    "SR" => "Suriname",
-    "SJ" => "Svalbard and Jan Mayen",
-    "SZ" => "Swaziland",
-    "SE" => "Sweden",
-    "CH" => "Switzerland",
-    "SY" => "Syrian Arab Republic",
-    "TW" => "Taiwan, Province of China",
-    "TJ" => "Tajikistan",
-    "TZ" => "Tanzania, United Republic of",
-    "TH" => "Thailand",
-    "TL" => "Timor-Leste",
-    "TG" => "Togo",
-    "TK" => "Tokelau",
-    "TO" => "Tonga",
-    "TT" => "Trinidad and Tobago",
-    "TN" => "Tunisia",
-    "TR" => "Turkey",
-    "TM" => "Turkmenistan",
-    "TC" => "Turks and Caicos Islands",
-    "TV" => "Tuvalu",
-    "UG" => "Uganda",
-    "UA" => "Ukraine",
-    "AE" => "United Arab Emirates",
-    "GB" => "United Kingdom",
-    "US" => "United States",
-    "UM" => "United States Minor Outlying Islands",
-    "UY" => "Uruguay",
-    "UZ" => "Uzbekistan",
-    "VU" => "Vanuatu",
-    "VE" => "Venezuela",
-    "VN" => "Viet Nam",
-    "VG" => "Virgin Islands, British",
-    "VI" => "Virgin Islands, U.s.",
-    "WF" => "Wallis and Futuna",
-    "EH" => "Western Sahara",
-    "YE" => "Yemen",
-    "ZM" => "Zambia",
-    "ZW" => "Zimbabwe"
+    "DE" => __("Germany", 'joinus4health'),
+    "NL" => __("the Netherlands", 'joinus4health'),
+    "PL" => __("Poland", 'joinus4health'),
+    "_" => __("other", 'joinus4health'),
 );
 
-$meta_types = array(
-    1 => __("Information need", 'joinus4health'), 
-    2 => __("Research question", 'joinus4health'), 
-    3 => __("Task", 'joinus4health')
+$meta_stakeholder_group = array(
+    1 => __("citizens / citizens' organization", 'joinus4health'), 
+    2 => __("scientists", 'joinus4health'),
+    3 => __("policy makers", 'joinus4health'),
+    4 => __("business / industry", 'joinus4health'),
+    5 => __("pupils / students", 'joinus4health'),
+    6 => __("other group", 'joinus4health'),
 );
 
-$meta_contribute_duration = array(
+$meta_suggestion_types = array(
+    1 => __("topic of interest", 'joinus4health'),
+    2 => __("research question", 'joinus4health'),
+    3 => __("information need", 'joinus4health'),
+    4 => __("training need", 'joinus4health'),
+    5 => __("offer", 'joinus4health'),
+    6 => __("suggestion", 'joinus4health'), 
+    7 => __("example", 'joinus4health'),
+);
+
+$meta_topic_types = array(
+    1 => __("co-creation", 'joinus4health'),
+    2 => __("construction", 'joinus4health'),
+    3 => __("promotion", 'joinus4health'),
+    4 => __("dissemination", 'joinus4health'),
+    5 => __("reflection", 'joinus4health'),
+);
+
+$meta_task_types = array(
+    1 => __("review posts", 'joinus4health'),
+    2 => __("translation", 'joinus4health'),
+    3 => __("facilitation", 'joinus4health'),
+    4 => __("review contents", 'joinus4health'),
+    5 => __("other", 'joinus4health'),
+);
+
+$meta_task_duration = array(
     5 => __("5 min", 'joinus4health'),
     10 => __("10 min", 'joinus4health'),
     20 => __("20 min", 'joinus4health'),
@@ -270,63 +72,104 @@ $meta_contribute_duration = array(
     60*24 => __("24 hours", 'joinus4health'),
 );
 
-$meta_level = array(
-    1 => __("community", 'joinus4health'), 
-    2 => __("team", 'joinus4health'), 
-    3 => __("individual", 'joinus4health')
+$meta_suggestion_duration = array(
+    5 => __("5 min", 'joinus4health'),
+    10 => __("10 min", 'joinus4health'),
+    20 => __("20 min", 'joinus4health'),
+    30 => __("30 min", 'joinus4health'),
+    60 => __("1 hour", 'joinus4health'),
+    90 => __("1h 30 min", 'joinus4health'), 
+    120 => __("2 hours", 'joinus4health'),
+    180 => __("3 hours", 'joinus4health'),
+    240 => __("4 hours", 'joinus4health'),
+    300 => __("5 hours", 'joinus4health'),
+    360 => __("6 hours", 'joinus4health'),
+    420 => __("7 hours", 'joinus4health'),
+    480 => __("8 hours", 'joinus4health'),
+    540 => __("9 hours", 'joinus4health'),
+    600 => __("10 hours", 'joinus4health'),
+    60*24 => __("24 hours", 'joinus4health'),
 );
 
-$meta_source = array(
-    1 => __("platform", 'joinus4health'), 
-    2 => __("working team", 'joinus4health')
+$meta_task_level = array(
+    1 => __("individual", 'joinus4health'), 
+    2 => __("group", 'joinus4health'), 
 );
 
-$meta_target_group = array(
-    1 => __("anybody", 'joinus4health'), 
-    2 => __("science", 'joinus4health')
+$meta_suggestion_source = array(
+    1 => __("platform user", 'joinus4health'), 
+    2 => __("working team", 'joinus4health'), 
+    3 => __("external source", 'joinus4health')
 );
 
-$meta_status = array(
-    1 => __("Open", 'joinus4health'), 
-    2 => __("Reviewed", 'joinus4health'), 
-    3 => __("Approved", 'joinus4health'),
-    4 => __("Declined", 'joinus4health'),
-    5 => __("In Progress", 'joinus4health'),
-    6 => __("Completed", 'joinus4health')
+$meta_topic_source = array(
+    1 => __("suggestion", 'joinus4health'), 
+    2 => __("administrator", 'joinus4health'), 
+    3 => __("external source", 'joinus4health')
 );
 
-$meta_sortby_topic = array(
+$meta_task_source = array(
+    1 => __("platform user", 'joinus4health'), 
+    2 => __("administrator", 'joinus4health'), 
+    3 => __("external source", 'joinus4health')
+);
+
+$meta_topic_status = array(
+    1 => __("active", 'joinus4health'), 
+    2 => __("continuous", 'joinus4health'), 
+    3 => __("closed", 'joinus4health'),
+);
+
+/**
+ * Sort by
+ */
+$meta_topic_sortby = array(
     '' => __('Date of publication', 'joinus4health'),
     'votes' => __('Votes', 'joinus4health'),
 );
 
-$meta_sortby_task = array(
+$meta_task_sortby = array(
     '' => __('Date of publication', 'joinus4health'),
     'contribution'  => __('Time of contribution', 'joinus4health'),
 );
 
-$meta_sortby_suggestion = array(
+$meta_suggestion_sortby = array(
     '' => __('Date of publication', 'joinus4health'),
     'votes' => __('Votes', 'joinus4health'),
 );
 
-$meta_infrastructure = array(
-    '1' => __('Infrastructure #1', 'joinus4health'),
-    '2' => __('Infrastructure #2', 'joinus4health'),
-    '3' => __('Infrastructure #3', 'joinus4health'),
-    '4' => __('Infrastructure #4', 'joinus4health'),
+/**
+ * Common
+ */
+$meta_process = array(
+    '1' => __('brainstorming', 'joinus4health'),
+    '2' => __('planing', 'joinus4health'),
+    '3' => __('design', 'joinus4health'),
+    '4' => __('collection', 'joinus4health'),
+    '5' => __('analysis', 'joinus4health'),
+    '6' => __('interpretation', 'joinus4health'),
+    '7' => __('communication', 'joinus4health'),
+    '8' => __('dissemination', 'joinus4health'),
+    '9' => __('engagement', 'joinus4health'),
+    '10' => __('community building', 'joinus4health'),
+    '11' => __('monitoring/evaluation', 'joinus4health'),
 );
 
-$meta_methodology = array(
-    '1' => __('Methodology #1', 'joinus4health'),
-    '2' => __('Methodology #2', 'joinus4health'),
-    '3' => __('Methodology #3', 'joinus4health'),
-    '4' => __('Methodology #4', 'joinus4health'),
-);
+$meta_methods = array(
+    '1' => __('collaboration', 'joinus4health'),
+    '2' => __('co-creation', 'joinus4health'),
+    '3' => __('crowdsourcing', 'joinus4health'),
+    '4' => __('epidemiology', 'joinus4health'),
+    '5' => __('participation', 'joinus4health'),
+    '6' => __('Responsible Research and Innovation', 'joinus4health'),
+    '7' => __('systems thinking', 'joinus4health'),
+    '8' => __('transdisciplinarity', 'joinus4health'),);
 
-$meta_content = array(
-    '1' => __('Content #1', 'joinus4health'),
-    '2' => __('Content #2', 'joinus4health'),
-    '3' => __('Content #3', 'joinus4health'),
-    '4' => __('Content #4', 'joinus4health'),
+$meta_contents = array(
+    '1' => __('awarness raising', 'joinus4health'),
+    '2' => __('prevention', 'joinus4health'),
+    '3' => __('diagnosis', 'joinus4health'),
+    '4' => __('surveillance', 'joinus4health'),
+    '5' => __('therapy', 'joinus4health'),
+    '6' => __('working together', 'joinus4health'),
 );

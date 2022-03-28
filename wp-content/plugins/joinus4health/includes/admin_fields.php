@@ -45,12 +45,14 @@ function html_admin_date_input($title, $name, $value) {
 <?php
 }
 
-function html_admin_select_box($title, $name, $values, $key_selected = null) {
+function html_admin_select_box($title, $name, $values, $key_selected = null, $with_none = true) {
 ?>
     <p>
         <label for="<?= $name ?>" style="padding-right: 30px;"><?= $title ?></label>
         <select name="<?= $name ?>">
+            <?php if ($with_none): ?>
             <option value="">None</option>
+            <?php endif; ?>
             <?php foreach ($values as $key => $value): ?>
                 <?php $selected = ($key == $key_selected) ? ' selected' : '' ?>
                 <option value="<?= $key ?>"<?= $selected ?>><?= $value ?></option>';

@@ -1008,8 +1008,6 @@ echo get_js_load_href();
             $query = new WP_Query(array('post_type' => 'ju4htask', 'posts_per_page' => 4));
             while ($query->have_posts()):
             $query->the_post();
-            $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
-            $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
             $m_language = get_post_meta($post->ID, 'm_language', true);
             $m_target_group = get_post_meta($post->ID, 'm_target_group', true);
             $m_source = get_post_meta($post->ID, 'm_source', true);
@@ -1019,10 +1017,10 @@ echo get_js_load_href();
                 <a href="<?= get_permalink($post->ID) ?>"><?= $post->post_title ?></a>
                 <?php if($m_valid_thru != null): ?><div class="sup"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
                 <div class="tags">
-                    <?= $m_language != '' ? '<div>'.$meta_countries[$m_language].'</div>' : '' ?>
-                    <?= $m_target_group!= '' ? '<div>'.$meta_target_group[$m_target_group].'</div>' : '' ?>
-                    <?= $m_source != '' ? '<div>'.$meta_source[$m_source].'</div>' : '' ?>
-                    <?= $m_level != '' ? '<div>'.$meta_level[$m_level].'</div>' : '' ?>
+                    <?= $m_language != '' && isset($meta_languages[$m_language]) ? '<div>'.$meta_languages[$m_language].'</div>' : '' ?>
+                    <?= $m_target_group != '' && isset($meta_stakeholder_group[$m_target_group]) ? '<div>'.$meta_stakeholder_group[$m_target_group].'</div>' : '' ?>
+                    <?= $m_source != '' && isset($meta_task_source[$m_source]) ? '<div>'.$meta_task_source[$m_source].'</div>' : '' ?>
+                    <?= $m_level != '' && isset($meta_task_level[$m_level]) ? '<div>'.$meta_task_level[$m_level].'</div>' : '' ?>
                 </div>
             </div>
             <?php endwhile; ?>

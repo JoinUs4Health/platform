@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 $meta = get_post_meta(get_the_ID());
@@ -33,7 +33,7 @@ if (isset($_GET['date_till'])) {
 ?>
 
     <script type="text/javascript">
-        var fields = ["language", "country", "group", "type", "date_since", "date_till", "infrastructure", "methodology", "content"];
+        var fields = ["language", "country", "target_group", "type", "date_since", "date_till", "infrastructure", "methodology", "content"];
         
         $(document).ready(function(){
             
@@ -588,7 +588,7 @@ if (isset($_GET['date_till'])) {
             <label><?= __('Language', 'joinus4health') ?></label>
             <select name="language" id="input-language">
                 <option value=''><?= __('any', 'joinus4health') ?></option>
-                <?php foreach ($meta_countries as $key => $value): ?>
+                <?php foreach ($meta_languages as $key => $value): ?>
                 <option value="<?= $key ?>"<?= (isset($_GET['language']) && $key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
@@ -596,20 +596,20 @@ if (isset($_GET['date_till'])) {
             <select name="country" id="input-country">
                 <option value=''><?= __('any', 'joinus4health') ?></option>
                 <?php foreach ($meta_countries as $key => $value): ?>
-                <option value="<?= $key ?>"<?= (isset($_GET['language']) && $key == $_GET['language']) ? ' selected' : '' ?>><?= $value ?></option>
+                <option value="<?= $key ?>"<?= (isset($_GET['country']) && $key == $_GET['country']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
             <label><?= __('Stakeholder group', 'joinus4health') ?></label>
-            <select name="target_group" id="input-group">
+            <select name="target_group" id="input-target_group">
                 <option value=''><?= __('any', 'joinus4health') ?></option>
-                <?php foreach ($meta_target_group as $key => $value): ?>
+                <?php foreach ($meta_stakeholder_group as $key => $value): ?>
                 <option value="<?= $key ?>"<?= (isset($_GET['target_group']) && $key == $_GET['target_group']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
             <label><?= __('Type', 'joinus4health') ?></label>
             <select name="type" id="input-type">
                 <option value=''><?= __('any', 'joinus4health') ?></option>
-                <?php foreach ($meta_types as $key => $value): ?>
+                <?php foreach ($meta_suggestion_types as $key => $value): ?>
                 <option value="<?= $key ?>"<?= (isset($_GET['type']) && $key == $_GET['type']) ? ' selected' : '' ?>><?= $value ?></option>
                 <?php endforeach; ?>
             </select>
@@ -617,32 +617,6 @@ if (isset($_GET['date_till'])) {
             <input type="text" class="text" name="date_since" id="input-date_since" />
             <label><?= __('Time period / to', 'joinus4health') ?></label>
             <input type="text" class="text" name="date_till" id="input-date_till" />
-            <div class="advanced">
-                <div class="filterheader">
-                    <div class="on-left"><?= __('Advanced filters', 'joinus4health') ?></div>
-                </div>
-                <label><?= __('Infrastructure', 'joinus4health') ?></label>
-                <select name="infrastructure" id="input-infrastructure">
-                    <option value=''><?= __('any', 'joinus4health') ?></option>
-                    <?php foreach ($meta_infrastructure as $key => $value): ?>
-                    <option value="<?= $key ?>"<?= (isset($_GET['infrastructure']) && $key == $_GET['infrastructure']) ? ' selected' : '' ?>><?= $value ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <label><?= __('Methodology', 'joinus4health') ?></label>
-                <select name="methodology" id="input-methodology">
-                    <option value=''><?= __('any', 'joinus4health') ?></option>
-                    <?php foreach ($meta_methodology as $key => $value): ?>
-                    <option value="<?= $key ?>"<?= (isset($_GET['methodology']) &&$key == $_GET['methodology']) ? ' selected' : '' ?>><?= $value ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <label><?= __('Content', 'joinus4health') ?></label>
-                <select name="content" id="input-content">
-                    <option value=''><?= __('any', 'joinus4health') ?></option>
-                    <?php foreach ($meta_content as $key => $value): ?>
-                    <option value="<?= $key ?>"<?= (isset($_GET['content']) && $key == $_GET['content']) ? ' selected' : '' ?>><?= $value ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
             <input type="button" class="btns" id="filter-results" value="<?= __('Filter results', 'joinus4health') ?>"  />
         </div>
     </div>
@@ -655,7 +629,7 @@ if (isset($_GET['date_till'])) {
             </div>
             <div class="orderby"><?= __('Order by', 'joinus4health') ?></div>
             <select class="orderby" name="sortby">
-                <?php foreach ($meta_sortby_suggestion as $index => $value): ?>
+                <?php foreach ($meta_suggestion_sortby as $index => $value): ?>
                 <?php $selected = (isset($_GET['sortby']) && $_GET['sortby'] == $index) ? ' selected' : '' ?> 
                 <option value="<?= $index ?>"<?= $selected ?>><?= $value ?></option>
                 <?php endforeach; ?>
@@ -694,14 +668,14 @@ if (isset($_GET['date_till'])) {
         }
         
         $names = array(
-            'sortby' => $meta_sortby_suggestion, 
-            'language' => $meta_countries, 
-            'duration' => $meta_contribute_duration, 
-            'type' => $meta_types, 
-            'level' => $meta_level, 
-            'source' => $meta_source, 
-            'target_group' => $meta_target_group, 
-            'infrastructure' => $meta_infrastructure, 
+            'sortby' => $meta_suggestion_sortby, 
+            'language' => $meta_languages,
+            'country' => $meta_countries,
+            'duration' => $meta_suggestion_duration, 
+            'type' => $meta_suggestion_types, 
+            'source' => $meta_suggestion_source, 
+            'target_group' => $meta_stakeholder_group, 
+            'infrastructure' => $meta_process, 
             'methodology' => $meta_methodology, 
             'content' => $meta_content,
         );
@@ -754,31 +728,31 @@ if (isset($_GET['date_till'])) {
             $filters = array(
                 'language' => array(
                     '_' => __('language', 'joinus4health'),
+                    'items' => $meta_languages,
+                ),
+                'country' => array(
+                    '_' => __('country', 'joinus4health'),
                     'items' => $meta_countries,
                 ),
                 'duration' => array(
                     '_' => __('duration', 'joinus4health'),
-                    'items' => $meta_contribute_duration,
+                    'items' => $meta_suggestion_duration,
                 ),
                 'type' => array(
                     '_' => __('type', 'joinus4health'),
-                    'items' => $meta_types,
-                ),
-                'level' => array(
-                    '_' => __('level', 'joinus4health'),
-                    'items' => $meta_level,
+                    'items' => $meta_suggestion_types,
                 ),
                 'source' => array(
                     '_' => __('source', 'joinus4health'),
-                    'items' => $meta_source,
+                    'items' => $meta_suggestion_source,
                 ),
                 'target_group' => array(
                     '_' => __('targeted stakeholder group', 'joinus4health'),
-                    'items' => $meta_target_group,
+                    'items' => $meta_stakeholder_group,
                 ),
                 'infrastructure' => array(
                     '_' => __('infrastructure', 'joinus4health'),
-                    'items' => $meta_infrastructure,
+                    'items' => $meta_process,
                 ), 
                 'methodology' => array(
                     '_' => __('methodology', 'joinus4health'),

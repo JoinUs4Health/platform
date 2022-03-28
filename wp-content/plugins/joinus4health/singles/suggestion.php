@@ -792,8 +792,8 @@ html_modal_uncontribute();
                     <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
                     <div class="tags-info">
                         <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
-                        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
-                        <div><?= $meta_contribute_duration[$m_duration] ?></div>
+                        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_task_duration)): ?>
+                        <div><?= $meta_task_duration[$m_duration] ?></div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -871,10 +871,7 @@ html_modal_uncontribute();
             </div>
             <div class="separator"></div>
             <div class="tags-info">
-                <?php $m_status = get_post_meta($suggestion_post->ID, 'm_status', true) ?>
-                <?= isset($meta_status[$m_status]) ? '<div>'.$meta_status[$m_status].'</div>' : "" ?>
             </div>
-
             <div class="rows">
                 <?php $m_follows = get_post_meta($suggestion_post->ID, 'm_follows') ?>
                 <?php $m_contributes = get_post_meta($suggestion_post->ID, 'm_contributes') ?>
@@ -896,13 +893,13 @@ html_modal_uncontribute();
             <div class="rows2">
                 <i data-feather="flag"></i>
                 <div><?= __('Language', 'joinus4health') ?></div>
-                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_language != '' && isset($meta_languages[$m_language]) ? $meta_languages[$m_language] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="users"></i>
                 <div><?= __('Stakeholder group', 'joinus4health') ?></div>
-                <div class="value"><?= $m_target_group != '' ? $meta_target_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_target_group != '' && isset($meta_stakeholder_group[$m_target_group]) ? $meta_stakeholder_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="disc"></i>
                 <div><?= __('Source', 'joinus4health') ?></div>
-                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_source != '' && isset($meta_suggestion_source[$m_source]) ? $meta_suggestion_source[$m_source] : __('not specified', 'joinus4health') ?></div>
             </div>
         </div>
     </div>

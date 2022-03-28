@@ -161,9 +161,8 @@ function get_js_script_contribute($url) {
 }
 
 function html_topic($post) {
-    global $meta_status;
+    global $meta_topic_status;
     ob_start();
-    $meta = get_post_meta($post->ID);
     $tags = wp_get_post_terms($post->ID, 'ju4htopictag');
     $m_status = get_post_meta($post->ID, 'm_status', true);
     $m_votes = get_post_meta($post->ID, "m_votes");
@@ -178,7 +177,7 @@ function html_topic($post) {
             </div>
             <div class="content-col" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <h5><a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a></h5>
-                <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
+                <?= isset($meta_topic_status[$m_status]) ? '<div class="tag">'.$meta_topic_status[$m_status].'</div>' : "" ?>
                 <div class="date-time"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 <div class="content"><?= get_translated_field($post, 'm_intro', $preferred_language) ?></div>
                 <?php if (count($tags) > 0): ?>
@@ -220,7 +219,7 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
 }
 
 function html_task($post) {
-    global $post, $meta_contribute_duration;
+    global $post, $meta_task_duration;
     $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
     $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
     $preferred_language = get_preferred_language();
@@ -232,15 +231,15 @@ function html_task($post) {
                     <div class="submit-by"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 </div>
                 <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
-                <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
-                <div class="tag"><?= $meta_contribute_duration[$m_duration] ?></div>
+                <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_task_duration)): ?>
+                <div class="tag"><?= $meta_task_duration[$m_duration] ?></div>
                 <?php endif; ?>
             </div>
     <?php
 }
 
 function html_suggestion($post) {
-    global $post, $meta_contribute_duration;
+    global $post, $meta_suggestion_duration;
     $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
     $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
     $m_votes = get_post_meta($post->ID, "m_votes");
@@ -258,8 +257,8 @@ function html_suggestion($post) {
                     <div class="submit-by"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 </div>
                 <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
-                <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
-                <div class="tag"><?= $meta_contribute_duration[$m_duration] ?></div>
+                <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_suggestion_duration)): ?>
+                <div class="tag"><?= $meta_suggestion_duration[$m_duration] ?></div>
                 <?php endif; ?>
             </div>
     <?php

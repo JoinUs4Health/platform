@@ -185,11 +185,10 @@ function add_meta_box_ju4htopic_description_callback($post) {
  * Adds meta box "Additional fields"
  * - select field with status of topic
  * 
- * @global type $meta_status
  * @param type $post
  */
 function add_meta_box_ju4htopic_additional_fields_callback($post) {
-    global $meta_status, $meta_countries, $meta_source, $meta_target_group;
+    global $meta_topic_status, $meta_languages, $meta_topic_source, $meta_stakeholder_group;
     wp_nonce_field(basename( __FILE__ ), 'topic_additional_fields_nonce');
     $topics = array();
     $query = new WP_Query(array('post_type' => 'forum', 'posts_per_page' => -1));
@@ -202,12 +201,12 @@ function add_meta_box_ju4htopic_additional_fields_callback($post) {
         }
     }
     
+    html_admin_select_box(__('Language'), 'm_language', $meta_languages, get_post_meta($post->ID, "m_language", true), false);
+    html_admin_select_box(__('Status'), 'm_status', $meta_topic_status, get_post_meta($post->ID, 'm_status', true));
+    html_admin_select_box(__('Targeted stakeholder group'), 'm_target_group', $meta_stakeholder_group, get_post_meta($post->ID, "m_target_group", true));
     html_admin_select_box(__('Related working group'), 'm_bbpress_topic', $topics, get_post_meta($post->ID, 'm_bbpress_topic', true));
+    html_admin_select_box(__('Source'), 'm_source', $meta_topic_source, get_post_meta($post->ID, "m_source", true));
     html_admin_date_input(__('Valid thru'), 'm_valid_thru', get_post_meta($post->ID, 'm_valid_thru', true));
-    html_admin_select_box(__('Status'), 'm_status', $meta_status, get_post_meta($post->ID, 'm_status', true));
-    html_admin_select_box(__('Language'), 'm_language', $meta_countries, get_post_meta($post->ID, "m_language", true));
-    html_admin_select_box(__('Source'), 'm_source', $meta_source, get_post_meta($post->ID, "m_source", true));
-    html_admin_select_box(__('Targeted stakeholder group'), 'm_target_group', $meta_target_group, get_post_meta($post->ID, "m_target_group", true));
 }
 
 /**
@@ -216,12 +215,9 @@ function add_meta_box_ju4htopic_additional_fields_callback($post) {
  * - anchors to add new related suggestion
  * - anchors to remove existing related suggestion
  * 
- * @global type $meta_status
  * @param type $post
  */
-function add_meta_box_ju4htopic_related_suggestions_callback($post) {
-    global $meta_status;
-    
+function add_meta_box_ju4htopic_related_suggestions_callback($post) {    
     wp_nonce_field(basename( __FILE__ ), 'topic_related_suggestions_nonce');
     $topics = array();
     $query = new WP_Query(array('post_type' => 'ju4hsuggestion', 'posts_per_page' => -1));
@@ -287,12 +283,9 @@ function add_meta_box_ju4htopic_related_suggestions_callback($post) {
  * - anchors to add new related topic
  * - anchors to remove existing related topic
  * 
- * @global type $meta_status
  * @param type $post
  */
 function add_meta_box_ju4htopic_related_tasks_callback($post) {
-    global $meta_status;
-    
     wp_nonce_field(basename( __FILE__ ), 'topic_related_tasks_nonce');
     $tasks = array();
     $query = new WP_Query(array('post_type' => 'ju4htask', 'posts_per_page' => -1));
@@ -356,7 +349,6 @@ function add_meta_box_ju4htopic_related_tasks_callback($post) {
  * Adds meta box "Attachments"
  * - @todo
  * 
- * @global type $meta_status
  * @param type $post
  */
 function add_meta_box_ju4htopic_attachments_callback($post) {
@@ -368,7 +360,6 @@ function add_meta_box_ju4htopic_attachments_callback($post) {
  * Adds meta box "Attachments"
  * - @todo
  * 
- * @global type $meta_status
  * @param type $post
  */
 function add_meta_box_ju4htopic_externals_callback($post) {
@@ -380,7 +371,6 @@ function add_meta_box_ju4htopic_externals_callback($post) {
  * Adds meta box "Attachments"
  * - @todo
  * 
- * @global type $meta_status
  * @param type $post
  */
 function add_meta_box_ju4htopic_topimage_callback($post) {
@@ -396,7 +386,7 @@ function add_meta_box_ju4htopic_topimage_callback($post) {
  * @return type
  */
 function save_post_ju4htopic_callback($post_id) {
-    global $meta_status, $meta_countries, $meta_source, $meta_target_group, $meta_translations;
+    global $meta_topic_source, $meta_languages, $meta_topic_status, $meta_stakeholder_group, $meta_translations;
     
     $nonces = array(
         'topic_additional_fields_nonce', 
@@ -427,10 +417,10 @@ function save_post_ju4htopic_callback($post_id) {
     
     //select options
     $selectbox_metas = array(
-        $meta_status,
-        $meta_countries,
-        $meta_source,
-        $meta_target_group
+        $meta_topic_status,
+        $meta_languages,
+        $meta_topic_source,
+        $meta_stakeholder_group
     );
     
     //looping over select fields & check if any given values exists on list, if not throw error
@@ -450,8 +440,6 @@ function save_post_ju4htopic_callback($post_id) {
             }
         }
     }
-    
-    
     
     
     //looping over related suggestions & chacking if any is not numeric, if it is throw error
@@ -498,8 +486,6 @@ function save_post_ju4htopic_callback($post_id) {
     }
     
     
-    
-    
     //looping over related suggestions & chacking if any is not numeric, if it is throw error
     if (isset($_POST['m_related_tasks'])) {
         foreach ($_POST['m_related_tasks'] as $related_task) {
@@ -542,7 +528,6 @@ function save_post_ju4htopic_callback($post_id) {
     foreach ($related_tasks_to_remove as $value) {
         delete_post_meta($post_id, 'm_related_tasks', $value);
     }
-    
     
     
     //
@@ -588,10 +573,6 @@ function save_post_ju4htopic_callback($post_id) {
     }
     
     
-    
-    
-    
-    
     //
     if (isset($_POST['m_externals_text']) && is_array($_POST['m_externals_text']) && isset($_POST['m_externals_url']) && is_array($_POST['m_externals_url'])) {
         $_POST_externals = array();
@@ -635,14 +616,6 @@ function save_post_ju4htopic_callback($post_id) {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
     if ($_POST['m_top_image_file'] != '') {
         $obj = new stdClass();
         $obj->file = $_POST['m_top_image_file'];
@@ -651,7 +624,6 @@ function save_post_ju4htopic_callback($post_id) {
     } else {
         delete_post_meta($post_id, 'm_topimage');
     }
-    
     
     
     //saving select box fields
@@ -698,19 +670,25 @@ add_action('save_post_ju4htopic', 'save_post_ju4htopic_callback', 10, 2);
 
 function manage_ju4htopic_posts_columns_callback($columns) {
     $columns['status'] = __('Status');
+    $columns['language'] = __('Language');
     return $columns;
 }
 add_filter('manage_ju4htopic_posts_columns', 'manage_ju4htopic_posts_columns_callback');
 
-
-
 function manage_ju4htopic_posts_custom_column_callback($column, $post_id) {
-    global $meta_status;
+    global $meta_languages, $meta_topic_status;
+    
+    if ($column == 'language') {
+        $language = get_post_meta($post_id, 'm_language', true);
+        if ($language != null && array_key_exists($language, $meta_languages)) {
+            echo $meta_languages[$language];
+        }
+    }
     
     if ($column == 'status') {
         $status = get_post_meta($post_id, 'm_status', true);
-        if ($status != null && array_key_exists($status, $meta_status)) {
-            echo $meta_status[$status];
+        if ($status != null && array_key_exists($status, $meta_topic_status)) {
+            echo $meta_topic_status[$status];
         }
     }
 }

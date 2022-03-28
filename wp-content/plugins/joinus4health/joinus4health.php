@@ -14,19 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-$meta_countries = array();
-$meta_types = array();
-$meta_contribute_duration = array();
-$meta_level = array();
-$meta_source = array();
-$meta_target_group = array();
-$meta_status = array();
-$meta_sortby_topic = array();
-$meta_sortby_task = array();
-$meta_sortby_suggestion = array();
-$meta_infrastructure = array();
-$meta_methodology = array();
-$meta_content = array();
+include 'includes/metas.php';
 
 $meta_translations = array(
     'de' => 'German',
@@ -187,6 +175,14 @@ function time_left($time) {
     }
 }
 
+function time_print($format, $unix_timestamp) {
+    global $wp_locale;
+    
+    $wp_timezone = wp_timezone();
+    $datetime = date_create_immutable_from_format('U', $unix_timestamp, $wp_timezone);
+    return $datetime->format($format);
+}
+
 function count_comments($comments) {
     $count = count($comments);
     foreach ($comments as $comment) {
@@ -251,11 +247,17 @@ function add_language_vars() {
 add_action('wp_head', 'add_language_vars', 1, 1);
 
 function add_jquery_feather_icons_script() {
-    global $meta_countries, $meta_types, $meta_contribute_duration, $meta_level;
-    global $meta_source, $meta_target_group, $meta_status, $meta_sortby_topic;
-    global $meta_sortby_task, $meta_sortby_suggestion, $meta_infrastructure;
-    global $meta_methodology, $meta_content;
+    global $meta_languages, $meta_countries, $meta_stakeholder_group;
+    global $meta_suggestion_types, $meta_topic_types, $meta_task_types;
+    global $meta_task_duration, $meta_suggestion_duration;
+    global $meta_task_level;
+    global $meta_suggestion_source, $meta_topic_source, $meta_task_source;
+    global $meta_topic_status;
+    global $meta_topic_sortby, $meta_task_sortby, $meta_suggestion_sortby;
+    global $meta_process, $meta_methods, $meta_contents;
 
+    global $wp_locale;
+    
     wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery.min.js");
     wp_enqueue_script('ju4h-feather', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.min.js");
     wp_enqueue_script('ju4h-feather-replace', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.replace.js");
@@ -280,8 +282,10 @@ function add_jquery_feather_icons_script() {
         }
     }
     
-    //metas definition
-    include_once 'includes/metas.php';
+    $wp_locale = new WP_Locale();
+    
+    //reinclude metas definition
+    include 'includes/metas.php';
 }
 add_action('wp_enqueue_scripts', 'add_jquery_feather_icons_script');
 

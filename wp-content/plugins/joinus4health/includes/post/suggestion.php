@@ -45,8 +45,6 @@ function ju4hsuggestion_custom_post_type() {
 }
 add_action('init', 'ju4hsuggestion_custom_post_type', 0);
 
-
-
 function add_meta_boxes_ju4hsuggestion_callback($post) {
     add_meta_box('container_followers_and_contributors', __('Followers, contributors & voters'), 'add_meta_box_ju4hsuggestion_followers_contributors_voters_callback', 'ju4hsuggestion', 'normal', 'low');
     add_meta_box('container_title', __('Title'), 'add_meta_box_ju4hsuggestion_title_callback', 'ju4hsuggestion', 'normal', 'low');
@@ -55,29 +53,20 @@ function add_meta_boxes_ju4hsuggestion_callback($post) {
 }
 add_action('add_meta_boxes_ju4hsuggestion', 'add_meta_boxes_ju4hsuggestion_callback');
 
-
-
 function add_meta_box_ju4hsuggestion_additional_fields_callback($post) {
-    global $meta_countries, $meta_types, $meta_target_group, $meta_contribute_duration, $meta_level, $meta_source, $meta_infrastructure, $meta_methodology, $meta_content;
+    global $meta_countries, $meta_languages, $meta_suggestion_types, $meta_stakeholder_group, $meta_suggestion_duration, $meta_suggestion_source, $meta_process, $meta_methods, $meta_contents;
     wp_nonce_field(basename( __FILE__ ), 'suggestion_additional_fields_nonce');
-    html_admin_select_box(__('Country'), 'm_country', $meta_countries, get_post_meta($post->ID, "m_country", true));
-    html_admin_select_box(__('Language'), 'm_language', $meta_countries, get_post_meta($post->ID, "m_language", true));
-    html_admin_select_box(__('Duration'), 'm_duration', $meta_contribute_duration, get_post_meta($post->ID, "m_duration", true));
-    html_admin_select_box(__('Type'), 'm_type', $meta_types, get_post_meta($post->ID, "m_type", true));
-    html_admin_select_box(__('Level'), 'm_level', $meta_level, get_post_meta($post->ID, "m_level", true));
-    html_admin_select_box(__('Source'), 'm_source', $meta_source, get_post_meta($post->ID, "m_source", true));
-    html_admin_select_box(__('Targeted stakeholder group'), 'm_target_group', $meta_target_group, get_post_meta($post->ID, "m_target_group", true));
-    html_admin_select_box(__('Infrastructure'), 'm_infrastructure', $meta_infrastructure, get_post_meta($post->ID, "m_infrastructure", true));
-    html_admin_select_box(__('Methodology'), 'm_methodology', $meta_methodology, get_post_meta($post->ID, "m_methodology", true));
-    html_admin_select_box(__('Content'), 'm_content', $meta_content, get_post_meta($post->ID, "m_content", true));
+    html_admin_select_box(__('Language'), 'm_language', $meta_languages, get_post_meta($post->ID, "m_language", true), false);
+    html_admin_select_box(__('Country'), 'm_country', $meta_countries, get_post_meta($post->ID, "m_country", true), false);
+    html_admin_select_box(__('Targeted stakeholder group'), 'm_target_group', $meta_stakeholder_group, get_post_meta($post->ID, "m_target_group", true));
+    html_admin_select_box(__('Type'), 'm_type', $meta_suggestion_types, get_post_meta($post->ID, "m_type", true));
+    html_admin_select_box(__('Duration'), 'm_duration', $meta_suggestion_duration, get_post_meta($post->ID, "m_duration", true));
+    html_admin_select_box(__('Source'), 'm_source', $meta_suggestion_source, get_post_meta($post->ID, "m_source", true));
+    html_admin_select_box(__('Process'), 'm_infrastructure', $meta_process, get_post_meta($post->ID, "m_infrastructure", true));
+    html_admin_select_box(__('Methodology'), 'm_methodology', $meta_methods, get_post_meta($post->ID, "m_methodology", true));
+    html_admin_select_box(__('Content'), 'm_content', $meta_contents, get_post_meta($post->ID, "m_content", true));
 }
 
-
-/**
- * 
- * 
- * @param type $post
- */
 function add_meta_box_ju4hsuggestion_followers_contributors_voters_callback($post) {
     $m_followers = get_post_meta($post->ID, 'm_follows');
     $m_contributors = get_post_meta($post->ID, 'm_contributes');
@@ -127,7 +116,6 @@ function add_meta_box_ju4hsuggestion_description_callback($post) {
     }
 }
 
-
 function save_post_ju4hsuggestion_callback($post_id) {
     global $meta_translations;
     
@@ -139,7 +127,7 @@ function save_post_ju4hsuggestion_callback($post_id) {
         return;
     }
     
-    $fields = array("m_country", "m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group", "m_description", "m_infrastructure", "m_methodology", "m_content");
+    $fields = array("m_country", "m_language", "m_duration", "m_type", "m_source", "m_target_group", "m_description", "m_infrastructure", "m_methodology", "m_content");
     foreach ($meta_translations as $key => $value) {
         $fields[] = 'm_title_'.$key;
         $fields[] = 'm_description_'.$key;
@@ -169,20 +157,17 @@ function save_post_ju4hsuggestion_callback($post_id) {
 }
 add_action('save_post_ju4hsuggestion', 'save_post_ju4hsuggestion_callback', 10, 2);
 
-
-
 function manage_ju4hsuggestion_posts_columns_callback($columns) {
     $columns['country'] = __('Country');
     $columns['language'] = __('Language');
     $columns['type'] = __('Type');
+    $columns['duration'] = __('Duration');
     return $columns;
 }
 add_filter('manage_ju4hsuggestion_posts_columns', 'manage_ju4hsuggestion_posts_columns_callback');
 
-
-
 function manage_ju4hsuggestion_posts_custom_column_callback($column, $post_id) {
-    global $meta_countries, $meta_types, $meta_target_group, $meta_contribute_duration, $meta_level, $meta_source;
+    global $meta_countries, $meta_languages, $meta_suggestion_types, $meta_suggestion_duration;
     
     if ('country' === $column) {
         $country = get_post_meta($post_id, 'm_country', true);
@@ -193,17 +178,23 @@ function manage_ju4hsuggestion_posts_custom_column_callback($column, $post_id) {
 
     if ('language' === $column) {
         $language = get_post_meta($post_id, 'm_language', true);
-        if ($language != null && array_key_exists($language, $meta_countries)) {
-            echo $meta_countries[$language];
+        if ($language != null && array_key_exists($language, $meta_languages)) {
+            echo $meta_languages[$language];
         }
     }
     
     if ('type' === $column) {
         $type = get_post_meta($post_id, 'm_type', true);
-        if ($type != null && array_key_exists($type, $meta_types)) {
-            echo $meta_types[$type];
+        if ($type != null && array_key_exists($type, $meta_suggestion_types)) {
+            echo $meta_suggestion_types[$type];
+        }
+    }
+    
+    if ('duration' === $column) {
+        $duration = get_post_meta($post_id, 'm_duration', true);
+        if ($duration != null && array_key_exists($duration, $meta_suggestion_duration)) {
+            echo $meta_suggestion_duration[$duration];
         }
     }
 }
 add_action('manage_ju4hsuggestion_posts_custom_column', 'manage_ju4hsuggestion_posts_custom_column_callback', 10, 2);
-

@@ -12,7 +12,7 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['type
         $is_error = true;
     }
     
-    if (!array_key_exists($_POST['type'], $meta_types)) {
+    if (!array_key_exists($_POST['type'], $meta_suggestion_types)) {
         $is_error = true;
     }
     
@@ -153,7 +153,7 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['type
         <?php endif; ?>
         <label><?= __('Type', 'joinus4health') ?></label>
         <select name="type">
-            <?php foreach ($meta_types as $key => $value): ?>
+            <?php foreach ($meta_suggestion_types as $key => $value): ?>
             <option value="<?= $key ?>"<?= isset($_POST['type']) && $_POST['type'] == $key ? ' selected' : '' ?>><?= $value ?></option>
             <?php endforeach; ?>
         </select>

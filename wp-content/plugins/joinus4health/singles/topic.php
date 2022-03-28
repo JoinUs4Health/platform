@@ -830,11 +830,11 @@ html_modal_uncontribute();
                 ?>
                 <div class="related-task column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                     <a class="title" href="<?= get_the_permalink($post->ID) ?>"><?= $post->post_title ?></a>
-                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
+                    <?php if ($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
                     <div class="tags-info">
                         <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
-                        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
-                        <div><?= $meta_contribute_duration[$m_duration] ?></div>
+                        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_task_duration)): ?>
+                        <div><?= $meta_task_duration[$m_duration] ?></div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -903,7 +903,7 @@ html_modal_uncontribute();
             <div class="separator"></div>
             <div class="tags-info">
                 <?php $m_status = get_post_meta($topic_post->ID, 'm_status', true) ?>
-                <?= isset($meta_status[$m_status]) ? '<div>'.$meta_status[$m_status].'</div>' : "" ?>
+                <?= isset($meta_topic_status[$m_status]) ? '<div>'.$meta_topic_status[$m_status].'</div>' : "" ?>
             </div>
             <div class="rows">
                 <?php $m_follows = get_post_meta($topic_post->ID, 'm_follows') ?>
@@ -912,7 +912,7 @@ html_modal_uncontribute();
                 <div><?= __('Created', 'joinus4health') ?></div>
                 <div><?= __('Valid thru', 'joinus4health') ?></div>
                 <div class="value"><?= time_ago($topic_post) ?></div>
-                <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
+                <div class="value"><?= is_numeric($m_valid_thru) ? wp_date('d F Y', $m_valid_thru) : '-' ?></div>
                 <div class="space"></div>
                 <div class="space"></div>
                 <div><?= __('Following', 'joinus4health') ?></div>
@@ -927,13 +927,13 @@ html_modal_uncontribute();
             <div class="rows2">
                 <i data-feather="flag"></i>
                 <div><?= __('Language', 'joinus4health') ?></div>
-                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_language != '' && isset($meta_languages[$m_language]) ? $meta_languages[$m_language] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="users"></i>
                 <div><?= __('Stakeholder group', 'joinus4health') ?></div>
-                <div class="value"><?= $m_target_group != '' ? $meta_target_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_target_group != '' && isset($meta_stakeholder_group[$m_target_group]) ? $meta_stakeholder_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="disc"></i>
                 <div><?= __('Source', 'joinus4health') ?></div>
-                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_source != '' && isset($meta_topic_source[$m_source]) ? $meta_topic_source[$m_source] : __('not specified', 'joinus4health') ?></div>
             </div>
         </div>
         <?php
@@ -954,10 +954,10 @@ html_modal_uncontribute();
             <div class="url-list">
                 <a href="<?= get_the_permalink($post->ID) ?>"><?= get_the_title($post->ID) ?></a>
             </div>
+            <div class="separator"></div>
             <?php endwhile; ?>
             <?php endif; ?>
             <?php if (!empty($m_externals)): ?>
-            <div class="separator"></div>
             <h6><?= __('External links', 'joinus4health') ?></h6>
             <div class="url-list">
                 <?php foreach ($m_externals as $external): ?>
@@ -965,13 +965,13 @@ html_modal_uncontribute();
                 <a href="<?= $external_obj->url ?>"><?= $external_obj->text ?></a>
                 <?php endforeach; ?>
             </div>
+            <div class="separator"></div>
             <?php endif; ?>
             <?php if (!empty($m_suggestions)): ?>
             <?php
             $query_params = array('post_type' => 'ju4hsuggestion', 'posts_per_page' => -1, 'post__in' => $m_suggestions);
             $query_related_suggestions = new WP_Query($query_params);
             ?>
-            <div class="separator"></div>
             <h6><?= __('Original suggestions', 'joinus4health') ?></h6>
             <div class="url-list">
                 <?php while ($query_related_suggestions->have_posts()): ?>

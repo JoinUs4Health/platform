@@ -2,8 +2,8 @@ $(document).ready(function() {
     
     if ($('#signup_form')) {
         $('#signup_submit').attr('disabled', true);
-        $('#signup_username').attr('maxlength', 12);
-        $('#field_1').attr('maxlength', 12);
+        $('#signup_username').attr('maxlength', 20);
+        $('#field_1').attr('maxlength', 20);
 
         var signup_text_fields = ['signup_username', 'signup_email', 'signup_password', 'signup_password_confirm', 'field_1'];
         for (index in signup_text_fields) {
@@ -19,13 +19,13 @@ $(document).ready(function() {
             if ($('#signup_username').val().trim().length == 0)
                 return false;
 
-            if ($('#signup_username').val().trim().length > 12)
+            if ($('#signup_username').val().trim().length > 20)
                 return false;
 
             if ($('#field_1').val().trim().length == 0)
                 return false;
 
-            if ($('#field_1').val().trim().length > 12)
+            if ($('#field_1').val().trim().length > 20)
                 return false;
 
             if ($('#signup_password').val().trim().length == 0)

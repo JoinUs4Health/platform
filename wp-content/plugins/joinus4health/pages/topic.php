@@ -445,14 +445,14 @@ get_header();
         <div class="orderby"><?= __('Language', 'joinus4health') ?></div>
         <select class="orderby" name="language" id="language">
             <option value=""<?= (isset($_GET['language']) && $_GET['language'] == '') ? ' selected' : '' ?>><?= __('any', 'joinus4health') ?></option>
-            <?php foreach ($meta_countries as $index => $value): ?>
+            <?php foreach ($meta_languages as $index => $value): ?>
             <?php $selected = (isset($_GET['language']) && $_GET['language'] == $index) ? ' selected' : '' ?> 
             <option value="<?= $index ?>"<?= $selected ?>><?= $value ?></option>
             <?php endforeach; ?>
         </select>
         <div class="orderby"><?= __('Order by', 'joinus4health') ?></div>
         <select class="orderby" name="sortby" id="sortby">
-            <?php foreach ($meta_sortby_topic as $index => $value): ?>
+            <?php foreach ($meta_topic_sortby as $index => $value): ?>
             <?php $selected = (isset($_GET['sortby']) && $_GET['sortby'] == $index) ? ' selected' : '' ?> 
             <option value="<?= $index ?>"<?= $selected ?>><?= $value ?></option>
             <?php endforeach; ?>

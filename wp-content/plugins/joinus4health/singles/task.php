@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 the_post();
@@ -456,7 +456,7 @@ $preferred_language = get_preferred_language();
                     <div class="days-left"><?= time_ago($post) ?></div>
                     <div class="submit-by"><?php the_author() ?></div>
                 </div>
-                <?= isset($meta_status[$m_status]) ? '<div class="tag">'.$meta_status[$m_status].'</div>' : "" ?>
+                <?= isset($meta_topic_status[$m_status]) ? '<div class="tag">'.$meta_topic_status[$m_status].'</div>' : "" ?>
             </div>
             <?php endwhile; ?>
             <?php endif; ?>
@@ -473,41 +473,39 @@ $preferred_language = get_preferred_language();
             </div>
             <div class="separator"></div>
             <div class="tags-info">
-                <?php $m_status = get_post_meta($task->ID, 'm_status', true) ?>
-                <?= isset($meta_status[$m_status]) ? '<div>'.$meta_status[$m_status].'</div>' : "" ?>
             </div>
             <div class="rows">
                 <?php $m_valid_thru = get_post_meta($task->ID, 'm_valid_thru', true) ?>
                 <div><?= __('Created', 'joinus4health') ?></div>
                 <div><?= __('Valid thru', 'joinus4health') ?></div>
                 <div class="value"><?= time_ago($task) ?></div>
-                <div class="value"><?= is_numeric($m_valid_thru) ? date('d F Y', $m_valid_thru) : '-' ?></div>
+                <div class="value"><?= is_numeric($m_valid_thru) ? wp_date('d F Y', $m_valid_thru) : '-' ?></div>
             </div>
             <?php $m_language = get_post_meta($task->ID, 'm_language', true) ?>
             <?php $m_target_group = get_post_meta($task->ID, 'm_target_group', true) ?>
             <?php $m_source = get_post_meta($task->ID, 'm_source', true) ?>
-            <?php $m_level = get_post_meta($task->ID, 'm_level', true) ?>
+            <?php $m_level = get_post_meta($task->ID, 'm_level', true); ?>
             <div class="separator"></div>
             <div class="rows2">
                 <i data-feather="flag"></i>
                 <div><?= __('Language', 'joinus4health') ?></div>
-                <div class="value"><?= $m_language != '' ? $meta_countries[$m_language] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_language != '' && isset($meta_languages[$m_language]) ? $meta_languages[$m_language] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="users"></i>
                 <div><?= __('Stakeholder group', 'joinus4health') ?></div>
-                <div class="value"><?= $m_target_group!= '' ? $meta_target_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_target_group != '' && isset($meta_stakeholder_group[$m_target_group]) ? $meta_stakeholder_group[$m_target_group] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="disc"></i>
                 <div><?= __('Source', 'joinus4health') ?></div>
-                <div class="value"><?= $m_source != '' ? $meta_source[$m_source] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_source != '' && isset($meta_task_source[$m_source]) ? $meta_task_source[$m_source] : __('not specified', 'joinus4health') ?></div>
                 <i data-feather="layers"></i>
                 <div><?= __('Level', 'joinus4health') ?></div>
-                <div class="value"><?= $m_level != '' ? $meta_level[$m_level] : __('not specified', 'joinus4health') ?></div>
+                <div class="value"><?= $m_level != '' && isset($meta_task_level[$m_level]) ? $meta_task_level[$m_level] : __('not specified', 'joinus4health') ?></div>
             </div>
         </div>
         <?php $m_duration = get_post_meta($task->ID, 'm_duration', true) ?>
-        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_contribute_duration)): ?>
+        <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_task_duration)): ?>
         <div class="estimate column-common-border-style">
             <h6><?= __('Time estimate', 'joinus4health') ?></h6>
-            <div class="time"><?= $meta_contribute_duration[$m_duration] ?></div>
+            <div class="time"><?= $meta_task_duration[$m_duration] ?></div>
             <input type="button" class="btn-contribute" value="<?= __('Contribute', 'joinus4health') ?>" />
         </div>
         <?php endif; ?>
