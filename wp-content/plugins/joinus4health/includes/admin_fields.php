@@ -1,8 +1,16 @@
 <?php
 
 if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
+
+$admin_file_licenses = array(
+    '' => '',
+    'public_domain' => 'Public domain',
+    'cc0_1.0' => 'CC0 1.0',
+    'cc-by_4.0' => 'CC-BY 4.0',
+    'cc-by-nd_4.0' => 'CC-BY-ND 4.0',
+);
 
 function html_admin_date_input($title, $name, $value) {
     $val_d = '';
@@ -79,20 +87,29 @@ function html_admin_textarea($name, $value) {
 }
 
 function html_admin_file_multiple($name, $value, $prefix, $id) {
-        ob_start();
-        if ($value == null) {
-            $value = new stdClass();
-            $value->text = '';
-            $value->file = '';
-        } else {
-            $value = json_decode($value);
-        }
-       
+    global $admin_file_licenses;
+    
+    ob_start();
+    if ($value == null) {
+        $value = new stdClass();
+        $value->text = '';
+        $value->file = '';
+        $value->url = '';
+        $value->license = '';
+    } else {
+        $value = json_decode($value);
+    }
 ?>
     <div id="<?= $prefix ?>-div-iframe-upload-<?= $id ?>" style="border: 1px solid black; margin-bottom: 10px; padding: 15px;">
         <div style="margin-bottom: 10px;">
             <div id="<?= $prefix ?>-status-iframe-upload-<?= $id ?>" style="display: none"></div>
             <label><?= __('File name') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_text[]" value="<?= $value->text ?>" id="<?= $prefix ?>-filename-iframe-upload-<?= $id ?>" /><br/><br/>
+            <label><?= __('Source URL') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_url[]" value="<?= $value->url ?>" id="<?= $prefix ?>-url-iframe-upload-<?= $id ?>" /><br/><br/>
+            <label><?= __('License') ?></label>&nbsp;&nbsp;&nbsp;<select name="<?= $name ?>_license[]" id="<?= $prefix ?>-license-iframe-upload-<?= $id ?>">
+                <?php foreach ($admin_file_licenses as $license_code => $license_name): ?>
+                <option value="<?= $license_code ?>"<?php if ($license_code == $value->license) { echo ' selected'; } ?>><?= $license_name ?></option>
+                <?php endforeach; ?>
+            </select><br/><br/>
             <a id="<?= $prefix ?>-a-iframe-upload-<?= $id ?>" target="_blank" href="<?= home_url() ?>/wp-content/<?= $value->file ?>"><?= $value->text ?></a>
         </div>
         <input type="hidden" id="<?= $prefix ?>-input-iframe-upload-<?= $id ?>" name="<?= $name ?>_file[]" value="<?= $value->file ?>" />
@@ -132,6 +149,7 @@ function html_admin_file_multiple_meta_box($post, $prefix) {
                     $("#<?= $prefix ?>-a-iframe-upload-"+object_js.id).html(object_js.filename);
                     $("#<?= $prefix ?>-filename-iframe-upload-"+object_js.id).val(object_js.filename);
                     $("#<?= $prefix ?>-input-iframe-upload-"+object_js.id).val(object_js.filepath);
+                    $("#<?= $prefix ?>-url-iframe-upload-"+object_js.id).val(object_js.url);
                 }, 200);
             }
         }
@@ -165,12 +183,16 @@ function html_admin_file_multiple_meta_box($post, $prefix) {
 
 
 function html_admin_file_meta_box($post, $name, $prefix) {
+    global $admin_file_licenses;
+    
     $value = get_post_meta($post->ID, 'm_'.$prefix, true);
     
     if ($value == null) {
         $value = new stdClass();
         $value->text = '';
         $value->file = '';
+        $value->url = '';
+        $value->license = '';
     } else {
         $value = json_decode($value);
     }
@@ -182,6 +204,12 @@ function html_admin_file_meta_box($post, $name, $prefix) {
         <input type="hidden" id="<?= $prefix ?>-input-iframe-upload-0" name="<?= $name ?>_file" value="<?= $value->file ?>" />
         <iframe id="<?= $prefix ?>-iframe-upload-0" src="<?= home_url() ?>/wp-content/plugins/joinus4health/includes/upload.php?id=0&amp;prefix=<?= $prefix ?>" style="width: 400px; height: 30px;"></iframe>
         <label><?= __('File name') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_text" value="<?= $value->text ?>" id="<?= $prefix ?>-filename-iframe-upload-0" /><br/><br/>
+        <label><?= __('Source URL') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_url" value="<?= $value->url ?>" id="<?= $prefix ?>-url-iframe-upload-0" /><br/><br/>
+        <label><?= __('License') ?></label>&nbsp;&nbsp;&nbsp;<select name="<?= $name ?>_license" id="<?= $prefix ?>-license-iframe-upload-0">
+                <?php foreach ($admin_file_licenses as $license_code => $license_name): ?>
+                <option value="<?= $license_code ?>"<?php if ($license_code == $value->license) { echo ' selected'; } ?>><?= $license_name ?></option>
+                <?php endforeach; ?>
+            </select><br/><br/><br/><br/>
         <a id="<?= $prefix ?>-remove-iframe-upload-0" style="cursor: pointer;"><?= __('Remove file') ?></a>
     </div>
     <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
@@ -196,6 +224,7 @@ function html_admin_file_meta_box($post, $name, $prefix) {
                     $("#<?= $prefix ?>-a-iframe-upload-"+object_js.id).html(object_js.filename);
                     $("#<?= $prefix ?>-filename-iframe-upload-"+object_js.id).val(object_js.filename);
                     $("#<?= $prefix ?>-input-iframe-upload-"+object_js.id).val(object_js.filepath);
+                    $("#<?= $prefix ?>-url-iframe-upload-"+object_js.id).val(object_js.url);
                 }, 200);
             }
         }
@@ -204,6 +233,8 @@ function html_admin_file_meta_box($post, $name, $prefix) {
             $("#<?= $prefix ?>-remove-iframe-upload-0").click(function(){
                 $("#<?= $prefix ?>-input-iframe-upload-0").val('');
                 $("#<?= $prefix ?>-filename-iframe-upload-0").val('');
+                $("#<?= $prefix ?>-url-iframe-upload-0").val('');
+                $("#<?= $prefix ?>-license-iframe-upload-0").val('');
                 $("#<?= $prefix ?>-a-iframe-upload-0").html('');
                 $("#<?= $prefix ?>-a-iframe-upload-0").attr('href', '');
             });

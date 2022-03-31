@@ -538,6 +538,8 @@ function save_post_ju4htopic_callback($post_id) {
             $obj = new stdClass();
             $obj->file = $_POST['m_attachments_file'][$index];
             $obj->text = $_POST['m_attachments_text'][$index];
+            $obj->url = $_POST['m_attachments_url'][$index];
+            $obj->license = $_POST['m_attachments_license'][$index];
             $_POST_attachments[] = str_replace('\/', '/', json_encode($obj));
     
         }
@@ -620,6 +622,8 @@ function save_post_ju4htopic_callback($post_id) {
         $obj = new stdClass();
         $obj->file = $_POST['m_top_image_file'];
         $obj->text = $_POST['m_top_image_text'];
+        $obj->url = $_POST['m_top_image_url'];
+        $obj->license = $_POST['m_top_image_license'];
         update_post_meta($post_id, 'm_topimage', str_replace('\/', '/', json_encode($obj)));
     } else {
         delete_post_meta($post_id, 'm_topimage');

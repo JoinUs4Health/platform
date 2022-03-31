@@ -151,6 +151,8 @@ function save_post_ju4hslide_callback($post_id) {
         $obj = new stdClass();
         $obj->file = $_POST['m_image_file'];
         $obj->text = $_POST['m_image_text'];
+        $obj->url = $_POST['m_image_url'];
+        $obj->license = $_POST['m_image_license'];
         update_post_meta($post_id, 'm_image', str_replace('\/', '/', json_encode($obj)));
     } else {
         delete_post_meta($post_id, 'm_image');

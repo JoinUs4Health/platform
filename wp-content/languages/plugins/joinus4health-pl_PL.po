@@ -1,33 +1,53 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: JoinUs4Health\n"
+"POT-Creation-Date: 2022-03-28 21:49+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: JoinUs4Health\n"
-"Language: pl\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: ../../plugins/joinus4health\n"
+"X-Poedit-SearchPath-0: joinus4health.php\n"
+"X-Poedit-SearchPath-1: includes/layouts.php\n"
+"X-Poedit-SearchPath-2: includes/metas.php\n"
+"X-Poedit-SearchPath-3: pages/home.php\n"
+"X-Poedit-SearchPath-4: pages/index.php\n"
+"X-Poedit-SearchPath-5: pages/suggestion.php\n"
+"X-Poedit-SearchPath-6: pages/suggestion-new.php\n"
+"X-Poedit-SearchPath-7: pages/task.php\n"
+"X-Poedit-SearchPath-8: pages/topic.php\n"
+"X-Poedit-SearchPath-9: singles/index.php\n"
+"X-Poedit-SearchPath-10: singles/suggestion.php\n"
+"X-Poedit-SearchPath-11: singles/task.php\n"
+"X-Poedit-SearchPath-12: singles/topic.php\n"
+"X-Poedit-SearchPath-13: includes/layouts.php\n"
+"X-Poedit-SearchPath-14: includes/metas.php\n"
 
-#: includes/layouts.php:83 singles/suggestion.php:740
-#: singles/suggestion.php:884 singles/topic.php:779 singles/topic.php:916
+#: includes/layouts.php:83 singles/suggestion.php:741
+#: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
 msgid "Following"
 msgstr "obserwujący"
 
-#: includes/layouts.php:86 singles/suggestion.php:740 singles/topic.php:779
+#: includes/layouts.php:86 singles/suggestion.php:741 singles/topic.php:780
 msgid "Follow"
 msgstr "Obserwuj"
 
-#: includes/layouts.php:124 singles/suggestion.php:746
-#: singles/suggestion.php:885 singles/topic.php:785 singles/topic.php:917
+#: includes/layouts.php:124 singles/suggestion.php:747
+#: singles/suggestion.php:885 singles/topic.php:786 singles/topic.php:919
 msgid "Contributing"
 msgstr "Uczestnicy"
 
-#. Wchodzę w to! [forma żartobliwa] /
-#: includes/layouts.php:149 singles/suggestion.php:746 singles/task.php:515
-#: singles/topic.php:785
+#: includes/layouts.php:149 singles/suggestion.php:747 singles/task.php:509
+#: singles/topic.php:786
 msgid "Contribute"
 msgstr "Włącz się"
 
-#: includes/layouts.php:231 includes/layouts.php:257
+#: includes/layouts.php:181 includes/layouts.php:231 includes/layouts.php:257
 msgid "submitted by"
 msgstr "złożony przez"
 
@@ -51,11 +71,11 @@ msgstr "Linkedin"
 msgid "Copy"
 msgstr "Kopiuj"
 
-#: includes/layouts.php:315 singles/suggestion.php:827
+#: includes/layouts.php:315 singles/suggestion.php:828
 msgid "Reply to"
 msgstr "Odpowiedz"
 
-#: includes/layouts.php:315 singles/suggestion.php:827
+#: includes/layouts.php:315 singles/suggestion.php:828
 msgid "comment"
 msgstr "komentarz"
 
@@ -63,7 +83,6 @@ msgstr "komentarz"
 msgid "Confirm action"
 msgstr "Potwierdź"
 
-#. mam wątpliwości
 #: includes/layouts.php:326
 msgid "Do you want to cancel your contribution?"
 msgstr "Czy rezygnujesz z udziału?"
@@ -76,222 +95,526 @@ msgstr "Tak"
 msgid "No"
 msgstr "Nie"
 
-#. A to gdzie jest? nie mogę znaleźć na stronie
-#: includes/metas.php:253
-msgid "Information need"
-msgstr "Potrzeba informacji"
+#: includes/metas.php:8
+msgid "Dutch"
+msgstr ""
 
-#: includes/metas.php:254
-msgid "Research question"
+#: includes/metas.php:9
+msgid "English"
+msgstr ""
+
+#: includes/metas.php:10
+msgid "German"
+msgstr ""
+
+#: includes/metas.php:11
+msgid "Polish"
+msgstr ""
+
+#: includes/metas.php:15
+msgid "Germany"
+msgstr ""
+
+#: includes/metas.php:16
+msgid "the Netherlands"
+msgstr ""
+
+#: includes/metas.php:17
+msgid "Poland"
+msgstr ""
+
+#: includes/metas.php:18 includes/metas.php:53
+msgid "other"
+msgstr ""
+
+#: includes/metas.php:22
+msgid "citizens / citizens' organization"
+msgstr ""
+
+#: includes/metas.php:23
+msgid "scientists"
+msgstr ""
+
+#: includes/metas.php:24
+msgid "policy makers"
+msgstr ""
+
+#: includes/metas.php:25
+msgid "business / industry"
+msgstr ""
+
+#: includes/metas.php:26
+msgid "pupils / students"
+msgstr ""
+
+#: includes/metas.php:27
+#, fuzzy
+#| msgid "Stakeholder group"
+msgid "other group"
+msgstr "Grupa interesariuszy"
+
+#: includes/metas.php:31
+msgid "topic of interest"
+msgstr ""
+
+#: includes/metas.php:32
+#, fuzzy
+#| msgid "Research question"
+msgid "research question"
 msgstr "Pytanie badawcze"
 
-#: includes/metas.php:255
-msgid "Task"
-msgstr "Zadanie"
+#: includes/metas.php:33
+#, fuzzy
+#| msgid "Information need"
+msgid "information need"
+msgstr "Potrzeba informacji"
 
-#: includes/metas.php:259
+#: includes/metas.php:34
+#, fuzzy
+#| msgid "Information need"
+msgid "training need"
+msgstr "Potrzeba informacji"
+
+#: includes/metas.php:35
+msgid "offer"
+msgstr ""
+
+#: includes/metas.php:36 includes/metas.php:106
+#, fuzzy
+#| msgid "Suggestions"
+msgid "suggestion"
+msgstr "Sugestie"
+
+#: includes/metas.php:37
+msgid "example"
+msgstr ""
+
+#: includes/metas.php:41 includes/metas.php:160
+#, fuzzy
+#| msgid "creator"
+msgid "co-creation"
+msgstr "twórca"
+
+#: includes/metas.php:42
+#, fuzzy
+#| msgid "Time of contribution"
+msgid "construction"
+msgstr "Oferowany czas"
+
+#: includes/metas.php:43
+msgid "promotion"
+msgstr ""
+
+#: includes/metas.php:44 includes/metas.php:152
+msgid "dissemination"
+msgstr ""
+
+#: includes/metas.php:45
+msgid "reflection"
+msgstr ""
+
+#: includes/metas.php:49
+msgid "review posts"
+msgstr ""
+
+#: includes/metas.php:50
+#, fuzzy
+#| msgid "duration"
+msgid "translation"
+msgstr "czas trwania"
+
+#: includes/metas.php:51
+#, fuzzy
+#| msgid "facilitator"
+msgid "facilitation"
+msgstr "facylitator"
+
+#: includes/metas.php:52
+#, fuzzy
+#| msgid "content"
+msgid "review contents"
+msgstr "treść"
+
+#: includes/metas.php:57 includes/metas.php:76
 msgid "5 min"
 msgstr "5 min"
 
-#: includes/metas.php:260
+#: includes/metas.php:58 includes/metas.php:77
 msgid "10 min"
 msgstr "10 min"
 
-#: includes/metas.php:261
+#: includes/metas.php:59 includes/metas.php:78
 msgid "20 min"
 msgstr "20 min"
 
-#: includes/metas.php:262
+#: includes/metas.php:60 includes/metas.php:79
 msgid "30 min"
 msgstr "30 min"
 
-#: includes/metas.php:263
+#: includes/metas.php:61 includes/metas.php:80
 msgid "1 hour"
 msgstr "1 godzina"
 
-#: includes/metas.php:264
+#: includes/metas.php:62 includes/metas.php:81
 msgid "1h 30 min"
 msgstr "1,5 godziny"
 
-#: includes/metas.php:265
+#: includes/metas.php:63 includes/metas.php:82
 msgid "2 hours"
 msgstr "2 godziny"
 
-#: includes/metas.php:266
+#: includes/metas.php:64 includes/metas.php:83
 msgid "3 hours"
 msgstr "3 godziny"
 
-#: includes/metas.php:267
+#: includes/metas.php:65 includes/metas.php:84
 msgid "4 hours"
 msgstr "4 godziny"
 
-#: includes/metas.php:268
+#: includes/metas.php:66 includes/metas.php:85
 msgid "5 hours"
 msgstr "5 godzin"
 
-#: includes/metas.php:269
+#: includes/metas.php:67 includes/metas.php:86
 msgid "6 hours"
 msgstr "6 godzin"
 
-#: includes/metas.php:270
+#: includes/metas.php:68 includes/metas.php:87
 msgid "7 hours"
 msgstr "7 godzin"
 
-#: includes/metas.php:271
+#: includes/metas.php:69 includes/metas.php:88
 msgid "8 hours"
 msgstr "8 godzin"
 
-#: includes/metas.php:272
+#: includes/metas.php:70 includes/metas.php:89
 msgid "9 hours"
 msgstr "9 godzin"
 
-#: includes/metas.php:273
+#: includes/metas.php:71 includes/metas.php:90
 msgid "10 hours"
 msgstr "10 dom"
 
-#: includes/metas.php:274
+#: includes/metas.php:72 includes/metas.php:91
 msgid "24 hours"
 msgstr "24 godziny"
 
-#: includes/metas.php:278
-msgid "community"
-msgstr "społeczność"
-
-#: includes/metas.php:279
-msgid "team"
-msgstr "zespół"
-
-#: includes/metas.php:280
+#: includes/metas.php:95
 msgid "individual"
 msgstr "indywidualny"
 
-#: includes/metas.php:284
-msgid "platform"
+#: includes/metas.php:96
+msgid "group"
+msgstr ""
+
+#: includes/metas.php:100 includes/metas.php:112
+#, fuzzy
+#| msgid "platform"
+msgid "platform user"
 msgstr "platforma"
 
-#: includes/metas.php:285
+#: includes/metas.php:101
 msgid "working team"
 msgstr "zespół roboczy"
 
-#: includes/metas.php:289
-msgid "anybody"
-msgstr "ktokolwiek"
-
-#: includes/metas.php:290
-msgid "science"
-msgstr "nauka"
-
-#. czasownik? przymiotnik?
-#: includes/metas.php:294
+#: includes/metas.php:102 includes/metas.php:108 includes/metas.php:114
 #, fuzzy
-msgid "Open"
-msgstr "Otwórz"
+#| msgid "External links"
+msgid "external source"
+msgstr "Linki zewnętrzne"
 
-#: includes/metas.php:295
-msgid "Reviewed"
-msgstr "Zrecenzowany"
+#: includes/metas.php:107 includes/metas.php:113
+#, fuzzy
+#| msgid "facilitator"
+msgid "administrator"
+msgstr "facylitator"
 
-#: includes/metas.php:296
-msgid "Approved"
-msgstr "Zatwierdzony"
+#: includes/metas.php:118
+msgid "active"
+msgstr ""
 
-#: includes/metas.php:297
-msgid "Declined"
-msgstr "Odrzucony"
+#: includes/metas.php:119
+msgid "continuous"
+msgstr ""
 
-#: includes/metas.php:298
-msgid "In Progress"
-msgstr "W trakcie realizacji"
+#: includes/metas.php:120
+msgid "closed"
+msgstr ""
 
-#: includes/metas.php:299
-msgid "Completed"
-msgstr "Zakończony"
-
-#: includes/metas.php:303 includes/metas.php:308 includes/metas.php:313
+#: includes/metas.php:127 includes/metas.php:132 includes/metas.php:137
 msgid "Date of publication"
 msgstr "Data publikacji"
 
-#: includes/metas.php:304 includes/metas.php:314
+#: includes/metas.php:128 includes/metas.php:138
 msgid "Votes"
 msgstr "Głosy"
 
-#. nie mogę tego znaleźć
-#: includes/metas.php:309
+#: includes/metas.php:133
 msgid "Time of contribution"
 msgstr "Oferowany czas"
 
-#: includes/metas.php:318
-msgid "Infrastructure #1"
-msgstr "Infrastruktura #1"
+#: includes/metas.php:145
+msgid "brainstorming"
+msgstr ""
 
-#: includes/metas.php:319
-msgid "Infrastructure #2"
-msgstr "Infrastruktura #2"
+#: includes/metas.php:146
+msgid "planing"
+msgstr ""
 
-#: includes/metas.php:320
-msgid "Infrastructure #3"
-msgstr "Infrastruktura #3"
+#: includes/metas.php:147
+msgid "design"
+msgstr ""
 
-#: includes/metas.php:321
-msgid "Infrastructure #4"
-msgstr "Infrastruktura #4"
+#: includes/metas.php:148
+msgid "collection"
+msgstr ""
 
-#: includes/metas.php:325
-msgid "Methodology #1"
-msgstr "Metodologia #1"
+#: includes/metas.php:149
+msgid "analysis"
+msgstr ""
 
-#: includes/metas.php:326
-msgid "Methodology #2"
-msgstr "Metodologia #2"
+#: includes/metas.php:150
+msgid "interpretation"
+msgstr ""
 
-#: includes/metas.php:327
-msgid "Methodology #3"
-msgstr "Metodologia #3"
+#: includes/metas.php:151
+#, fuzzy
+#| msgid "community"
+msgid "communication"
+msgstr "społeczność"
 
-#: includes/metas.php:328
-msgid "Methodology #4"
-msgstr "Metodologia #4"
+#: includes/metas.php:153
+msgid "engagement"
+msgstr ""
 
-#: includes/metas.php:332
-msgid "Content #1"
-msgstr "Zawartość #1"
+#: includes/metas.php:154
+#, fuzzy
+#| msgid "community"
+msgid "community building"
+msgstr "społeczność"
 
-#: includes/metas.php:333
-msgid "Content #2"
-msgstr "Zawartość #2"
+#: includes/metas.php:155
+msgid "monitoring/evaluation"
+msgstr ""
 
-#: includes/metas.php:334
-msgid "Content #3"
-msgstr "Treść #3"
+#: includes/metas.php:159
+msgid "collaboration"
+msgstr ""
 
-#: includes/metas.php:335
-msgid "Content #4"
-msgstr "Treść #4"
+#: includes/metas.php:161
+msgid "crowdsourcing"
+msgstr ""
 
-#: joinus4health.php:142 joinus4health.php:148
+#: includes/metas.php:162
+#, fuzzy
+#| msgid "Methodology"
+msgid "epidemiology"
+msgstr "Metodologia"
+
+#: includes/metas.php:163
+msgid "participation"
+msgstr ""
+
+#: includes/metas.php:164
+msgid "Responsible Research and Innovation"
+msgstr ""
+
+#: includes/metas.php:165
+msgid "systems thinking"
+msgstr ""
+
+#: includes/metas.php:166
+msgid "transdisciplinarity"
+msgstr ""
+
+#: includes/metas.php:169
+msgid "awarness raising"
+msgstr ""
+
+#: includes/metas.php:170
+msgid "prevention"
+msgstr ""
+
+#: includes/metas.php:171
+msgid "diagnosis"
+msgstr ""
+
+#: includes/metas.php:172
+msgid "surveillance"
+msgstr ""
+
+#: includes/metas.php:173
+msgid "therapy"
+msgstr ""
+
+#: includes/metas.php:174
+#, fuzzy
+#| msgid "working team"
+msgid "working together"
+msgstr "zespół roboczy"
+
+#: joinus4health.php:166 joinus4health.php:172
 msgid "ago"
 msgstr "temu"
 
-#: joinus4health.php:148
+#: joinus4health.php:172
 msgid "expired"
 msgstr "wygasła"
 
-#. do dyskusji
-#: joinus4health.php:150
+#: joinus4health.php:174
 msgid "left"
 msgstr "do zakończenia"
 
-#: json/suggestion.php:26 json/topic.php:26
-msgid "You must be logged in"
-msgstr "Musisz być zalogowany"
+#: joinus4health.php:222 pages/suggestion.php:624 singles/suggestion.php:722
+msgid "Suggestions"
+msgstr "Sugestie"
 
-#: json/suggestion.php:40
-msgid "You already voted"
-msgstr "Już głosowałeś"
+#: joinus4health.php:225 pages/topic.php:439 singles/topic.php:757
+msgid "Topics"
+msgstr "Tematy"
 
-#: json/topic.php:40
-msgid "You already make an operation"
-msgstr "Już wykonałeś operację"
+#: joinus4health.php:228 pages/home.php:1003 pages/task.php:536
+#: singles/task.php:434
+msgid "Tasks"
+msgstr "Zadania"
+
+#: joinus4health.php:231 pages/home.php:1029
+msgid "Working teams"
+msgstr ""
+
+#: joinus4health.php:238
+msgid "Register"
+msgstr ""
+
+#: joinus4health.php:240
+msgid "Log In"
+msgstr ""
+
+#: joinus4health.php:241
+msgid "Join us"
+msgstr ""
+
+#: joinus4health.php:242
+msgid "Home"
+msgstr ""
+
+#: pages/home.php:759
+msgid "Let’s shape the face of modern science."
+msgstr ""
+
+#: pages/home.php:759
+msgid "Join us and change the world."
+msgstr ""
+
+#: pages/home.php:761
+msgid "Who we are"
+msgstr ""
+
+#: pages/home.php:762
+msgid "home.who.we.are.description"
+msgstr ""
+
+#: pages/home.php:763 pages/home.php:768 pages/home.php:773
+msgid "Read more"
+msgstr ""
+
+#: pages/home.php:766
+msgid "How to join us"
+msgstr ""
+
+#: pages/home.php:767
+msgid "home.how.to.join.us.description"
+msgstr ""
+
+#: pages/home.php:771
+msgid "Our rules"
+msgstr ""
+
+#: pages/home.php:772
+msgid "home.our.rules.description"
+msgstr ""
+
+#: pages/home.php:871
+msgid "Main focus area"
+msgstr ""
+
+#: pages/home.php:885 pages/home.php:902
+msgid "Learn more"
+msgstr ""
+
+#: pages/home.php:910
+msgid "of"
+msgstr ""
+
+#: pages/home.php:922
+msgid "Hot topics"
+msgstr ""
+
+#: pages/home.php:967
+msgid "What are topics?"
+msgstr ""
+
+#: pages/home.php:968
+msgid "home.what.are.topics.description.paragraph.1"
+msgstr ""
+
+#: pages/home.php:969
+msgid "home.what.are.topics.description.paragraph.2"
+msgstr ""
+
+#: pages/home.php:970
+msgid "Browse topics"
+msgstr ""
+
+#: pages/home.php:974
+msgid "Upcoming suggestions"
+msgstr ""
+
+#: pages/home.php:994
+msgid "What are suggestions?"
+msgstr ""
+
+#: pages/home.php:995
+msgid "home.suggestion.description"
+msgstr ""
+
+#: pages/home.php:996
+#, fuzzy
+#| msgid "Suggestions"
+msgid "Browse suggestions"
+msgstr "Sugestie"
+
+#: pages/home.php:1004
+msgid "See all tasks"
+msgstr ""
+
+#: pages/home.php:1006
+msgid "home.task.description"
+msgstr ""
+
+#: pages/home.php:1030
+msgid "See all teams"
+msgstr ""
+
+#: pages/home.php:1032
+msgid "home.working.teams.description"
+msgstr ""
+
+#: pages/home.php:1046
+msgid "Events"
+msgstr ""
+
+#: pages/home.php:1047
+msgid "See all events"
+msgstr ""
+
+#: pages/home.php:1049
+msgid "home.events.description"
+msgstr ""
+
+#: pages/home.php:1083
+msgid "home.call.to.register"
+msgstr ""
 
 #: pages/suggestion-new.php:145 pages/suggestion-new.php:164
 #: pages/suggestion.php:581
@@ -308,7 +631,9 @@ msgstr "Twój formularz zawiera błędy. Wszystkie pola muszą być wypełnione"
 
 #: pages/suggestion-new.php:152
 msgid "New suggestion was added successfuly. Currently it is marked as draft"
-msgstr "Nowa sugestia została dodana pomyślnie. Obecnie jest oznaczona jako wersja robocza, dopóki nie zostanie zaakceptowana przez recenzenta."
+msgstr ""
+"Nowa sugestia została dodana pomyślnie. Obecnie jest oznaczona jako wersja "
+"robocza, dopóki nie zostanie zaakceptowana przez recenzenta."
 
 #: pages/suggestion-new.php:154 pages/suggestion.php:609 pages/task.php:501
 msgid "Type"
@@ -335,13 +660,12 @@ msgid "Clear all filters"
 msgstr "Wyczyść wszystkie filtry"
 
 #: pages/suggestion.php:588 pages/task.php:487 pages/topic.php:445
-#: singles/suggestion.php:895 singles/task.php:497 singles/topic.php:927
+#: singles/suggestion.php:895 singles/task.php:491 singles/topic.php:929
 msgid "Language"
 msgstr "Język"
 
 #: pages/suggestion.php:590 pages/suggestion.php:597 pages/suggestion.php:604
-#: pages/suggestion.php:611 pages/suggestion.php:626 pages/suggestion.php:633
-#: pages/suggestion.php:640 pages/task.php:489 pages/task.php:496
+#: pages/suggestion.php:611 pages/task.php:489 pages/task.php:496
 #: pages/task.php:503 pages/task.php:510 pages/task.php:517 pages/task.php:524
 #: pages/topic.php:447
 msgid "any"
@@ -351,12 +675,11 @@ msgstr "każdy"
 msgid "Country of submission"
 msgstr "Kraj złożenia wniosku"
 
-#: pages/suggestion.php:602 singles/suggestion.php:898 singles/task.php:500
-#: singles/topic.php:930
+#: pages/suggestion.php:602 singles/suggestion.php:898 singles/task.php:494
+#: singles/topic.php:932
 msgid "Stakeholder group"
 msgstr "Grupa interesariuszy"
 
-#. okres czasu -brzmi źle
 #: pages/suggestion.php:616 pages/task.php:529
 msgid "Time period / from"
 msgstr "Data / od"
@@ -365,91 +688,71 @@ msgstr "Data / od"
 msgid "Time period / to"
 msgstr "Data / do"
 
-#: pages/suggestion.php:622
-msgid "Advanced filters"
-msgstr "Filtry zaawansowane"
-
-#: pages/suggestion.php:624
-msgid "Infrastructure"
-msgstr "Infrastruktura"
-
-#: pages/suggestion.php:631
-msgid "Methodology"
-msgstr "Metodologia"
-
-#: pages/suggestion.php:638
-msgid "Content"
-msgstr "Treść"
-
-#: pages/suggestion.php:646 pages/task.php:533
+#: pages/suggestion.php:620 pages/task.php:533
 msgid "Filter results"
 msgstr "Wyniki filtrowania"
 
-#: pages/suggestion.php:650 singles/suggestion.php:721
-msgid "Suggestions"
-msgstr "Sugestie"
-
-#: pages/suggestion.php:652 pages/task.php:538 pages/topic.php:441
+#: pages/suggestion.php:626 pages/task.php:538 pages/topic.php:441
 msgid "Search by title..."
 msgstr "Szukaj według"
 
-#: pages/suggestion.php:656 pages/task.php:542 pages/topic.php:453
+#: pages/suggestion.php:630 pages/task.php:542 pages/topic.php:453
 msgid "Order by"
 msgstr "Uporządkuj według"
 
-#: pages/suggestion.php:749
+#: pages/suggestion.php:723
 msgid "suggestions found"
 msgstr "znalezione sugestie"
 
-#: pages/suggestion.php:756 pages/task.php:640
+#: pages/suggestion.php:730 pages/task.php:640
 msgid "language"
 msgstr "język"
 
-#: pages/suggestion.php:760 pages/task.php:644
+#: pages/suggestion.php:734
+msgid "country"
+msgstr ""
+
+#: pages/suggestion.php:738 pages/task.php:644
 msgid "duration"
 msgstr "czas trwania"
 
-#: pages/suggestion.php:764 pages/task.php:648
+#: pages/suggestion.php:742 pages/task.php:648
 msgid "type"
 msgstr "typ"
 
-#: pages/suggestion.php:768 pages/task.php:652
-msgid "level"
-msgstr "poziom"
-
-#: pages/suggestion.php:772 pages/task.php:656
+#: pages/suggestion.php:746 pages/task.php:656
 msgid "source"
 msgstr "źródło"
 
-#: pages/suggestion.php:776 pages/task.php:660
+#: pages/suggestion.php:750 pages/task.php:660
 msgid "targeted stakeholder group"
 msgstr "docelowa grupa uczestników"
 
-#: pages/suggestion.php:780
+#: pages/suggestion.php:754
 msgid "infrastructure"
 msgstr "infrastruktura"
 
-#: pages/suggestion.php:784
+#: pages/suggestion.php:758
 msgid "methodology"
 msgstr "metodologia"
 
-#: pages/suggestion.php:788
+#: pages/suggestion.php:762
 msgid "content"
 msgstr "treść"
 
-#: pages/suggestion.php:803 pages/task.php:675
+#: pages/suggestion.php:777 pages/task.php:675
 msgid "search"
 msgstr "szukaj"
 
-#: pages/suggestion.php:808 pages/task.php:680
+#: pages/suggestion.php:782 pages/task.php:680
 msgid "date since"
 msgstr "data od"
 
-#: pages/suggestion.php:813 pages/task.php:685
+#: pages/suggestion.php:787 pages/task.php:685
 msgid "date till"
 msgstr "data do"
 
-#: pages/suggestion.php:818 pages/task.php:690
+#: pages/suggestion.php:792 pages/task.php:690
 msgid "clear filters"
 msgstr "czyste filtry"
 
@@ -461,12 +764,12 @@ msgstr "Filtrowanie"
 msgid "Duration"
 msgstr "Czas trwania"
 
-#: pages/task.php:508 singles/task.php:506
+#: pages/task.php:508 singles/task.php:500
 msgid "Level"
 msgstr "Poziom"
 
-#: pages/task.php:515 singles/suggestion.php:901 singles/task.php:503
-#: singles/topic.php:933
+#: pages/task.php:515 singles/suggestion.php:901 singles/task.php:497
+#: singles/topic.php:935
 msgid "Source"
 msgstr "Źródło"
 
@@ -474,67 +777,66 @@ msgstr "Źródło"
 msgid "Targeted stakeholder group"
 msgstr "Docelowa grupa uczestników"
 
-#: pages/home.php:680 pages/task.php:536 singles/task.php:434
-msgid "Tasks"
-msgstr "Zadania"
-
 #: pages/task.php:633
 msgid "tasks found"
 msgstr "znalezione zadania"
 
-#: pages/topic.php:439 singles/topic.php:756
-msgid "Topics"
-msgstr "Tematy"
+#: pages/task.php:652
+msgid "level"
+msgstr "poziom"
 
 #: pages/topic.php:461
 msgid "topics found"
 msgstr "znalezione tematy"
 
-#: singles/suggestion.php:735 singles/topic.php:774
+#: singles/suggestion.php:736 singles/topic.php:775
 msgid "Share"
 msgstr "Udostępnij"
 
-#: singles/suggestion.php:753
+#: singles/suggestion.php:754
 msgid "Suggestions details"
 msgstr "Szczegóły sugestii"
 
-#: singles/suggestion.php:766 singles/topic.php:808
+#: singles/suggestion.php:767 singles/topic.php:808
 msgid "Attachments"
 msgstr "Załączniki"
 
-#: singles/suggestion.php:777 singles/topic.php:819
+#: singles/suggestion.php:778 singles/topic.php:819
 msgid "Related tasks"
 msgstr "Zadania powiązane"
 
-#: singles/suggestion.php:832 singles/topic.php:864
+#: singles/suggestion.php:833 singles/topic.php:864
 msgid "Comments"
 msgstr "Komentarze"
 
-#: singles/suggestion.php:834 singles/topic.php:866
+#: singles/suggestion.php:836 singles/topic.php:867
 msgid "Add comment"
 msgstr "Dodaj komentarz"
 
-#: singles/suggestion.php:837 singles/topic.php:869
+#: singles/suggestion.php:839 singles/topic.php:870
 msgid "Submit"
 msgstr "Wyślij"
 
-#: singles/suggestion.php:841 singles/topic.php:873
-msgid "Comments and replies are moderated. Your comment will appear here once the site administrator accepts it."
-msgstr "Komentarze i odpowiedzi są moderowane. Twój komentarz pojawi się tutaj po zaakceptowaniu go przez administratora strony."
+#: singles/suggestion.php:843 singles/topic.php:874
+msgid ""
+"Comments and replies are moderated. Your comment will appear here once the "
+"site administrator accepts it."
+msgstr ""
+"Komentarze i odpowiedzi są moderowane. Twój komentarz pojawi się tutaj po "
+"zaakceptowaniu go przez administratora strony."
 
-#. jakoś inaczej?
-#: singles/suggestion.php:866
+#: singles/suggestion.php:869
 msgid "creator"
 msgstr "twórca"
 
-#: singles/suggestion.php:878 singles/task.php:485 singles/topic.php:910
+#: singles/suggestion.php:878 singles/task.php:479 singles/topic.php:912
 msgid "Created"
 msgstr "Utworzony"
 
 #: singles/suggestion.php:896 singles/suggestion.php:899
-#: singles/suggestion.php:902 singles/task.php:498 singles/task.php:501
-#: singles/task.php:504 singles/task.php:507 singles/topic.php:928
-#: singles/topic.php:931 singles/topic.php:934
+#: singles/suggestion.php:902 singles/task.php:492 singles/task.php:495
+#: singles/task.php:498 singles/task.php:501 singles/topic.php:930
+#: singles/topic.php:933 singles/topic.php:936
 msgid "not specified"
 msgstr "nie określono"
 
@@ -542,137 +844,119 @@ msgstr "nie określono"
 msgid "Task details"
 msgstr "Szczegóły zadania"
 
-#: singles/task.php:456
+#: singles/task.php:452
 msgid "Related topic"
 msgstr "Powiązany temat"
 
-#. zastanawiam się nad tym czy jednak nie powinniśmy używac słowa moderator w pl wersji
-#: singles/task.php:475 singles/topic.php:898
+#: singles/task.php:471 singles/topic.php:900
 msgid "facilitator"
 msgstr "facylitator"
 
-#: singles/task.php:486 singles/topic.php:911
+#: singles/task.php:480 singles/topic.php:913
 msgid "Valid thru"
 msgstr "Ważny przez"
 
-#: singles/task.php:513
+#: singles/task.php:507
 msgid "Time estimate"
 msgstr "Oszacowanie czasu"
 
-#: singles/topic.php:792
+#: singles/topic.php:793
 msgid "Topic details"
 msgstr "Szczegóły tematu"
 
-#: singles/topic.php:951
+#: singles/topic.php:953
 msgid "Assigned working group"
 msgstr "Przydzielony zespół roboczy"
 
-#: singles/topic.php:959
+#: singles/topic.php:961
 msgid "External links"
 msgstr "Linki zewnętrzne"
 
-#. za długie - trzeba to prościej nazwać
-#: singles/topic.php:973
+#: singles/topic.php:975
 msgid "Original suggestions"
 msgstr "Wersja oryginalna propozycji"
 
-#: pages/home.php:581
-msgid "Let’s shape the face of modern science."
-msgstr ""
+#~ msgid "Task"
+#~ msgstr "Zadanie"
 
-#: pages/home.php:581
-msgid "Join us and change the world."
-msgstr ""
+#~ msgid "team"
+#~ msgstr "zespół"
 
-#: pages/home.php:583
-msgid "Who we are"
-msgstr ""
+#~ msgid "anybody"
+#~ msgstr "ktokolwiek"
 
-#: pages/home.php:584
-msgid "home.who.we.are.description"
-msgstr ""
+#~ msgid "science"
+#~ msgstr "nauka"
 
-#: pages/home.php:585 pages/home.php:590 pages/home.php:595
-msgid "Read more"
-msgstr ""
+#, fuzzy
+#~ msgid "Open"
+#~ msgstr "Otwórz"
 
-#: pages/home.php:588
-msgid "How to join us"
-msgstr ""
+#~ msgid "Reviewed"
+#~ msgstr "Zrecenzowany"
 
-#: pages/home.php:589
-msgid "home.how.to.join.us.description"
-msgstr ""
+#~ msgid "Approved"
+#~ msgstr "Zatwierdzony"
 
-#: pages/home.php:593
-msgid "Our rules"
-msgstr ""
+#~ msgid "Declined"
+#~ msgstr "Odrzucony"
 
-#: pages/home.php:594
-msgid "home.our.rules.description"
-msgstr ""
+#~ msgid "In Progress"
+#~ msgstr "W trakcie realizacji"
 
-#: pages/home.php:601
-msgid "Hot topics"
-msgstr ""
+#~ msgid "Completed"
+#~ msgstr "Zakończony"
 
-#: pages/home.php:646
-msgid "What are topics?"
-msgstr ""
+#~ msgid "Infrastructure #1"
+#~ msgstr "Infrastruktura #1"
 
-#: pages/home.php:647
-msgid "home.what.are.topics.description.paragraph.1"
-msgstr ""
+#~ msgid "Infrastructure #2"
+#~ msgstr "Infrastruktura #2"
 
-#: pages/home.php:648
-msgid "home.what.are.topics.description.paragraph.2"
-msgstr ""
+#~ msgid "Infrastructure #3"
+#~ msgstr "Infrastruktura #3"
 
-#: pages/home.php:652
-msgid "Upcoming suggestions"
-msgstr ""
+#~ msgid "Infrastructure #4"
+#~ msgstr "Infrastruktura #4"
 
-#: pages/home.php:672
-msgid "What are suggestions?"
-msgstr ""
+#~ msgid "Methodology #1"
+#~ msgstr "Metodologia #1"
 
-#: pages/home.php:673
-msgid "home.suggestion.description"
-msgstr ""
+#~ msgid "Methodology #2"
+#~ msgstr "Metodologia #2"
 
-#: pages/home.php:681
-msgid "See all tasks"
-msgstr ""
+#~ msgid "Methodology #3"
+#~ msgstr "Metodologia #3"
 
-#: pages/home.php:683
-msgid "home.task.description"
-msgstr ""
+#~ msgid "Methodology #4"
+#~ msgstr "Metodologia #4"
 
-#: pages/home.php:708
-msgid "Working teams"
-msgstr ""
+#~ msgid "Content #1"
+#~ msgstr "Zawartość #1"
 
-#: pages/home.php:709
-msgid "See all teams"
-msgstr ""
+#~ msgid "Content #2"
+#~ msgstr "Zawartość #2"
 
-#: pages/home.php:711
-msgid "home.working.teams.description"
-msgstr ""
+#~ msgid "Content #3"
+#~ msgstr "Treść #3"
 
-#: pages/home.php:725
-msgid "Events"
-msgstr ""
+#~ msgid "Content #4"
+#~ msgstr "Treść #4"
 
-#: pages/home.php:726
-msgid "See all events"
-msgstr ""
+#~ msgid "You must be logged in"
+#~ msgstr "Musisz być zalogowany"
 
-#: pages/home.php:728
-msgid "home.events.description"
-msgstr ""
+#~ msgid "You already voted"
+#~ msgstr "Już głosowałeś"
 
-#: pages/home.php:762
-msgid "home.call.to.register"
-msgstr ""
+#~ msgid "You already make an operation"
+#~ msgstr "Już wykonałeś operację"
 
+#~ msgid "Advanced filters"
+#~ msgstr "Filtry zaawansowane"
+
+#~ msgid "Infrastructure"
+#~ msgstr "Infrastruktura"
+
+#~ msgid "Content"
+#~ msgstr "Treść"
