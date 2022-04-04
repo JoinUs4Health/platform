@@ -153,6 +153,8 @@ function save_post_ju4hslide_callback($post_id) {
         $obj->text = $_POST['m_image_text'];
         $obj->url = $_POST['m_image_url'];
         $obj->license = $_POST['m_image_license'];
+        $obj->license_holder = $_POST['m_image_holder'];
+        $obj->check = ($_POST['m_image_check'] == 1) ? 1 : 0;
         update_post_meta($post_id, 'm_image', str_replace('\/', '/', json_encode($obj)));
     } else {
         delete_post_meta($post_id, 'm_image');

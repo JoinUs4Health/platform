@@ -93,9 +93,11 @@ function html_admin_file_multiple($name, $value, $prefix, $id) {
     if ($value == null) {
         $value = new stdClass();
         $value->text = '';
+        $value->license = '';
+        $value->license_holder = '';
         $value->file = '';
         $value->url = '';
-        $value->license = '';
+        $value->check = '';
     } else {
         $value = json_decode($value);
     }
@@ -104,12 +106,14 @@ function html_admin_file_multiple($name, $value, $prefix, $id) {
         <div style="margin-bottom: 10px;">
             <div id="<?= $prefix ?>-status-iframe-upload-<?= $id ?>" style="display: none"></div>
             <label><?= __('File name') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_text[]" value="<?= $value->text ?>" id="<?= $prefix ?>-filename-iframe-upload-<?= $id ?>" /><br/><br/>
-            <label><?= __('Source URL') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_url[]" value="<?= $value->url ?>" id="<?= $prefix ?>-url-iframe-upload-<?= $id ?>" /><br/><br/>
             <label><?= __('License') ?></label>&nbsp;&nbsp;&nbsp;<select name="<?= $name ?>_license[]" id="<?= $prefix ?>-license-iframe-upload-<?= $id ?>">
                 <?php foreach ($admin_file_licenses as $license_code => $license_name): ?>
                 <option value="<?= $license_code ?>"<?php if ($license_code == $value->license) { echo ' selected'; } ?>><?= $license_name ?></option>
                 <?php endforeach; ?>
             </select><br/><br/>
+            <label><?= __('License holder') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_holder[]" value="<?= $value->license_holder ?>" id="<?= $prefix ?>-holder-iframe-upload-<?= $id ?>" /><br/><br/>
+            <label><?= __('Source URL') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_url[]" value="<?= $value->url ?>" id="<?= $prefix ?>-url-iframe-upload-<?= $id ?>" /><br/><br/>
+            <label><?= __('I assure, that I have the right to use and upload the file in this context') ?></label>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="<?= $name ?>_check[]" value="1" id="<?= $prefix ?>-check-iframe-upload-<?= $id ?>"<?php if ($value->check == 1): ?>checked<?php endif; ?> /><br/><br/>
             <a id="<?= $prefix ?>-a-iframe-upload-<?= $id ?>" target="_blank" href="<?= home_url() ?>/wp-content/<?= $value->file ?>"><?= $value->text ?></a>
         </div>
         <input type="hidden" id="<?= $prefix ?>-input-iframe-upload-<?= $id ?>" name="<?= $name ?>_file[]" value="<?= $value->file ?>" />
@@ -149,7 +153,6 @@ function html_admin_file_multiple_meta_box($post, $prefix) {
                     $("#<?= $prefix ?>-a-iframe-upload-"+object_js.id).html(object_js.filename);
                     $("#<?= $prefix ?>-filename-iframe-upload-"+object_js.id).val(object_js.filename);
                     $("#<?= $prefix ?>-input-iframe-upload-"+object_js.id).val(object_js.filepath);
-                    $("#<?= $prefix ?>-url-iframe-upload-"+object_js.id).val(object_js.url);
                 }, 200);
             }
         }
@@ -190,26 +193,33 @@ function html_admin_file_meta_box($post, $name, $prefix) {
     if ($value == null) {
         $value = new stdClass();
         $value->text = '';
+        $value->license = '';
+        $value->license_holder = '';
         $value->file = '';
         $value->url = '';
-        $value->license = '';
+        $value->check = '';
     } else {
         $value = json_decode($value);
     }
 ?>
     
     <div id="<?= $prefix ?>-div-iframe-upload-0">
-        <div id="<?= $prefix ?>-status-iframe-upload-0" style="display: none"></div>
-        <a id="<?= $prefix ?>-a-iframe-upload-0" style="padding-bottom: 10px;" target="_blank" href="<?= home_url() ?>/wp-content/<?= $value->file ?>"><?= $value->text ?></a>
-        <input type="hidden" id="<?= $prefix ?>-input-iframe-upload-0" name="<?= $name ?>_file" value="<?= $value->file ?>" />
-        <iframe id="<?= $prefix ?>-iframe-upload-0" src="<?= home_url() ?>/wp-content/plugins/joinus4health/includes/upload.php?id=0&amp;prefix=<?= $prefix ?>" style="width: 400px; height: 30px;"></iframe>
-        <label><?= __('File name') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_text" value="<?= $value->text ?>" id="<?= $prefix ?>-filename-iframe-upload-0" /><br/><br/>
-        <label><?= __('Source URL') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_url" value="<?= $value->url ?>" id="<?= $prefix ?>-url-iframe-upload-0" /><br/><br/>
-        <label><?= __('License') ?></label>&nbsp;&nbsp;&nbsp;<select name="<?= $name ?>_license" id="<?= $prefix ?>-license-iframe-upload-0">
+        <div style="margin-bottom: 10px;">
+            <div id="<?= $prefix ?>-status-iframe-upload-0" style="display: none"></div>
+            <label><?= __('File name') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_text" value="<?= $value->text ?>" id="<?= $prefix ?>-filename-iframe-upload-0" /><br/><br/>
+            <label><?= __('License') ?></label>&nbsp;&nbsp;&nbsp;
+            <select name="<?= $name ?>_license" id="<?= $prefix ?>-license-iframe-upload-0">
                 <?php foreach ($admin_file_licenses as $license_code => $license_name): ?>
                 <option value="<?= $license_code ?>"<?php if ($license_code == $value->license) { echo ' selected'; } ?>><?= $license_name ?></option>
                 <?php endforeach; ?>
-            </select><br/><br/><br/><br/>
+            </select><br/><br/>
+            <label><?= __('License holder') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_holder" value="<?= $value->license_holder ?>" id="<?= $prefix ?>-holder-iframe-upload-0" /><br/><br/>
+            <label><?= __('Source URL') ?></label>&nbsp;&nbsp;&nbsp;<input type="text" name="<?= $name ?>_url" value="<?= $value->url ?>" id="<?= $prefix ?>-url-iframe-upload-0" /><br/><br/>
+            <label><?= __('I assure, that I have the right to use and upload the file in this context') ?></label>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="<?= $name ?>_check" value="1" id="<?= $prefix ?>-check-iframe-upload-0"<?php if ($value->check == 1): ?>checked<?php endif; ?> /><br/><br/>
+            <a id="<?= $prefix ?>-a-iframe-upload-0" style="padding-bottom: 10px;" target="_blank" href="<?= home_url() ?>/wp-content/<?= $value->file ?>"><?= $value->text ?></a>
+        </div>
+        <input type="hidden" id="<?= $prefix ?>-input-iframe-upload-0" name="<?= $name ?>_file" value="<?= $value->file ?>" />
+        <iframe id="<?= $prefix ?>-iframe-upload-0" src="<?= home_url() ?>/wp-content/plugins/joinus4health/includes/upload.php?id=0&amp;prefix=<?= $prefix ?>" style="width: 400px; height: 30px;"></iframe>
         <a id="<?= $prefix ?>-remove-iframe-upload-0" style="cursor: pointer;"><?= __('Remove file') ?></a>
     </div>
     <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
@@ -224,7 +234,6 @@ function html_admin_file_meta_box($post, $name, $prefix) {
                     $("#<?= $prefix ?>-a-iframe-upload-"+object_js.id).html(object_js.filename);
                     $("#<?= $prefix ?>-filename-iframe-upload-"+object_js.id).val(object_js.filename);
                     $("#<?= $prefix ?>-input-iframe-upload-"+object_js.id).val(object_js.filepath);
-                    $("#<?= $prefix ?>-url-iframe-upload-"+object_js.id).val(object_js.url);
                 }, 200);
             }
         }
@@ -235,6 +244,8 @@ function html_admin_file_meta_box($post, $name, $prefix) {
                 $("#<?= $prefix ?>-filename-iframe-upload-0").val('');
                 $("#<?= $prefix ?>-url-iframe-upload-0").val('');
                 $("#<?= $prefix ?>-license-iframe-upload-0").val('');
+                $("#<?= $prefix ?>-holder-iframe-upload-0").val('');
+                $("#<?= $prefix ?>-check-iframe-upload-0").prop('checked', false);
                 $("#<?= $prefix ?>-a-iframe-upload-0").html('');
                 $("#<?= $prefix ?>-a-iframe-upload-0").attr('href', '');
             });
