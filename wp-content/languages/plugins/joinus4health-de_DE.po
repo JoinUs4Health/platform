@@ -3,30 +3,34 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
+"X-Generator: Poedit 2.3\n"
 "Project-Id-Version: JoinUs4Health\n"
 "Language: de\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 
-#: includes/layouts.php:83 singles/suggestion.php:740
-#: singles/suggestion.php:884 singles/topic.php:779 singles/topic.php:916
+#: includes/layouts.php:83 singles/suggestion.php:741
+#: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
 msgid "Following"
-msgstr "Folgend"
+msgstr "Bereits folgend"
 
-#: includes/layouts.php:86 singles/suggestion.php:740 singles/topic.php:779
+#: includes/layouts.php:86 singles/suggestion.php:741 singles/topic.php:780
 msgid "Follow"
 msgstr "Folgen"
 
-#: includes/layouts.php:124 singles/suggestion.php:746
-#: singles/suggestion.php:885 singles/topic.php:785 singles/topic.php:917
+#: includes/layouts.php:124 singles/suggestion.php:747
+#: singles/suggestion.php:885 singles/topic.php:786 singles/topic.php:919
 msgid "Contributing"
-msgstr "Beitragend"
+msgstr "Bereits beitragend"
 
-#: includes/layouts.php:149 singles/suggestion.php:746 singles/task.php:515
-#: singles/topic.php:785
+#: includes/layouts.php:149 singles/suggestion.php:747 singles/task.php:509
+#: singles/topic.php:786
 msgid "Contribute"
 msgstr "Beitragen"
 
-#: includes/layouts.php:231 includes/layouts.php:257
+#: includes/layouts.php:181 includes/layouts.php:231 includes/layouts.php:257
 msgid "submitted by"
 msgstr "Beitrag von"
 
@@ -50,13 +54,13 @@ msgstr "Linkedin"
 msgid "Copy"
 msgstr "Kopieren"
 
-#: includes/layouts.php:315 singles/suggestion.php:827
+#: includes/layouts.php:315 singles/suggestion.php:828
 msgid "Reply to"
 msgstr "Antworten an"
 
-#: includes/layouts.php:315 singles/suggestion.php:827
+#: includes/layouts.php:315 singles/suggestion.php:828
 msgid "comment"
-msgstr "kommentieren"
+msgstr "Kommentieren"
 
 #: includes/layouts.php:325
 msgid "Confirm action"
@@ -64,7 +68,7 @@ msgstr "Aktion bestätigen"
 
 #: includes/layouts.php:326
 msgid "Do you want to cancel your contribution?"
-msgstr "Bist du dir sicher, das du die Beitragsbekundung zurückziehen möchtest?"
+msgstr "Bist du dir sicher, das du deine Beitragsbereitschaft zurückziehen möchtest?"
 
 #: includes/layouts.php:328
 msgid "Yes"
@@ -86,67 +90,67 @@ msgstr "Forschungsfrage"
 msgid "Task"
 msgstr "Aufgabe"
 
-#: includes/metas.php:259
+#: includes/metas.php:57 includes/metas.php:76
 msgid "5 min"
 msgstr "5 Min."
 
-#: includes/metas.php:260
+#: includes/metas.php:58 includes/metas.php:77
 msgid "10 min"
 msgstr "10 Min."
 
-#: includes/metas.php:261
+#: includes/metas.php:59 includes/metas.php:78
 msgid "20 min"
 msgstr "20 Min."
 
-#: includes/metas.php:262
+#: includes/metas.php:60 includes/metas.php:79
 msgid "30 min"
 msgstr "30 Min."
 
-#: includes/metas.php:263
+#: includes/metas.php:61 includes/metas.php:80
 msgid "1 hour"
 msgstr "1 Std."
 
-#: includes/metas.php:264
+#: includes/metas.php:62 includes/metas.php:81
 msgid "1h 30 min"
 msgstr "1 Std. 30 Min."
 
-#: includes/metas.php:265
+#: includes/metas.php:63 includes/metas.php:82
 msgid "2 hours"
 msgstr "2 Std."
 
-#: includes/metas.php:266
+#: includes/metas.php:64 includes/metas.php:83
 msgid "3 hours"
 msgstr "3 Std."
 
-#: includes/metas.php:267
+#: includes/metas.php:65 includes/metas.php:84
 msgid "4 hours"
 msgstr "4 Std."
 
-#: includes/metas.php:268
+#: includes/metas.php:66 includes/metas.php:85
 msgid "5 hours"
 msgstr "5 Std."
 
-#: includes/metas.php:269
+#: includes/metas.php:67 includes/metas.php:86
 msgid "6 hours"
 msgstr "6 Std."
 
-#: includes/metas.php:270
+#: includes/metas.php:68 includes/metas.php:87
 msgid "7 hours"
 msgstr "7 Std."
 
-#: includes/metas.php:271
+#: includes/metas.php:69 includes/metas.php:88
 msgid "8 hours"
 msgstr "8 Std."
 
-#: includes/metas.php:272
+#: includes/metas.php:70 includes/metas.php:89
 msgid "9 hours"
 msgstr "9 Std."
 
-#: includes/metas.php:273
+#: includes/metas.php:71 includes/metas.php:90
 msgid "10 hours"
 msgstr "10 Std."
 
-#: includes/metas.php:274
+#: includes/metas.php:72 includes/metas.php:91
 msgid "24 hours"
 msgstr "24 Std."
 
@@ -158,7 +162,7 @@ msgstr "Gemeinschaft"
 msgid "team"
 msgstr "Team"
 
-#: includes/metas.php:280
+#: includes/metas.php:95
 msgid "individual"
 msgstr "Einzelperson"
 
@@ -166,13 +170,13 @@ msgstr "Einzelperson"
 msgid "platform"
 msgstr "Plattform"
 
-#: includes/metas.php:285
+#: includes/metas.php:101
 msgid "working team"
 msgstr "Arbeitsteam"
 
 #: includes/metas.php:289
 msgid "anybody"
-msgstr "jeder"
+msgstr "Beliebig"
 
 #: includes/metas.php:290
 msgid "science"
@@ -202,15 +206,15 @@ msgstr "In Bearbeitung"
 msgid "Completed"
 msgstr "Abgeschlossen"
 
-#: includes/metas.php:303 includes/metas.php:308 includes/metas.php:313
+#: includes/metas.php:127 includes/metas.php:132 includes/metas.php:137
 msgid "Date of publication"
 msgstr "Datum der Freischaltung"
 
-#: includes/metas.php:304 includes/metas.php:314
+#: includes/metas.php:128 includes/metas.php:138
 msgid "Votes"
 msgstr "Stimmen"
 
-#: includes/metas.php:309
+#: includes/metas.php:133
 msgid "Time of contribution"
 msgstr "Zeit des Beitrags"
 
@@ -262,21 +266,21 @@ msgstr "Inhalt #3"
 msgid "Content #4"
 msgstr "Inhalt #4"
 
-#: joinus4health.php:142 joinus4health.php:148
+#: joinus4health.php:166 joinus4health.php:172
 msgid "ago"
-msgstr "vor"
+msgstr "zuvor"
 
-#: joinus4health.php:148
+#: joinus4health.php:172
 msgid "expired"
 msgstr "abgelaufen"
 
-#: joinus4health.php:150
+#: joinus4health.php:174
 msgid "left"
 msgstr "übrig"
 
 #: json/suggestion.php:26 json/topic.php:26
 msgid "You must be logged in"
-msgstr "Du musst eingeloggt sein"
+msgstr "Hierfür musst du angemeldet sein"
 
 #: json/suggestion.php:40
 msgid "You already voted"
@@ -284,7 +288,7 @@ msgstr "Du hast bereits eine Stimme abgegeben"
 
 #: json/topic.php:40
 msgid "You already make an operation"
-msgstr "Du hast diese Aktion bereits ausgeführt"
+msgstr "Du hast eine Aktion bereits ausgeführt"
 
 #: pages/suggestion-new.php:145 pages/suggestion-new.php:164
 #: pages/suggestion.php:581
@@ -293,19 +297,19 @@ msgstr "Mache einen neuen Vorschlag"
 
 #: pages/suggestion-new.php:148
 msgid "Suggestions can be added only by registered users"
-msgstr "Nur registrierte Nutzer*innen können Vorschläge machen"
+msgstr "Die Einreichung von Vorschlägen ist nur nach Anmeldung möglich."
 
 #: pages/suggestion-new.php:150
 msgid "Your form contains errors. All fields must be completed"
-msgstr "Dein Formular enthält Fehler. Alle Felder müssen ausgefüllt werden"
+msgstr "Dein Formular enthält Fehler. Alle Felder müssen ausgefüllt sein"
 
 #: pages/suggestion-new.php:152
 msgid "New suggestion was added successfuly. Currently it is marked as draft"
-msgstr "Der neue Vorschlag wurde erfolgreich hinzugefügt. Derzeit ist dieser als Entwurf markiert, bis ein Reviewer diesen freigeschaltet hat"
+msgstr "Der neue Vorschlag wurde erfolgreich aufgenommen. Derzeit ist dieser als Entwurf markiert, bis eine Prüfung und Freischaltung stattgefunden hat"
 
 #: pages/suggestion-new.php:154 pages/suggestion.php:609 pages/task.php:501
 msgid "Type"
-msgstr "Typ"
+msgstr "Art"
 
 #: pages/suggestion-new.php:160
 msgid "Title"
@@ -328,24 +332,23 @@ msgid "Clear all filters"
 msgstr "Alle Filter löschen"
 
 #: pages/suggestion.php:588 pages/task.php:487 pages/topic.php:445
-#: singles/suggestion.php:895 singles/task.php:497 singles/topic.php:927
+#: singles/suggestion.php:895 singles/task.php:491 singles/topic.php:929
 msgid "Language"
 msgstr "Sprache"
 
 #: pages/suggestion.php:590 pages/suggestion.php:597 pages/suggestion.php:604
-#: pages/suggestion.php:611 pages/suggestion.php:626 pages/suggestion.php:633
-#: pages/suggestion.php:640 pages/task.php:489 pages/task.php:496
+#: pages/suggestion.php:611 pages/task.php:489 pages/task.php:496
 #: pages/task.php:503 pages/task.php:510 pages/task.php:517 pages/task.php:524
 #: pages/topic.php:447
 msgid "any"
-msgstr "keine Auswahl"
+msgstr "Beliebig"
 
 #: pages/suggestion.php:595
 msgid "Country of submission"
 msgstr "Land der Einreichung"
 
-#: pages/suggestion.php:602 singles/suggestion.php:898 singles/task.php:500
-#: singles/topic.php:930
+#: pages/suggestion.php:602 singles/suggestion.php:898 singles/task.php:494
+#: singles/topic.php:932
 msgid "Stakeholder group"
 msgstr "Interessensgruppe"
 
@@ -367,81 +370,81 @@ msgstr "Infrastruktur"
 
 #: pages/suggestion.php:631
 msgid "Methodology"
-msgstr "Methodik"
+msgstr "Methoden"
 
 #: pages/suggestion.php:638
 msgid "Content"
 msgstr "Inhalt"
 
-#: pages/suggestion.php:646 pages/task.php:533
+#: pages/suggestion.php:620 pages/task.php:533
 msgid "Filter results"
 msgstr "Filterergebnisse"
 
-#: pages/suggestion.php:650 singles/suggestion.php:721
+#: joinus4health.php:222 pages/suggestion.php:624 singles/suggestion.php:722
 msgid "Suggestions"
 msgstr "Vorschläge"
 
-#: pages/suggestion.php:652 pages/task.php:538 pages/topic.php:441
+#: pages/suggestion.php:626 pages/task.php:538 pages/topic.php:441
 msgid "Search by title..."
 msgstr "Suche nach ..."
 
-#: pages/suggestion.php:656 pages/task.php:542 pages/topic.php:453
+#: pages/suggestion.php:630 pages/task.php:542 pages/topic.php:453
 msgid "Order by"
 msgstr "Sortiere nach"
 
-#: pages/suggestion.php:749
+#: pages/suggestion.php:723
 msgid "suggestions found"
 msgstr "Vorschläge gefunden"
 
-#: pages/suggestion.php:756 pages/task.php:640
+#: pages/suggestion.php:730 pages/task.php:640
 msgid "language"
 msgstr "Sprache"
 
-#: pages/suggestion.php:760 pages/task.php:644
+#: pages/suggestion.php:738 pages/task.php:644
 msgid "duration"
 msgstr "Dauer"
 
-#: pages/suggestion.php:764 pages/task.php:648
+#: pages/suggestion.php:742 pages/task.php:648
 msgid "type"
-msgstr "Typ"
+msgstr "Art"
 
-#: pages/suggestion.php:768 pages/task.php:652
+#: pages/task.php:652
 msgid "level"
 msgstr "Ebene"
 
-#: pages/suggestion.php:772 pages/task.php:656
+#: pages/suggestion.php:746 pages/task.php:656
 msgid "source"
 msgstr "Quelle"
 
-#: pages/suggestion.php:776 pages/task.php:660
+#: pages/suggestion.php:750 pages/task.php:660
 msgid "targeted stakeholder group"
 msgstr "angesprochene Interessensgruppe"
 
-#: pages/suggestion.php:780
+#: pages/suggestion.php:754
 msgid "infrastructure"
 msgstr "Infrastruktur"
 
-#: pages/suggestion.php:784
+#: pages/suggestion.php:758
 msgid "methodology"
-msgstr "Methodik"
+msgstr "Methoden"
 
-#: pages/suggestion.php:788
+#: pages/suggestion.php:762
 msgid "content"
 msgstr "Inhalt"
 
-#: pages/suggestion.php:803 pages/task.php:675
+#: pages/suggestion.php:777 pages/task.php:675
 msgid "search"
 msgstr "Suche"
 
-#: pages/suggestion.php:808 pages/task.php:680
+#: pages/suggestion.php:782 pages/task.php:680
 msgid "date since"
 msgstr "Datum seit"
 
-#: pages/suggestion.php:813 pages/task.php:685
+#: pages/suggestion.php:787 pages/task.php:685
 msgid "date till"
 msgstr "Datum bis"
 
-#: pages/suggestion.php:818 pages/task.php:690
+#: pages/suggestion.php:792 pages/task.php:690
 msgid "clear filters"
 msgstr "Filter löschen"
 
@@ -453,12 +456,12 @@ msgstr "Filtern"
 msgid "Duration"
 msgstr "Dauer"
 
-#: pages/task.php:508 singles/task.php:506
+#: pages/task.php:508 singles/task.php:500
 msgid "Level"
 msgstr "Ebene"
 
-#: pages/task.php:515 singles/suggestion.php:901 singles/task.php:503
-#: singles/topic.php:933
+#: pages/task.php:515 singles/suggestion.php:901 singles/task.php:497
+#: singles/topic.php:935
 msgid "Source"
 msgstr "Quelle"
 
@@ -466,7 +469,8 @@ msgstr "Quelle"
 msgid "Targeted stakeholder group"
 msgstr "Angesprochene Interessensgruppe"
 
-#: pages/home.php:680 pages/task.php:536 singles/task.php:434
+#: joinus4health.php:228 pages/home.php:1003 pages/task.php:536
+#: singles/task.php:434
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -474,7 +478,7 @@ msgstr "Aufgaben"
 msgid "tasks found"
 msgstr "Aufgaben gefunden"
 
-#: pages/topic.php:439 singles/topic.php:756
+#: joinus4health.php:225 pages/topic.php:439 singles/topic.php:757
 msgid "Topics"
 msgstr "Themen"
 
@@ -482,192 +486,476 @@ msgstr "Themen"
 msgid "topics found"
 msgstr "Themen gefunden"
 
-#: singles/suggestion.php:735 singles/topic.php:774
+#: singles/suggestion.php:736 singles/topic.php:775
 msgid "Share"
 msgstr "Teilen"
 
-#: singles/suggestion.php:753
+#: singles/suggestion.php:754
 msgid "Suggestions details"
 msgstr "Vorschläge Details"
 
-#: singles/suggestion.php:766 singles/topic.php:808
+#: singles/suggestion.php:767 singles/topic.php:808
 msgid "Attachments"
 msgstr "Anhänge"
 
-#: singles/suggestion.php:777 singles/topic.php:819
+#: singles/suggestion.php:778 singles/topic.php:819
 msgid "Related tasks"
-msgstr "Hiermit verbundene Aufgaben"
+msgstr "Verwandte Aufgaben"
 
-#: singles/suggestion.php:832 singles/topic.php:864
+#: singles/suggestion.php:833 singles/topic.php:864
 msgid "Comments"
 msgstr "Kommentare"
 
-#: singles/suggestion.php:834 singles/topic.php:866
+#: singles/suggestion.php:836 singles/topic.php:867
 msgid "Add comment"
 msgstr "Kommentar hinzufügen"
 
-#: singles/suggestion.php:837 singles/topic.php:869
+#: singles/suggestion.php:839 singles/topic.php:870
 msgid "Submit"
 msgstr "Einreichen"
 
-#: singles/suggestion.php:841 singles/topic.php:873
+#: singles/suggestion.php:843 singles/topic.php:874
 msgid "Comments and replies are moderated. Your comment will appear here once the site administrator accepts it."
-msgstr "Kommentare und Antworten werden geprüft, bevor diese sichtbar gemacht werden. Dein Kommentar wird erscheinen, sobald dieser von der Administration akzeptiert wurde."
+msgstr "Kommentare und Antworten werden geprüft, bevor sie freigeschaltet werden. Dein Kommentar erscheint here sobald die Prüfung abgeschlossen ist.."
 
-#: singles/suggestion.php:866
+#: singles/suggestion.php:869
 msgid "creator"
-msgstr "Urheber*in"
+msgstr "Ersteller*in"
 
-#: singles/suggestion.php:878 singles/task.php:485 singles/topic.php:910
+#: singles/suggestion.php:878 singles/task.php:479 singles/topic.php:912
 msgid "Created"
 msgstr "Erstellt"
 
 #: singles/suggestion.php:896 singles/suggestion.php:899
-#: singles/suggestion.php:902 singles/task.php:498 singles/task.php:501
-#: singles/task.php:504 singles/task.php:507 singles/topic.php:928
-#: singles/topic.php:931 singles/topic.php:934
+#: singles/suggestion.php:902 singles/task.php:492 singles/task.php:495
+#: singles/task.php:498 singles/task.php:501 singles/topic.php:930
+#: singles/topic.php:933 singles/topic.php:936
 msgid "not specified"
-msgstr "keine Angabe"
+msgstr "Keine Angabe"
 
 #: singles/task.php:440
 msgid "Task details"
 msgstr "Aufgabe Details"
 
-#: singles/task.php:456
+#: singles/task.php:452
 msgid "Related topic"
-msgstr "Zugehöriges Thema"
+msgstr "Verwandte Themen"
 
-#: singles/task.php:475 singles/topic.php:898
+#: singles/task.php:471 singles/topic.php:900
 msgid "facilitator"
 msgstr "Betreuer*in"
 
-#: singles/task.php:486 singles/topic.php:911
+#: singles/task.php:480 singles/topic.php:913
 msgid "Valid thru"
 msgstr "Gültig bis"
 
-#: singles/task.php:513
+#: singles/task.php:507
 msgid "Time estimate"
 msgstr "Zeitschätzung"
 
-#: singles/topic.php:792
+#: singles/topic.php:793
 msgid "Topic details"
-msgstr "Thema Details"
+msgstr "Themen-Details"
 
-#: singles/topic.php:951
+#: singles/topic.php:953
 msgid "Assigned working group"
 msgstr "Zugewiesenes Team"
 
-#: singles/topic.php:959
+#: singles/topic.php:961
 msgid "External links"
 msgstr "Externe Links"
 
-#: singles/topic.php:973
+#: singles/topic.php:975
 msgid "Original suggestions"
 msgstr "Ursprüngliche Vorschläge"
 
-#: pages/home.php:581
+#: pages/home.php:759
 msgid "Let’s shape the face of modern science."
 msgstr "Lasse uns das Gesicht der modernen Wissenschaft neu gestalten."
 
-#: pages/home.php:581
+#: pages/home.php:759
 msgid "Join us and change the world."
 msgstr "Mache mit und verändere die Welt."
 
-#: pages/home.php:583
+#: pages/home.php:761
 msgid "Who we are"
 msgstr "Wer wir sind"
 
-#: pages/home.php:584
+#: pages/home.php:762
 msgid "home.who.we.are.description"
-msgstr "Wir sind drei medizinische Universitäten, die bevölkerungs-basierte Kohortenstudien in der Studienregion durchführen, sowie acht weitere Partner aus Polen, den Niederlanden und Deutschland."
+msgstr "Dem JoinUs4Health-Konsortium gehören 11 Partner aus drei europäischen Ländern an. Drei dieser Partner sind Forschungseinrichtungen, die bevölkerungsbasierte Kohortenforschung in ihren Studienregionen in Deutschland (SHIP - Leben und Gesundheit in Vorpommern), den Niederlanden (Rotterdam Studie) und Polen (Bialystok PLUS) durchführen."
 
-#: pages/home.php:585 pages/home.php:590 pages/home.php:595
+#: pages/home.php:763 pages/home.php:768 pages/home.php:773
 msgid "Read more"
 msgstr "Mehr lesen"
 
-#: pages/home.php:588
+#: pages/home.php:766
 msgid "How to join us"
 msgstr "Wie du mitmachen kannst"
 
-#: pages/home.php:589
+#: pages/home.php:767
 msgid "home.how.to.join.us.description"
-msgstr "Du kannst Vorschläge einreichen, über andere Vorschläge abstimmen und zu Themen beitragen, indem du online an Aufgaben arbeitest oder in Teams mitwirkst. Oder du kannst dich einfach zurücklehnen und verdauen! Diese Seite gibt dir einen Überblick über laufende Aktivitäten."
+msgstr "Du kannst Vorschläge einreichen, Vorschlägen anderer deine Stimme geben und zu Themen beitragen, indem du online an Aufgaben arbeitest oder bei Teams mitwirkst. Oder lehne dich einfach zurück und sieh dir Inhalte an! Diese Seite gibt dir einen Überblick über laufende Aktivitäten."
 
-#: pages/home.php:593
+#: pages/home.php:771
 msgid "Our rules"
 msgstr "Unsere Regeln"
 
-#: pages/home.php:594
+#: pages/home.php:772
 msgid "home.our.rules.description"
-msgstr "Vorschläge, Kommentare und Beiträge werden einer Prüfung unterzogen, um ein sicheres Umfeld für alle zu schaffen. Die Interaktionen im Team werden von einem Moderator koordiniert, der jeder sein kann - auch Sie. Helfen Sie uns, verantwortungsvolle Interaktionen zu gewährleisten, indem Sie zu JoinUs4Health-bezogenen Aufgaben beitragen!"
+msgstr "Vorschläge, Kommentare und Beiträge werden geprüft, um ein sicheres Umfeld für alle zu schaffen. Die Arbeiten im Team werden betreut (alle können die Betreuung eines Themas, einer Aufgabe oder einer Gruppe übernehmen - auch du. Helfe uns, verantwortungsvolles Arbeiten zu unerstützen, indem du zu JoinUs4Health-Aufgaben beiträgst!"
 
-#: pages/home.php:601
+#: pages/home.php:922
 msgid "Hot topics"
-msgstr "Heisse Themen"
+msgstr "Aktuelle Themen"
 
-#: pages/home.php:646
+#: pages/home.php:967
 msgid "What are topics?"
 msgstr "Was sind Themen?"
 
-#: pages/home.php:647
+#: pages/home.php:968
 msgid "home.what.are.topics.description.paragraph.1"
-msgstr "Die Themen werden von einem Vermittler / einer Vermittlerin unterstützt. Jede*r Plattformnutzer*in kann Vermittler*in werden, sofern er/sie sich bereit erklärt, den Austausch und die daraus entstehenden Teams ud Aufgaben zu begleiten. Ein Plan wird in der Beschreibung erläutert. Die Nutzer*innen der Plattform sind zwei Wochen lang eingeladen, Feedback zu diesem Plan zu geben."
+msgstr "Themen werden von betreut. Jede Nutzerin / jeder Nutzer der Plattform kann die Betreuung übernehmen, sofern die Bereitschaft besteht, den Austausch und die daraus entstehenden Teams und Aufgaben zu begleiten. In der Beschreibung wird ein Plan beschrieben. Plattform-Mitglieder haben zwei Wochen lang die Möglichkeit, diesen Plan zu überarbeiten, bevor Teams or Aufgaben darauf basierend enstehen können."
 
-#: pages/home.php:648
+#: pages/home.php:969
 msgid "home.what.are.topics.description.paragraph.2"
-msgstr "Das Thema bleibt mindestens zwei Wochen lang online, bevor die Interaktionen beginnen können, um Zeit zu haben, Rückmeldung einzuholen und Freiwillige anzuwerben. \n"
-"Danach können die Freiwilligen einen Beitrag leisten, indem sie sich mit Aufgaben befassen oder in Teams zusammenarbeiten. Der Vermittler / die Vermittlerin gibt monatlich Feedback an eine*n zugewiesene*n Moderator*in, der/die Hauptansprechpartner*in ist."
+msgstr ""
+"Das Thema bleibt mindestens zwei Wochen lang online, bevor Arbeiten dazu beginnen können, um Rückmeldung einholen und Freiwillige anwerben zu können.\n"
+"Danach können Freiwillige beitragen, indem sie an Aufgaben oder in Teams arbeiten. Der Betreuer / die Betreuerin steht monatlich mit einem hauptverantwortlichen Plattform-Mitglied (Moderator*in) in Kontakt."
 
-#: pages/home.php:652
+#: pages/home.php:974
 msgid "Upcoming suggestions"
 msgstr "Die neuesten Vorschläge"
 
-#: pages/home.php:672
+#: pages/home.php:994
 msgid "What are suggestions?"
 msgstr "Was sind Vorschläge?"
 
-#: pages/home.php:673
+#: pages/home.php:995
 msgid "home.suggestion.description"
-msgstr "Die Vorschläge können ein Thema/eine Frage von Interesse, eine vorgeschlagene Forschungsfrage, einen Informations- oder Schulungsbedarf, ein Angebot,  Beispiele einer Guten Praxis oder andere Vorschläge umfassen. \n"
-"Bringen Sie Ihre eigenen Vorschläge ein oder stimmen Sie über die Vorschläge anderer ab.\n"
-"Während nur einige Vorschläge direkt aufgegriffen werden, können andere eine wertvolle Sammlung für künftige Nutzer*innen der Plattform / Teams, Wissenschaftler*innen und andere bilden."
+msgstr ""
+"Vorschläge können ein Thema / Interesse, eine Forschungsfrage, Informations- oder Schulungsbedarf, ein Angebot, Beispiele von Guten Praxis oder andere Arten von Vorschlägen umfassen. \n"
+"Bringe deine eigenen Vorschläge ein oder gib den Vorschlägne anderer deine Stimme.\n"
+"Es können nur einige Vorschläge bearbeitet werden. Alle Vorschläge bilden eine wertvolle Sammlung für künftige Plattform-Mitglieder, Wissenschaftler*innen und andere."
 
-#: pages/home.php:681
+#: pages/home.php:1004
 msgid "See all tasks"
 msgstr "Alle Aufgaben ansehen"
 
-#: pages/home.php:683
+#: pages/home.php:1006
 msgid "home.task.description"
-msgstr "Aufgaben sind immer mit einem Thema verknüpft. Während sich einige Aufgaben auf das JoinUs4Health-Konzept beziehen (z. B. Vorschläge prüfen,Vermittler*in werden, ein Thema fördern), beziehen sich andere auf Themen, die sich mit konkreten gesundheitsbezogenen Aspekten befassen.\n"
-"Mit einem Beitrag von mindestens 15 Minuten kannst du bereits einen wertvollen Beitrag leisten."
+msgstr ""
+"Aufgaben sind immer mit einem Thema verknüpft. Während sich einige Aufgaben auf das JoinUs4Health-Konzept beziehen (zum Beispiel Vorschläge prüfen, Betreuung von Themen / Teams / Aufgaben übernehmen, Thema bewerben), beziehen sich andere auf Themen, die sich mit konkreten gesundheitsbezogenen Gesichtspunkten befassen.\n"
+"Mit einem Mitwirkung von mindestens 15 Minuten kannst du bereits einen wertvollen Beitrag leisten."
 
-#: pages/home.php:708
+#: joinus4health.php:231 pages/home.php:1029
 msgid "Working teams"
 msgstr "Teams"
 
-#: pages/home.php:709
+#: pages/home.php:1030
 msgid "See all teams"
 msgstr "Alle Teams ansehen"
 
-#: pages/home.php:711
+#: pages/home.php:1032
 msgid "home.working.teams.description"
-msgstr "Auch die Teams sind immer an ein Thema gebunden. Unsere Teams sind bestrebt, Hierarchien abzubauen und ein breites Spektrum von Perspektiven zu berücksichtigen. \n"
-"Erforsche neue Wege der Zusammenarbeit, beteilige dich an Fokusgruppendiskussionen oder werde gemeinsam mit anderen Teammitgliedern kreativ. "
+msgstr ""
+"Teams sind ebenfalls immer an ein Thema gebunden. Unsere Teams sind bestrebt, Hierarchien abzubauen und ein breites Spektrum von Perspektiven zu berücksichtigen. \n"
+"Erforsche neue Wege der Zusammenarbeit, beteilige dich an Diskussionen oder werde gemeinsam mit anderen Teammitgliedern kreativ."
 
-#: pages/home.php:725
+#: pages/home.php:1046
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: pages/home.php:726
+#: pages/home.php:1047
 msgid "See all events"
 msgstr "Alle Veranstaltungen ansehen"
 
-#: pages/home.php:728
+#: pages/home.php:1049
 msgid "home.events.description"
-msgstr "Online- und Offline-Veranstaltungen werden über die Plattform beworben.\n"
-"Informiere dich über die Veranstaltungen und melde dich für einen geplante Veranstaltung an oder bekunde dein Interesse, an einer Veranstaltung teilzunehmen."
+msgstr ""
+"Online- und Offline-Veranstaltungen werden über die Plattform beworben.\n"
+"Hier kannst du dich zu Veranstaltungen informieren, dich anmelden oder deinen Bedarf mitteilen."
 
-#: pages/home.php:762
+#: pages/home.php:1083
 msgid "home.call.to.register"
-msgstr "Registriere dich kostenlos und werde Mitglied der JoinUs4Health-Community!"
+msgstr "Registriere dich kostenlos und werde Mitglied der JoinUs4Health-Gemeinschaft!"
 
+#: includes/metas.php:8
+msgid "Dutch"
+msgstr "Niederländisch"
+
+#: includes/metas.php:9
+msgid "English"
+msgstr "Engisch"
+
+#: includes/metas.php:10
+msgid "German"
+msgstr "Deutsch"
+
+#: includes/metas.php:11
+msgid "Polish"
+msgstr "Polnisch"
+
+#: includes/metas.php:15
+msgid "Germany"
+msgstr "Deutschland"
+
+#: includes/metas.php:16
+msgid "the Netherlands"
+msgstr "die Niederlande"
+
+#: includes/metas.php:17
+msgid "Poland"
+msgstr "Polen"
+
+#: includes/metas.php:18 includes/metas.php:53
+msgid "other"
+msgstr "Anderes Land"
+
+#: includes/metas.php:22
+msgid "citizens / citizens' organization"
+msgstr "Bürger / Bürgerorganisation"
+
+#: includes/metas.php:23
+msgid "scientists"
+msgstr "Wissenschaftler"
+
+#: includes/metas.php:24
+msgid "policy makers"
+msgstr "Politik / Öffentl. Dienst"
+
+#: includes/metas.php:25
+msgid "business / industry"
+msgstr "Unternehmen / Industrie"
+
+#: includes/metas.php:26
+msgid "pupils / students"
+msgstr "Schüler / Studenten"
+
+#: includes/metas.php:27
+msgid "other group"
+msgstr "Andere Gruppe"
+
+#: includes/metas.php:31
+msgid "topic of interest"
+msgstr "Interessensgebiet"
+
+#: includes/metas.php:32
+msgid "research question"
+msgstr "Forschungsfrage"
+
+#: includes/metas.php:33
+msgid "information need"
+msgstr "Informationsbedarf"
+
+#: includes/metas.php:34
+msgid "training need"
+msgstr "Weiterbildungsbedarf"
+
+#: includes/metas.php:35
+msgid "offer"
+msgstr "Angebot"
+
+#: includes/metas.php:36 includes/metas.php:106
+msgid "suggestion"
+msgstr "Vorschlag"
+
+#: includes/metas.php:37
+msgid "example"
+msgstr "Beispiel"
+
+#: includes/metas.php:41 includes/metas.php:160
+msgid "co-creation"
+msgstr "Mitgestaltung"
+
+#: includes/metas.php:42
+msgid "construction"
+msgstr "Zusammenarbeit"
+
+#: includes/metas.php:43
+msgid "promotion"
+msgstr "Förderung"
+
+#: includes/metas.php:44 includes/metas.php:152
+msgid "dissemination"
+msgstr "Verbreitung"
+
+#: includes/metas.php:45
+msgid "reflection"
+msgstr "Betrachtung"
+
+#: includes/metas.php:49
+msgid "review posts"
+msgstr "Überarbeitung von Beiträgen"
+
+#: includes/metas.php:50
+msgid "translation"
+msgstr "Übersetze"
+
+#: includes/metas.php:51
+msgid "facilitation"
+msgstr "Begleitung"
+
+#: includes/metas.php:52
+msgid "review contents"
+msgstr "Überarbeitung von Inhalten"
+
+#: includes/metas.php:96
+msgid "group"
+msgstr "Gruppe"
+
+#: includes/metas.php:100 includes/metas.php:112
+msgid "platform user"
+msgstr "Plattformmitglied"
+
+#: includes/metas.php:102 includes/metas.php:108 includes/metas.php:114
+msgid "external source"
+msgstr "Externe Quelle"
+
+#: includes/metas.php:107 includes/metas.php:113
+msgid "administrator"
+msgstr "Administrator"
+
+#: includes/metas.php:118
+msgid "active"
+msgstr "Aktiv"
+
+#: includes/metas.php:119
+msgid "continuous"
+msgstr "Kontinuierlich"
+
+#: includes/metas.php:120
+msgid "closed"
+msgstr "Geschlossen"
+
+#: includes/metas.php:145
+msgid "brainstorming"
+msgstr "Ideenfindung"
+
+#: includes/metas.php:146
+msgid "planing"
+msgstr "Planung"
+
+#: includes/metas.php:147
+msgid "design"
+msgstr "Ausgestaltung"
+
+#: includes/metas.php:148
+msgid "collection"
+msgstr "Erhebung"
+
+#: includes/metas.php:149
+msgid "analysis"
+msgstr "Auswertung"
+
+#: includes/metas.php:150
+msgid "interpretation"
+msgstr "Interpretation / Bewertung"
+
+#: includes/metas.php:151
+msgid "communication"
+msgstr "Austausch"
+
+#: includes/metas.php:153
+msgid "engagement"
+msgstr "Einbindung"
+
+#: includes/metas.php:154
+msgid "community building"
+msgstr "Gemeinschaftsbildung"
+
+#: includes/metas.php:155
+msgid "monitoring/evaluation"
+msgstr "Überwachung/Bewertung"
+
+#: includes/metas.php:159
+msgid "collaboration"
+msgstr "Kollaboration"
+
+#: includes/metas.php:161
+msgid "crowdsourcing"
+msgstr "Crowdsourcing"
+
+#: includes/metas.php:162
+msgid "epidemiology"
+msgstr "Epidemiologie"
+
+#: includes/metas.php:163
+msgid "participation"
+msgstr "Teilnahme"
+
+#: includes/metas.php:164
+msgid "Responsible Research and Innovation"
+msgstr "Verantwortliche Forschung und Innovation"
+
+#: includes/metas.php:165
+msgid "systems thinking"
+msgstr "Systemdenken"
+
+#: includes/metas.php:166
+msgid "transdisciplinarity"
+msgstr "Fach-/Gruppenübergreifende Arbeit"
+
+#: includes/metas.php:169
+msgid "awarness raising"
+msgstr "Bewusstseinsbildung"
+
+#: includes/metas.php:170
+msgid "prevention"
+msgstr "Vorbeugung"
+
+#: includes/metas.php:171
+msgid "diagnosis"
+msgstr "Diagnose"
+
+#: includes/metas.php:172
+msgid "surveillance"
+msgstr "Überwachung (Surveillance)"
+
+#: includes/metas.php:173
+msgid "therapy"
+msgstr "Therapie / Behandlung"
+
+#: includes/metas.php:174
+msgid "working together"
+msgstr "Zusammenarbeit"
+
+#: joinus4health.php:238
+msgid "Register"
+msgstr "Registrieren"
+
+#: joinus4health.php:240
+msgid "Log In"
+msgstr "Anmelden"
+
+#: joinus4health.php:241
+msgid "Join us"
+msgstr "Mitmachen"
+
+#: joinus4health.php:242
+msgid "Home"
+msgstr "Start"
+
+#: pages/home.php:871
+msgid "Main focus area"
+msgstr "Schwerpunktbereich"
+
+#: pages/home.php:885 pages/home.php:902
+msgid "Learn more"
+msgstr "Mehr erfahren"
+
+#: pages/home.php:910
+msgid "of"
+msgstr "von"
+
+#: pages/home.php:970
+msgid "Browse topics"
+msgstr "Themen durchsuchen"
+
+#: pages/home.php:996
+msgid "Browse suggestions"
+msgstr "Vorschläge durchsuchen"
+
+#: pages/suggestion.php:734
+msgid "country"
+msgstr "Land"

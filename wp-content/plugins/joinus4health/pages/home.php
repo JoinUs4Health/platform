@@ -1043,44 +1043,6 @@ echo get_js_load_href();
                 <div class="sup"><?= time_ago($post) ?></div>
             </div>
             <?php endwhile; ?>
-            <div class="separator"></div>
-            <div class="header-with-button">
-                <h5><?= __('Events', 'joinus4health') ?> (todo)</h5>
-                <a href="#" class="button-black"><b><?= __('See all events', 'joinus4health') ?></b> <i data-feather="arrow-right"></i></a>
-            </div>
-            <p><?= __('home.events.description', 'joinus4health') ?></p>
-            <div class="item">
-                <div class="date">
-                    <div class="day">23</div>
-                    <div class="month">Dec</div>
-                </div>
-                <a href="#">Link between fertilisers and agricultural pesticides to...</a>
-                <div class="sup">2 days left</div>
-            </div>
-            <div class="item">
-                <div class="date">
-                    <div class="day">23</div>
-                    <div class="month">Dec</div>
-                </div>
-                <a href="#">Link between fertilisers and agricultural pesticides to...</a>
-                <div class="sup">2 days left</div>
-            </div>
-            <div class="item">
-                <div class="date">
-                    <div class="day">23</div>
-                    <div class="month">Dec</div>
-                </div>
-                <a href="#">Link between fertilisers and agricultural pesticides to...</a>
-                <div class="sup">2 days left</div>
-            </div>
-            <div class="item">
-                <div class="date">
-                    <div class="day">23</div>
-                    <div class="month">Dec</div>
-                </div>
-                <a href="#">Link between fertilisers and agricultural pesticides to...</a>
-                <div class="sup">2 days left</div>
-            </div>
             <div class="register-now">
                 <h5><?= __('home.call.to.register', 'joinus4health') ?></h5>
                 <a href="<?= home_url() ?>/sign-up/">Register now</a>
