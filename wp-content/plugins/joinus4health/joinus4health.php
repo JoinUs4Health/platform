@@ -350,5 +350,15 @@ function get_translated_field_paragraph($post, $field, $preferred_language) {
 function xprofile_template_display_profile_404($param) {
     return '404';
 }
-
 add_filter('xprofile_template_display_profile', 'xprofile_template_display_profile_404', 12, 1);
+
+if (!function_exists('redirect_404_to_homepage')) {
+    add_action('template_redirect', 'redirect_404_to_homepage');
+
+    function redirect_404_to_homepage() {
+       if (is_404()) {
+            wp_safe_redirect( home_url('/') );
+            exit;
+       }
+    }
+}

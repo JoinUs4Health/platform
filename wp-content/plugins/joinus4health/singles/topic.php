@@ -830,7 +830,7 @@ html_modal_uncontribute();
                 ?>
                 <div class="related-task column-common-border-style" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                     <a class="title" href="<?= get_the_permalink($post->ID) ?>"><?= $post->post_title ?></a>
-                    <?php if ($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
+                    <?php if ($m_valid_thru != null): ?><div class="days-left"><?= __('Valid thru', 'joinus4health').': '.wp_date('d F Y', $m_valid_thru) ?></div><?php endif; ?>
                     <div class="tags-info">
                         <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
                         <?php if (is_numeric($m_duration) && array_key_exists($m_duration, $meta_task_duration)): ?>

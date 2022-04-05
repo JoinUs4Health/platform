@@ -1012,10 +1012,12 @@ echo get_js_load_href();
             $m_target_group = get_post_meta($post->ID, 'm_target_group', true);
             $m_source = get_post_meta($post->ID, 'm_source', true);
             $m_level = get_post_meta($post->ID, 'm_level', true);
+            $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
+            $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
             ?>
             <div class="item" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                 <a href="<?= get_permalink($post->ID) ?>"><?= $post->post_title ?></a>
-                <?php if($m_valid_thru != null): ?><div class="sup"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
+                <?php if($m_valid_thru != null): ?><div class="sup"><?= __('Valid thru', 'joinus4health').': '.wp_date('d F Y', $m_valid_thru) ?></div><?php endif; ?>
                 <div class="tags">
                     <?= $m_language != '' && isset($meta_languages[$m_language]) ? '<div>'.$meta_languages[$m_language].'</div>' : '' ?>
                     <?= $m_target_group != '' && isset($meta_stakeholder_group[$m_target_group]) ? '<div>'.$meta_stakeholder_group[$m_target_group].'</div>' : '' ?>

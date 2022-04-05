@@ -227,7 +227,7 @@ function html_task($post) {
             <div class="task-item">
                 <div class="two-line-content">
                     <a href="<?= get_the_permalink($post->ID) ?>" class="title"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a>
-                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
+                    <?php if($m_valid_thru != null): ?><div class="days-left"><?= __('Valid thru', 'joinus4health').': '.wp_date('d F Y', $m_valid_thru) ?></div><?php endif; ?>
                     <div class="submit-by"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 </div>
                 <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
@@ -240,8 +240,6 @@ function html_task($post) {
 
 function html_suggestion($post) {
     global $post, $meta_suggestion_duration;
-    $m_valid_thru = get_post_meta($post->ID, 'm_valid_thru', true);
-    $m_valid_thru = is_numeric($m_valid_thru) ? $m_valid_thru : null;
     $m_votes = get_post_meta($post->ID, "m_votes");
     $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
     $preferred_language = get_preferred_language();
@@ -253,7 +251,6 @@ function html_suggestion($post) {
                 </div>
                 <div class="two-line-content" onclick="load_href('<?= get_the_permalink($post->ID) ?>');">
                     <a href="<?= get_the_permalink($post->ID) ?>" id="item-url-<?= $post->ID ?>" class="title"><?= get_translated_title($post, 'm_title', $preferred_language) ?></a>
-                    <?php if ($m_valid_thru != null): ?><div class="days-left"><?= time_left($m_valid_thru) ?></div><?php endif; ?>
                     <div class="submit-by"><?= __('submitted by', 'joinus4health') ?> <?= get_the_author() ?> / <?= get_the_date('j F Y, H:i', $post) ?></div>
                 </div>
                 <?php $m_duration = get_post_meta($post->ID, 'm_duration', true) ?>
