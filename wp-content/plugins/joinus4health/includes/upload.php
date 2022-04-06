@@ -70,7 +70,7 @@ function valid_mime($file) {
             $resp = new stdClass();
             $resp->id = $get_id;
             $resp->error = true;
-            $resp->msg = __("Upload Unsuccessful");
+            $resp->msg = __("Upload Unsuccessful (1)");
 
             if (isset($_FILES['file']) && (!empty($_FILES['file']['tmp_name']))) {
                 if ($_FILES['file']['error'] == UPLOAD_ERR_OK) {
@@ -84,7 +84,8 @@ function valid_mime($file) {
                                 "(",")","|","<",">",";","\\",",","+","-"
                             );
                             
-                            $filename = str_replace($special_chars, '', $_FILES['file']['name']);
+                            $filename = str_replace($special_chars, '_', $_FILES['file']['name']);
+                            $filename = preg_replace("/[^A-Za-z0-9_.]/", '_', $filename);
                             $filename = time().'_'.$filename;
                             $path = 'uploads/ju4h/'. date('Y').'/'.date('n').'/'.date('j').'/';
                             $upload_path = WP_CONTENT_DIR.'/'.$path;
@@ -103,11 +104,11 @@ function valid_mime($file) {
                     } else {
                         $resp->msg = __("File type not supported");
                     }
-                } else if ($_FILES['file']['error'] == UPLOAD_ERR_INI_SIZE) {
-                    $resp->msg = __('The uploaded file exceeds the maximum upload limit!');
                 } else {
-                    $resp->msg = __("Upload Unsuccessful");
+                    $resp->msg = __("Upload Unsuccessful (2)");
                 }
+            } else if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_INI_SIZE) {
+                $resp->msg = __('The uploaded file exceeds the maximum file size upload limit!');
             }
             ?>
             <script type="text/javascript" charset="utf-8">

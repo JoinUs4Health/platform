@@ -54,7 +54,8 @@ add_action('init', 'ju4hslide_custom_post_type', 0);
  * @param type $post
  */
 function add_meta_boxes_ju4hslide_callback($post) {
-    add_meta_box('container_image', __('Image (best size: 1270x460)'), 'add_meta_box_ju4hslide_image_callback', 'ju4hslide', 'normal', 'low');
+    $upload_max_size = ini_get('upload_max_filesize');
+    add_meta_box('container_image', __('Image').' (best size: 1270x460) (max file size: '.$upload_max_size.')', 'add_meta_box_ju4hslide_image_callback', 'ju4hslide', 'normal', 'low');
     add_meta_box('container_title', __('Title'), 'add_meta_box_ju4hslide_title_callback', 'ju4hslide', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4hslide_description_callback', 'ju4hslide', 'normal', 'low');
     add_meta_box('container_url', __('Url'), 'add_meta_box_ju4hslide_url_callback', 'ju4hslide', 'normal', 'low');

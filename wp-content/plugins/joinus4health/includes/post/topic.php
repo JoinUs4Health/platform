@@ -89,15 +89,16 @@ add_action('init', 'ju4htopic_custom_post_type', 0);
  * @param type $post
  */
 function add_meta_boxes_ju4htopic_callback($post) {
+    $upload_max_size = ini_get('upload_max_filesize');
     add_meta_box('container_followers_and_contributors', __('Followers, contributors & voters'), 'add_meta_box_ju4htopic_followers_contributors_voters_callback', 'ju4htopic', 'normal', 'low');
-    add_meta_box('container_topimage', __('Top image (best size: 1228x346)'), 'add_meta_box_ju4htopic_topimage_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_topimage', __('Top image').' (best size: 1228x346) (max file size: '.$upload_max_size.')', 'add_meta_box_ju4htopic_topimage_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_title', __('Title'), 'add_meta_box_ju4htopic_title_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_intro', __('Introduction'), 'add_meta_box_ju4htopic_intro_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4htopic_description_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4htopic_additional_fields_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_suggestions', __('Related suggestions'), 'add_meta_box_ju4htopic_related_suggestions_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_tasks', __('Related tasks'), 'add_meta_box_ju4htopic_related_tasks_callback', 'ju4htopic', 'normal', 'low');
-    add_meta_box('container_attachments', __('Attachments'), 'add_meta_box_ju4htopic_attachments_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_attachments', __('Attachments').' (max file size: '.$upload_max_size.')', 'add_meta_box_ju4htopic_attachments_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_externals', __('External links'), 'add_meta_box_ju4htopic_externals_callback', 'ju4htopic', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
