@@ -45,6 +45,7 @@ include_once 'includes/post/suggestion.php';
 include_once 'includes/post/topic.php';
 include_once 'includes/post/task.php';
 include_once 'includes/post/slide.php';
+include_once 'includes/post/page.php';
 
 //admin fields methods
 include_once 'includes/admin_fields.php';
@@ -302,6 +303,7 @@ function get_preferred_language() {
         }
     }
     
+    /** Currently not used, maybe in future someone will need this feature
     if ($current_user_id > 0) {
         $obj = xprofile_get_field($field_id, $current_user_id, true);
         
@@ -313,6 +315,7 @@ function get_preferred_language() {
             }
         }
     }
+     */
     
     if ($preferred_language == null) {
         $browser_locale = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -362,3 +365,69 @@ if (!function_exists('redirect_404_to_homepage')) {
        }
     }
 }
+
+function page_multilingual_redirect($query) {
+    global $wp_query;
+    
+    $pagename = get_query_var('pagename');
+    if ($query->is_main_query() && !is_admin() && !empty($pagename)) {
+        $wp_query_check_page = new WP_Query(array(
+            'post_type' => 'page',
+            'name' => $pagename,
+            'posts_per_page' => 1,
+            'post_parent' => 0
+        ));
+        
+        if ($wp_query_check_page->have_posts()) {
+            
+            $posts_check_pages = $wp_query_check_page->get_posts();
+            if (count($posts_check_pages) == 0) {
+                return;
+            }
+            
+            $lookup_language = get_post_meta($posts_check_pages[0]->ID, 'm_lookup_language', true);
+            if ($lookup_language == 1) {
+                $wpq = new WP_Query(array(
+                    'post_type' => 'page',
+                    'post_parent' => $posts_check_pages[0]->ID,
+                    'posts_per_page' => 1,
+                    'meta_query' => array(
+                        'm_language_clause' => array(
+                            'key' => 'm_language',
+                            'value' => strtoupper(get_preferred_language()),
+                        )
+                    )
+                ));
+                
+                if ($wpq->have_posts()) {
+                    $posts = $wpq->get_posts();
+                    $query->init();
+                    $query->set('page_id', $posts[0]->ID);
+                }
+            }
+        }
+    }
+}
+add_action('pre_get_posts', 'page_multilingual_redirect');
+
+/**
+ * Rewrites from signup username to field_1 (profile name)
+ */
+function username_rewrite_to_field_1_on_signup() {
+    if (!is_user_logged_in()) {
+        $_POST['field_1'] = $_POST['signup_username'];
+    }    
+}
+add_action('bp_signup_pre_validate', 'username_rewrite_to_field_1_on_signup');
+
+/**
+ * Rewrites from signup username to field_1 (profile name)
+ */
+function username_rewrite_to_field_1_on_edit_profile($field) {
+    if ($field == 1 && is_user_logged_in() && !empty($_POST)) {
+        $user = wp_get_current_user();
+        xprofile_set_field_data(1, $user->ID, $user->user_login, true);
+    }
+}
+add_action('xprofile_profile_field_data_updated', 'username_rewrite_to_field_1_on_edit_profile');
+

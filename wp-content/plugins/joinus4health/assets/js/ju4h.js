@@ -1,101 +1,108 @@
+function check_pass_strength() {
+        var pass1 = $( '.password-entry' ).val(),
+            pass2 = $( '.password-entry-confirm' ).val(),
+            strength;
+
+        // Reset classes and result text
+        $( '#pass-strength-result' ).removeClass( 'short bad good strong' );
+        if ( ! pass1 ) {
+                $( '#pass-strength-result' ).html( pwsL10n.empty );
+                return;
+        }
+
+        // wp.passwordStrength.userInputBlacklist() has been deprecated in WP 5.5.0.
+        if ( 'function' === typeof wp.passwordStrength.userInputDisallowedList ) {
+                strength = wp.passwordStrength.meter( pass1, wp.passwordStrength.userInputDisallowedList(), pass2 );
+        } else {
+                strength = wp.passwordStrength.meter( pass1, wp.passwordStrength.userInputBlacklist(), pass2 );
+        }
+
+        switch ( strength ) {
+                case 2:
+                        $( '#pass-strength-result' ).addClass( 'bad' ).html( pwsL10n.bad );
+                        break;
+                case 3:
+                        $( '#pass-strength-result' ).addClass( 'good' ).html( pwsL10n.good );
+                        break;
+                case 4:
+                        $( '#pass-strength-result' ).addClass( 'strong' ).html( pwsL10n.strong );
+                        break;
+                case 5:
+                        $( '#pass-strength-result' ).addClass( 'short' ).html( pwsL10n.mismatch );
+                        break;
+                default:
+                        $( '#pass-strength-result' ).addClass( 'short' ).html( pwsL10n['short'] );
+                        break;
+        }
+}
+
+
 $(document).ready(function() {
-    
-    if ($('#signup_form')) {
+    if ($('#signup_form').length || $('#profile-edit-form').length) {
+        $("#field_1").attr('disabled', true);
+        $('div.field_1').hide();
         $('#signup_submit').attr('disabled', true);
         $('#signup_username').attr('maxlength', 20);
         $('#field_1').attr('maxlength', 20);
 
-        var signup_text_fields = ['signup_username', 'signup_email', 'signup_password', 'signup_password_confirm', 'field_1'];
-        for (index in signup_text_fields) {
-            $('#'+signup_text_fields[index]).keydown(function(e) {
-                signup_check_is_valid_action();
-            });
-            $('#'+signup_text_fields[index]).keyup(function(e) {
-                signup_check_is_valid_action();
-            });
-        }
-
+        setTimeout(signup_check_is_valid, 5000);
+        
         function signup_check_is_valid() {
-            if ($('#signup_username').val().trim().length == 0)
-                return false;
+            check_pass_strength();
+            errors = 0;
+            
+            if ($('#signup_username').val().length == 0)
+                errors++;
 
-            if ($('#signup_username').val().trim().length > 20)
-                return false;
+            if ($('#signup_username').val().length > 20)
+                errors++;
 
-            if ($('#field_1').val().trim().length == 0)
-                return false;
+            if ($('#signup_password').val().length == 0)
+                errors++;
 
-            if ($('#field_1').val().trim().length > 20)
-                return false;
-
-            if ($('#signup_password').val().trim().length == 0)
-                return false;
-
-            if ($('#signup_password_confirm').val().trim().length == 0)
-                return false;
+            if ($('#signup_password_confirm').val().length == 0)
+                errors++;
 
             if ($('#signup_password').val() != $('#signup_password_confirm').val())
-                return false;
+                errors++;
 
             if (!($('#pass-strength-result').hasClass('strong')))
-                return false;
+                errors++;
 
-            return true;
-        }
-
-        function signup_check_is_valid_action() {
-            if (signup_check_is_valid()) {
+            if (errors == 0) {
                 $('#signup_submit').removeAttr('disabled');
             } else {
                 $('#signup_submit').attr('disabled', true);
             }
+    
+            setTimeout(signup_check_is_valid, 1000);
         }
     }
     
-    if ($('#settings-form')) {
-        $('#pass1,#pass2').keydown(function(e) {
-            settings_is_valid_keyaction();
-        });
-        
-        $('#pass1,#pass2').keyup(function(e) {
-            settings_is_valid_keyaction();
-        });
-        
-        $("#pass1,#pass2").bind("paste", function(e) {
-            settings_is_valid_keyaction();
-        });
-        
+    if ($('#settings-form').length) {
+        setTimeout(settings_is_valid, 5000);
+
         function settings_is_valid() {
-            if ($('#pass1').val().trim().length == 0)
-                return false;
-
-            if ($('#pass2').val().trim().length == 0)
-                return false;
-
-            if ($('#pass1').val() != $('#pass2').val())
-                return false;
-
-            if (!($('#pass-strength-result').hasClass('strong')))
-                return false;
-
-            return true;
-        }
-
-        function settings_is_valid_action() {
-            if (settings_is_valid()) {
-                $('#settings-form #submit').removeAttr('disabled');
-            } else {
-                $('#settings-form #submit').attr('disabled', true);
-            }
-        }
-        
-        function settings_is_valid_keyaction() {
+            console.log("ok");
+            check_pass_strength();
+            errors = 0;
+            
             if ($('#pass1').val().length > 0) {
-                $('#settings-form #submit').attr('disabled', true);
-                settings_is_valid_action();
-            } else {
-                $('#settings-form #submit').removeAttr('disabled');
+                if ($('#pass1').val() != $('#pass2').val())
+                    errors++;
+
+                if (!($('#pass-strength-result').hasClass('strong')))
+                    errors++;
             }
+            
+            if (errors == 0) {
+                $('#settings-form #submit').removeAttr('disabled');
+            } else {
+                $('#settings-form #submit').attr('disabled', true);
+            }
+            
+            console.log("ok2");
+            setTimeout(settings_is_valid, 1000);
         }
     }
     

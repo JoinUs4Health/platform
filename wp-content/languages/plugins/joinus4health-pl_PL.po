@@ -14,7 +14,7 @@ msgstr ""
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
 msgid "Following"
-msgstr "obserwujący"
+msgstr "Obserwujący"
 
 #: includes/layouts.php:86 singles/suggestion.php:741 singles/topic.php:780
 msgid "Follow"
@@ -31,9 +31,10 @@ msgstr "Uczestnicy"
 msgid "Contribute"
 msgstr "Włącz się"
 
+#. Przesłany/przesłana przez?
 #: includes/layouts.php:181 includes/layouts.php:231 includes/layouts.php:257
 msgid "submitted by"
-msgstr "złożony przez"
+msgstr "Złożony przez"
 
 #: includes/layouts.php:280
 msgid "Share this page"
@@ -61,7 +62,7 @@ msgstr "Odpowiedz"
 
 #: includes/layouts.php:315 singles/suggestion.php:828
 msgid "comment"
-msgstr "komentarz"
+msgstr "Komentarz"
 
 #: includes/layouts.php:325
 msgid "Confirm action"
@@ -159,31 +160,31 @@ msgstr "24 godziny"
 
 #: includes/metas.php:278
 msgid "community"
-msgstr "społeczność"
+msgstr "Społeczność"
 
 #: includes/metas.php:279
 msgid "team"
-msgstr "zespół"
+msgstr "Zespół"
 
 #: includes/metas.php:95
 msgid "individual"
-msgstr "indywidualny"
+msgstr "Indywidualny"
 
 #: includes/metas.php:284
 msgid "platform"
-msgstr "platforma"
+msgstr "Platforma"
 
 #: includes/metas.php:101
 msgid "working team"
-msgstr "zespół roboczy"
+msgstr "Zespół roboczy"
 
 #: includes/metas.php:289
 msgid "anybody"
-msgstr "ktokolwiek"
+msgstr "Ktokolwiek"
 
 #: includes/metas.php:290
 msgid "science"
-msgstr "nauka"
+msgstr "Nauka"
 
 #. czasownik? przymiotnik?
 #: includes/metas.php:294
@@ -295,24 +296,25 @@ msgstr "Już głosowałeś"
 
 #: json/topic.php:40
 msgid "You already make an operation"
-msgstr "Już wykonałeś operację"
+msgstr "Już wykonałeś działanie"
 
 #: pages/suggestion-new.php:145 pages/suggestion-new.php:164
 #: pages/suggestion.php:581
 msgid "Create new suggestion"
-msgstr "Utwórz nową sugestię"
+msgstr "Podziel się pomysłem"
 
 #: pages/suggestion-new.php:148
 msgid "Suggestions can be added only by registered users"
-msgstr "Sugestie mogą być dodawane tylko przez zarejestrowanych użytkowników"
+msgstr "Pomysły mogą być dodawane tylko przez zarejestrowanych użytkowników"
 
 #: pages/suggestion-new.php:150
 msgid "Your form contains errors. All fields must be completed"
 msgstr "Twój formularz zawiera błędy. Wszystkie pola muszą być wypełnione"
 
+#. Przez recenzenta? Nie moderatora?
 #: pages/suggestion-new.php:152
 msgid "New suggestion was added successfuly. Currently it is marked as draft"
-msgstr "Nowa sugestia została dodana pomyślnie. Obecnie jest oznaczona jako wersja robocza, dopóki nie zostanie zaakceptowana przez recenzenta."
+msgstr "Nowy pomysł został dodany pomyślnie. Obecnie jest oznaczony jako wersja robocza. Musi zostać zaakceptowana przez recenzenta. Bądź cierpliwy!"
 
 #: pages/suggestion-new.php:154 pages/suggestion.php:609 pages/task.php:501
 msgid "Type"
@@ -348,11 +350,12 @@ msgstr "Język"
 #: pages/task.php:503 pages/task.php:510 pages/task.php:517 pages/task.php:524
 #: pages/topic.php:447
 msgid "any"
-msgstr "każdy"
+msgstr "Każdy"
 
+#. Tutaj było kraj złożenia wniosku, ale submission i submit odnosi się do zgłoszeń czy propozycji, prawda?
 #: pages/suggestion.php:595
 msgid "Country of submission"
-msgstr "Kraj złożenia wniosku"
+msgstr "Kraj zgłoszenia"
 
 #: pages/suggestion.php:602 singles/suggestion.php:898 singles/task.php:494
 #: singles/topic.php:932
@@ -364,6 +367,7 @@ msgstr "Grupa interesariuszy"
 msgid "Time period / from"
 msgstr "Data / od"
 
+#. tak jak wcześniej - moim zdaniem to powinno się nazywać Okres czasu
 #: pages/suggestion.php:618 pages/task.php:531
 msgid "Time period / to"
 msgstr "Data / do"
@@ -388,9 +392,10 @@ msgstr "Treść"
 msgid "Filter results"
 msgstr "Wyniki filtrowania"
 
+#. Tutaj konsekwentnie wpisujemy pomysły, a nie sugestie
 #: joinus4health.php:222 pages/suggestion.php:624 singles/suggestion.php:722
 msgid "Suggestions"
-msgstr "Sugestie"
+msgstr "Pomysły"
 
 #: pages/suggestion.php:626 pages/task.php:538 pages/topic.php:441
 msgid "Search by title..."
@@ -402,7 +407,7 @@ msgstr "Uporządkuj według"
 
 #: pages/suggestion.php:723
 msgid "suggestions found"
-msgstr "znalezione sugestie"
+msgstr "znalezione pomysły"
 
 #: pages/suggestion.php:730 pages/task.php:640
 msgid "language"
@@ -410,51 +415,51 @@ msgstr "język"
 
 #: pages/suggestion.php:738 pages/task.php:644
 msgid "duration"
-msgstr "czas trwania"
+msgstr "Czas trwania"
 
 #: pages/suggestion.php:742 pages/task.php:648
 msgid "type"
-msgstr "typ"
+msgstr "Typ"
 
 #: pages/task.php:652
 msgid "level"
-msgstr "poziom"
+msgstr "Poziom"
 
 #: pages/suggestion.php:746 pages/task.php:656
 msgid "source"
-msgstr "źródło"
+msgstr "Źródło"
 
 #: pages/suggestion.php:750 pages/task.php:660
 msgid "targeted stakeholder group"
-msgstr "docelowa grupa uczestników"
+msgstr "Docelowa grupa uczestników"
 
 #: pages/suggestion.php:754
 msgid "infrastructure"
-msgstr "infrastruktura"
+msgstr "Infrastruktura"
 
 #: pages/suggestion.php:758
 msgid "methodology"
-msgstr "metodologia"
+msgstr "Metodologia"
 
 #: pages/suggestion.php:762
 msgid "content"
-msgstr "treść"
+msgstr "Treść"
 
 #: pages/suggestion.php:777 pages/task.php:675
 msgid "search"
-msgstr "szukaj"
+msgstr "Szukaj"
 
 #: pages/suggestion.php:782 pages/task.php:680
 msgid "date since"
-msgstr "data od"
+msgstr "Data od"
 
 #: pages/suggestion.php:787 pages/task.php:685
 msgid "date till"
-msgstr "data do"
+msgstr "Data do"
 
 #: pages/suggestion.php:792 pages/task.php:690
 msgid "clear filters"
-msgstr "wyczyść filtry"
+msgstr "Wyczyść filtry"
 
 #: pages/task.php:484
 msgid "Filtering"
@@ -500,7 +505,7 @@ msgstr "Udostępnij"
 
 #: singles/suggestion.php:754
 msgid "Suggestions details"
-msgstr "Szczegóły sugestii"
+msgstr "Szczegóły pomysłu"
 
 #: singles/suggestion.php:767 singles/topic.php:808
 msgid "Attachments"
@@ -522,6 +527,7 @@ msgstr "Dodaj komentarz"
 msgid "Submit"
 msgstr "Wyślij"
 
+#. administratora? nie moderatora?
 #: singles/suggestion.php:843 singles/topic.php:874
 msgid "Comments and replies are moderated. Your comment will appear here once the site administrator accepts it."
 msgstr "Komentarze i odpowiedzi są moderowane. Twój komentarz pojawi się tutaj po zaakceptowaniu go przez administratora strony."
@@ -529,7 +535,7 @@ msgstr "Komentarze i odpowiedzi są moderowane. Twój komentarz pojawi się tuta
 #. jakoś inaczej?
 #: singles/suggestion.php:869
 msgid "creator"
-msgstr "twórca"
+msgstr "Twórca"
 
 #: singles/suggestion.php:878 singles/task.php:479 singles/topic.php:912
 msgid "Created"
@@ -540,7 +546,7 @@ msgstr "Utworzony"
 #: singles/task.php:498 singles/task.php:501 singles/topic.php:930
 #: singles/topic.php:933 singles/topic.php:936
 msgid "not specified"
-msgstr "nie określono"
+msgstr "Nie określono"
 
 #: singles/task.php:440
 msgid "Task details"
@@ -553,7 +559,7 @@ msgstr "Powiązany temat"
 #. zastanawiam się nad tym czy jednak nie powinniśmy używac słowa moderator w pl wersji
 #: singles/task.php:471 singles/topic.php:900
 msgid "facilitator"
-msgstr "facylitator"
+msgstr "Facylitator"
 
 #: singles/task.php:480 singles/topic.php:913
 msgid "Valid thru"
@@ -578,7 +584,7 @@ msgstr "Linki zewnętrzne"
 #. za długie - trzeba to prościej nazwać
 #: singles/topic.php:975
 msgid "Original suggestions"
-msgstr "Wersja oryginalna propozycji"
+msgstr "Oryginalna propozycja"
 
 #: pages/home.php:759
 msgid "Let’s shape the face of modern science."
@@ -586,7 +592,7 @@ msgstr "Zmieńmy oblicze współczesnej nauki."
 
 #: pages/home.php:759
 msgid "Join us and change the world."
-msgstr "Dołącz się do nas, by zmieniać świat."
+msgstr "Dołącz do nas, by zmieniać świat."
 
 #: pages/home.php:761
 msgid "Who we are"
@@ -594,7 +600,7 @@ msgstr "Kim jesteśmy"
 
 #: pages/home.php:762
 msgid "home.who.we.are.description"
-msgstr "W skład konsorcjum JoinUs4Health wchodzi 11 partnerów z trzech krajów europejskich. Trzech z nich to instytucje badawcze realizujące populacyjne badania kohortowe w swoich regionach badawczych w Niemczech (Meklemburgia-Pomorze), Holandii (Rotterdam) i Polsce (Białystok)."
+msgstr "W skład konsorcjum JoinUs4Health wchodzi 11 partnerów z trzech krajów europejskich. Trzech z nich to instytucje badawcze realizujące populacyjne badania kohortowe w swoich regionach badawczych w Niemczech (Meklemburgia-Pomerania), Holandii (Rotterdam) i Polsce (Białystok)."
 
 #: pages/home.php:763 pages/home.php:768 pages/home.php:773
 msgid "Read more"
@@ -602,11 +608,11 @@ msgstr "Czytaj więcej"
 
 #: pages/home.php:766
 msgid "How to join us"
-msgstr "Jak dołączyć do nas"
+msgstr "Jak do nas dołączyć"
 
 #: pages/home.php:767
 msgid "home.how.to.join.us.description"
-msgstr "Możesz zgłaszać swoje sugestie, głosować na pozostałe i współtworzyć tematy, pracując nad zadaniami lub w zespołach. Możesz też po prostu możesz usiąść wygodnie i zapoznać się z istniejącymi treściami! Na tej stronie możesz zapoznać się z wszystkimi działaniami."
+msgstr "Możesz zgłaszać swoje pomysły, głosować na pozostałe i współtworzyć tematy, pracując nad zadaniami lub w zespołach. Możesz też po prostu odkrywać istniejące treści! Na tej stronie możesz zapoznać się z wszystkimi działaniami."
 
 #: pages/home.php:771
 msgid "Our rules"
@@ -615,7 +621,7 @@ msgstr "Nasze Zasady"
 #. Potrzebuję wsparcia w tłumaczeniu
 #: pages/home.php:772
 msgid "home.our.rules.description"
-msgstr "Sugestie, komentarze i wypowiedzi są sprawdzane i recenzowane. Kontakty w ramach zespołu są wpierane przez moderatora, którym może być każdy - także Ty. Pomóż nam zapewnić dobrą komunikację i włącz się do współpracy z JoinUs4Health!"
+msgstr "Pomysły, komentarze i działania są sprawdzane i recenzowane, by zapewnić dobre miejsce do współpracy. Kontakty w ramach zespołu są wspierane przez moderatora, którym może być każdy - także Ty. Pomóż nam zapewnić dobrą komunikację i włącz się do współpracy z Wspólnie ku Zdrowiu!"
 
 #: pages/home.php:922
 msgid "Hot topics"
@@ -623,340 +629,362 @@ msgstr "Najpopularniejsze tematy"
 
 #: pages/home.php:967
 msgid "What are topics?"
-msgstr ""
+msgstr "Jakie są tematy?"
 
+#. A plan needs to be outlined, which will be opened for feedback via the platform. - nie wiem jak to przetłumaczyć. Nie rozumiem co autor miał na myśli
 #: pages/home.php:968
 msgid "home.what.are.topics.description.paragraph.1"
-msgstr ""
+msgstr "Tematy są wspierane przez facilitatora. Każdy użytkownik platformy może nim zostać jeśli zgodzi się koordynować komunikację w zespołach i zadaniach. Powinien zostać opracowany plan pracy nad tematem. Będzie on poddany dyskusji na platformie."
 
+#. trzeba to dokończyć, ja dalej nie rozumiem róznicy miedzy moderatorem a facylitatorem....!!!!
 #: pages/home.php:969
 msgid "home.what.are.topics.description.paragraph.2"
-msgstr ""
+msgstr "Aby dać wystarczająco dużo czasu do przemyślenia tematu i znalezienia chętnych do zaangażowania się w niego, pozostaje on widoczny online przez minimum dwa tygodnie, zanim osoby zainteresowane zaczną nad nim pracować. Facilitator daje co miesiąc informację zwrotną moderatorowi. To on jest osobą do kontaktu w grupie."
 
 #: pages/home.php:974
 msgid "Upcoming suggestions"
-msgstr ""
+msgstr "Ostatnio dodane pomysły"
 
 #: pages/home.php:994
 msgid "What are suggestions?"
-msgstr ""
+msgstr "Jakie są pomysły?"
 
+#. propozycja - otwarta do dyskusji
 #: pages/home.php:995
 msgid "home.suggestion.description"
-msgstr ""
+msgstr "Pomysły rozumiemy jako tematy/pytania, pytania badawcze, potrzebę informacji lub szkolenia, propozycję projektu, przykłady dobrych praktyk lub inne rodzaje pomysłów, którymi chcesz się podzielić z innymi. Zaproponuj własny pomysł lub głosuj na pomysły innych, które Cię zainteresowały. Pomimo, że tylko niektóre pomysły będą realizowane w tematach, zespołach czy zadaniach, to każda aktywność na platformie jest ważna dla przyszłych użytkowników platformy, naukowców i rozwoju nauki obywatelskiej."
 
 #: pages/home.php:1004
 msgid "See all tasks"
-msgstr ""
+msgstr "Zobacz wszystkie zadania"
 
+#. nie wiem co należy dodać o tych 15 minutach
 #: pages/home.php:1006
 msgid "home.task.description"
 msgstr ""
+"Zadania są zawsze powiązane z konkretnym tematem. Niektóre zadania powiązane bezpośrednio z projektem Wspólnie ku zdrowiu (np. recenzowanie pomysłów, zostanie facylitatorem, promowanie tematu), inne związane są po prostu z tematem zdrowia.\n"
+"Wystarczy Twoje 15 minut, aby wnieść cenny wkład do tej inicjatywy. "
 
 #: joinus4health.php:231 pages/home.php:1029
 msgid "Working teams"
-msgstr ""
+msgstr "Zespoły"
 
 #: pages/home.php:1030
 msgid "See all teams"
-msgstr ""
+msgstr "Zobacz wszystkie zespoły"
 
+#. do sprawdzenia
 #: pages/home.php:1032
 msgid "home.working.teams.description"
-msgstr ""
+msgstr "Zespoły są zawsze powiązane z jakimś tematem. Zależy nam na tym, by aktywności zespołów odzwierciedlały szeroką perspektywę spojrzeń na dany temat. Wielką szansą jest możliwość współpracy z ludźmi o różnych doświadczeniach, prowadzenia kreatywnych dyskusji z nimi. Efekty tej pracy będą raportowane na platformie"
 
 #: pages/home.php:1046
 msgid "Events"
-msgstr ""
+msgstr "Wydarzenia"
 
 #: pages/home.php:1047
 msgid "See all events"
-msgstr ""
+msgstr "Zobacz wszystkie wydarzenia"
 
+#. nie jestem przekonany
 #: pages/home.php:1049
 msgid "home.events.description"
-msgstr ""
+msgstr "Informacje o wydarzeniach (online i offline) będą publikowane na platformie. Odkrywaj wydarzenia, zapisuj się na nie czy nawet proponuj pasujące Ci terminy. "
 
+#. Moim zdaniem powinniśmy zacząć konsekwentnie używać polskiej nazwy projektu. "Razem dla zdrowia" :)
 #: pages/home.php:1083
 msgid "home.call.to.register"
-msgstr ""
+msgstr "Zarejestruj się i zostań członkiem społeczności Wspólnie ku zdrowiu!"
 
 #: includes/metas.php:8
 msgid "Dutch"
-msgstr ""
+msgstr "Holenderski"
 
 #: includes/metas.php:9
 msgid "English"
-msgstr ""
+msgstr "Angielski"
 
 #: includes/metas.php:10
 msgid "German"
-msgstr ""
+msgstr "Niemiecki"
 
 #: includes/metas.php:11
 msgid "Polish"
-msgstr ""
+msgstr "Polski"
 
 #: includes/metas.php:15
 msgid "Germany"
-msgstr ""
+msgstr "Niemcy"
 
 #: includes/metas.php:16
 msgid "the Netherlands"
-msgstr ""
+msgstr "Holandia"
 
 #: includes/metas.php:17
 msgid "Poland"
-msgstr ""
+msgstr "Polska"
 
 #: includes/metas.php:18 includes/metas.php:53
 msgid "other"
-msgstr ""
+msgstr "Inne"
 
 #: includes/metas.php:22
 msgid "citizens / citizens' organization"
-msgstr ""
+msgstr "Mieszkańcy/ Organizacje społeczne"
 
 #: includes/metas.php:23
 msgid "scientists"
-msgstr ""
+msgstr "Naukowcy"
 
 #: includes/metas.php:24
 msgid "policy makers"
-msgstr ""
+msgstr "Sektor publiczny"
 
 #: includes/metas.php:25
 msgid "business / industry"
-msgstr ""
+msgstr "Biznes/ Przemysł"
 
 #: includes/metas.php:26
 msgid "pupils / students"
-msgstr ""
+msgstr "Uczniowie/ Studenci"
 
 #: includes/metas.php:27
 msgid "other group"
-msgstr ""
+msgstr "Inna grupa"
 
 #: includes/metas.php:31
 msgid "topic of interest"
-msgstr ""
+msgstr "Zainteresowania"
 
 #: includes/metas.php:32
 msgid "research question"
-msgstr ""
+msgstr "Pytanie badawcze"
 
 #: includes/metas.php:33
 msgid "information need"
-msgstr ""
+msgstr "Potrzeba informacji"
 
 #: includes/metas.php:34
 msgid "training need"
-msgstr ""
+msgstr "Potrzeba szkolenia"
 
+#. Nie wiem czy to jest to znaczenie . Gdzie to jest na stronie?
 #: includes/metas.php:35
 msgid "offer"
-msgstr ""
+msgstr "Propozycja"
 
 #: includes/metas.php:36 includes/metas.php:106
 msgid "suggestion"
-msgstr ""
+msgstr "Pomysł"
 
 #: includes/metas.php:37
 msgid "example"
-msgstr ""
+msgstr "Przykład"
 
 #: includes/metas.php:41 includes/metas.php:160
 msgid "co-creation"
-msgstr ""
+msgstr "Współtworzenie"
 
+#. ?
 #: includes/metas.php:42
 msgid "construction"
-msgstr ""
+msgstr "Budowa"
 
 #: includes/metas.php:43
 msgid "promotion"
-msgstr ""
+msgstr "Promowanie"
 
 #: includes/metas.php:44 includes/metas.php:152
 msgid "dissemination"
-msgstr ""
+msgstr "Rozpowszechnianie"
 
+#. ?
 #: includes/metas.php:45
 msgid "reflection"
-msgstr ""
+msgstr "Spostrzeżenie"
 
 #: includes/metas.php:49
 msgid "review posts"
-msgstr ""
+msgstr "Przegląd wpisów"
 
 #: includes/metas.php:50
 msgid "translation"
-msgstr ""
+msgstr "Tłumaczenie"
 
+#. Jeśli nazwiemy facylitatora jakoś bardziej po ludzku to też proponuję zmienić. Wsparcie?
 #: includes/metas.php:51
 msgid "facilitation"
-msgstr ""
+msgstr "Facylitacja"
 
 #: includes/metas.php:52
 msgid "review contents"
-msgstr ""
+msgstr "Przegląd treści"
 
 #: includes/metas.php:96
 msgid "group"
-msgstr ""
+msgstr "Grupa"
 
 #: includes/metas.php:100 includes/metas.php:112
 msgid "platform user"
-msgstr ""
+msgstr "Użytkownik"
 
 #: includes/metas.php:102 includes/metas.php:108 includes/metas.php:114
 msgid "external source"
-msgstr ""
+msgstr "Źródło zewnętrzne"
 
 #: includes/metas.php:107 includes/metas.php:113
 msgid "administrator"
-msgstr ""
+msgstr "Administator"
 
 #: includes/metas.php:118
 msgid "active"
-msgstr ""
+msgstr "Aktywny"
 
 #: includes/metas.php:119
 msgid "continuous"
-msgstr ""
+msgstr "Trwający"
 
 #: includes/metas.php:120
 msgid "closed"
-msgstr ""
+msgstr "Zakończony"
 
 #: includes/metas.php:145
 msgid "brainstorming"
-msgstr ""
+msgstr "Burza mózgów"
 
 #: includes/metas.php:146
 msgid "planing"
-msgstr ""
+msgstr "Planowanie"
 
+#. Czy na pewno? Gdzie to jest na stronie?
 #: includes/metas.php:147
 msgid "design"
-msgstr ""
+msgstr "Projekt"
 
+#. nie jestem pewna - gdzie to jest na www?
 #: includes/metas.php:148
 msgid "collection"
-msgstr ""
+msgstr "Zbiór"
 
 #: includes/metas.php:149
 msgid "analysis"
-msgstr ""
+msgstr "Analiza"
 
 #: includes/metas.php:150
 msgid "interpretation"
-msgstr ""
+msgstr "Interpretacja"
 
 #: includes/metas.php:151
 msgid "communication"
-msgstr ""
+msgstr "Komunikacja"
 
 #: includes/metas.php:153
 msgid "engagement"
-msgstr ""
+msgstr "Zaangażowanie"
 
 #: includes/metas.php:154
 msgid "community building"
-msgstr ""
+msgstr "Budowanie społeczności"
 
 #: includes/metas.php:155
 msgid "monitoring/evaluation"
-msgstr ""
+msgstr "Monitoring/ Ewaluacja"
 
 #: includes/metas.php:159
 msgid "collaboration"
-msgstr ""
+msgstr "Współpraca"
 
 #: includes/metas.php:161
 msgid "crowdsourcing"
-msgstr ""
+msgstr "Crowdsourcing"
 
 #: includes/metas.php:162
 msgid "epidemiology"
-msgstr ""
+msgstr "Epidemiologia"
 
 #: includes/metas.php:163
 msgid "participation"
-msgstr ""
+msgstr "Uczestnictwo"
 
 #: includes/metas.php:164
 msgid "Responsible Research and Innovation"
-msgstr ""
+msgstr "Odpowiedzialne Badania i Innowacje"
 
 #: includes/metas.php:165
 msgid "systems thinking"
-msgstr ""
+msgstr "Myślenie systemowe"
 
 #: includes/metas.php:166
 msgid "transdisciplinarity"
-msgstr ""
+msgstr "Interdyscyplinarność"
 
+#. ?
 #: includes/metas.php:169
 msgid "awarness raising"
-msgstr ""
+msgstr "Podnoszenie świadomości"
 
+#. Ochrona? zależy od kontekstu
 #: includes/metas.php:170
 msgid "prevention"
-msgstr ""
+msgstr "Prewencja"
 
 #: includes/metas.php:171
 msgid "diagnosis"
-msgstr ""
+msgstr "Diagnoza"
 
 #: includes/metas.php:172
 msgid "surveillance"
-msgstr ""
+msgstr "Nadzór"
 
 #: includes/metas.php:173
 msgid "therapy"
-msgstr ""
+msgstr "Terapia"
 
 #: includes/metas.php:174
 msgid "working together"
-msgstr ""
+msgstr "Wspólna praca"
 
 #: joinus4health.php:238
 msgid "Register"
-msgstr ""
+msgstr "Rejestracja"
 
 #: joinus4health.php:240
 msgid "Log In"
-msgstr ""
+msgstr "Logowanie"
 
 #: joinus4health.php:241
 msgid "Join us"
-msgstr ""
+msgstr "Dołącz do nas"
 
+#. Raczej: strona główna
 #: joinus4health.php:242
 msgid "Home"
-msgstr ""
+msgstr "Strona główna"
 
 #: pages/home.php:871
 msgid "Main focus area"
-msgstr ""
+msgstr "Główny obszar zainteresowań"
 
 #: pages/home.php:885 pages/home.php:902
 msgid "Learn more"
-msgstr ""
+msgstr "Dowiedz się więcej"
 
+#. było "nt." ale zerknęłam na platformę i na stronę i wygląda na to, że "of" jest tam użyte w funkcji dopełniacza, więc najwłaściwiej będzie nie tłumaczyć w ogóle
 #: pages/home.php:910
 msgid "of"
-msgstr ""
+msgstr "z"
 
 #: pages/home.php:970
 msgid "Browse topics"
-msgstr ""
+msgstr "Przeglądaj tematy"
 
 #: pages/home.php:996
 msgid "Browse suggestions"
-msgstr ""
+msgstr "Przeglądaj pomysły"
 
 #: pages/suggestion.php:734
 msgid "country"
-msgstr ""
+msgstr "Kraj"
+
+msgid "footer.text"
+msgstr "JoinUs4Health jest finansowane przez Program Ramowy Unii Europejskiej Horyzont 2020 na podstawie umowy grantowej nr 101006518. Poglądy i opinie wyrażone na tej stronie są wyłącznie poglądami autorów i w żadnym wypadku nie mogą być traktowane jako oficjalne stanowisko Komisji Europejskiej."

@@ -959,3 +959,6 @@ msgstr "Vorschläge durchsuchen"
 #: pages/suggestion.php:734
 msgid "country"
 msgstr "Land"
+
+msgid "footer.text"
+msgstr "JoinUs4Health wird gefördert durch das Horizon 2020 Rahmenprogramm der Europäischen Union unter der Grant Agreement No. 101006518. Die auf dieser Website geäußerten Ansichten und Meinungen sind ausschließlich die der Autoren und dürfen unter keinen Umständen als offizielle Position der Europäischen Kommission angesehen werden."

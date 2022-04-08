@@ -333,3 +333,17 @@ ul.sub-menu li a:hover {
     color: #000000 !important;
     background-color: #efe733;
 }
+
+.footer-content-xtra {
+    display: flex;
+}
+
+.footer-content-xtra img {
+    width: 82px;
+    height: 55px;
+    flex: 0 0 82px;
+}
+
+.footer-content-xtra p {
+    margin-left: 30px;
+}

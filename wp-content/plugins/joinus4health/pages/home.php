@@ -907,7 +907,7 @@ echo get_js_load_href();
                 <?php if (count($slides) > 1): ?>
                 <div class="layer0x0 item">
                     <div class="paginator">
-                        <div class="text" data-of="<?= __('of', 'joinus4health') ?>">1 of <?= count($slides) ?></div>
+                        <div class="text" data-of="<?= __('of', 'joinus4health') ?>">1 <?= __('of', 'joinus4health') ?> <?= count($slides) ?></div>
                         <?php $i = 0 ?>
                         <?php foreach ($slides as $slide): ?>
                         <div class="dot<?= ($i++ == 0) ? '-active' : '' ?>"></div>

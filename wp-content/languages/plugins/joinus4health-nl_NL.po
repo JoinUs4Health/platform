@@ -13,6 +13,7 @@ msgstr ""
 
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
+#, fuzzy
 msgid "Following"
 msgstr "Volgend"
 
@@ -22,6 +23,7 @@ msgstr "Volgen"
 
 #: includes/layouts.php:124 singles/suggestion.php:747
 #: singles/suggestion.php:885 singles/topic.php:786 singles/topic.php:919
+#, fuzzy
 msgid "Contributing"
 msgstr "Bijdragende"
 
@@ -56,11 +58,11 @@ msgstr "Kopiëren"
 
 #: includes/layouts.php:315 singles/suggestion.php:828
 msgid "Reply to"
-msgstr "Antwoord aan"
+msgstr "Beantwoorden"
 
 #: includes/layouts.php:315 singles/suggestion.php:828
 msgid "comment"
-msgstr "opmerking"
+msgstr "Opmerking"
 
 #: includes/layouts.php:325
 msgid "Confirm action"
@@ -954,3 +956,6 @@ msgstr ""
 #: pages/suggestion.php:734
 msgid "country"
 msgstr ""
+
+msgid "footer.text"
+msgstr "JoinUs4Health wordt gefinancierd door het kaderprogramma Horizon 2020 van de Europese Unie onder subsidieovereenkomst nr. 101006518. De standpunten en meningen op deze website zijn uitsluitend die van de auteurs en mogen in geen geval worden beschouwd als een officieel standpunt van de Europese Commissie."
