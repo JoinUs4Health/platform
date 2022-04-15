@@ -345,5 +345,67 @@ ul.sub-menu li a:hover {
 }
 
 .footer-content-xtra p {
+    font-size: 12px;
     margin-left: 30px;
+    text-align: left;
+    color: #656d75;
+}
+
+.footer-separator {
+    height: 1px;
+    background-color: #181b1e;
+    margin-bottom: 32px;
+}
+
+.footer-links {
+    display: flex;
+    margin-bottom: 32px;
+}
+
+.footer-links a {
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #808a95;
+    flex: 0 0 auto;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-links .separator {
+    flex: 0 0 auto;
+    color: #808a95;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #808a95;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.footer-links .space {
+    flex: 1 0 0;
+}
+
+.footer-links .text {
+    flex: 0 0 auto;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #808a95;
+}
+
+.footer-links .text a {
+    text-decoration: underline;
 }

@@ -243,6 +243,13 @@ function add_language_vars() {
             'var home_text = "'.__('Home', 'joinus4health').'";'.
             'var home_url = "'. home_url().'";'.
             'var is_logged_in = '.(is_user_logged_in() ? 'true' : 'false').';'.
+            'var error_username_empty = "'.__('Username field cannot be empty', 'joinus4health').'";'.
+            'var error_password_empty = "'.__('Password field cannot be empty', 'joinus4health').'";'.
+            'var error_password_confirm_empty = "'.__('Password confirmation field cannot be empty', 'joinus4health').'";'.
+            'var error_password_confirm_mismatch = "'.__('Password confirmation mismatch', 'joinus4health').'";'.
+            'var error_password_too_weak = "'.__('Password is too weak', 'joinus4health').'";'.
+            'var error_email_empty = "'.__('E-mail field cannot be empty', 'joinus4health').'";'.
+            'var error_email_invalid = "'.__('E-mail format is invalid', 'joinus4health').'";'.
          '</script>';
 }
 add_action('wp_head', 'add_language_vars', 1, 1);
@@ -430,4 +437,47 @@ function username_rewrite_to_field_1_on_edit_profile($field) {
     }
 }
 add_action('xprofile_profile_field_data_updated', 'username_rewrite_to_field_1_on_edit_profile');
+
+function profile_privacy_redirect() {
+    if (!bp_is_user()) {
+        return;
+    }
+    
+    if (current_user_can('manage_options')) {
+        return;
+    }
+    
+    if (bp_loggedin_user_id() == bp_displayed_user_id()) {
+        return;
+    }
+    
+    bp_core_redirect(home_url());
+}
+add_action('init', 'profile_privacy_redirect');
+
+function members_redirect() {
+    if (!bp_is_members_directory()) {
+        return;
+    }
+    
+    if (current_user_can('manage_options')) {
+        return;
+    }
+    
+    bp_core_redirect(home_url());
+}
+add_action('init', 'members_redirect');
+
+function group_members_redirect() {
+    if (!bp_is_group_members()) {
+        return;
+    }
+    
+    if (current_user_can('manage_options')) {
+        return;
+    }
+    
+    bp_core_redirect(home_url());
+}
+add_action('init', 'group_members_redirect');
 

@@ -13,7 +13,18 @@ astra_content_bottom(); ?>
                         <div class="site-footer-primary-section-1 site-footer-section site-footer-section-1">
                             <div class="footer-widget-area widget-area site-footer-focus-item ast-footer-html-1" data-section="section-fb-html-1">
                                 <div class="ast-header-html inner-link-style-">
-                                    <div class="ast-builder-html-element footer-content-xtra">
+                                    <div class="footer-links">
+                                        <a href="<?= home_url() ?>/privacy-policy/"><?= __('Privacy statement', 'joinus4health') ?></a>
+                                        <div class="separator">&bull;</div>
+                                        <a href="<?= home_url() ?>/terms-of-use/"><?= __('Terms of use', 'joinus4health') ?></a>
+                                        <div class="separator">&bull;</div>
+                                        <a href="<?= home_url() ?>/legal-notice/"><?= __('Legal notice', 'joinus4health') ?></a>
+                                        <div class="space"></div>
+                                        <div class="text"><?= __('To report abuse please email to', 'joinus4health') ?> <a href="mailto:abuse@joinus4health.eu">abuse@joinus4health.eu</a></div>
+                                    </div>
+                                    <div class="footer-separator">
+                                    </div>
+                                    <div class="footer-content-xtra">
                                         <img src="<?= home_url().'/wp-content/themes/astra-child/img/flag_eu-300x201.jpeg' ?>">
                                         <p><?= __('footer.text', 'joinus4health') ?></p>
                                     </div>

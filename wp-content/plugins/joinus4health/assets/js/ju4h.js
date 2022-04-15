@@ -1,3 +1,23 @@
+function checkEmail(emailAddress) {
+    var sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
+    var sDtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
+    var sAtom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
+    var sQuotedPair = '\\x5c[\\x00-\\x7f]';
+    var sDomainLiteral = '\\x5b(' + sDtext + '|' + sQuotedPair + ')*\\x5d';
+    var sQuotedString = '\\x22(' + sQtext + '|' + sQuotedPair + ')*\\x22';
+    var sDomain_ref = sAtom;
+    var sSubDomain = '(' + sDomain_ref + '|' + sDomainLiteral + ')';
+    var sWord = '(' + sAtom + '|' + sQuotedString + ')';
+    var sDomain = sSubDomain + '(\\x2e' + sSubDomain + ')*';
+    var sLocalPart = sWord + '(\\x2e' + sWord + ')*';
+    var sAddrSpec = sLocalPart + '\\x40' + sDomain; // complete RFC822 email address spec
+    var sValidEmail = '^' + sAddrSpec + '$'; // as whole string
+
+    var reValidEmail = new RegExp(sValidEmail);
+
+    return reValidEmail.test(emailAddress);
+}
+
 function check_pass_strength() {
         var pass1 = $( '.password-entry' ).val(),
             pass2 = $( '.password-entry-confirm' ).val(),
@@ -39,71 +59,84 @@ function check_pass_strength() {
 
 $(document).ready(function() {
     if ($('#signup_form').length || $('#profile-edit-form').length) {
+        var signup_errors = []; //initially errors
+        
         $("#field_1").attr('disabled', true);
         $('div.field_1').hide();
-        $('#signup_submit').attr('disabled', true);
-        $('#signup_username').attr('maxlength', 20);
-        $('#field_1').attr('maxlength', 20);
+        $('#signup_username').attr('maxlength', 42);
+        $('#field_1').attr('maxlength', 42);
 
-        setTimeout(signup_check_is_valid, 5000);
+        setTimeout(signup_check_is_valid, 1000);
         
         function signup_check_is_valid() {
             check_pass_strength();
-            errors = 0;
+            errors = [];
             
             if ($('#signup_username').val().length == 0)
-                errors++;
+                errors.push(error_username_empty);
 
-            if ($('#signup_username').val().length > 20)
-                errors++;
+            if ($('#signup_email').val().length == 0)
+                errors.push(error_email_empty);
+            else if (!checkEmail($('#signup_email').val()))
+                errors.push(error_email_invalid);
 
             if ($('#signup_password').val().length == 0)
-                errors++;
-
-            if ($('#signup_password_confirm').val().length == 0)
-                errors++;
-
-            if ($('#signup_password').val() != $('#signup_password_confirm').val())
-                errors++;
-
-            if (!($('#pass-strength-result').hasClass('strong')))
-                errors++;
-
-            if (errors == 0) {
-                $('#signup_submit').removeAttr('disabled');
-            } else {
-                $('#signup_submit').attr('disabled', true);
-            }
-    
+                errors.push(error_password_empty);
+            else if ($('#signup_password_confirm').val().length == 0)
+                errors.push(error_password_confirm_empty);
+            else if ($('#signup_password').val() != $('#signup_password_confirm').val())
+                errors.push(error_password_confirm_mismatch);
+            else if (!($('#pass-strength-result').hasClass('strong')))
+                errors.push(error_password_too_weak);
+            
+            signup_errors = errors;
             setTimeout(signup_check_is_valid, 1000);
         }
+        
+        $("#signup_submit").click(function(e) {
+            if (signup_errors.length > 0) {
+                signup_errors_str = '';
+                for (signup_error in signup_errors) {
+                    signup_errors_str += '- '+signup_errors[signup_error]+"\n";
+                }
+                alert(signup_errors_str);
+                e.preventDefault();
+            }
+        });
     }
     
     if ($('#settings-form').length) {
-        setTimeout(settings_is_valid, 5000);
+        var settings_errors = []; //initially errors
+        
+        setTimeout(settings_is_valid, 1000);
 
         function settings_is_valid() {
-            console.log("ok");
             check_pass_strength();
-            errors = 0;
+            errors = [];
             
             if ($('#pass1').val().length > 0) {
-                if ($('#pass1').val() != $('#pass2').val())
-                    errors++;
-
-                if (!($('#pass-strength-result').hasClass('strong')))
-                    errors++;
+                if ($('#pass2').val().length == 0)
+                    errors.push(error_password_confirm_empty);
+                else if ($('#pass1').val() != $('#pass2').val())
+                    errors.push(error_password_confirm_mismatch);
+                else if (!($('#pass-strength-result').hasClass('strong')))
+                    errors.push(error_password_too_weak);
             }
             
-            if (errors == 0) {
-                $('#settings-form #submit').removeAttr('disabled');
-            } else {
-                $('#settings-form #submit').attr('disabled', true);
-            }
-            
-            console.log("ok2");
+            settings_errors = errors;
             setTimeout(settings_is_valid, 1000);
         }
+        
+        $("#settings-form #submit").click(function(e) {
+            if (settings_errors.length > 0) {
+                settings_errors_str = '';
+                for (settings_error in settings_errors) {
+                    settings_errors_str += '- '+settings_errors[settings_error]+"\n";
+                }
+                alert(settings_errors_str);
+                e.preventDefault();
+            }
+        });
     }
     
     $(".ast-main-header-bar-alignment").append(
