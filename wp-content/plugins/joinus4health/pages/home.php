@@ -261,7 +261,7 @@ echo get_js_load_href();
             letter-spacing: normal;
             color: #ffffff;
             margin-left: 36px;
-            width: 337px;
+            width: 500px;
             margin-top: 12px;
         }
         
