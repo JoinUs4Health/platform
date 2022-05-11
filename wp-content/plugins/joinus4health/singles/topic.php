@@ -20,6 +20,8 @@ echo get_js_script_contribute(get_the_permalink());
 echo get_js_load_href();
 html_modal_share(get_the_permalink());
 html_modal_uncontribute();
+html_modal_contribute();
+html_modal_follow();
 ?>
     <style>
         .ast-container {

@@ -46,11 +46,31 @@ function ju4htask_custom_post_type() {
 add_action('init', 'ju4htask_custom_post_type', 0);
 
 function add_meta_boxes_ju4htask_callback($post) {
+    add_meta_box('container_followers_and_contributors', __('Contributors'), 'add_meta_box_ju4htask_contributors_callback', 'ju4htask', 'normal', 'low');
     add_meta_box('container_title', __('Title'), 'add_meta_box_ju4htask_title_callback', 'ju4htask', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4htask_description_callback', 'ju4htask', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4htask_additional_fields_callback', 'ju4htask', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htask', 'add_meta_boxes_ju4htask_callback');
+
+function add_meta_box_ju4htask_contributors_callback($post) {
+    $m_contributors = get_post_meta($post->ID, 'm_contributes');
+    $users = array(_('Contributors') => $m_contributors);
+    
+    foreach ($users as $caption => $list) {
+        $i = 0;
+        echo '<p><b>'.$caption.'</b>';
+        if (!empty($list)) {
+            $query = new WP_User_Query(array('include' => $list));
+            foreach ($query->get_results() as $user) {
+                echo (($i++ == 0) ? ': ' : ', ').'<a href="'. bp_core_get_userlink($user->ID, false, true).'">'.$user->display_name.'</a>';
+            }
+        } else {
+            echo ': '._('No users found.');
+        }
+        echo '</p>';
+    }
+}
 
 function add_meta_box_ju4htask_additional_fields_callback($post) {
     global $meta_languages, $meta_task_types, $meta_stakeholder_group, $meta_task_duration, $meta_task_level, $meta_task_source;

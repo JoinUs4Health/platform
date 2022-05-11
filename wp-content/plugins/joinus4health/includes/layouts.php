@@ -90,6 +90,7 @@ function get_js_script_follow($url) {
                         $('#item-follows-' + elId).text(data.follows);
                         
                         if (elOperation == "follow") {
+                            $("#modal-follow").modal();
                             $("#item-follow-" + elId).attr("class", "btn item-unfollow");
                         } else {
                             $("#item-follow-" + elId).attr("class", "btn item-follow");
@@ -121,8 +122,9 @@ function get_js_script_contribute($url) {
                     if (data.error) {
                         alert(data.error);
                     } else {
-                        $('.item-contribute > div.text').html("<?= __("Contributing", 'joinus4health') ?>");
-                        $('.item-contribute > svg').replaceWith(feather.icons['check'].toSvg());            
+                        $("#modal-contribute").modal();
+                        $('.item-contribute div.text').html("<?= __("Contributing", 'joinus4health') ?>");
+                        $('.item-contribute svg').replaceWith(feather.icons['check'].toSvg());            
                         $('#item-contributes-' + elId).text(data.contributes);
                         $("#item-contribute-" + elId).attr("class", "black-btn item-uncontribute");
                     }
@@ -131,10 +133,10 @@ function get_js_script_contribute($url) {
         });
         
         $(document).on('click', ".item-uncontribute", function() {
-            $("#modal-uncontriubute").modal();
+            $("#modal-uncontribute").modal();
         });
         
-        $(document).on('click', "#uncontriubute-yes", function() {
+        $(document).on('click', "#uncontribute-yes", function() {
             elOperation = "uncontribute";
             elId = $(".item-uncontribute").attr("data-id");
 
@@ -146,8 +148,8 @@ function get_js_script_contribute($url) {
                     if (data.error) {
                         alert(data.error);
                     } else {
-                        $('.item-uncontribute > div.text').html("<?= __("Contribute", 'joinus4health') ?>");
-                        $('.item-uncontribute > svg').replaceWith(feather.icons['user-plus'].toSvg());
+                        $('.item-uncontribute div.text').html("<?= __("Contribute", 'joinus4health') ?>");
+                        $('.item-uncontribute svg').replaceWith(feather.icons['user-plus'].toSvg());
                         $('#item-contributes-' + elId).text(data.contributes);
                         $("#item-contribute-" + elId).attr("class", "black-btn item-contribute");
                     }
@@ -318,12 +320,36 @@ function js_add_or_reply_comment() {
 
 function html_modal_uncontribute() {
 ?>
-<div id="modal-uncontriubute" class="modal">
+<div id="modal-uncontribute" class="modal">
     <h4><?= __('Confirm action', 'joinus4health') ?></h4>
     <div class="text"><?= __('Do you want to cancel your contribution?', 'joinus4health') ?></div>
     <div class="buttons">
-        <a href="#" rel="modal:close" id="uncontriubute-yes" class="blackbtn"><?= __('Yes', 'joinus4health') ?></a>
+        <a href="#" rel="modal:close" id="uncontribute-yes" class="blackbtn"><?= __('Yes', 'joinus4health') ?></a>
         <a href="#" rel="modal:close"><?= __('No', 'joinus4health') ?></a>
+    </div>
+</div>
+<?php
+}
+
+function html_modal_follow() {
+?>
+<div id="modal-follow" class="modal">
+    <h4><?= __('Confirm action', 'joinus4health') ?></h4>
+    <div class="text"><?= __('You will receive a message if important updates or activities occur.', 'joinus4health') ?></div>
+    <div class="buttons">
+        <a href="#" rel="modal:close"><?= __('Ok', 'joinus4health') ?></a>
+    </div>
+</div>
+<?php
+}
+
+function html_modal_contribute() {
+?>
+<div id="modal-contribute" class="modal">
+    <h4><?= __('Confirm action', 'joinus4health') ?></h4>
+    <div class="text"><?= __('The facilitator will contact you with further information.', 'joinus4health') ?></div>
+    <div class="buttons">
+        <a href="#" rel="modal:close"><?= __('Ok', 'joinus4health') ?></a>
     </div>
 </div>
 <?php

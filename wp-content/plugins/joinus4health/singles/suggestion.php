@@ -20,6 +20,8 @@ echo get_js_load_href();
 js_add_or_reply_comment();
 html_modal_share(get_the_permalink());
 html_modal_uncontribute();
+html_modal_contribute();
+html_modal_follow();
 ?>
     <style>
         .ast-container {
@@ -744,7 +746,7 @@ html_modal_uncontribute();
             <?php $is_contributing = (is_array($m_contributes) && in_array(get_current_user_id(), $m_contributes)) ?>
             <div class="black-btn <?= $is_contributing ? 'item-uncontribute' : 'item-contribute' ?>" data-id="<?= $suggestion_post->ID ?>" id="item-contribute-<?= $suggestion_post->ID ?>">
                 <i data-feather="<?= $is_contributing ? 'check' : 'user-plus' ?>"></i>
-                <div class="text"><?= $is_following ? __('Contributing', 'joinus4health') : __("Contribute", 'joinus4health') ?></div>
+                <div class="text"><?= $is_contributing ? __('Contributing', 'joinus4health') : __("Contribute", 'joinus4health') ?></div>
             </div>
         </div>
     </div> 

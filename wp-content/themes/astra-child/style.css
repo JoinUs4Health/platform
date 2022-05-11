@@ -252,12 +252,12 @@ Share modal - end
 /*
 Uncontribute modal style - start
 */
-#modal-uncontriubute {
+#modal-uncontribute {
     width: 500px;
     padding: 0;
 }
 
-#modal-uncontriubute h4 {
+#modal-uncontribute h4 {
     padding-left: 24px;
     line-height: 72px;
     font-size: 18px;
@@ -268,7 +268,7 @@ Uncontribute modal style - start
     color: #3b4045;
 }
 
-#modal-uncontriubute div.text {
+#modal-uncontribute div.text {
     font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
@@ -279,14 +279,14 @@ Uncontribute modal style - start
     padding: 0 25px;
 }
 
-#modal-uncontriubute div.buttons {
+#modal-uncontribute div.buttons {
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
     margin: 0 24px 24px 24px;
 }
 
-#modal-uncontriubute div.buttons a {
+#modal-uncontribute div.buttons a {
     display: inline-block;
     height: 48px;
     line-height: 48px;
@@ -303,7 +303,7 @@ Uncontribute modal style - start
 }
 
 
-#modal-uncontriubute div.buttons a.blackbtn {
+#modal-uncontribute div.buttons a.blackbtn {
     background-color: #000000;
     color: #ffffff;
 }
@@ -316,8 +316,156 @@ Uncontribute modal style - start
     z-index: auto;
 }
 /*
-Share modal - end
+Uncontribute modal style - end
 */
+
+
+/*
+Contribute modal style - start
+*/
+#modal-contribute {
+    width: 500px;
+    padding: 0;
+}
+
+#modal-contribute h4 {
+    padding-left: 24px;
+    line-height: 72px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #3b4045;
+}
+
+#modal-contribute div.text {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #3b4045;
+    padding: 0 25px;
+}
+
+#modal-contribute div.buttons {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 0 24px 24px 24px;
+}
+
+#modal-contribute div.buttons a {
+    display: inline-block;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 4px;
+    border: solid 1px #dde1e5;
+    background-color: #f9f9fa;
+    margin-right: 12px;
+    margin-top: 20px;
+    flex: 0 0 auto;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+    padding: 0 25px 0 25px;
+}
+
+
+#modal-contribute div.buttons a.blackbtn {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.site-header { 
+    z-index: auto;
+}
+
+.main-header-bar {
+    z-index: auto;
+}
+/*
+Contribute modal style - end
+*/
+
+
+
+
+/*
+Follow modal style - start
+*/
+#modal-follow {
+    width: 500px;
+    padding: 0;
+}
+
+#modal-follow h4 {
+    padding-left: 24px;
+    line-height: 72px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #3b4045;
+}
+
+#modal-follow div.text {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #3b4045;
+    padding: 0 25px;
+}
+
+#modal-follow div.buttons {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 0 24px 24px 24px;
+}
+
+#modal-follow div.buttons a {
+    display: inline-block;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 4px;
+    border: solid 1px #dde1e5;
+    background-color: #f9f9fa;
+    margin-right: 12px;
+    margin-top: 20px;
+    flex: 0 0 auto;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+    padding: 0 25px 0 25px;
+}
+
+
+#modal-follow div.buttons a.blackbtn {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.site-header { 
+    z-index: auto;
+}
+
+.main-header-bar {
+    z-index: auto;
+}
+/*
+Follow modal style - end
+*/
+
+
+
+
 
 ul.sub-menu li {
     border: 1px solid #656d75;

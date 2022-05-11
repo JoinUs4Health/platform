@@ -8,9 +8,16 @@ the_post();
 $task = $post;
 $meta = get_post_meta(get_the_ID());
 get_header();
+?>
+<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/jquery.modal.min.css" />
+<?php
 echo get_js_script_voting(get_the_permalink());
+echo get_js_script_contribute(get_the_permalink());
 echo get_js_script_follow(get_the_permalink());
 echo get_js_load_href();
+html_modal_uncontribute();
+html_modal_contribute();
 $preferred_language = get_preferred_language();
 ?>
     <style>
@@ -412,8 +419,8 @@ $preferred_language = get_preferred_language();
             color: #3b4045;
         }
         
-        .ast-container .second-column .estimate input.btn-contribute {
-            width: 100%;
+        .ast-container .second-column .estimate .black-btn {
+            cursor: pointer;
             height: 52px;
             border-radius: 4px;
             background-color: #000000;
@@ -426,7 +433,41 @@ $preferred_language = get_preferred_language();
             text-align: center;
             color: #ffffff;
             margin-top: 20px;
+            text-align: center;
         }
+        
+        .ast-container .second-column .estimate .black-btn:hover {
+            background-color: #777777;
+        }
+        
+        .ast-container .second-column .estimate .black-btn .content {
+            display: inline-block;
+            margin: 12px auto 0 auto;
+        }
+        
+        .ast-container .second-column .estimate .black-btn .content svg {
+            float: left;
+            width: 17px;
+            height: 17px;
+            margin-top: 3px;
+            margin-right: 8px;
+        }
+        
+        .ast-container .second-column .estimate .black-btn .content div.text {
+            float: left;
+        }
+        
+        
+        .ast-container .second-column .estimate .item-contribute {
+            background-color: #000000;
+            color: #dde1e5;
+        }
+        
+        .ast-container .second-column .estimate .item-uncontribute {
+            background-color: #efe733;
+            color: #000000;
+        }
+        
     </style>
     <div class="bread-crumb">
         <a href="<?= home_url() ?>" class="homepage"><i data-feather="home"></i></a>
@@ -506,7 +547,14 @@ $preferred_language = get_preferred_language();
         <div class="estimate column-common-border-style">
             <h6><?= __('Time estimate', 'joinus4health') ?></h6>
             <div class="time"><?= $meta_task_duration[$m_duration] ?></div>
-            <input type="button" class="btn-contribute" value="<?= __('Contribute', 'joinus4health') ?>" />
+            <?php $m_contributes = get_post_meta($task->ID, "m_contributes"); ?>
+            <?php $is_contributing = (is_array($m_contributes) && in_array(get_current_user_id(), $m_contributes)) ?>
+            <div class="black-btn <?= $is_contributing ? 'item-uncontribute' : 'item-contribute' ?>" data-id="<?= $task->ID ?>" id="item-contribute-<?= $task->ID ?>">
+                <div class="content">
+                    <i data-feather="<?= $is_contributing ? 'check' : 'user-plus' ?>"></i>
+                    <div class="text"><?= $is_contributing ? __('Contributing', 'joinus4health') : __("Contribute", 'joinus4health') ?></div>
+                </div>
+            </div>
         </div>
         <?php endif; ?>
     </div>

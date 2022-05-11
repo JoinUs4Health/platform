@@ -278,6 +278,7 @@ function add_jquery_feather_icons_script() {
     if ($locale != null) {
         $mo_file_default = WP_CONTENT_DIR.'/languages/'.$locale.'.mo';
         $mo_file = WP_CONTENT_DIR.'/languages/plugins/joinus4health-'.$locale.'.mo';
+        $mo_file_buddypress = WP_CONTENT_DIR.'/languages/plugins/buddypress-'.$locale.'.mo';
 
         if (file_exists($mo_file)) {
             unload_textdomain('joinus4health');
@@ -287,6 +288,11 @@ function add_jquery_feather_icons_script() {
         if (file_exists($mo_file_default)) {
             unload_textdomain('default');
             load_textdomain('default', $mo_file_default);
+        }
+        
+        if (file_exists($mo_file_buddypress)) {
+            unload_textdomain('buddypress');
+            load_textdomain('buddypress', $mo_file_buddypress);
         }
     }
     

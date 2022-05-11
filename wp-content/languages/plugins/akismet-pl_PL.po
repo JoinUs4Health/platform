@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Akismet Spam Protection - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-09-24 07:24:59+0000\n"
+"PO-Revision-Date: 2021-09-06 06:05:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -493,7 +493,7 @@ msgstr "Data następnego pobrania opłaty"
 
 #: views/config.php:216
 msgid "Active"
-msgstr "Włączono"
+msgstr "Aktywny"
 
 #: views/config.php:214
 msgid "No Subscription Found"
@@ -505,7 +505,7 @@ msgstr "Brakujące"
 
 #: views/config.php:210
 msgid "Suspended"
-msgstr "Zawieszone"
+msgstr "Zawieszony"
 
 #: views/config.php:208
 msgid "Cancelled"
@@ -657,7 +657,7 @@ msgstr[2] "%s zatwierdzonych"
 
 #: class.akismet-admin.php:553
 msgid "History"
-msgstr "Historia"
+msgstr "Oś czasu"
 
 #: class.akismet-admin.php:553 class.akismet-admin.php:561
 msgid "View comment history"
@@ -755,7 +755,7 @@ msgstr "Stan abonamentu - aktywny, anulowany lub zawieszony"
 
 #: class.akismet-admin.php:258 views/config.php:203
 msgid "Status"
-msgstr "Status"
+msgstr "Stan"
 
 #: class.akismet-admin.php:257
 msgid "The Akismet subscription plan"
