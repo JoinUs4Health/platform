@@ -73,8 +73,9 @@ echo get_js_load_href();
         }
         
         .site-primary-header-wrap {
-            max-width: 1270px !important;
+            max-width: 1330px !important;
             margin-bottom: 0 !important;
+            padding: 0 30px !important;
         }
         
         .ast-container .yellow-section {
@@ -85,10 +86,11 @@ echo get_js_load_href();
         
         .ast-container .yellow-section .tri-column-container { 
             margin: 0 auto;
-            width: 1270px;
+            width: 1330px;
             display: flex;
             align-items: flex-start;
             flex-flow: row wrap;
+            padding: 0 30px;
         }
         
         .ast-container .yellow-section ::selection {
@@ -183,10 +185,11 @@ echo get_js_load_href();
         
         .ast-container .white-section .slider-container {
             margin: 0 auto 20px auto;
-            width: 1270px;
+            width: 1330px;
             display: flex;
             align-items: flex-start;
             flex-flow: row wrap;
+            padding: 0 30px;
         }
         
         .ast-container .white-section .slider-container .header {
@@ -324,10 +327,11 @@ echo get_js_load_href();
         
         .ast-container .white-section .two-column-container {
             margin: 0 auto 20px auto;
-            width: 1270px;
+            width: 1330px;
             display: flex;
             align-items: flex-start;
             flex-flow: row wrap;
+            padding: 0 30px;
         }
         
         .ast-container .white-section .two-column-container .header {
@@ -524,11 +528,12 @@ echo get_js_load_href();
         
         .ast-container .grey-section .four-column-container {
             margin: 0 auto;
-            width: 1270px;
+            width: 1330px;
             display: flex;
             align-items: flex-start;
             flex-flow: row wrap;
             column-gap: 15px;
+            padding: 0 30px;
         }
         
         .ast-container .grey-section .four-column-container .separator {
