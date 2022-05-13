@@ -487,3 +487,57 @@ function group_members_redirect() {
 }
 add_action('init', 'group_members_redirect');
 
+add_filter('bp_email_set_reply_to', function($retval) {
+    return new BP_Email_Recipient('contact@joinus4health.eu');
+});
+
+add_filter('bp_core_send_user_registration_admin_notification', function($retval) {
+    return false;
+});
+
+function ju4h_comment_moderation_text($notify_message, $comment_id ) {
+    $comment = get_comment($comment_id);
+    $post    = get_post($comment->comment_post_ID );
+    
+    switch ($comment->comment_type) {
+        case 'trackback':
+            $notify_message  = sprintf( __( 'A new trackback on the post "%s" is waiting for your approval' ), $post->post_title ) . "\r\n";
+            break;
+        case 'pingback':
+            $notify_message  = sprintf( __( 'A new pingback on the post "%s" is waiting for your approval' ), $post->post_title ) . "\r\n";
+            break;
+        default:
+            $notify_message  = sprintf( __( 'A new comment on the post "%s" is waiting for your approval' ), $post->post_title ) . "\r\n";
+            break;
+    }
+    return $notify_message;
+}
+add_filter( 'comment_moderation_text', 'ju4h_comment_moderation_text', 10, 2);
+        
+function ju4h_comment_notification_text($notify_message, $comment_id) {
+    $comment = get_comment($comment_id);
+    $post   = get_post($comment->comment_post_ID);
+    
+    switch ($comment->comment_type) {
+        case 'trackback':
+            $notify_message = sprintf( __( 'New trackback on your post "%s"' ), $post->post_title ) . "\r\n";
+            break;
+        case 'pingback':
+            $notify_message = sprintf( __( 'New pingback on your post "%s"' ), $post->post_title ) . "\r\n";
+            break;
+        default:
+            $notify_message = sprintf( __( 'New comment on your post "%s"' ), $post->post_title ) . "\r\n";
+            break;
+    }
+    return $notify_message;
+}
+add_filter('comment_notification_text', 'ju4h_comment_notification_text', 10, 2);
+
+function ju4h_rest_api_init() {
+    $whitelist = array('127.0.0.1', '::1');
+    
+    if (!in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+        die('REST API DISABLED');
+    }
+}
+add_action('rest_api_init', 'ju4h_rest_api_init');
