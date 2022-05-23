@@ -280,7 +280,7 @@ function html_modal_share($permalink) {
     <div class="separator"></div>
     <div class="methods">
         <div class="method">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=#url" class="fb"><i data-feather="facebook"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($permalink) ?>" class="fb"><i data-feather="facebook"></i></a>
             <span><?= __('Facebook', 'joinus4health') ?></span>
         </div>
         <div class="method">
