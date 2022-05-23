@@ -255,6 +255,7 @@ function add_language_vars() {
 add_action('wp_head', 'add_language_vars', 1, 1);
 
 function add_jquery_feather_icons_script() {
+    global $post;
     global $meta_languages, $meta_countries, $meta_stakeholder_group;
     global $meta_suggestion_types, $meta_topic_types, $meta_task_types;
     global $meta_task_duration, $meta_suggestion_duration;
@@ -266,7 +267,17 @@ function add_jquery_feather_icons_script() {
 
     global $wp_locale;
     
-    wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery.min.js");
+    $load_jquery_3_2_1 = true;
+    if (isset($post) && isset($post->post_type) && $post->post_type == 'project') {
+        $load_jquery_3_2_1 = false;
+    }
+    
+    if ($load_jquery_3_2_1) {
+        wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery-3.2.1.min.js");
+    } else {
+        wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery-2.1.0.min.js");
+    }
+    
     wp_enqueue_script('ju4h-feather', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.min.js");
     wp_enqueue_script('ju4h-feather-replace', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.replace.js");
     wp_enqueue_script('ju4h-js-cookies', home_url().'/wp-content/plugins/joinus4health/assets/js/js.cookie.min.js');
