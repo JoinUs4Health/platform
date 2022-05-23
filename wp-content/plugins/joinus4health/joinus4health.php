@@ -552,3 +552,21 @@ function ju4h_rest_api_init() {
     }
 }
 add_action('rest_api_init', 'ju4h_rest_api_init');
+
+function remove_ip_for_user($comment_IP, $comment_ID, $comment) {
+    if (current_user_can('manage_options')) {
+        return $comment_IP;
+    } else {
+        return '';
+    }
+}
+add_filter('get_comment_author_IP', 'remove_ip_for_user', 10, 3);
+
+function remove_email_for_user($comment_email, $comment) {
+    if (current_user_can('manage_options')) {
+        return $comment_email;
+    } else {
+        return '';
+    }
+}
+add_filter('comment_email', 'remove_email_for_user', 10, 2);
