@@ -30,14 +30,20 @@ $homepage = new stdClass();
 $homepage->who_we_are = array(
     'en' => 'https://joinus4health.eu/about/cohorts/',
     'de' => 'https://joinus4health.eu/de/about/cohorts/',
+    'pl' => 'https://joinus4health.eu/pl/about/cohorts/',
+    'nl' => 'https://joinus4health.eu/nl/about/cohorts/'
 );
 $homepage->how_to_join_us = array(
     'en' => 'https://joinus4health.eu/join-us/',
     'de' => 'https://joinus4health.eu/de/join-us/',
+    'pl' => 'https://joinus4health.eu/pl/join-us/',
+    'nl' => 'https://joinus4health.eu/nl/join-us/'
 );
 $homepage->our_rules = array(
     'en' => 'https://joinus4health.eu/about/aim-and-ambition',
     'de' => 'https://joinus4health.eu/de/about/aim-and-ambition/',
+    'pl' => 'https://joinus4health.eu/pl/about/aim-and-ambition/',
+    'nl' => 'https://joinus4health.eu/nl/about/aim-and-ambition/',
 );
 
 //register post types (suggestion, topic) & taxonomies (topictag)
