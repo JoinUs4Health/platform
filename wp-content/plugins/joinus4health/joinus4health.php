@@ -504,6 +504,19 @@ function group_members_redirect() {
 }
 add_action('init', 'group_members_redirect');
 
+function group_activity_redirect() {
+    if (!bp_is_activity_directory()) {
+        return;
+    }
+    
+    if (current_user_can('manage_options')) {
+        return;
+    }
+    
+    bp_core_redirect(home_url());
+}
+add_action('init', 'group_activity_redirect');
+
 add_filter('bp_email_set_reply_to', function($retval) {
     return new BP_Email_Recipient('contact@joinus4health.eu');
 });
