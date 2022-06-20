@@ -517,6 +517,10 @@ function group_activity_redirect() {
 }
 add_action('init', 'group_activity_redirect');
 
+add_filter('bp_email_set_from', function($retval) {
+    return new BP_Email_Recipient('noreply@platform.joinus4health.eu');
+});
+
 add_filter('bp_email_set_reply_to', function($retval) {
     return new BP_Email_Recipient('contact@joinus4health.eu');
 });
