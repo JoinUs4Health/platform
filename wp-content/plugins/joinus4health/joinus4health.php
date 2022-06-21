@@ -208,6 +208,18 @@ function get_query($array) {
     return join('&amp;', $m);
 }
 
+function container_margin_top() {
+    if (!is_front_page()) {
+        echo "<style>#content { margin-top: 40px; }</style>";
+    }
+}
+add_action('wp_head', 'container_margin_top', 100);
+
+function hide_qt_bbp_topic_content_img() {
+    echo "<style>#qt_bbp_topic_content_img { display: none; }</style>";
+}
+add_action('wp_head', 'hide_qt_bbp_topic_content_img', 100);
+
 function add_language_vars() {
     $possible_languages = array();
     $possible_languages['pl'] = new stdClass();
@@ -569,6 +581,10 @@ add_filter('comment_notification_text', 'ju4h_comment_notification_text', 10, 2)
 
 function ju4h_rest_api_init() {
     $whitelist = array('127.0.0.1', '::1');
+    
+    if (current_user_can('administrator')){
+        return;
+    }
     
     if (!in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
         die('REST API DISABLED');
