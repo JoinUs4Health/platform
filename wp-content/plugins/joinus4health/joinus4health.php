@@ -611,7 +611,7 @@ function remove_email_for_user($comment_email, $comment) {
 add_filter('comment_email', 'remove_email_for_user', 10, 2);
 
 
-function wp_ste_remove_commentfields() {
+function remove_all_commentfields() {
     global $pagenow;
     if (current_user_can('manage_options')) {
         return;
@@ -631,4 +631,4 @@ function wp_ste_remove_commentfields() {
     <?php
     }
 }
-add_action( 'admin_print_styles', 'wp_ste_remove_commentfields' );
+add_action( 'admin_print_styles', 'remove_all_commentfields' );
