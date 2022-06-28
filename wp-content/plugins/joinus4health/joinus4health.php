@@ -609,3 +609,26 @@ function remove_email_for_user($comment_email, $comment) {
     }
 }
 add_filter('comment_email', 'remove_email_for_user', 10, 2);
+
+
+function wp_ste_remove_commentfields() {
+    global $pagenow;
+    if (current_user_can('manage_options')) {
+        return;
+    }
+
+    if ($pagenow == 'comment.php' || $pagenow == 'edit-comments.php') {
+    ?>
+    <style>
+        .comment-reply #edithead div:nth-child(2) {
+            display: none;
+        }
+        
+        .editcomment tr:nth-child(2) {
+            display: none;
+        }
+    </style>
+    <?php
+    }
+}
+add_action( 'admin_print_styles', 'wp_ste_remove_commentfields' );
