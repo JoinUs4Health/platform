@@ -632,3 +632,13 @@ function remove_all_commentfields() {
     }
 }
 add_action( 'admin_print_styles', 'remove_all_commentfields' );
+
+function admin_init_restrict_admin_ajax() {
+    $filename = basename($_SERVER['SCRIPT_FILENAME']);
+    if ($filename == 'admin-ajax.php') {
+        if (!current_user_can('manage_options')) {
+            exit;
+        }
+    }
+}
+add_action('admin_init', 'admin_init_restrict_admin_ajax');
