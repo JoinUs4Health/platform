@@ -77,10 +77,13 @@ function add_meta_box_ju4hsuggestion_followers_contributors_voters_callback($pos
         $i = 0;
         echo '<p><b>'.$caption.'</b>';
         if (!empty($list)) {
+            $user_names = array();
             $query = new WP_User_Query(array('include' => $list));
             foreach ($query->get_results() as $user) {
+                $user_names[] = $user->display_name;
                 echo (($i++ == 0) ? ': ' : ', ').'<a href="'. bp_core_get_userlink($user->ID, false, true).'">'.$user->display_name.'</a>';
             }
+            echo ', <a href="'.bp_core_get_userlink(get_current_user_id(), false, true).'messages/compose/#'.join(',', $user_names).'">[Send message]</a>';
         } else {
             echo ': '._('No users found.');
         }
