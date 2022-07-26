@@ -278,7 +278,7 @@ function wp_head_add_message_input() {
             'jQuery(document).ready(function(){ '.
                 'var hashlocation = window.location.hash;'.
                 'if (hashlocation.length > 0) {'.
-                    '$("#send-to-input").val(window.location.hash.substring(1));'.
+                    '$("#send-to-input").val(window.location.hash.substring(1).replace("%20", " "));'.
                 '}'.
             '});'.
         '</script>';
