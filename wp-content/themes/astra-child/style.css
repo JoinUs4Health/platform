@@ -557,3 +557,7 @@ ul.sub-menu li a:hover {
 .footer-links .text a {
     text-decoration: underline;
 }
+
+#sitewide-notice {
+    display: none;
+}
