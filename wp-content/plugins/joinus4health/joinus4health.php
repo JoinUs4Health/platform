@@ -656,3 +656,24 @@ function admin_init_restrict_admin_ajax() {
     }
 }
 add_action('admin_init', 'admin_init_restrict_admin_ajax');
+
+/**
+ * Hide admin bar
+ */
+//add_filter('show_admin_bar', '__return_false');
+
+/**
+ * Sending email notification about deleting user account
+ * 
+ * @param type $user_id
+ */
+function delete_user_email_notification($user_id) {
+    $user_meta = get_userdata($user_id);
+    $admins = get_users(array('role' => 'administrator'));
+    foreach ($admins as $admin) {
+        $email = $admin->data->user_email;
+        $headers = 'From: '.$email."\r\n" .'Reply-To: '.$email."\r\n";
+        $sent = wp_mail($email, 'Account has been deleted', 'User named '.$user_meta->data->display_name.' deleted account');
+    }
+}
+add_action('delete_user', 'delete_user_email_notification', 10);
