@@ -86,8 +86,8 @@ $(document).ready(function() {
                 errors.push(error_password_confirm_empty);
             else if ($('#signup_password').val() != $('#signup_password_confirm').val())
                 errors.push(error_password_confirm_mismatch);
-            else if (!($('#pass-strength-result').hasClass('strong')))
-                errors.push(error_password_too_weak);
+//            else if (!($('#pass-strength-result').hasClass('strong')))
+//                errors.push(error_password_too_weak);
             
             signup_errors = errors;
             setTimeout(signup_check_is_valid, 1000);
@@ -119,8 +119,8 @@ $(document).ready(function() {
                     errors.push(error_password_confirm_empty);
                 else if ($('#pass1').val() != $('#pass2').val())
                     errors.push(error_password_confirm_mismatch);
-                else if (!($('#pass-strength-result').hasClass('strong')))
-                    errors.push(error_password_too_weak);
+//                else if (!($('#pass-strength-result').hasClass('strong')))
+//                    errors.push(error_password_too_weak);
             }
             
             settings_errors = errors;
@@ -365,4 +365,8 @@ $(document).ready(function() {
         Cookies.set('language', language, { expires: 7 });
         window.location.reload();
     });
+    
+    var e = $("div.field_11 fieldset div");    
+    fix = e.html().replace(/\./g, " and confirm that I am at least 16 years old.");
+    e.html(fix);
 });

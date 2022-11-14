@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - BuddyPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-25 07:06:22+0000\n"
+"PO-Revision-Date: 2022-02-17 07:38:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1319,11 +1319,6 @@ msgstr "%1$s &mdash; %2$s"
 msgid "Submitted on: %s"
 msgstr "Dodano dnia %s"
 
-#: bp-core/bp-core-filters.php:871
-msgctxt "customizer menu type label"
-msgid "Custom Link"
-msgstr "Własny link"
-
 #: bp-core/bp-core-filters.php:892
 msgctxt "customizer menu section title"
 msgid "BuddyPress (logged-in)"
@@ -1333,6 +1328,11 @@ msgstr "BuddyPress (zalogowano)"
 msgctxt "customizer menu section title"
 msgid "BuddyPress (logged-out)"
 msgstr "BuddyPress (wylogowano)"
+
+#: bp-core/bp-core-filters.php:871
+msgctxt "customizer menu type label"
+msgid "Custom Link"
+msgstr "Własny odnośnik"
 
 #: bp-themes/bp-default/registration/register.php:27
 msgid "Registering for this site is easy, just fill in the fields below and we'll get a new account set up for you in no time."
@@ -2284,7 +2284,7 @@ msgstr "Nie pamiętasz hasła?"
 
 #: bp-themes/bp-default/members/single/settings/general.php:58
 msgid "Password Lost and Found"
-msgstr "Hasło zgubione i znalezione"
+msgstr "Zagubione lub stracone hasło"
 
 #: bp-templates/bp-legacy/buddypress/members/single/settings/general.php:22
 #: bp-themes/bp-default/members/single/settings/general.php:57
@@ -2553,7 +2553,7 @@ msgstr "Nazwa witryny"
 #: bp-templates/bp-legacy/buddypress/members/register.php:281
 #: bp-themes/bp-default/registration/register.php:223
 msgid "Blog URL"
-msgstr "Adres bloga"
+msgstr "Adres URL bloga"
 
 #: bp-templates/bp-legacy/buddypress/members/register.php:277
 #: bp-themes/bp-default/registration/register.php:219
@@ -2716,7 +2716,7 @@ msgstr "Wyślij zaproszenia"
 #: bp-templates/bp-nouveau/includes/functions.php:1022
 #: bp-themes/bp-default/groups/single/admin.php:335
 msgid "There are no pending membership requests."
-msgstr "Brak oczekujących podań o członkostwo."
+msgstr "Brak nierozpatrzonych próśb o członkostwo."
 
 #: bp-templates/bp-legacy/buddypress/groups/single/requests-loop.php:60
 #: bp-templates/bp-legacy/buddypress/members/single/friends/requests.php:64
@@ -3165,7 +3165,7 @@ msgstr "Post na forum grupy:"
 #: bp-themes/bp-default/groups/single/forum.php:81
 #: bp-themes/bp-default/groups/single/forum/edit.php:53
 msgid "Tags (comma separated):"
-msgstr "Tagi"
+msgstr "Tagi (oddzielone przecinkami):"
 
 #: bp-themes/bp-default/forums/index.php:107
 #: bp-themes/bp-default/groups/single/forum.php:78
@@ -3942,14 +3942,14 @@ msgstr "Masz %d nowych wiadomości"
 msgid "My Messages"
 msgstr "Moje wiadomości"
 
+#: bp-messages/classes/class-bp-messages-component.php:291
+msgid "Notices"
+msgstr "Powiadomienia"
+
 #: bp-messages/classes/class-bp-messages-component.php:276
 #: bp-messages/classes/class-bp-messages-component.php:377
 msgid "Compose"
-msgstr "Utwórz"
-
-#: bp-messages/classes/class-bp-messages-component.php:291
-msgid "Notices"
-msgstr "Komunikaty"
+msgstr "Układaj"
 
 #: bp-messages/bp-messages-star.php:108
 #: bp-messages/classes/class-bp-messages-component.php:251
@@ -4035,7 +4035,7 @@ msgstr "Wystąpił problem podczas zarządzania twoimi wiadomościami."
 
 #: bp-messages/actions/delete.php:34
 msgid "Message deleted."
-msgstr "Wiadomość usunięta."
+msgstr "Wiadomość została usunięta."
 
 #: bp-messages/actions/view.php:45
 #: bp-templates/bp-nouveau/includes/messages/ajax.php:172
