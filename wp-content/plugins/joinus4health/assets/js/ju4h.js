@@ -366,7 +366,7 @@ $(document).ready(function() {
         window.location.reload();
     });
     
-    var e = $("div.field_11 fieldset div");    
+    var e = jQuery("div.field_11 fieldset div");
     fix = e.html().replace(/\./g, " and confirm that I am at least 16 years old.");
     e.html(fix);
 });

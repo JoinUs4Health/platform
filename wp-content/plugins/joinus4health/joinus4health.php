@@ -269,7 +269,7 @@ function add_language_vars() {
             'var error_email_empty = "'.__('E-mail field cannot be empty', 'joinus4health').'";'.
             'var error_email_invalid = "'.__('E-mail format is invalid', 'joinus4health').'";'.
          '</script>';
-}
+    }
 add_action('wp_head', 'add_language_vars', 1, 1);
 
 function wp_head_add_message_input() {
@@ -646,10 +646,10 @@ function remove_all_commentfields() {
 add_action( 'admin_print_styles', 'remove_all_commentfields' );
 
 function admin_init_restrict_admin_ajax() {
-    if ($_POST['action'] == 'joinleave_group') {
-        return;
-    }
-
+	if ($_POST['action'] == 'joinleave_group') {
+		return;
+	}
+	
     $filename = basename($_SERVER['SCRIPT_FILENAME']);
     if ($filename == 'admin-ajax.php') {
         if (!current_user_can('manage_options')) {
