@@ -365,8 +365,13 @@ $(document).ready(function() {
         Cookies.set('language', language, { expires: 7 });
         window.location.reload();
     });
-    
-    var e = jQuery("div.field_11 fieldset div");
-    fix = e.html().replace(/\./g, " and confirm that I am at least 16 years old.");
-    e.html(fix);
+//    
+    var divElement = jQuery("div.field_11 fieldset div");
+    if (divElement !== undefined) {
+        divHtml = divElement.html();
+        if (divHtml !== undefined) {
+            divFixed = divHtml.replace(/\./g, " and confirm that I am at least 16 years old.");
+            divElement.html(divFixed);
+        }
+    }
 });
