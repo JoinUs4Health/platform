@@ -209,7 +209,19 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                 <div class="container">
                     <div class="author"><?= $comment->comment_author ?></div>
                     <div class="date"><?= get_comment_date('j F Y, H:i', $comment) ?></div>
-                    <div class="txt"><?= $comment->comment_content ?></div>
+                    <?php $comment_txt = $comment->comment_content ?>
+                    <?php if (mb_strlen($comment_txt) > 250): ?>
+                    <div class="txt">
+                        <?= mb_substr($comment_txt, 0, 250) ?>... <a href="#" class="readmore">[Read more]</a>
+                    </div>
+                    <div class="txt txt-full" style="display: none;">
+                        <?= $comment_txt ?>
+                    </div>
+                    <?php else: ?>
+                    <div class="txt">
+                        <?= $comment_txt ?>
+                    </div>
+                    <?php endif; ?>
                     <?php if ($enabled_reply && is_user_logged_in()): ?>
                     <div class="urls">
                         <a href="#reply-comment" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>

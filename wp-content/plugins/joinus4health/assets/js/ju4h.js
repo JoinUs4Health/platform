@@ -365,7 +365,7 @@ $(document).ready(function() {
         Cookies.set('language', language, { expires: 7 });
         window.location.reload();
     });
-//    
+
     var divElement = jQuery("div.field_11 fieldset div");
     if (divElement !== undefined) {
         divHtml = divElement.html();
@@ -374,4 +374,16 @@ $(document).ready(function() {
             divElement.html(divFixed);
         }
     }
+    
+    $('.comment .container .txt .readmore').click(function(e) {
+        e.preventDefault();
+        
+        divTxt = $(this).parent().parent().children('div')[2];
+        divTxtFull = $(this).parent().parent().children('div')[3];
+        console.log(divTxt);
+        console.log(divTxtFull);
+        
+        $(divTxt).hide();
+        $(divTxtFull).show();
+    });
 });
