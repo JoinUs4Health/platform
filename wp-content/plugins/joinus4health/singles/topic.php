@@ -764,6 +764,7 @@ html_modal_follow();
         $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
         $m_votes_count = count($m_votes);
         $m_imageurl = get_post_meta($topic_post->ID, 'm_topimage', true);
+        $m_report_url = get_post_meta($topic_post->ID, 'm_report_url', true);
         ?>
         <?php if ($m_imageurl != null) { $m_imageurl = json_decode($m_imageurl); } else { $m_imageurl = null; } ?>
         <?php if ($m_imageurl != null) { $m_imageurl = ' style="background-image: url('.home_url().'/wp-content/'.$m_imageurl->file.');"'; } ?>
@@ -774,6 +775,9 @@ html_modal_follow();
                 <i data-feather="thumbs-up"></i>
             </div>
             <div class="title"></div>
+            <?php if ($m_report_url != null && get_preferred_language() == 'pl'): ?>
+            <a href='<?= $m_report_url ?>' class="btn"><?= __('Pobierz raport teraz!', 'joinus4health') ?></a>
+            <?php endif; ?>
             <a href='#share' class="btn" rel="modal:open"><?= __('Share', 'joinus4health') ?></a>
             <?php $m_follows = get_post_meta($topic_post->ID, "m_follows"); ?>
             <?php $is_following = (is_array($m_follows) && in_array(get_current_user_id(), $m_follows)) ?>

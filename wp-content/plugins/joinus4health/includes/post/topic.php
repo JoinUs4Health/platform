@@ -100,6 +100,7 @@ function add_meta_boxes_ju4htopic_callback($post) {
     add_meta_box('container_tasks', __('Related tasks'), 'add_meta_box_ju4htopic_related_tasks_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_attachments', __('Attachments').' (max file size: '.$upload_max_size.')', 'add_meta_box_ju4htopic_attachments_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_externals', __('External links'), 'add_meta_box_ju4htopic_externals_callback', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_report_url', __('Report URL'), 'add_meta_box_ju4htopic_report_url', 'ju4htopic', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
 
@@ -369,6 +370,17 @@ function add_meta_box_ju4htopic_attachments_callback($post) {
 function add_meta_box_ju4htopic_externals_callback($post) {
     wp_nonce_field(basename( __FILE__ ), 'topic_attachments_nonce');
     html_admin_hyperlink_multiple_meta_box($post, 'externals');
+}
+
+/**
+ * Adds meta box "Report URL"
+ * - @todo
+ * 
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_report_url($post) {
+    wp_nonce_field(basename( __FILE__ ), 'topic_report_url_nonce');
+    html_admin_text("m_report_url", get_post_meta($post->ID, 'm_report_url', true));
 }
 
 /**
@@ -667,6 +679,8 @@ function save_post_ju4htopic_callback($post_id) {
     }
     
     update_post_meta($post_id, 'm_bbpress_topic', esc_html($_POST['m_bbpress_topic']));
+    update_post_meta($post_id, 'm_report_url', esc_html($_POST['m_report_url']));
+
     
     if (isset($_POST['m_valid_thru_d']) && isset($_POST['m_valid_thru_m']) && isset($_POST['m_valid_thru_Y']) &&
             is_numeric($_POST['m_valid_thru_d']) && is_numeric($_POST['m_valid_thru_m']) && is_numeric($_POST['m_valid_thru_Y'])) {
