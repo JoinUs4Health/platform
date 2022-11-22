@@ -268,6 +268,7 @@ function add_language_vars() {
             'var error_password_too_weak = "'.__('Password is too weak', 'joinus4health').'";'.
             'var error_email_empty = "'.__('E-mail field cannot be empty', 'joinus4health').'";'.
             'var error_email_invalid = "'.__('E-mail format is invalid', 'joinus4health').'";'.
+            'var deepl_url = "'. home_url().'/deepl.php";'.
          '</script>';
     }
 add_action('wp_head', 'add_language_vars', 1, 1);

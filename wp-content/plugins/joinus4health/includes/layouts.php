@@ -215,20 +215,22 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                         <?= mb_substr($comment_txt, 0, 250) ?>... <a href="#" class="readmore">[Read more]</a>
                     </div>
                     <div class="txt txt-full" style="display: none;">
-                        <?= $comment_txt ?>
+                        <?= nl2br($comment_txt) ?>
                     </div>
                     <?php else: ?>
-                    <div class="txt">
-                        <?= $comment_txt ?>
+                    <div class="txt txt-full">
+                        <?= nl2br($comment_txt) ?>
                     </div>
                     <?php endif; ?>
-                    <?php if ($enabled_reply && is_user_logged_in()): ?>
                     <div class="urls">
-                        <a href="#reply-comment" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>
-                    </div>
+                        <?php if ($enabled_reply && is_user_logged_in()): ?>
+                        <a href="#reply-comment" class="comment-reply" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>
                         <?php endif; ?>
+                        <a href="" class="translate">Translate</a>
                     </div>
+                    
                 </div>
+            </div>
     <?php
 }
 
@@ -319,7 +321,7 @@ function js_add_or_reply_comment() {
     ?>
     <script type="text/javascript">
     $(document).ready(function(){        
-        $('.comment > .container > .urls > a').click(function() {
+        $('.comment > .container > .urls > a.comment-reply').click(function() {
             comment_reply_id = $(this).attr('id').split('-')[2];
             $('#comment_parent').val(comment_reply_id);
             comment_reply_to = $(this).parent().parent().find('.author').html();

@@ -374,6 +374,17 @@ $(document).ready(function() {
             divElement.html(divFixed);
         }
     }
+     
+    $('a.translate').click(function(e) {
+        e.preventDefault();
+
+        txt = $(this).parent().parent().children("div.txt-full");
+        translate_button = this;
+        $.post(deepl_url, {target_lang: language.toUpperCase(), text: $(txt[0]).text()}, function(result){
+            $(txt).text(result);
+            $(translate_button).hide();
+        });
+    });
     
     $('.comment .container .txt .readmore').click(function(e) {
         e.preventDefault();
