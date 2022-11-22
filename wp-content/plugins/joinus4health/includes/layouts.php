@@ -226,9 +226,9 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                     <div class="urls">
                         <a href="#reply-comment" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>
                     </div>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
-            </div>
     <?php
 }
 

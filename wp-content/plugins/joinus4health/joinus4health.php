@@ -311,7 +311,7 @@ function add_jquery_feather_icons_script() {
     wp_enqueue_script('ju4h-feather', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.min.js");
     wp_enqueue_script('ju4h-feather-replace', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.replace.js");
     wp_enqueue_script('ju4h-js-cookies', home_url().'/wp-content/plugins/joinus4health/assets/js/js.cookie.min.js');
-    wp_enqueue_script('ju4h-js', home_url().'/wp-content/plugins/joinus4health/assets/js/ju4h.js');
+    wp_enqueue_script('ju4h-js', home_url().'/wp-content/plugins/joinus4health/assets/js/ju4h.js', array(), time());
     
     $array = array('pl' => 'pl_PL', 'nl' => 'nl_NL', 'de' => 'de_DE', 'en' => 'en_GB');
     $get_preferred_language = get_preferred_language();

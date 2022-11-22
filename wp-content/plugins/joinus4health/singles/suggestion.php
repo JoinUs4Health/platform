@@ -279,7 +279,7 @@ html_modal_follow();
             margin-bottom: 8px;
         }
         
-        .ast-container .first-column .add-comment form input.new-comment {
+        .ast-container .first-column .add-comment form textarea.new-comment {
             height: 40px;
             padding: 10px;
             border-radius: 4px;
@@ -823,7 +823,7 @@ html_modal_follow();
         ?>
         <script type="text/javascript">
             $(document).ready(function() {
-                $('.comment > .container > .urls > a').click(function() {
+                $('.comment > .container > .urls > a.comment-reply').click(function() {
                     comment_reply_id = $(this).attr('id').split('-')[2];
                     $('#comment_parent').val(comment_reply_id);
                     comment_reply_to = $(this).parent().parent().find('.author').html();
@@ -837,7 +837,7 @@ html_modal_follow();
         <div class="add-comment">
             <div class="caption"><?= __('Add comment', 'joinus4health') ?></div>
             <form action="<?= home_url() ?>/wp-comments-post.php" method="post">
-                <input type="text" class="new-comment" name="comment" />
+                <textarea class="new-comment" name="comment"></textarea>
                 <input type="submit" value="<?= __('Submit', 'joinus4health') ?>" class="submit" name="submit" />
                 <input type="hidden" name="comment_post_ID" value="<?= $suggestion_post->ID ?>" id="comment_post_ID">
                 <input type="hidden" name="comment_parent" id="comment_parent" value="0">
