@@ -228,7 +228,6 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                         <?php endif; ?>
                         <a href="" class="translate">Translate</a>
                     </div>
-                    
                 </div>
             </div>
     <?php

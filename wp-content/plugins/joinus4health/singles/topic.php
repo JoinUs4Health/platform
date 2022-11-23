@@ -764,6 +764,7 @@ html_modal_follow();
         $vote_class = (is_array($m_votes) && in_array(get_current_user_id(), $m_votes)) ? 'item-downvote' : 'item-upvote';
         $m_votes_count = count($m_votes);
         $m_imageurl = get_post_meta($topic_post->ID, 'm_topimage', true);
+        $m_report_url = get_post_meta($topic_post->ID, 'm_report_url', true);
         ?>
         <?php if ($m_imageurl != null) { $m_imageurl = json_decode($m_imageurl); } else { $m_imageurl = null; } ?>
         <?php if ($m_imageurl != null) { $m_imageurl = ' style="background-image: url('.home_url().'/wp-content/'.$m_imageurl->file.');"'; } ?>
@@ -774,9 +775,8 @@ html_modal_follow();
                 <i data-feather="thumbs-up"></i>
             </div>
             <div class="title"></div>
-            <?php $m_report_url = get_post_meta($topic_post->ID, "m_report_url", true); ?>
-            <?php if (!empty($m_report_url)): ?>
-            <a href='<?= $m_report_url ?>' class="btn">Pobierz bezpłatny raport</a>
+            <?php if ($m_report_url != null && get_preferred_language() == 'pl'): ?>
+            <a href='<?= $m_report_url ?>' class="btn"><?= __('Pobierz raport teraz!', 'joinus4health') ?></a>
             <?php endif; ?>
             <a href='#share' class="btn" rel="modal:open"><?= __('Share', 'joinus4health') ?></a>
             <?php $m_follows = get_post_meta($topic_post->ID, "m_follows"); ?>
@@ -945,23 +945,23 @@ html_modal_follow();
         <?php
         $m_externals = get_post_meta($topic_post->ID, 'm_externals');
         $m_suggestions = get_post_meta($topic_post->ID, 'm_related_suggestions');
-        $m_bbpress_topic = get_post_meta($topic_post->ID, 'm_bbpress_topic', true);
+        $m_related_groups = get_post_meta($topic_post->ID, 'm_related_groups');
         ?>
-        <?php if (!empty($m_externals) || !empty($m_suggestions) || !empty($m_bbpress_topic)): ?>
+        <?php if (!empty($m_externals) || !empty($m_suggestions) || !empty($m_related_groups)): ?>
         <div class="links column-common-border-style">
-            <?php if (!empty($m_bbpress_topic)): ?>
+            <?php if (!empty($m_related_groups)): ?>
             <?php
-            $query_params = array('post_type' => 'forum', 'p' => $m_bbpress_topic);
+            $query_params = array('post_type' => 'forum', 'posts_per_page' => -1, 'post__in' => $m_related_groups);
             $query_bbpress_topics = new WP_Query($query_params);
             ?>
-            <?php while ($query_bbpress_topics->have_posts()): ?>
-            <?php $query_bbpress_topics->the_post(); ?>
             <h6><?= __('Assigned working group', 'joinus4health') ?></h6>
             <div class="url-list">
+                <?php while ($query_bbpress_topics->have_posts()): ?>
+                <?php $query_bbpress_topics->the_post(); ?>
                 <a href="<?= get_the_permalink($post->ID) ?>"><?= get_the_title($post->ID) ?></a>
+                <?php endwhile; ?>
             </div>
             <div class="separator"></div>
-            <?php endwhile; ?>
             <?php endif; ?>
             <?php if (!empty($m_externals)): ?>
             <h6><?= __('External links', 'joinus4health') ?></h6>
