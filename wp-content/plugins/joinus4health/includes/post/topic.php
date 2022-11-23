@@ -101,6 +101,7 @@ function add_meta_boxes_ju4htopic_callback($post) {
     add_meta_box('container_attachments', __('Attachments').' (max file size: '.$upload_max_size.')', 'add_meta_box_ju4htopic_attachments_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_externals', __('External links'), 'add_meta_box_ju4htopic_externals_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_report_url', __('Report URL'), 'add_meta_box_ju4htopic_report_url', 'ju4htopic', 'normal', 'low');
+    add_meta_box('container_groups', __('Related groups'), 'add_meta_box_ju4htopic_related_groups_callback', 'ju4htopic', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
 
@@ -209,7 +210,6 @@ function add_meta_box_ju4htopic_additional_fields_callback($post) {
     html_admin_select_box(__('Language'), 'm_language', $meta_languages, get_post_meta($post->ID, "m_language", true), false);
     html_admin_select_box(__('Status'), 'm_status', $meta_topic_status, get_post_meta($post->ID, 'm_status', true));
     html_admin_select_box(__('Targeted stakeholder group'), 'm_target_group', $meta_stakeholder_group, get_post_meta($post->ID, "m_target_group", true));
-    html_admin_select_box(__('Related working group'), 'm_bbpress_topic', $topics, get_post_meta($post->ID, 'm_bbpress_topic', true));
     html_admin_select_box(__('Source'), 'm_source', $meta_topic_source, get_post_meta($post->ID, "m_source", true));
     html_admin_date_input(__('Valid thru'), 'm_valid_thru', get_post_meta($post->ID, 'm_valid_thru', true));
 }
@@ -349,6 +349,71 @@ function add_meta_box_ju4htopic_related_tasks_callback($post) {
     echo '<a id="add-related-task" style="cursor: pointer">'.__('Add related task').'</a>';
 }
 
+
+/**
+ * Adds meta box "Related groups"
+ * - select field with related topic
+ * - anchors to add new related topic
+ * - anchors to remove existing related topic
+ * 
+ * @param type $post
+ */
+function add_meta_box_ju4htopic_related_groups_callback($post) {
+    wp_nonce_field(basename( __FILE__ ), 'topic_related_groups_nonce');
+    $groups = array();
+    $query = new WP_Query(array('post_type' => 'forum', 'posts_per_page' => -1));
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $postloop = $query->post;
+            $meta = get_post_meta($postloop->ID);
+            $groups[$postloop->ID] = $postloop->post_title;
+        }
+    }
+
+    $related_groups = get_post_meta($post->ID, 'm_related_groups');
+    echo '<div id="related-groups">';
+    
+    foreach ($related_groups as $related_group) {
+        echo '<p><label>'.__('Related groups').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_groups[]">';
+        echo '<option value="">None</option>';
+        foreach ($groups as $key => $value) {
+            $selected = '';
+            if ($key == $related_group) {
+                $selected = ' selected';
+            }
+            echo '<option value="'.$key.'"'.$selected.'>'.$value.'</option>';
+        }
+        echo '</select>&nbsp;&nbsp;&nbsp;<a class="related-group-remove" style="cursor: pointer">'.__('Remove group').'</a>';
+        echo '</p>';
+    }
+    echo '</div>';
+    
+    $append_html = '<p><label>'.__('Related group').'</label>&nbsp;&nbsp;&nbsp;<select name="m_related_groups[]">';
+    $append_html .= '<option value="">None</option>';
+    foreach ($groups as $key => $value) {
+        $append_html .= '<option value="'.$key.'">'.$value.'</option>';
+    }
+    $append_html .= '</select>&nbsp;&nbsp;&nbsp;<a class="related-group-remove" style="cursor: pointer">'.__('Remove group').'</a>';
+    $append_html .= '</p>';
+    ?>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#add-related-group").click(function(){
+                html = '<?= $append_html ?>';
+                $('#related-groups').append(html);
+            });
+            
+            $(".related-group-remove").click(function(){
+                $(this).parent().remove();
+            });
+        });
+    </script>
+    <?php
+    echo '<a id="add-related-group" style="cursor: pointer">'.__('Add related group').'</a>';
+}
 
 /**
  * Adds meta box "Attachments"
@@ -546,6 +611,53 @@ function save_post_ju4htopic_callback($post_id) {
     }
     
     
+    
+    
+    //looping over related suggestions & chacking if any is not numeric, if it is throw error
+    if (isset($_POST['m_related_groups'])) {
+        foreach ($_POST['m_related_groups'] as $related_groups) {
+            if (!is_numeric($related_groups)) {
+                add_settings_error('missing-fields', 'missing-fields', __("You must fill all fields"), 'error');
+                set_transient('settings_errors', get_settings_errors(), 30);
+                return;
+            }
+        }
+    }
+    
+    //
+    if (isset($_POST['m_related_groups']) && is_array($_POST['m_related_groups'])) {
+        $_POST['m_related_groups'] = array_diff($_POST['m_related_groups'], array(""));
+    } else {
+        $_POST['m_related_groups'] = array();
+    }
+    
+    //getting related groups
+    $related_groups = get_post_meta($post_id, 'm_related_groups');
+    
+    //making intersection between related groups from POST & existing related groups
+    //result should be keeped in db
+    $related_groups_intersect = array_intersect($_POST['m_related_groups'], $related_groups);
+
+    //removing related groups which should be keeped from POSTed related groups
+    //result will be added to db
+    $related_groups_to_add = array_diff($_POST['m_related_groups'], $related_groups_intersect);
+    
+    //removing related groups which should be keeped from existing related groups
+    //result will be removed from db
+    $related_groups_to_remove = array_diff($related_groups, $related_groups_intersect);
+
+    //looping add operation of new related groups
+    foreach ($related_groups_to_add as $value) {
+        add_post_meta($post_id, 'm_related_groups', $value);
+    }
+
+    //looping remove operation of related groups which should be removed
+    foreach ($related_groups_to_remove as $value) {
+        delete_post_meta($post_id, 'm_related_groups', $value);
+    }
+    
+    
+    
     //
     if (isset($_POST['m_attachments_file']) && is_array($_POST['m_attachments_file']) && isset($_POST['m_attachments_text']) && is_array($_POST['m_attachments_text'])) {
         $_POST_attachments = array();
@@ -678,7 +790,6 @@ function save_post_ju4htopic_callback($post_id) {
         update_post_meta($post_id, 'm_votes_count', 0);
     }
     
-    update_post_meta($post_id, 'm_bbpress_topic', esc_html($_POST['m_bbpress_topic']));
     update_post_meta($post_id, 'm_report_url', esc_html($_POST['m_report_url']));
 
     
