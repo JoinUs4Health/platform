@@ -226,7 +226,7 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                         <?php if ($enabled_reply && is_user_logged_in()): ?>
                         <a href="#reply-comment" class="comment-reply" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>
                         <?php endif; ?>
-                        <a href="" class="translate">Translate</a>
+                        <?php /* <a href="" class="translate">Translate</a> */ ?>
                     </div>
                 </div>
             </div>
