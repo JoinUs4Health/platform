@@ -306,6 +306,10 @@ div#item-header-content div#item-buttons div.group-button a.group-button {
     color: #ffffff;
 }
 
+div#item-header-content div#item-buttons div.group-button a.group-button.leave-group  {
+    background-color: #808a95;
+}
+
 #buddypress #item-body #bbpress-forums #bbpress-forums .bbp-topics {
     font-size: 15px;
     text-decoration: none;
