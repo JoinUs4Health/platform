@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - bbPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-29 12:44:33+0000\n"
+"PO-Revision-Date: 2022-09-03 13:10:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - bbPress - Stable (latest release)\n"
 
@@ -4164,7 +4164,7 @@ msgstr "Spam: %s"
 
 #: includes/common/functions.php:464
 msgid "Private: %s"
-msgstr "Priv&#233;: %s"
+msgstr "Privé: %s"
 
 #: includes/common/formatting.php:728
 msgctxt "Separator in time since"
@@ -5146,7 +5146,7 @@ msgstr "Verplaats dit item naar de prullenbak"
 #: includes/admin/replies.php:831 includes/admin/topics.php:1035
 #: includes/replies/template.php:1962 includes/topics/template.php:2516
 msgid "Restore"
-msgstr "Terugzetten"
+msgstr "Herstellen"
 
 #: includes/admin/replies.php:831 includes/admin/topics.php:1035
 #: includes/replies/template.php:1979 includes/topics/template.php:2532

@@ -182,7 +182,7 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 			body.classList.add( 'ast-popup-nav-open' );
         }
 
-		if ( ! body.classList.contains( 'ast-main-header-nav-open' ) ) {
+		if ( ! body.classList.contains( 'ast-main-header-nav-open' ) && 'mobile' !== triggerType ) {
 			body.classList.add( 'ast-main-header-nav-open' );
 		}
 
@@ -275,7 +275,11 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 		if ( 'off-canvas' === mobileHeaderType ) {
 			var popupClose = document.getElementById( 'menu-toggle-close' ),
-				popupInner = document.querySelector( '.ast-mobile-popup-inner' ),
+				popupInner = document.querySelector( '.ast-mobile-popup-inner' );
+
+				if ( undefined === popupInner || null === popupInner  ){
+					return; // if toggel button component is not loaded.
+				}
 				popupLinks = popupInner.getElementsByTagName('a');
 
 			for ( var item = 0;  item < popupTriggerMobile.length; item++ ) {
@@ -324,7 +328,7 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 			// Close Popup on # link click inside Popup.
 			for ( link = 0, len = popupLinks.length; link < len; link++ ) {
-				if( null !== popupLinks[link].getAttribute("href") && '#' !== popupLinks[link].getAttribute("href") ){
+				if( null !== popupLinks[link].getAttribute("href") && popupLinks[link].getAttribute("href").startsWith('#') && ( ! popupLinks[link].parentElement.classList.contains('menu-item-has-children') || ( popupLinks[link].parentElement.classList.contains('menu-item-has-children') && document.querySelector('header.site-header').classList.contains('ast-builder-menu-toggle-icon') ) ) ){
 					popupLinks[link].addEventListener( 'click', triggerToggleClose, true );
 					popupLinks[link].headerType = 'off-canvas';
 				}
@@ -333,23 +337,27 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 			AstraToggleSetup();
 		} else if ( 'dropdown' === mobileHeaderType ) {
 
-			var mobileDropdownContent = document.querySelector( '.ast-mobile-header-content' ),
-			    desktopDropdownContent = document.querySelector( '.ast-desktop-header-content' ),
-				mobileLinks = mobileDropdownContent.getElementsByTagName('a'),
-				desktopLinks = desktopDropdownContent.getElementsByTagName('a');
+			var mobileDropdownContent = document.querySelector( '.ast-mobile-header-content' ) || false,
+			    desktopDropdownContent = document.querySelector( '.ast-desktop-header-content' ) || false;
 
 			// Close Popup on # link click inside Popup.
-			for ( link = 0, len = mobileLinks.length; link < len; link++ ) {
-				if( null !== mobileLinks[link].getAttribute("href") && '#' !== mobileLinks[link].getAttribute("href") ){
-					mobileLinks[link].addEventListener( 'click', triggerToggleClose, true );
-					mobileLinks[link].headerType = 'dropdown';
+			if( mobileDropdownContent ) {
+				var mobileLinks = mobileDropdownContent.getElementsByTagName('a');
+				for ( link = 0, len = mobileLinks.length; link < len; link++ ) {
+					if( null !== mobileLinks[link].getAttribute("href") && mobileLinks[link].getAttribute("href").startsWith('#') && ( !mobileLinks[link].parentElement.classList.contains('menu-item-has-children') || ( mobileLinks[link].parentElement.classList.contains('menu-item-has-children') && document.querySelector('header.site-header').classList.contains('ast-builder-menu-toggle-icon') ) ) ){
+						mobileLinks[link].addEventListener( 'click', triggerToggleClose, true );
+						mobileLinks[link].headerType = 'dropdown';
+					}
 				}
 			}
 
 			// Close Popup on # link click inside Popup.
-			for ( link = 0, len = desktopLinks.length; link < len; link++ ) {
-				desktopLinks[link].addEventListener( 'click', triggerToggleClose, true );
-				desktopLinks[link].headerType = 'dropdown';
+			if( desktopDropdownContent ) {
+				var desktopLinks = desktopDropdownContent.getElementsByTagName('a');
+				for ( link = 0, len = desktopLinks.length; link < len; link++ ) {
+					desktopLinks[link].addEventListener( 'click', triggerToggleClose, true );
+					desktopLinks[link].headerType = 'dropdown';
+				}
 			}
 
 			for ( var item = 0;  item < popupTriggerMobile.length; item++ ) {
@@ -421,7 +429,7 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 	} );
 
-	var mobile_width = window.innerWidth;
+	var mobile_width = ( 'Android' === navigator.userAgent.match(/Android/i) ) ? window.visualViewport.width : window.innerWidth;
 	function AstraHandleResizeEvent() {
 
 		var menu_offcanvas_close 	= document.getElementById('menu-toggle-close');
@@ -432,8 +440,8 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 		if ( desktop_header_content ) {
 			desktop_header_content.style.display = 'none';
 		}
-
-		if ( window.innerWidth !== mobile_width ) {
+		var mobileResizeWidth = ( 'Android' === navigator.userAgent.match(/Android/i) ) ? window.visualViewport.width : window.innerWidth;
+		if ( mobileResizeWidth !== mobile_width ) {
 			if ( menu_dropdown_close && null === elementor_editor ) {
 				menu_dropdown_close.click();
 			}
@@ -445,10 +453,9 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 		}
 
 		updateHeaderBreakPoint();
-		
-		if ( 'dropdown' === mobileHeaderType ) {
-			AstraToggleSetup();
-		}
+
+		AstraToggleSetup();
+
 	}
 
 	window.addEventListener('resize', function(){
@@ -463,14 +470,16 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 		/**
 		 * Navigation Keyboard Navigation.
 		 */
-		var container, count;
+		var containerButton;
+		if ( body.classList.contains('ast-header-break-point') ) {
+			containerButton = document.getElementById( 'ast-mobile-header' );
+		} else {
+			containerButton = document.getElementById( 'ast-desktop-header' );
+		}
 
-		container = document.querySelectorAll( '.navigation-accessibility' );
-
-		for ( count = 0; count <= container.length - 1; count++ ) {
-			if ( container[count] ) {
-				navigation_accessibility( container[count] );
-			}
+		if( null !== containerButton ) {
+			var containerMenu = containerButton.querySelector( '.navigation-accessibility' );
+			navigation_accessibility( containerMenu, containerButton );
 		}
 	});
 
@@ -522,25 +531,29 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 	var accountPopupTrigger = function () {
 		// Account login form popup.
-		var header_account_trigger =  document.querySelectorAll( '.ast-account-action-login' )[0];
+		var header_account_trigger =  document.querySelectorAll( '.ast-account-action-login' );
 
-		if( undefined !== header_account_trigger ) {
+		if ( undefined !== header_account_trigger ) {
 
-			var header_account__close_trigger =  document.getElementById( 'ast-hb-login-close' );
-			var login_popup =  document.getElementById( 'ast-hb-account-login-wrap' );
+			var header_account__close_trigger =  document.querySelectorAll( '#ast-hb-login-close' );
+			var login_popup = document.querySelectorAll('#ast-hb-account-login-wrap');
+			if ( 0 < header_account__close_trigger.length ) {
+				for ( let index = 0; index < header_account_trigger.length; index++ ) {
 
-			header_account_trigger.onclick = function( event ) {
-				event.preventDefault();
-				event.stopPropagation();
-				if ( ! login_popup.classList.contains( 'show' ) ) {
-					login_popup.classList.add( 'show' );
+					header_account_trigger[ index ].onclick = function (event) {
+						event.preventDefault();
+						event.stopPropagation();
+						if ( ! login_popup[ index ].classList.contains('show')) {
+							login_popup[ index ].classList.add('show');
+						}
+					};
+
+					header_account__close_trigger[ index ].onclick = function (event) {
+						event.preventDefault();
+						login_popup[ index ].classList.remove('show');
+					};
 				}
-			};
-
-			header_account__close_trigger.onclick = function( event ) {
-				event.preventDefault();
-				login_popup.classList.remove( 'show' );
-			};
+			}
 		}
 	}
 
@@ -742,7 +755,7 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 	    }
 
 	    if( 'Safari' === M[0] && M[1] < 11 ) {
-		   bodyElement.classList.add( "ast-safari-browser-less-than-11" );
+			document.body.classList.add( "ast-safari-browser-less-than-11" );
 	    }
 	}
 
@@ -788,20 +801,18 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 	/**
 	 * Navigation Keyboard Navigation.
 	 */
-	function navigation_accessibility( container ) {
-		if ( ! container ) {
+	function navigation_accessibility( containerMenu, containerButton ) {
+		if ( ! containerMenu || ! containerButton ) {
 			return;
 		}
-
-		var button = container.getElementsByTagName( 'button' )[0];
+		var button = containerButton.getElementsByTagName( 'button' )[0];
 		if ( 'undefined' === typeof button ) {
-			button = container.getElementsByTagName( 'a' )[0];
+			button = containerButton.getElementsByTagName( 'a' )[0];
 			if ( 'undefined' === typeof button ) {
 				return;
 			}
 		}
-
-		var menu = container.getElementsByTagName( 'ul' )[0];
+		var menu = containerMenu.getElementsByTagName( 'ul' )[0];
 
 		// Hide menu toggle button if menu is empty and return early.
 		if ( 'undefined' === typeof menu ) {
@@ -814,13 +825,28 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 			menu.className += ' nav-menu';
 		}
 
+		if ( 'off-canvas' === mobileHeaderType ) {
+			var popupClose = document.getElementById( 'menu-toggle-close' );
+			popupClose.onclick = function() {
+				if ( -1 !== containerMenu.className.indexOf( 'toggled' ) ) {
+					containerMenu.className = containerMenu.className.replace( ' toggled', '' );
+					button.setAttribute( 'aria-expanded', 'false' );
+					menu.setAttribute( 'aria-expanded', 'false' );
+				} else {
+					containerMenu.className += ' toggled';
+					button.setAttribute( 'aria-expanded', 'true' );
+					menu.setAttribute( 'aria-expanded', 'true' );
+				}
+			};
+		}
+
 		button.onclick = function() {
-			if ( -1 !== container.className.indexOf( 'toggled' ) ) {
-				container.className = container.className.replace( ' toggled', '' );
+			if ( -1 !== containerMenu.className.indexOf( 'toggled' ) ) {
+				containerMenu.className = containerMenu.className.replace( ' toggled', '' );
 				button.setAttribute( 'aria-expanded', 'false' );
 				menu.setAttribute( 'aria-expanded', 'false' );
 			} else {
-				container.className += ' toggled';
+				containerMenu.className += ' toggled';
 				button.setAttribute( 'aria-expanded', 'true' );
 				menu.setAttribute( 'aria-expanded', 'true' );
 			}

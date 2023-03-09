@@ -270,8 +270,37 @@ function add_language_vars() {
             'var error_email_invalid = "'.__('E-mail format is invalid', 'joinus4health').'";'.
             'var deepl_url = "'. home_url().'/deepl.php";'.
          '</script>';
-    }
-add_action('wp_head', 'add_language_vars', 1, 1);
+
+    echo '<script type="text/javascript">'.
+            'var is_consent_needed = '.($is_consent_needed ? 'true' : 'false').';'.
+            'var consent_id = '.$consent_id.';'.
+            'var consent_wpnonce = "'.wp_create_nonce('delete-user-id-'. $user_id).'";'.
+         '</script>';
+}
+add_action('wp_head', 'add_consent_vars', 1, 1);
+
+function add_consent_modal() {
+    ?>
+<div id="modal-consent" class="modal">
+    <h4>Agreement</h4>
+    <div class="text">Do you agree to the new privacy policy?</div>
+    <div class="buttons">
+        <a href="#" rel="modal:close" id="consent-yes" class="blackbtn">Yes</a>
+        <a href="<?= wp_logout_url() ?>">No, sign out</a>
+        <a href="#" rel="modal:close" id="consent-delete-account">No, I want to delete my account</a>
+    </div>
+</div>
+<div id="modal-consent-delete-account" class="modal">
+    <h4>Agreement</h4>
+    <div class="text">Are you sure you want to delete your account?</div>
+    <div class="buttons">
+        <a href="#" rel="modal:close" id="consent-delete-account-yes" class="blackbtn">Yes</a>
+        <a href="<?= wp_logout_url() ?>">No, sign out</a>
+    </div>
+</div>
+<?php
+}
+add_action('wp_footer', 'add_consent_modal');
 
 function wp_head_add_message_input() {
         echo '<script type="text/javascript">'.
@@ -654,3 +683,35 @@ function delete_user_email_notification($user_id) {
     }
 }
 add_action('delete_user', 'delete_user_email_notification', 10);
+
+function ju4h_deleted_user($user_id, $reassign, $user) {
+    $comments = get_comments(array(
+        'author__in' => $user_id
+    ));
+    $newname = 'anonymous'.time();
+    foreach ($comments as $comment) {
+        $update_comment = array();
+        $update_comment['comment_author'] = $newname;
+        $update_comment['comment_ID'] = $comment->comment_ID;
+        $update_comment['comment_author_email'] = $newname.'@platform.joinus4health.eu';
+        wp_update_comment($update_comment);
+    }
+}
+add_filter('deleted_user', 'ju4h_deleted_user', 10, 3);
+
+function theme_change_comment_field_names($translated_text, $text, $domain) {
+    if ($domain == 'buddypress') {
+        if ($translated_text == 'Usunięcie twojego konta spowoduje usunięcie zawartości, którą stworzyłeś. Jest to całkowicie nieodwracalne.') {
+            return 'Likwidacja konta spowoduje usunięcie wszystkich danych osobowych z nim związanych, tzn., że nie będzie możliwości ich odtworzenia.';
+        } else if ($translated_text == 'Het verwijderen van het account zal ook alle gegevens wissen die je hebt aangemaakt. Dit is niet terug te draaien.') {
+            return 'Als u uw account verwijdert, zullen al uw persoonlijke gegevens die aan uw account zijn gekoppeld ook onherstelbaar worden verwijderd.';
+        } else if ($translated_text == 'Durch die Löschung des Benutzerkontos, werden auch alle erstellten Inhalte gelöscht. Eine Wiederherstellung wird nicht möglich sein.') {
+            return 'Durch die Löschung des Benutzerkontos, werden all Ihre personenbezogenen Daten, die mit Ihrem Account verknüpft sind, gelöscht. Eine Wiederherstellung wird nicht möglich sein.';
+        } else if ($translated_text == 'Deleting your account will delete all of the content you have created. It will be completely irrecoverable.') {
+            return 'Deleting your account will delete all of your personal data associated with your account. It will be completely irrecoverable.';
+        }
+    }
+
+    return $translated_text;
+}
+add_filter('gettext', 'theme_change_comment_field_names', 20, 3);

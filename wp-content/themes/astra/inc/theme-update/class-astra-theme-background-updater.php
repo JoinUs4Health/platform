@@ -90,12 +90,8 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 				'astra_remove_logo_max_width',
 				'astra_transparent_header_default_value',
 			),
-			'3.6.1' => array(
-				'astra_clear_all_assets_cache',
-			),
 			'3.6.3' => array(
 				'astra_button_default_values_updated',
-				'astra_clear_all_assets_cache',
 			),
 			'3.6.4' => array(
 				'astra_update_underline_link_setting',
@@ -106,7 +102,27 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 			'3.6.7' => array(
 				'astra_fix_footer_widget_right_margin_case',
 				'astra_remove_elementor_toc_margin',
-				'astra_clear_all_assets_cache',
+			),
+			'3.6.8' => array(
+				'astra_set_removal_widget_design_options_flag',
+			),
+			'3.6.9' => array(
+				'astra_zero_font_size_comp',
+				'astra_unset_builder_elements_underline',
+				'astra_remove_responsive_account_menu_colors_support',
+			),
+			'3.7.0' => array(
+				'astra_global_color_compatibility',
+			),
+			'3.7.4' => array(
+				'astra_improve_gutenberg_editor_ui',
+			),
+			'3.7.9' => array(
+				'astra_set_default_breadcrumb_separator_option',
+				'astra_fullwidth_layouts_apply_content_background',
+			),
+			'3.8.1' => array(
+				'astra_apply_modern_block_editor_ui',
 			),
 		);
 
@@ -162,13 +178,13 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 			$doing_wp_cron = sprintf( '%.22F', microtime( true ) );
 
 			$cron_request = apply_filters(
-				'cron_request',
+				'cron_request', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				array(
 					'url'  => site_url( 'wp-cron.php?doing_wp_cron=' . $doing_wp_cron ),
 					'args' => array(
 						'timeout'   => 3,
 						'blocking'  => true,
-						'sslverify' => apply_filters( 'https_local_ssl_verify', $sslverify ),
+						'sslverify' => apply_filters( 'https_local_ssl_verify', $sslverify ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					),
 				)
 			);
@@ -201,7 +217,7 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 
 			$fallback    = $this->test_cron();
 			$db_migrated = $this->check_if_data_migrated();
-
+			/** @psalm-suppress InvalidArgument */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
 			$is_queue_running = astra_get_option( 'is_theme_queue_running', false );
 
 			$fallback = ( $db_migrated ) ? $db_migrated : $fallback;
@@ -224,6 +240,7 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 		public function is_new_install() {
 
 			// Get auto saved version number.
+			/** @psalm-suppress InvalidArgument */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
 			$saved_version = astra_get_option( 'theme-auto-version', false );
 
 			if ( false === $saved_version ) {
@@ -272,6 +289,8 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 			$fallback = false;
 
 			$is_db_version_updated = $this->is_db_version_updated();
+
+			/** @psalm-suppress DocblockTypeContradiction */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
 			if ( ! $is_db_version_updated ) {
 
 				$db_migrated = get_transient( 'astra-theme-db-migrated' );
@@ -301,6 +320,7 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 		 */
 		public function is_db_version_updated() {
 			// Get auto saved version number.
+			/** @psalm-suppress InvalidArgument */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
 			$saved_version = astra_get_option( 'theme-auto-version', false );
 
 			return version_compare( $saved_version, ASTRA_THEME_VERSION, '=' );
@@ -351,6 +371,7 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 			do_action( 'astra_theme_update_before' );
 
 			// Get auto saved version number.
+			/** @psalm-suppress InvalidArgument */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
 			$saved_version = astra_get_option( 'theme-auto-version', false );
 
 			if ( false === $saved_version ) {
@@ -363,7 +384,6 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 
 			// If equals then return.
 			if ( version_compare( $saved_version, ASTRA_THEME_VERSION, '=' ) ) {
-				do_action( 'astra_theme_update_after' );
 				astra_update_option( 'is_theme_queue_running', false );
 				return;
 			}

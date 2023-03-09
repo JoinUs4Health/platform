@@ -55,7 +55,7 @@ function astra_vertical_horizontal_padding_migration() {
 
 	$btn_vertical_padding   = isset( $theme_options['button-v-padding'] ) ? $theme_options['button-v-padding'] : 10;
 	$btn_horizontal_padding = isset( $theme_options['button-h-padding'] ) ? $theme_options['button-h-padding'] : 40;
-
+	/** @psalm-suppress InvalidArgument */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
 	if ( false === astra_get_db_option( 'theme-button-padding', false ) ) {
 
 		// Migrate button vertical padding to the new padding param for button.
@@ -3074,15 +3074,17 @@ function astra_transparent_header_default_value() {
  * @return void.
  */
 function astra_clear_all_assets_cache() {
-	if ( class_exists( 'Astra_Cache_Base' ) ) {
-		// Clear Astra theme cache.
-		$astra_cache_base_instance = new Astra_Cache_Base( 'astra' );
-		$astra_cache_base_instance->refresh_assets( 'astra' );
-
-		// Clear Astra Addon's cache.
-		$astra_addon_cache_base_instance = new Astra_Cache_Base( 'astra-addon' );
-		$astra_addon_cache_base_instance->refresh_assets( 'astra-addon' );
+	if ( ! class_exists( 'Astra_Cache_Base' ) ) {
+		return;
 	}
+	// Clear Astra theme asset cache.
+	$astra_cache_base_instance = new Astra_Cache_Base( 'astra' );
+	$astra_cache_base_instance->refresh_assets( 'astra' );
+
+	// Clear Astra Addon's static and dynamic CSS asset cache.
+	astra_clear_assets_cache();
+	$astra_addon_cache_base_instance = new Astra_Cache_Base( 'astra-addon' );
+	$astra_addon_cache_base_instance->refresh_assets( 'astra-addon' );
 }
 
 /**
@@ -3158,6 +3160,167 @@ function astra_remove_elementor_toc_margin() {
 
 	if ( ! isset( $theme_options['remove-elementor-toc-margin-css'] ) ) {
 		$theme_options['remove-elementor-toc-margin-css'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}
+
+/**
+ * Set flag to avoid direct reflections on live site & to maintain backward compatibility for existing users.
+ * Use: Setting flag for removing widget specific design options when WordPress 5.8 & above activated on site.
+ *
+ * @since 3.6.8
+ * @return void
+ */
+function astra_set_removal_widget_design_options_flag() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['remove-widget-design-options'] ) ) {
+		$theme_options['remove-widget-design-options'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}
+
+/**
+ * Apply zero font size for new users.
+ *
+ * @since 3.6.9
+ * @return void
+ */
+function astra_zero_font_size_comp() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['astra-zero-font-size-case-css'] ) ) {
+		$theme_options['astra-zero-font-size-case-css'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}
+
+/** Set flag to avoid direct reflections on live site & to maintain backward compatibility for existing users.
+ *
+ * @since 3.6.9
+ * @return void
+ */
+function astra_unset_builder_elements_underline() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['unset-builder-elements-underline'] ) ) {
+		$theme_options['unset-builder-elements-underline'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}
+
+/**
+ * Migrating Builder > Account > transparent resonsive menu color options to single color options.
+ * Because we do not show menu on resonsive devices, whereas we trigger login link on responsive devices instead of showing menu.
+ *
+ * @since 3.6.9
+ *
+ * @return void
+ */
+function astra_remove_responsive_account_menu_colors_support() {
+
+	$theme_options = get_option( 'astra-settings', array() );
+
+	$account_menu_colors = array(
+		'transparent-account-menu-color',                // Menu color.
+		'transparent-account-menu-bg-obj',               // Menu background color.
+		'transparent-account-menu-h-color',              // Menu hover color.
+		'transparent-account-menu-h-bg-color',           // Menu background hover color.
+		'transparent-account-menu-a-color',              // Menu active color.
+		'transparent-account-menu-a-bg-color',           // Menu background active color.
+	);
+
+	foreach ( $account_menu_colors as $color_option ) {
+		if ( ! isset( $theme_options[ $color_option ] ) && isset( $theme_options[ $color_option . '-responsive' ]['desktop'] ) ) {
+			$theme_options[ $color_option ] = $theme_options[ $color_option . '-responsive' ]['desktop'];
+		}
+	}
+
+	update_option( 'astra-settings', $theme_options );
+}
+
+/**
+ * Link default color compatibility.
+ *
+ * @since 3.7.0
+ * @return void
+ */
+function astra_global_color_compatibility() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['support-global-color-format'] ) ) {
+		$theme_options['support-global-color-format'] = false;
+	}
+
+	// Set Footer copyright text color for existing users to #3a3a3a.
+	if ( ! isset( $theme_options['footer-copyright-color'] ) ) {
+		$theme_options['footer-copyright-color'] = '#3a3a3a';
+	}
+
+	update_option( 'astra-settings', $theme_options );
+}
+
+/**
+ * Set flag to avoid direct reflections on live site & to maintain backward compatibility for existing users.
+ *
+ * @since 3.7.4
+ * @return void
+ */
+function astra_improve_gutenberg_editor_ui() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['improve-gb-editor-ui'] ) ) {
+		$theme_options['improve-gb-editor-ui'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}
+
+/**
+ * Set flag to avoid direct reflections on live site & to maintain backward compatibility for existing users.
+ *
+ * Starting supporting content-background color for Full Width Contained & Full Width Stretched layouts.
+ *
+ * @since 3.7.8
+ * @return void
+ */
+function astra_fullwidth_layouts_apply_content_background() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['apply-content-background-fullwidth-layouts'] ) ) {
+		$theme_options['apply-content-background-fullwidth-layouts'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}
+
+/**
+ * Sets the default breadcrumb separator selector value if the current user is an exsisting user
+ *
+ * @since 3.7.8
+ * @return void
+ */
+function astra_set_default_breadcrumb_separator_option() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['breadcrumb-separator-selector'] ) ) {
+		$theme_options['breadcrumb-separator-selector'] = 'unicode';
+		update_option( 'astra-settings', $theme_options );
+	}
+}
+
+/**
+ * Set flag to avoid direct reflections on live site & to maintain backward compatibility for existing users.
+ *
+ * Backward flag purpose - To initiate modern & updated UI of block editor & frontend.
+ *
+ * @since 3.8.0
+ * @return void
+ */
+function astra_apply_modern_block_editor_ui() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['wp-blocks-ui'] ) && ! version_compare( $theme_options['theme-auto-version'], '3.8.0', '==' ) ) {
+		$theme_options['blocks-legacy-setup'] = true;
+		$theme_options['wp-blocks-ui']        = 'legacy';
 		update_option( 'astra-settings', $theme_options );
 	}
 }

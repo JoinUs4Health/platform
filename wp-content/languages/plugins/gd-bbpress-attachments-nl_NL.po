@@ -1,0 +1,606 @@
+# Translation of Plugins - GD bbPress Attachments - Development (trunk) in Dutch
+# This file is distributed under the same license as the Plugins - GD bbPress Attachments - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-08-19 11:10:44+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.1\n"
+"Language: nl\n"
+"Project-Id-Version: Plugins - GD bbPress Attachments - Development (trunk)\n"
+
+#: forms/uploader.php:2
+msgid "Upload Attachments"
+msgstr "Upload bijlagen"
+
+#: forms/tabs/attachments.php:102
+msgid "Plugin will attempt to load files automatically when needed. If that fails, try using this option."
+msgstr "De plugin probeert de benodigde bestanden automatisch te laden. Probeer deze optie als dat niet lukt."
+
+#: code/front.php:89
+msgid "This operation is not reversible. Are you sure?"
+msgstr "Deze optie kan niet ongedaan worden gemaakt. Weet je het zeker?"
+
+#: forms/tabs/d4p.php:13
+msgid "More Free Plugins for bbPress"
+msgstr "Meer gratis Plugins voor bbPress"
+
+#: forms/tabs/d4p.php:3
+msgid "Premium Plugins for bbPress"
+msgstr "Premium plugins voor bbPress"
+
+#: forms/tabs/attachments.php:35
+msgid "Hide attachments"
+msgstr "Bijlagen verbergen"
+
+#: forms/panels.php:8
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+#: forms/panels.php:7
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: forms/more/toolbox.php:34
+msgid "8 Widgets"
+msgstr "8 widgets"
+
+#: forms/more/toolbox.php:33
+msgid "19 Topics views"
+msgstr "19 Topics weergaven"
+
+#: forms/more/toolbox.php:32
+msgid "45 BBCodes and BBCodes Toolbar"
+msgstr "45 BBCodes en BBCodes toolbar"
+
+#: forms/more/toolbox.php:31
+msgid "New and unread topics tracking"
+msgstr "Nieuw en ongelezen onderwerpen volgen"
+
+#: forms/more/toolbox.php:30
+msgid "Various SEO tools"
+msgstr "Divers SEO gereedschap"
+
+#: forms/more/toolbox.php:29
+msgid "Various privacy tools"
+msgstr "Divers privacy gereedschap"
+
+#: forms/more/toolbox.php:28
+msgid "Say Thanks to forum members"
+msgstr "Zeg dank aan forumleden"
+
+#: forms/more/toolbox.php:27
+msgid "Canned Replies"
+msgstr "Canned antwoorden"
+
+#: forms/more/toolbox.php:25
+msgid "Enhanced attachments"
+msgstr "Verbeterde bijlagen"
+
+#: forms/more/toolbox.php:23
+msgid "Some of the features you will get with GD bbPress Toolbox Pro"
+msgstr "Enkele functies die je krijgt met GD bbPress Toolbox Pro"
+
+#: forms/more/toolbox.php:18
+msgid "Buy GD bbPress Toolbox Pro license or Dev4Press Plugins Club Membership license and get %s discount using this coupon"
+msgstr "Koop GD bbPress Toolbox Pro licentie of Dev4Press Plugins Club lidmaatschap licentie en krijg %s korting met deze waardebon"
+
+#: forms/more/toolbox.php:11
+msgid "Official Plugin Website"
+msgstr "Officiële plugin site"
+
+#: forms/more/toolbox.php:8
+msgid "Expand bbPress powered forums with attachments upload, BBCodes, signatures, widgets, quotes, topics report, thanks, activity tracking, enhanced widgets, extra views..."
+msgstr "Breid bbPress ondersteunende forums uit met bijlagen uploaden, BBCodes, handtekeningen, widgets, citaten, onderwerpen rapport, bedankt, activiteit volgen, verbeterde widgets, extra views ..."
+
+#: forms/more/toolbox.php:7
+msgid "Enhancing WordPress forums powered by bbPress"
+msgstr "Verbeterde WordPress forums mogelijk gemaakt door bbPress"
+
+#: forms/more/toolbox.php:3
+msgid "consider upgrading to"
+msgstr "overweeg een upgrade naar"
+
+#: forms/attachments/meta_forum.php:35 forms/tabs/attachments.php:41
+msgid "From visitors"
+msgstr "Van bezoekers"
+
+#: forms/attachments/meta_forum.php:30
+msgid "Hide list of attachments"
+msgstr "Verberg lijst van bijlages"
+
+#: forms/attachments/meta_forum.php:27 forms/tabs/attachments.php:30
+msgid "at once"
+msgstr "onmiddelijk"
+
+#. Plugin URI of the plugin
+msgid "https://plugins.dev4press.com/gd-bbpress-attachments/"
+msgstr "https://plugins.dev4press.com/gd-bbpress-attachments/"
+
+#: forms/more/toolbox.php:26
+msgid "Report Topics and Replies"
+msgstr "Rapporteer onderwerpen en antwoorden"
+
+#: forms/more/toolbox.php:13
+msgid "Dev4Press Plugins Club Membership"
+msgstr "Dev4Press plugins club lidmaatschap"
+
+#: forms/tabs/about.php:25
+msgid "PHP: "
+msgstr "PHP: "
+
+#: code/admin.php:96
+msgid "Knowledge Base"
+msgstr "Kennisbank"
+
+#. Author URI of the plugin
+msgid "https://www.dev4press.com/"
+msgstr "https://www.dev4press.com/"
+
+#. Author of the plugin
+msgid "Milan Petrovic"
+msgstr "Milan Petrovic"
+
+#. Description of the plugin
+msgid "Implements attachments upload to the topics and replies in bbPress plugin through media library and add additional forum based controls."
+msgstr "Implementeert bijlagen uploaden naar de onderwerpen en antwoorden in bbPress plugin via mediabibliotheek en voegt extra op forum gebaseerde besturingselementen toe."
+
+#. Plugin Name of the plugin
+msgid "GD bbPress Attachments"
+msgstr "GD bbPress Attachments"
+
+#: forms/uploader.php:17
+msgid "Add another file"
+msgstr "Voeg nog een bestand toe"
+
+#: forms/uploader.php:8
+msgid "Maximum file size allowed is %s."
+msgstr "Maximaal toegestane bestandsgrootte is %s"
+
+#: forms/more/toolbox.php:35
+msgid "and much more..."
+msgstr "en nog veel meer..."
+
+#: forms/more/toolbox.php:12
+msgid "Toolbox Pro vs Free plugins"
+msgstr "Toolbox Pro versus gratis plugins"
+
+#: forms/more/toolbox.php:10
+msgid "Important links"
+msgstr "Belangrijke links"
+
+#: forms/more/toolbox.php:17
+msgid "Special upgrade discount"
+msgstr "Speciale upgrade korting "
+
+#: forms/tabs/d4p.php:35
+msgid "More Free Plugins"
+msgstr "Meer gratis plugins"
+
+#: forms/tabs/d4p.php:22
+msgid "Other Premium Plugins"
+msgstr "Andere premium plugins"
+
+#: forms/tabs/advanced.php:125 forms/tabs/attachments.php:149
+#: forms/tabs/images.php:93
+msgid "Save Changes"
+msgstr "Wijzigingen opslaan"
+
+#: forms/tabs/images.php:75
+msgid "Thumbnail size"
+msgstr "Thumbnailgrootte"
+
+#: forms/tabs/images.php:69
+msgid "plugin"
+msgstr "plugin"
+
+#: forms/tabs/images.php:68
+msgid "Changing thumbnails size affects only new image attachments. To use new size for old attachments, resize them using"
+msgstr "Het wijzigen van de grootte van thumbnails heeft alleen invloed op nieuwe afbeelding bijlagen. Als je een nieuw formaat wilt gebruiken voor oude bijlagen, wijzig je het formaat met behulp van"
+
+#: forms/tabs/images.php:67
+msgid "Image thumbnails size"
+msgstr "Afbeelding thumbnails grootte"
+
+#: forms/tabs/images.php:59
+msgid "You can use these tags"
+msgstr "Je kunt deze tags gebruiken"
+
+#: forms/tabs/images.php:55
+msgid "REL attribute"
+msgstr "Rel attribuut"
+
+#: forms/tabs/images.php:47
+msgid "CSS class"
+msgstr "CSS class"
+
+#: forms/tabs/images.php:37
+msgid "In line"
+msgstr "In line"
+
+#: forms/tabs/images.php:27
+msgid "With caption"
+msgstr "Met bijschrift"
+
+#: forms/tabs/images.php:12
+msgid "Attached images can be displayed as thumbnails, and from here you can control this."
+msgstr "Bijgevoegde afbeeldingen kunnen als thumbnails worden weergegeven en vanaf hier kan je dit regelen."
+
+#: forms/tabs/images.php:11
+msgid "Display of image attachments"
+msgstr "Weergave van afbeelding bijlagen"
+
+#: forms/tabs/attachments.php:136
+msgid "File Type Icons"
+msgstr "Bestandstype iconen"
+
+#: forms/tabs/attachments.php:126
+msgid "Attachment Icon"
+msgstr "Bijlage icoon"
+
+#: forms/tabs/attachments.php:121
+msgid "With these options you can modify the forums to include attachment elements."
+msgstr "Met deze opties kunt u de forums plugin uitbreiden met bijlagen"
+
+#: forms/tabs/attachments.php:120
+msgid "Forums Integration"
+msgstr "Forum integratie"
+
+#: forms/tabs/advanced.php:102
+msgid "Author"
+msgstr "Auteur"
+
+#: forms/tabs/advanced.php:83
+msgid "Moderators"
+msgstr "Moderators"
+
+#: forms/tabs/advanced.php:78 forms/tabs/advanced.php:97
+#: forms/tabs/advanced.php:116
+msgid "Allow both delete and detach"
+msgstr "Toestaan van zowel verwijderen als ontkoppelen"
+
+#: forms/tabs/advanced.php:75 forms/tabs/advanced.php:94
+#: forms/tabs/advanced.php:113
+msgid "Only detach from topic/reply"
+msgstr "Loskoppelen alleen voor dit onderwerp/reactie"
+
+#: forms/tabs/advanced.php:72 forms/tabs/advanced.php:91
+#: forms/tabs/advanced.php:110
+msgid "Delete from Media Library"
+msgstr "Uit de mediabibliotheek verwijderen"
+
+#: forms/tabs/advanced.php:69 forms/tabs/advanced.php:88
+#: forms/tabs/advanced.php:107
+msgid "Don't allow to delete"
+msgstr "Niet toestaan om te verwijderen"
+
+#: forms/tabs/advanced.php:64
+msgid "Administrators"
+msgstr "Beheerders"
+
+#: forms/tabs/advanced.php:60
+msgid "Once uploaded and attached, attachments can be deleted. Only administrators and authors can do this."
+msgstr "Eenmaal geüpload en bijgevoegd, kunnen bijlagen worden verwijderd. Alleen beheerders en auteurs kunnen dit doen."
+
+#: forms/tabs/advanced.php:59
+msgid "Deleting attachments"
+msgstr "Bijlagen verwijderen"
+
+#: forms/tabs/advanced.php:46
+msgid "Visible to author"
+msgstr "Zichtbaar voor auteur"
+
+#: forms/tabs/advanced.php:36
+msgid "Visible to moderators"
+msgstr "Zichtbaar voor moderators"
+
+#: forms/tabs/advanced.php:26
+msgid "Visible to administrators"
+msgstr "Zichtbaar voor beheerders"
+
+#: forms/tabs/advanced.php:17 forms/tabs/images.php:17
+msgid "Activated"
+msgstr "Geactiveerd"
+
+#: forms/tabs/advanced.php:12
+msgid "Each failed upload will be logged in postmeta table. Administrators and topic/reply authors can see the log."
+msgstr "Elke mislukte upload wordt in de postmeta tabel vastgelegd. Beheerders, en auteurs van onderwerp / antwoord, kunnen het logboek bekijken."
+
+#: forms/tabs/advanced.php:11
+msgid "Error logging"
+msgstr "Fout logging"
+
+#: forms/tabs/attachments.php:107
+msgid "Always Include"
+msgstr "Altijd opnemen"
+
+#: forms/tabs/attachments.php:101
+msgid "If you use shortcodes to embed forums, and you rely on plugin to add JS and CSS, you also need to enable this option to skip checking for bbPress specific pages."
+msgstr "Als je shortcodes gebruikt om forums in te sluiten en je vertrouwt op de plugin om JS en CSS toe te voegen, moet je deze optie ook inschakelen om de controle voor bbPress specifieke pagina's over te slaan."
+
+#: forms/tabs/attachments.php:100
+msgid "JavaScript and CSS Settings"
+msgstr "JavaScript en CSS-instellingen"
+
+#: forms/tabs/attachments.php:91
+msgid "Do nothing"
+msgstr "Niets doen"
+
+#: forms/tabs/attachments.php:88
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: forms/tabs/attachments.php:85
+msgid "Leave in media library"
+msgstr "Laat staan in mediabibliotheek"
+
+#: forms/tabs/attachments.php:80
+msgid "Attachments Action"
+msgstr "Bijlagen actie"
+
+#: forms/tabs/attachments.php:76
+msgid "Select what to do with attachments when topic or reply with attachments is deleted."
+msgstr "Selecteer wat te doen met bijlagen wanneer een onderwerp of antwoord met bijlagen is verwijderd."
+
+#: forms/tabs/attachments.php:75
+msgid "Topic and Reply Deleting"
+msgstr "Onderwerp en antwoord verwijdering"
+
+#: forms/tabs/attachments.php:54 forms/tabs/attachments.php:58
+msgid "Allow upload to"
+msgstr "Laat uploaden naar"
+
+#: forms/tabs/attachments.php:50
+msgid "Only users having one of the selected roles will be able to attach files."
+msgstr "Alleen gebruikers met een van de geselecteerde rollen zijn in staat bestanden bij voegen"
+
+#: forms/tabs/attachments.php:49
+msgid "Users Upload Restrictions"
+msgstr "Beperkingen per gebruiker"
+
+#: forms/tabs/attachments.php:12
+msgid "These settings can be overridden for individual forums."
+msgstr "Deze instellingen kunnen overschreven worden voor individuele forums."
+
+#: forms/tabs/attachments.php:11
+msgid "Global Attachments Settings"
+msgstr "Globale Bijlagen instellingen"
+
+#: forms/tabs/advanced.php:3 forms/tabs/attachments.php:3
+#: forms/tabs/images.php:3
+msgid "Settings saved."
+msgstr "Instellingen opgeslagen."
+
+#: forms/tabs/about.php:43
+msgid "Page"
+msgstr "Pagina"
+
+#: forms/tabs/about.php:41
+msgid "Dev4Press Important Links"
+msgstr "Dev4Press belangrijke links"
+
+#: forms/tabs/about.php:40
+msgid "Plugin Support Forum on Dev4Press"
+msgstr "Plugin ondersteuning forum op Dev4Press"
+
+#: forms/tabs/about.php:39
+msgid "Plugin Support"
+msgstr "Plugin ondersteuning"
+
+#: forms/tabs/about.php:38 forms/tabs/about.php:42
+msgid "on"
+msgstr "op"
+
+#: forms/tabs/about.php:37
+msgid "Home Page"
+msgstr "Home Page"
+
+#: forms/tabs/about.php:36
+msgid "Important Plugin Links"
+msgstr "Belangrijke Plugin Links"
+
+#: forms/tabs/about.php:29
+msgid "bbPress: "
+msgstr "bbPress: "
+
+#: forms/tabs/about.php:27
+msgid "WordPress: "
+msgstr "WordPress: "
+
+#: forms/tabs/about.php:22
+msgid "System Requirements"
+msgstr "Systeem vereisten"
+
+#: forms/tabs/about.php:15
+msgid "Build: "
+msgstr "Build:"
+
+#: forms/tabs/about.php:13
+msgid "Status: "
+msgstr "Status:"
+
+#: forms/tabs/about.php:11
+msgid "Release Date: "
+msgstr "Releasedatum:"
+
+#: forms/panels.php:10
+msgid "About"
+msgstr "Over"
+
+#: forms/panels.php:9
+msgid "Dev4Press"
+msgstr "Dev4Press"
+
+#: forms/attachments/meta_forum.php:31
+msgid "Hide From Visitors"
+msgstr "Verbergen voor bezoekers"
+
+#: forms/attachments/meta_forum.php:24 forms/attachments/meta_forum.php:25
+#: forms/tabs/attachments.php:26
+msgid "Maximum files to upload"
+msgstr "Maximum aantal bestanden te uploaden bestanden"
+
+#: forms/attachments/meta_forum.php:18 forms/attachments/meta_forum.php:19
+#: forms/tabs/attachments.php:17
+msgid "Maximum file size"
+msgstr "Maximale bestandsgrootte"
+
+#: forms/attachments/meta_forum.php:16
+msgid "Settings to override"
+msgstr "Instellingen om te overschrijven"
+
+#: forms/attachments/meta_forum.php:10 forms/attachments/meta_forum.php:11
+msgid "Override Defaults"
+msgstr "Override Standaardinstellingen"
+
+#: forms/attachments/meta_forum.php:3 forms/attachments/meta_forum.php:4
+msgid "Disable Attachments"
+msgstr "Bijlagen uitschakelen"
+
+#: forms/attachments/meta_files.php:12
+msgid "edit"
+msgstr "bewerken"
+
+#: forms/attachments/meta_files.php:5
+msgid "No attachments here."
+msgstr "Geen bijlagen"
+
+#: code/defaults.php:54
+msgid "Server extension restriction stopped upload."
+msgstr "Server extensiebeperking heeft de upload gestopt."
+
+#: code/defaults.php:53
+msgid "Temporary folder for upload is missing."
+msgstr "Tijdelijke map voor uploaden ontbreekt."
+
+#: code/defaults.php:52
+msgid "Can't write file to the disk."
+msgstr "Kan het bestand niet naar de schijf schrijven."
+
+#: code/defaults.php:51
+msgid "Upload file only partially uploaded."
+msgstr "Het geüploade bestand is slechts gedeeltelijk geüpload."
+
+#: code/defaults.php:50
+msgid "Upload file size exceeds FORM specified file size."
+msgstr "Upload bestandsgrootte overschrijdt FORM gespecificeerde bestandsgrootte."
+
+#: code/defaults.php:49
+msgid "Upload file size exceeds PHP maximum file size allowed."
+msgstr "Upload bestandsgrootte overschrijdt PHP maximale bestandsgrootte toegestaan."
+
+#: code/defaults.php:48
+msgid "File not uploaded."
+msgstr "Bestand niet geüpload"
+
+#: code/defaults.php:47
+msgid "File exceeds allowed file size."
+msgstr "Bestand overschrijd toegestane bestand grote."
+
+#: code/front.php:390 forms/attachments/meta_files.php:21
+msgid "Upload Errors"
+msgstr "Upload fouten"
+
+#: code/front.php:292
+msgid "detach"
+msgstr "loskoppelen"
+
+#: code/front.php:288
+msgid "delete"
+msgstr "verwijderen"
+
+#: code/front.php:254
+msgid "You must be <a href='%s'>logged in</a> to view attached files."
+msgstr "Je moet <a href='%s'>inloggen</a> om bijgevoegde betanden te bekijken."
+
+#: code/front.php:235
+msgid "attachment"
+msgid_plural "attachments"
+msgstr[0] "bijlage"
+msgstr[1] "bijlagen"
+
+#: code/meta.php:135 code/meta.php:136
+msgid "Attachments List"
+msgstr "Bijlagen Lijst"
+
+#: code/meta.php:134
+msgid "Attachments Settings"
+msgstr "Bijlagen Instellingen"
+
+#: code/admin.php:97
+msgid "Premium support forum for all with valid licenses to get help. Also, report bugs and leave suggestions."
+msgstr "Premium ondersteuningsforum voor iedereen met geldige licenties om hulp te krijgen. Meld ook fouten en laat suggesties achter."
+
+#: code/admin.php:97
+msgid "Support Forums"
+msgstr "Support Forums"
+
+#: code/admin.php:96
+msgid "Premium and free tutorials for our plugins themes, and many general and practical WordPress tutorials."
+msgstr "Premium en gratis tutorials voor onze plugins thema's en veel algemene en praktische WordPress zelfstudies."
+
+#: code/admin.php:95
+msgid "We have more than 10 plugins available, some of them are commercial and some are available for free."
+msgstr "We hebben meer dan 10 plugins beschikbaar, sommige zijn commercieel en anderen zijn gratis beschikbaar."
+
+#: code/admin.php:95
+msgid "Plugins"
+msgstr "Plugins"
+
+#: code/admin.php:94
+msgid "On Dev4Press website you can find many useful plugins, themes and tutorials, all for WordPress. Please, take a few minutes to browse some of these resources, you might find some of them very useful."
+msgstr "Op de Dev4Press site vind je vele nuttige plugins, thema's en tutorials, allemaal voor WordPress. Neem een paar minuten de tijd om door een aantal van deze gegevensbronnen te bladeren, misschien vind je sommige erg nuttig."
+
+#: code/admin.php:89
+msgid "Support Forum on WordPress.org"
+msgstr "Ondersteuning forum op WordPress.org"
+
+#: code/admin.php:88
+msgid "Support Forum on Dev4Press.com"
+msgstr "Ondersteuning forum op Dev4Press.com"
+
+#: code/admin.php:87
+msgid "Getting Plugin Support"
+msgstr "Krijg plugin ondersteuning"
+
+#: code/admin.php:86
+msgid "Home Page on WordPress.org"
+msgstr "Home pagina van WordPress.org"
+
+#: code/admin.php:85
+msgid "Home Page on Dev4Press.com"
+msgstr "Home pagina van Dev4Press.com"
+
+#: code/admin.php:84
+msgid "General Plugin Information"
+msgstr "Algemene plugin informatie"
+
+#: code/admin.php:83
+msgid "Get Help"
+msgstr "Krijg hulp"
+
+#: code/admin.php:79
+msgid "On Facebook"
+msgstr "Op Facebook"
+
+#: code/admin.php:78
+msgid "On Twitter"
+msgstr "Op Twitter"
+
+#: code/admin.php:77
+msgid "Website"
+msgstr "Site"
+
+#: code/admin.php:66
+msgid "Upgrade to GD bbPress Toolbox Pro"
+msgstr "Upgrade naar GD bbPress Toolbox Pro"
+
+#: code/admin.php:57 forms/panels.php:6
+msgid "Settings"
+msgstr "Instellingen"
+
+#: code/admin.php:44 code/front.php:249 code/meta.php:120 forms/uploader.php:14
+msgid "Attachments"
+msgstr "Bijlagen"

@@ -47,3 +47,15 @@ function ju4h_custom_style_login() {
     <?php
 }
 add_action('login_head', 'ju4h_custom_style_login');
+
+
+function ju4h_admin_head() {
+    ?>
+    <style>
+        #postcustom {
+            display: none;
+        }
+    </style>
+    <?php
+}
+add_action('admin_head', 'ju4h_admin_head');

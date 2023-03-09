@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Nineteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-09 05:29:01+0000\n"
+"PO-Revision-Date: 2021-09-06 11:09:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -137,7 +137,7 @@ msgstr "Jasnoszary"
 msgid "Dark Gray"
 msgstr "Ciemnoszary"
 
-#: functions.php:60 footer.php:37
+#: footer.php:37 functions.php:60
 msgid "Footer Menu"
 msgstr "Menu stopki"
 
@@ -149,21 +149,14 @@ msgstr "Mały"
 msgid "Normal"
 msgstr "Normalny"
 
-#: inc/customizer.php:56
-msgctxt "primary color"
-msgid "Custom"
-msgstr "Własny"
-
 #: inc/customizer.php:78
 msgid "Apply a custom color for buttons, links, featured images, etc."
 msgstr "Zastosuj własny kolor do przycisków, odnośników, wyróżnienia obrazów, itp."
 
-#: functions.php:136
-msgid "Huge"
-msgstr "Duży"
-
 #. translators: %s: WordPress version.
-#: inc/back-compat.php:40 inc/back-compat.php:55 inc/back-compat.php:76
+#. translators: %s: WordPress version.
+#. translators: %s: WordPress version.
+#: inc/back-compat.php:43 inc/back-compat.php:60 inc/back-compat.php:83
 msgid "Twenty Nineteen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
 msgstr "Twenty Nineteen wymaga co najmniej wersji 4.7 WordPress'a. Używana wersja to %s. Proszę zaktualizować do nowszej wersji i spróbować ponownie."
 
@@ -176,18 +169,27 @@ msgctxt "Parent post link"
 msgid "<span class=\"meta-nav\">Published in</span><br><span class=\"post-title\">%title</span>"
 msgstr "<span class=\"meta-nav\">Opublikowano w</span><br><span class=\"post-title\">%title</span>"
 
-#: template-parts/content/content.php:18
 #: template-parts/content/content-excerpt.php:18
+#: template-parts/content/content.php:18
 msgctxt "post"
 msgid "Featured"
 msgstr "Wyróżnione"
+
+#: functions.php:136
+msgid "Huge"
+msgstr "Olbrzymi"
+
+#: inc/customizer.php:56
+msgctxt "primary color"
+msgid "Custom"
+msgstr "Własne"
 
 #: image.php:70
 msgctxt "Used before full size attachment link."
 msgid "Full size"
 msgstr "Pełny rozmiar"
 
-#: template-parts/footer/footer-widgets.php:12 functions.php:194
+#: functions.php:194 template-parts/footer/footer-widgets.php:12
 msgid "Footer"
 msgstr "Stopka"
 
@@ -207,24 +209,21 @@ msgstr "Strona"
 msgid "Oops! That page can&rsquo;t be found."
 msgstr "Ups! Nie udało się znaleźć pożądanej strony."
 
-#: comments.php:116
-msgid "Comments are closed."
-msgstr "Możliwość komentowania jest wyłączona."
-
-#: template-parts/header/site-branding.php:46 functions.php:61
+#: functions.php:61 template-parts/header/site-branding.php:46
 msgid "Social Links Menu"
 msgstr "Menu odnośników serwisów społecznościowych"
 
+#: image.php:52 template-parts/content/content-page.php:27
+#: template-parts/content/content-single.php:40
 #: template-parts/content/content.php:49
-#: template-parts/content/content-page.php:27
-#: template-parts/content/content-single.php:40 image.php:52
 msgid "Pages:"
 msgstr "Strony:"
 
-#. translators: %s: Post title. Only visible to screen readers.
 #. translators: %s: Post title.
+#. translators: %s: Post title. Only visible to screen readers.
+#. translators: %s: Post title. Only visible to screen readers.
+#: functions.php:225 template-parts/content/content-single.php:27
 #: template-parts/content/content.php:36
-#: template-parts/content/content-single.php:27 functions.php:225
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "Czytaj dalej<span class=\"screen-reader-text\"> %s</span>"
 
@@ -256,6 +255,7 @@ msgstr "Nie udało się znaleźć tego, czego szukasz. Być może wyszukiwanie p
 msgid "Top Menu"
 msgstr "Górne menu"
 
+#. translators: Used between list items, there is a space after the comma.
 #. translators: Used between list items, there is a space after the comma.
 #: inc/template-tags.php:86 inc/template-tags.php:98
 msgid ", "
@@ -374,10 +374,6 @@ msgstr[2] "%d komentarzy"
 msgid "Posted in"
 msgstr "Opublikowano w"
 
-#: inc/template-tags.php:46
-msgid "Posted by"
-msgstr "Opublikowany przez"
-
 #: inc/template-functions.php:92
 msgid "Archives:"
 msgstr "Archiwa:"
@@ -416,8 +412,10 @@ msgid "Category Archives: "
 msgstr "Archiwum kategorii:"
 
 #. translators: %s: Post title. Only visible to screen readers.
-#: template-parts/content/content-page.php:41
-#: template-parts/header/entry-header.php:32 inc/template-tags.php:120
+#. translators: %s: Post title. Only visible to screen readers.
+#. translators: %s: Post title. Only visible to screen readers.
+#: inc/template-tags.php:120 template-parts/content/content-page.php:41
+#: template-parts/header/entry-header.php:32
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr "Edycja <span class=\"screen-reader-text\">%s</span>"
 
@@ -437,6 +435,14 @@ msgstr "Dołącz do rozmowy"
 #: 404.php:24
 msgid "It looks like nothing was found at this location. Maybe try a search?"
 msgstr "Niczego tutaj nie ma. Może użyj wyszukiwarki?"
+
+#: comments.php:116
+msgid "Comments are closed."
+msgstr "Możliwość komentowania została wyłączona."
+
+#: inc/template-tags.php:46
+msgid "Posted by"
+msgstr "Opublikowane przez"
 
 #. Theme URI of the theme
 msgid "https://wordpress.org/themes/twentynineteen/"
