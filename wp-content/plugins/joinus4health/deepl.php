@@ -1,6 +1,7 @@
 <?php
+require_once('../../../wp-load.php');
 
-$api_key = '386e3afc-9806-5134-925c-cc2c5d14b51a:fx';
+$api_key = JU4H_DEEPL_TOKEN;
 $post_options = array('PL', 'DE', 'NL', 'EN');
 
 if (strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === FALSE) {
