@@ -268,7 +268,7 @@ function add_language_vars() {
             'var error_password_too_weak = "'.__('Password is too weak', 'joinus4health').'";'.
             'var error_email_empty = "'.__('E-mail field cannot be empty', 'joinus4health').'";'.
             'var error_email_invalid = "'.__('E-mail format is invalid', 'joinus4health').'";'.
-            'var deepl_url = "'. home_url().'/deepl.php";'.
+            'var deepl_url = "'. home_url().'/wp-content/plugins/joinus4health/deepl.php";'.
          '</script>';
 
     echo '<script type="text/javascript">'.
@@ -715,3 +715,10 @@ function theme_change_comment_field_names($translated_text, $text, $domain) {
     return $translated_text;
 }
 add_filter('gettext', 'theme_change_comment_field_names', 20, 3);
+
+function phpmailer_sender_update() {
+    $args = func_get_args();
+    $phpmailer = $args[0];
+    $phpmailer->Sender = 'noreply@platform.joinus4health.eu';
+}
+add_action('phpmailer_init', 'phpmailer_sender_update', 10, 999);
