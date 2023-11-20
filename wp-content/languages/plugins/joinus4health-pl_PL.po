@@ -1,11 +1,15 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: JoinUs4Health\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: JoinUs4Health\n"
-"Language: pl\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
@@ -657,7 +661,8 @@ msgstr "Zobacz wszystkie zadania"
 #. nie wiem co należy dodać o tych 15 minutach
 #: pages/home.php:1006
 msgid "home.task.description"
-msgstr "Zadania są zawsze powiązane z konkretnym tematem. Niektóre zadania powiązane bezpośrednio z projektem Wspólnie ku zdrowiu (np. recenzowanie pomysłów, zostanie facylitatorem, promowanie tematu), inne związane są po prostu z tematem zdrowia.\n"
+msgstr ""
+"Zadania są zawsze powiązane z konkretnym tematem. Niektóre zadania powiązane bezpośrednio z projektem Wspólnie ku zdrowiu (np. recenzowanie pomysłów, zostanie facylitatorem, promowanie tematu), inne związane są po prostu z tematem zdrowia.\n"
 "Wystarczy Twoje 15 minut, aby wnieść cenny wkład do tej inicjatywy. "
 
 #: joinus4health.php:231 pages/home.php:1029
@@ -981,7 +986,38 @@ msgstr "Przeglądaj pomysły"
 msgid "country"
 msgstr "Kraj"
 
-#: 
 msgid "footer.text"
 msgstr "JoinUs4Health jest finansowane przez Program Ramowy Unii Europejskiej Horyzont 2020 na podstawie umowy grantowej nr 101006518. Poglądy i opinie wyrażone na tej stronie są wyłącznie poglądami autorów i w żadnym wypadku nie mogą być traktowane jako oficjalne stanowisko Komisji Europejskiej."
 
+msgid "Terms of use"
+msgstr "Warunki użytkowania"
+
+msgid "Privacy statement"
+msgstr "Oświadczenie o ochronie prywatności"
+
+msgid "Welcome back to our platform! We have updated our %s and would like to ask you to accept them before you can continue. By clicking on \"Agree and continue\" you agree to the new document and can use our platform as usual. If you do not wish to accept the new changes, you can log out or delete your account."
+msgstr "Witamy ponownie na naszej platformie! Zaktualizowaliśmy nasze %s i chcielibyśmy poprosić Cię o ich zaakceptowanie, zanim będziesz mógł kontynuować. Klikając \"Zgadzam się i kontynuuję\", zgadzasz się na nowy dokument i możesz normalnie korzystać z naszej platformy. Jeśli nie chcesz zaakceptować nowych zmian, możesz się wylogować lub usunąć swoje konto."
+
+msgid "Thank you for agreeing to our changes. We are happy that you are still part of our platform and wish you a lot of fun with our community."
+msgstr "Dziękujemy za zgodę na nasze zmiany. Cieszymy się, że nadal jesteś częścią naszej platformy i życzymy dużo zabawy z naszą społecznością."
+
+msgid "We are sorry that you do not want to accept our changes. You will now be automatically logged out and can only use our platform again if you agree to the changes."
+msgstr "Przykro nam, że nie chcesz zaakceptować naszych zmian. Zostaniesz teraz automatycznie wylogowany i będziesz mógł ponownie korzystać z naszej platformy tylko wtedy, gdy zaakceptujesz zmiany."
+
+msgid "We are very sorry that you do not agree to our changes and wish to delete your account. We would like to thank you for the time you have spent on our platform and wish you all the best for your future!"
+msgstr "Bardzo nam przykro, że nie zgadzasz się z naszymi zmianami i chcesz usunąć swoje konto. Chcielibyśmy podziękować za czas spędzony na naszej platformie i życzyć wszystkiego najlepszego na przyszłość!"
+
+msgid "Agree and continue"
+msgstr "Zgadzam się i kontynuuję"
+
+msgid "Disagree and log out"
+msgstr "Wyloguj się"
+
+msgid "Disagree and delete my account"
+msgstr "Usuń moje konto"
+
+msgid "By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties."
+msgstr "Przesyłając plik lub zdjęcie, użytkownik potwierdza, że nie narusza ono obowiązujących przepisów ani praw osób trzecich."
+
+msgid "For detailed information, take a look at our"
+msgstr "Aby uzyskać szczegółowe informacje, wyświetl pełne"

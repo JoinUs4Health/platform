@@ -267,6 +267,8 @@ function add_language_vars() {
             'var sign_in_text = "'.__('Log In').'";'.
             'var join_us_text = "'.__('Join us', 'joinus4health').'";'.
             'var home_text = "'.__('Home', 'joinus4health').'";'.
+            'var reply_to_text = "'.__('Reply to', 'joinus4health').'";'.
+            'var comment_text = "'.__('comment', 'joinus4health').'";'.
             'var home_url = "'. home_url().'";'.
             'var is_logged_in = '.(is_user_logged_in() ? 'true' : 'false').';'.
             'var error_username_empty = "'.__('Username field cannot be empty', 'joinus4health').'";'.
@@ -277,6 +279,9 @@ function add_language_vars() {
             'var error_email_empty = "'.__('E-mail field cannot be empty', 'joinus4health').'";'.
             'var error_email_invalid = "'.__('E-mail format is invalid', 'joinus4health').'";'.
             'var deepl_url = "'. home_url().'/wp-content/plugins/joinus4health/deepl.php";'.
+            'var ju4h_add_comment_url = "'. home_url().'/wp-content/plugins/joinus4health/includes/add_comment.php";'.
+            'var ju4h_upload_url = "'. home_url().'/wp-content/plugins/joinus4health/includes/upload_by_user.php";'.
+            'var upload_terms_text = "'.__('By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties.', 'joinus4health').'";'.
          '</script>';
 }
 add_action('wp_head', 'add_language_vars', 12, 1);
@@ -830,3 +835,16 @@ function ju4h_add_agreement($user_id, $user_login, $user_password, $user_email, 
     }
 }
 add_filter('bp_core_signup_user', 'ju4h_add_agreement', 10, 5);
+
+add_filter('manage_edit-comments_columns', function ($columns) {
+    $columns['attachment'] = __('Attachment');
+    return $columns;
+});
+
+add_action('manage_comments_custom_column', function ($column, $comment_id) {
+    if ('attachment' === $column) {
+        $attachment = get_comment_meta($comment_id, 'attachment', true);
+        $attachment_name = get_comment_meta($comment_id, 'attachment_name', true);
+        echo "<a href='".home_url().'/wp-content/'.$attachment."'>".$attachment_name."</a>";
+    }
+}, 10, 2);

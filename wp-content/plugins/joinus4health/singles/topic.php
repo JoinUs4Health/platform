@@ -873,11 +873,18 @@ html_modal_follow();
             <div class="caption"><?= __('Add comment', 'joinus4health') ?></div>
             <form action="<?= home_url() ?>/wp-comments-post.php" method="post">
                 <textarea class="new-comment" name="comment"></textarea>
-                <input type="submit" value="<?= __('Submit', 'joinus4health') ?>" class="submit" name="submit" />
+                <input type="button" value="<?= __('Submit', 'joinus4health') ?>" class="submit" name="submit" />
                 <input type="hidden" name="comment_post_ID" value="<?= $topic_post->ID ?>" id="comment_post_ID">
                 <input type="hidden" name="comment_parent" id="comment_parent" value="0">
             </form>
-            <div class="sub"><?= __('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.', 'joinus4health') ?></div>
+            <form id="upload">
+                <input type="file" id="file" name="file" accept=".jpg, .png, .gif, .pjpeg, .pdf" />Max <?= ini_get('upload_max_filesize') ?>B
+            </form>
+            <div class="sub">
+                <?= __('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.', 'joinus4health') ?><br>
+                <?= __('By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties.', 'joinus4health') ?><br>
+                <?= __('For detailed information, take a look at our', 'joinus4health') ?> <a href="<?= home_url() ?>/terms-of-use/"><?= __('Terms of use', 'joinus4health') ?></a>.
+            </div>
         </div>
         <?php endif; ?>
         <div class="comments">

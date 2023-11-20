@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
 "Project-Id-Version: JoinUs4Health\n"
-"Language: de\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
@@ -980,3 +980,30 @@ msgstr "Sie erhalten eine Nachricht im Falle wichtiger Aktualisierungen oder Akt
 
 msgid "The facilitator will contact you with further information."
 msgstr "Sie werden mit weiteren Informationen kontaktiert."
+
+msgid "Welcome back to our platform! We have updated our %s and would like to ask you to accept them before you can continue. By clicking on \"Agree and continue\" you agree to the new document and can use our platform as usual. If you do not wish to accept the new changes, you can log out or delete your account."
+msgstr "Herzlich willkommen zurück auf unserer Plattform! Wir haben unsere %s aktualisiert und möchten dich bitten, diese zu akzeptieren, bevor du weitermachen kannst. Mit einem Klick auf \"Zustimmen und fortfahren\" stimmst du dem geänderten Dokument zu und kannst wie gewohnt unsere Plattform nutzen. Wenn du die Änderungen nicht akzeptieren möchtest, kannst du dich ausloggen oder deinen Account löschen."
+
+msgid "Thank you for agreeing to our changes. We are happy that you are still part of our platform and wish you a lot of fun with our community."
+msgstr "Vielen Dank, dass du unseren Änderungen zugestimmt hast. Wir freuen uns, dass du weiterhin Teil unserer Plattform bist und wünschen dir viel Spaß mit unserer Community."
+
+msgid "We are sorry that you do not want to accept our changes. You will now be automatically logged out and can only use our platform again if you agree to the changes."
+msgstr "Schade, dass du unsere Änderungen nicht akzeptieren möchtest. Du wirst nun automatisch ausgeloggt und kannst unsere Plattform erst wieder nutzen, wenn du den Änderungen zustimmst."
+
+msgid "We are very sorry that you do not agree to our changes and wish to delete your account. We would like to thank you for the time you have spent on our platform and wish you all the best for your future!"
+msgstr "Wir bedauern sehr, dass du unseren Änderungen nicht zustimmst und deinen Account löschen möchtest. Wir möchten uns bei dir für die Zeit bedanken, die du auf unserer Plattform verbracht hast und wünschen dir alles Gute für deine Zukunft!"
+
+msgid "Agree and continue"
+msgstr "Zustimmen und fortfahren"
+
+msgid "Disagree and log out"
+msgstr "Nicht zustimmen und ausloggen"
+
+msgid "Disagree and delete my account"
+msgstr "Nicht zustimmen und meinen Account löschen"
+
+msgid "By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties."
+msgstr "Mit Hochladen einer Datei oder eines Bildes bestätigst Du, dass dieser weder gegen geltende Gesetze verstößt noch Rechte Dritter verletzt."
+
+msgid "For detailed information, take a look at our"
+msgstr "Ausführliche Informationen finden Sie in unseren"

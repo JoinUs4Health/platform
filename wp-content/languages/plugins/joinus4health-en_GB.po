@@ -1,11 +1,15 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: JoinUs4Health\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: JoinUs4Health\n"
-"Language: en\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
@@ -627,7 +631,8 @@ msgstr "What are suggestions?"
 
 #: pages/home.php:995
 msgid "home.suggestion.description"
-msgstr "Suggestions may include a topic/question of interest, a proposed research question, information or training need, an offer, good practice examples or other types of suggestions. \n"
+msgstr ""
+"Suggestions may include a topic/question of interest, a proposed research question, information or training need, an offer, good practice examples or other types of suggestions. \n"
 "Contribute your suggestion or vote on suggestions of others.\n"
 "Whilst only some suggestions can be addressed via topics, teams and tasks, all form a valuable collation for future platform users, scientists and others."
 
@@ -637,7 +642,8 @@ msgstr "See all tasks"
 
 #: pages/home.php:1006
 msgid "home.task.description"
-msgstr "Tasks are always linked to a topic. Whilst some tasks relate to the JoinUs4Health concept (for example review suggestions, become a facilitator, promote a topic), other tasks focus on health-related contents.\n"
+msgstr ""
+"Tasks are always linked to a topic. Whilst some tasks relate to the JoinUs4Health concept (for example review suggestions, become a facilitator, promote a topic), other tasks focus on health-related contents.\n"
 "With at least 15 minutes of your time you can already make a valuable contribution. "
 
 #: joinus4health.php:231 pages/home.php:1029
@@ -948,7 +954,38 @@ msgstr "Browse suggestions"
 msgid "country"
 msgstr "Country"
 
-#: 
 msgid "footer.text"
 msgstr "JoinUs4Health is funded by the Horizon 2020 Framework Programme of the European Union under Grant Agreement No. 101006518. The views and opinions expressed in this website are purely those of the writers and may not in any circumstances be regarded as stating an official position of the European Commission."
 
+msgid "Terms of use"
+msgstr "Terms of use"
+
+msgid "Privacy statement"
+msgstr "Privacy statement"
+
+msgid "Welcome back to our platform! We have updated our %s and would like to ask you to accept them before you can continue. By clicking on \"Agree and continue\" you agree to the new document and can use our platform as usual. If you do not wish to accept the new changes, you can log out or delete your account."
+msgstr "Welcome back to our platform! We have updated our %s and would like to ask you to accept them before you can continue. By clicking on \"Agree and continue\" you agree to the new document and can use our platform as usual. If you do not wish to accept the new changes, you can log out or delete your account."
+
+msgid "Thank you for agreeing to our changes. We are happy that you are still part of our platform and wish you a lot of fun with our community."
+msgstr "Thank you for agreeing to our changes. We are happy that you are still part of our platform and wish you a lot of fun with our community."
+
+msgid "We are sorry that you do not want to accept our changes. You will now be automatically logged out and can only use our platform again if you agree to the changes."
+msgstr "We are sorry that you do not want to accept our changes. You will now be automatically logged out and can only use our platform again if you agree to the changes."
+
+msgid "We are very sorry that you do not agree to our changes and wish to delete your account. We would like to thank you for the time you have spent on our platform and wish you all the best for your future!"
+msgstr "We are very sorry that you do not agree to our changes and wish to delete your account. We would like to thank you for the time you have spent on our platform and wish you all the best for your future!"
+
+msgid "Agree and continue"
+msgstr "Agree and continue"
+
+msgid "Disagree and log out"
+msgstr "Disagree and log out"
+
+msgid "Disagree and delete my account"
+msgstr "Disagree and delete my account"
+
+msgid "By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties."
+msgstr "By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties."
+
+msgid "For detailed information, take a look at our"
+msgstr "For detailed information, take a look at our"

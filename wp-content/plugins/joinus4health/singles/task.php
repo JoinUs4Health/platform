@@ -234,6 +234,188 @@ $preferred_language = get_preferred_language();
             margin-left: 8px;
         }
         
+        
+        .ast-container .first-column .content .attachments {
+            width: 100%;
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .ast-container .first-column .content .attachments a {
+            display: inline-block;
+            margin: 0 16px 12px 0;
+            font-size: 14px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #1176b2;
+            text-decoration: underline;
+        }
+                
+        .ast-container .first-column h6.comments {
+            display: block;
+            width: 100%;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: #3b4045;
+            font-size: 16px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.33;
+            letter-spacing: normal;
+        }
+        
+        .ast-container .first-column .add-comment {
+            width: 100%;
+            margin: 0 0 20px;
+            padding: 15px 16px 16px;
+            border-radius: 4px;
+            border: solid 1px #dee2e6;
+            background-color: #f8f9fa;
+        }
+        
+        .ast-container .first-column .add-comment .caption {
+            font-size: 14px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.43;
+            letter-spacing: normal;
+            color: #656d75;
+        }
+        
+        .ast-container .first-column .add-comment .sub {
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.67;
+            letter-spacing: normal;
+            color: #abb4bd;
+        }
+        
+        
+        .ast-container .first-column .add-comment form {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: flex-start;
+            padding-top: 8px;
+            padding-bottom: 0;
+            margin-bottom: 8px;
+        }
+        
+        .ast-container .first-column .add-comment form textarea.new-comment {
+            height: 40px;
+            padding: 10px;
+            border-radius: 4px;
+            border: solid 1px #ced4d9;
+            background-color: #fff;
+            flex: 1 0 0;
+        }
+        
+        .ast-container .first-column .add-comment form input.submit {
+            height: 40px;
+            border-radius: 4px;
+            background-color: #000000;
+            color: #ffffff;
+            padding-left: 40px;
+            padding-right: 40px;
+            flex: 0 0 auto;
+            font-size: 14px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            letter-spacing: normal;
+            text-align: center;
+            color: #ffffff;
+            margin-left: 8px;
+        }
+
+        .ast-container .first-column .add-comment form input.submit:hover {
+            background-color: #777777;
+        }
+        
+        .ast-container .first-column .comments .comment {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: flex-start;
+            padding-bottom: 20px;
+        }
+        
+        .ast-container .first-column .comments .comment .avatar {
+            height: 56px;
+            border-radius: 28px;
+            border: solid 1px #dde1e5;
+            background-color: #f9f9fa;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            flex: 0 0 56px;
+        }
+        
+        .ast-container .first-column .comments .comment .container {
+            flex: 1 0 0;
+            padding-left: 16px;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        
+        
+        .ast-container .first-column .comments .comment .container .author {
+            flex: 1 0 0;
+            font-size: 14px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.43;
+            letter-spacing: normal;
+            color: #656d75;
+        }
+        
+        .ast-container .first-column .comments .comment .container .date {
+            flex: 0 0 300px;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: normal;
+            text-align: right;
+            color: #abb4bd;
+        }
+
+        .ast-container .first-column .comments .comment .container .txt {
+            flex: 1 0 100%;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.43;
+            letter-spacing: normal;
+            color: #808a95;
+            margin-top: 4px;
+        }
+        
+        .ast-container .first-column .comments .comment .container .urls {
+            flex: 1 0 100%;
+            margin-top: 8px;
+        }
+        
+        .ast-container .first-column .comments .comment .container .urls a {
+            font-size: 14px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #1176b2;
+            padding-right: 16px;
+            text-decoration: underline;
+        }
+        
         .ast-container .second-column {
             flex: 0 0 360px;
         }
@@ -476,6 +658,17 @@ $preferred_language = get_preferred_language();
             <div class="separator"></div>
             <h6><?= __('Task details', 'joinus4health') ?></h6>
             <?= '<p>'.get_translated_field_paragraph($task, 'm_description', $preferred_language).'</p>' ?>
+            <?php $attachments = get_post_meta($task->ID, 'm_attachments') ?>
+            <?php if (count($attachments) > 0): ?>
+            <div class="separator"></div>
+            <h6><?= __('Attachments', 'joinus4health') ?></h6>
+            <div class="attachments">
+                <?php foreach ($attachments as $attachment): ?>
+                <?php $attachment_obj = json_decode($attachment) ?>
+                <a href="<?= home_url() ?>/wp-content/<?= $attachment_obj->file ?>" target="_blank"><?= $attachment_obj->text ?></a>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
             <?php $m_related_topic = get_post_meta($task->ID, 'm_related_topic', true) ?>
             <?php if (is_numeric($m_related_topic)): ?>
             <?php
@@ -498,6 +691,61 @@ $preferred_language = get_preferred_language();
             <?php endwhile; ?>
             <?php endif; ?>
         </div>
+        <?php if (comments_open($task->ID)): ?>
+        <?php
+        $comment_args = array(
+            'status'                     => 'approve',
+            'post_id'                    => $task->ID,
+            'update_comment_meta_cache'  => false,
+            'hierarchical'               => 'threaded',
+            'order'                      => 'ASC'
+        );
+
+        if (is_user_logged_in()) {
+            $comment_args['include_unapproved'] = array(get_current_user_id());
+        }
+
+        $comment_query = new WP_Comment_Query($comment_args);
+        $comments = $comment_query->get_comments();
+        $count_comments = count_comments($comments);
+        ?>
+        <a id="reply-comment"></a>
+        <h6 class="comments"><?= __('Comments', 'joinus4health') ?> (<?= $count_comments ?>)</h6>
+        <?php if (is_user_logged_in()): ?>
+        <div class="add-comment">
+            <div class="caption"><?= __('Add comment', 'joinus4health') ?></div>
+            <form action="<?= home_url() ?>/wp-comments-post.php" method="post">
+                <textarea class="new-comment" name="comment"></textarea>
+                <input type="button" value="<?= __('Submit', 'joinus4health') ?>" class="submit" name="submit" />
+                <input type="hidden" name="comment_post_ID" value="<?= $task->ID ?>" id="comment_post_ID">
+                <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+            </form>
+            <form id="upload">
+                <input type="file" id="file" name="file" accept=".jpg, .png, .gif, .pjpeg, .pdf" />Max <?= ini_get('upload_max_filesize') ?>B
+            </form>
+            <div class="sub">
+                <?= __('Comments and replies are moderated. Your comment will appear here once the site administrator accepts it.', 'joinus4health') ?><br>
+                <?= __('By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties.', 'joinus4health') ?><br>
+                <?= __('For detailed information, take a look at our', 'joinus4health') ?> <a href="<?= home_url() ?>/terms-of-use/"><?= __('Terms of use', 'joinus4health') ?></a>.
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="comments">
+            <?php
+            foreach ($comments as $comment) {
+                html_comment($comment, 0);
+                
+                foreach ($comment->get_children() as $comment_) {
+                    html_comment($comment_, 72);
+                    
+                    foreach ($comment_->get_children() as $comment__) {
+                        html_comment($comment__, 144, false);
+                    }
+                }
+            }
+            ?>
+        </div>
+        <?php endif; ?>
     </div>
     <div class="second-column">
         <div class="details column-common-border-style">

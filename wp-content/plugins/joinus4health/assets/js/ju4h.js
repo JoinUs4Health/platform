@@ -473,4 +473,140 @@ $(document).ready(function() {
             });
         });
     }
+    
+    
+    function uploadFile() {
+        const fileInput = document.getElementById('file');
+        const uploadButton = document.getElementById('upload-button');
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert('Please select a file first.');
+          return;
+        }
+
+        // Disable the upload button and change its text
+        uploadButton.disabled = true;
+        uploadButton.textContent = "Uploading...";
+
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+
+        formData.append('file', file);
+
+        xhr.open('POST', upload_url, true);
+
+        // Handle state change
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              alert('File uploaded successfully.');
+              uploadButton.textContent = "Upload";
+              const json = JSON.parse(xhr.responseText);
+              filepath = home_url + "/wp-content/" + json.filepath;
+              $('#upload-url').attr('href', filepath).text(filepath);
+            } else {
+              let errorMessage = 'Unknown error occurred';
+              try {
+                const errorJSON = JSON.parse(xhr.responseText);
+                errorMessage = errorJSON.error || errorMessage;
+              } catch(e) {
+                console.error('Error parsing JSON response:', e);
+              }
+              alert(`Upload failed: ${errorMessage}`);
+              uploadButton.textContent = "Retry Upload";
+            }
+            // Enable the upload button again
+            uploadButton.disabled = false;
+          }
+        };
+
+        // Start the upload
+        xhr.send(formData);
+    }
+    
+    $('#upload-button').click(uploadFile);
+    
+    $('.comment > .container > .urls > a.comment-reply').click(function() {
+        comment_reply_id = $(this).attr('id').split('-')[2];
+        $('#comment_parent').val(comment_reply_id);
+        comment_reply_to = $(this).parent().parent().find('.author').html();
+        $('.add-comment .caption').html(reply_to_text + " " + comment_reply_to + " " + comment_text);
+    });
+
+    $('.submit').click(function(){
+        $(".submit").prop("disabled", true);
+        
+        const fileInput = document.getElementById('file');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const xhr = new XMLHttpRequest();
+            const formData = new FormData();
+            formData.append('file', file);
+            xhr.open('POST', ju4h_upload_url, true);
+            xhr.send(formData);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    if (jsonResponse.error) {
+                        alert(jsonResponse.msg);
+                    } else {
+                        var commentData = {
+                            comment: $('.new-comment').val(),
+                            comment_post_ID: $('#comment_post_ID').val(),
+                            comment_parent: $('#comment_parent').val(),
+                            comment_filename: jsonResponse.filename,
+                            comment_filepath: jsonResponse.filepath
+                        };
+
+                        $.ajax({
+                            type: 'POST',
+                            url: ju4h_add_comment_url,
+                            data: commentData,
+                            success: function(response) {
+                                if (response.error) {
+                                    $(".submit").prop("disabled", false);
+                                    alert(response.error);
+                                    return;
+                                }
+                                
+                                location.reload();
+                            },
+                            error: function(error) {
+                              console.log('Error:', error);
+                            }
+                        });
+                    }
+                    
+                }
+            }
+        } else {
+            var commentData = {
+                comment: $('.new-comment').val(),
+                comment_post_ID: $('#comment_post_ID').val(),
+                comment_parent: $('#comment_parent').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: ju4h_add_comment_url,
+                data: commentData,
+                success: function(response) {
+                    if (response.error) {
+                        $(".submit").prop("disabled", false);
+                        alert(response.error);
+                        return;
+                    }
+                    
+                    location.reload();
+                },
+                error: function(error) {
+                  console.log('Error:', error);
+                }
+            });            
+        }
+    });
+    
+    $('.bbp-template-notice > p').parent().append('<p>' + upload_terms_text + '</p>');
 });

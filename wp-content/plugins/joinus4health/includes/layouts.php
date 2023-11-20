@@ -218,11 +218,23 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                         <?= nl2br($comment_txt) ?>
                     </div>
                     <?php else: ?>
-					<div class="txt" style="display: none"></div>
+                    <div class="txt" style="display: none"></div>
                     <div class="txt txt-full">
-                        <?= nl2br($comment_txt) ?>
+                        <?= nl2br($comment_txt) ?><br>
                     </div>
                     <?php endif; ?>
+                    <?php
+                    $attachment = get_comment_meta($comment->comment_ID, 'attachment', true);
+                    $attachment_name = get_comment_meta($comment->comment_ID, 'attachment_name', true);
+                    
+                    if ($attachment && $attachment_name) {
+                    ?>
+                    <div class="txt">
+                        <a href="<?= home_url() ?>/wp-content/<?= $attachment ?>" target="_blank"><?= $attachment_name ?></a>
+                    </div>
+                    <?php
+                    }
+                    ?>
                     <div class="urls">
                         <?php if ($enabled_reply && is_user_logged_in()): ?>
                         <a href="#reply-comment" class="comment-reply" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>

@@ -1,11 +1,15 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: JoinUs4Health\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: JoinUs4Health\n"
-"Language: nl\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
@@ -635,7 +639,8 @@ msgstr "Wat zijn suggesties?"
 
 #: pages/home.php:995
 msgid "home.suggestion.description"
-msgstr "Suggesties kunnen zijn: een onderwerp/interessevraag, een voorgestelde onderzoeksvraag, informatie- of opleidingsbehoefte, een aanbod, voorbeelden van goede praktijken, of iets anders.\n"
+msgstr ""
+"Suggesties kunnen zijn: een onderwerp/interessevraag, een voorgestelde onderzoeksvraag, informatie- of opleidingsbehoefte, een aanbod, voorbeelden van goede praktijken, of iets anders.\n"
 "Draag uw suggestie bij of stem op suggesties van anderen.\n"
 "Hoewel slechts enkele suggesties kunnen worden aangepakt via onderwerpen, teams of taken, vormen ze allemaal een waardevolle verzameling voor toekomstige platformgebruikers, wetenschappers en andere betrokkenen."
 
@@ -645,7 +650,8 @@ msgstr "Bekijk alle taken"
 
 #: pages/home.php:1006
 msgid "home.task.description"
-msgstr "Taken zijn altijd gekoppeld aan een onderwerp. Terwijl sommige taken betrekking hebben op het JoinUs4Health-concept (bijvoorbeeld suggesties bekijken, begeleider worden, een onderwerp promoten), zijn andere taken gericht op de inhoud zoals het uitzoeken van gezondheidsgerelateerde vraagstukken.\n"
+msgstr ""
+"Taken zijn altijd gekoppeld aan een onderwerp. Terwijl sommige taken betrekking hebben op het JoinUs4Health-concept (bijvoorbeeld suggesties bekijken, begeleider worden, een onderwerp promoten), zijn andere taken gericht op de inhoud zoals het uitzoeken van gezondheidsgerelateerde vraagstukken.\n"
 "Met minimaal 15 minuten van je tijd kun je al een waardevolle bijdrage leveren."
 
 #: joinus4health.php:231 pages/home.php:1029
@@ -962,7 +968,38 @@ msgstr "Ontdek suggesties"
 msgid "country"
 msgstr "Land"
 
-#: 
 msgid "footer.text"
 msgstr "JoinUs4Health wordt gefinancierd door het kaderprogramma Horizon 2020 van de Europese Unie onder subsidieovereenkomst nr. 101006518. De standpunten en meningen op deze website zijn uitsluitend die van de auteurs en mogen in geen geval worden beschouwd als een officieel standpunt van de Europese Commissie."
 
+msgid "Terms of use"
+msgstr "Gebruiksvoorwaarden"
+
+msgid "Privacy statement"
+msgstr "Privacyverklaring"
+
+msgid "Welcome back to our platform! We have updated our %s and would like to ask you to accept them before you can continue. By clicking on \"Agree and continue\" you agree to the new document and can use our platform as usual. If you do not wish to accept the new changes, you can log out or delete your account."
+msgstr "Welkom terug op ons platform! We hebben onze %s bijgewerkt en willen je vragen deze te accepteren voordat je verder kunt gaan. Door op \"Akkoord en doorgaan\" te klikken ga je akkoord met het nieuwe document en kun je ons platform gewoon gebruiken. Als je de nieuwe wijzigingen niet wilt accepteren, kun je uitloggen of je account verwijderen."
+
+msgid "Thank you for agreeing to our changes. We are happy that you are still part of our platform and wish you a lot of fun with our community."
+msgstr "Bedankt dat je akkoord bent gegaan met onze wijzigingen. We zijn blij dat je nog steeds deel uitmaakt van ons platform en wensen je veel plezier met onze community."
+
+msgid "We are sorry that you do not want to accept our changes. You will now be automatically logged out and can only use our platform again if you agree to the changes."
+msgstr "Het spijt ons dat je onze wijzigingen niet wilt accepteren. Je wordt nu automatisch uitgelogd en kunt ons platform alleen opnieuw gebruiken als je akkoord gaat met de wijzigingen."
+
+msgid "We are very sorry that you do not agree to our changes and wish to delete your account. We would like to thank you for the time you have spent on our platform and wish you all the best for your future!"
+msgstr "Het spijt ons zeer dat je niet akkoord gaat met onze wijzigingen en je account wilt verwijderen. We willen je bedanken voor de tijd die je op ons platform hebt doorgebracht en wensen je het allerbeste voor de toekomst!"
+
+msgid "Agree and continue"
+msgstr "Akkoord en doorgaan"
+
+msgid "Disagree and log out"
+msgstr "Oneens zijn en uitloggen"
+
+msgid "Disagree and delete my account"
+msgstr "Oneens zijn en mijn account verwijderen"
+
+msgid "By uploading a file or image, you confirm that it neither violates applicable laws nor infringes the rights of third parties."
+msgstr "Door een bestand of een afbeelding te uploaden, bevestigt u dat deze geen inbreuk maakt op de toepasselijke wetgeving of op de rechten van derden."
+
+msgid "For detailed information, take a look at our"
+msgstr "Gedetailleerde informatie vindt u in onze"

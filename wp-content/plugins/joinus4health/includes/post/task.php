@@ -46,10 +46,12 @@ function ju4htask_custom_post_type() {
 add_action('init', 'ju4htask_custom_post_type', 0);
 
 function add_meta_boxes_ju4htask_callback($post) {
+    $upload_max_size = ini_get('upload_max_filesize');
     add_meta_box('container_followers_and_contributors', __('Contributors'), 'add_meta_box_ju4htask_contributors_callback', 'ju4htask', 'normal', 'low');
     add_meta_box('container_title', __('Title'), 'add_meta_box_ju4htask_title_callback', 'ju4htask', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4htask_description_callback', 'ju4htask', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4htask_additional_fields_callback', 'ju4htask', 'normal', 'low');
+    add_meta_box('container_attachments', __('Attachments').' (max file size: '.$upload_max_size.')', 'add_meta_box_ju4htask_attachments_callback', 'ju4htask', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htask', 'add_meta_boxes_ju4htask_callback');
 
@@ -138,6 +140,54 @@ function save_post_ju4htask_callback($post_id) {
         return;
     }
     
+    
+    //
+    if (isset($_POST['m_attachments_file']) && is_array($_POST['m_attachments_file']) && isset($_POST['m_attachments_text']) && is_array($_POST['m_attachments_text'])) {
+        $_POST_attachments = array();
+        
+        foreach ($_POST['m_attachments_file'] as $index => $value) {
+            $obj = new stdClass();
+            $obj->file = $_POST['m_attachments_file'][$index];
+            $obj->text = $_POST['m_attachments_text'][$index];
+            $obj->url = $_POST['m_attachments_url'][$index];
+            $obj->license = $_POST['m_attachments_license'][$index];
+            $obj->license_holder = $_POST['m_attachments_holder'][$index];
+            $obj->user_id = get_current_user_id();
+            $obj->check = ($_POST['m_attachments_check'][$index] == 1) ? 1 : 0;
+            $_POST_attachments[] = str_replace('\/', '/', json_encode($obj));
+    
+        }
+
+        $_POST_attachments = array_diff($_POST_attachments, array(""));
+    } else {
+        $_POST_attachments = array();
+    }
+    
+    //getting attachments
+    $attachments = get_post_meta($post_id, 'm_attachments');
+
+    //making intersection between attachments from POST & existing attachments
+    //result should be keeped in db
+    $attachments_intersect = array_intersect($_POST_attachments, $attachments);
+
+    //removing attachments which should be keeped from POSTed attachments
+    //result will be added to db
+    $attachments_to_add = array_diff($_POST_attachments, $attachments_intersect);
+    
+    //removing attachments which should be keeped from existing attachments
+    //result will be removed from db
+    $attachments_to_remove = array_diff($attachments, $attachments_intersect);
+
+    //looping add operation of new attachments
+    foreach ($attachments_to_add as $value) {
+        add_post_meta($post_id, 'm_attachments', $value);
+    }
+
+    //looping remove operation of related suggestions which should be removed
+    foreach ($attachments_to_remove as $value) {
+        delete_post_meta($post_id, 'm_attachments', $value);
+    }
+    
     $fields = array("m_language", "m_duration", "m_type", "m_level", "m_source", "m_target_group", "m_description", "m_related_topic");
     foreach ($meta_translations as $key => $value) {
         $fields[] = 'm_title_'.$key;
@@ -213,3 +263,8 @@ function manage_ju4htask_posts_custom_column_callback($column, $post_id) {
     }
 }
 add_action('manage_ju4htask_posts_custom_column', 'manage_ju4htask_posts_custom_column_callback', 10, 2);
+
+function add_meta_box_ju4htask_attachments_callback($post) {
+    wp_nonce_field(basename( __FILE__ ), 'topic_attachments_nonce');
+    html_admin_file_multiple_meta_box($post, 'attachments');
+}
