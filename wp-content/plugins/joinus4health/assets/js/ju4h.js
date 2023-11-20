@@ -197,6 +197,19 @@ $(document).ready(function() {
         );
     }
     
+    /*
+    $("#ast-hf-menu-1").append(
+        '<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">'+
+            '<a href="'+home_url+'/app/" class="menu-link">R app'+ 
+                '<span role="presentation" class="dropdown-menu-toggle" tabindex="0">'+
+                    '<span class="ast-icon icon-arrow">'+
+                    '</span>'+
+                '</span>'+
+            '</a>'+
+        '</li>'
+    );
+    */
+    
     if (!is_logged_in) {
         $("#ast-hf-menu-1").append(
             '<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">'+
@@ -378,11 +391,16 @@ $(document).ready(function() {
     $('a.translate').click(function(e) {
         e.preventDefault();
 
+        divTxt = $(this).parent().parent().children('div')[2];
+        divTxtFull = $(this).parent().parent().children('div')[3];
+        
         txt = $(this).parent().parent().children("div.txt-full");
         translate_button = this;
         $.post(deepl_url, {target_lang: language.toUpperCase(), text: $(txt[0]).text()}, function(result){
             $(txt).text(result);
             $(translate_button).hide();
+            $(divTxt).hide();
+            $(divTxtFull).show();
         });
     });
     
@@ -401,5 +419,58 @@ $(document).ready(function() {
     }).on("input", function () {
       this.style.height = 0;
       this.style.height = (this.scrollHeight) + "px";
-    });    
+    });
+    
+    if (is_consent_needed) {
+        $('#consent-type').html(consent_agreement_type);
+        
+        $("#modal-consent").modal({
+            showClose: false,
+            clickClose: false,
+            escapeClose: false
+        });
+        
+        $(document).on('click', "#consent-delete-account", function() {
+            $("#modal-consent-delete-account").modal({
+                showClose: false,
+                clickClose: false,
+                escapeClose: false
+            });
+        });
+        
+        $(document).on('click', "#consent-delete-account-yes", function() {
+            $.ajax({
+                type: 'POST',
+                url: home_url+"/wp-content/plugins/joinus4health/includes/operations.php",
+                dataType: 'json',
+                data: {
+                    operation: 'delete-user',
+                    wpnonce: consent_wpnonce
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+        
+        $(document).on('click', "#consent-yes", function() {
+            $.ajax({
+                type: 'POST',
+                url: home_url+"/wp-content/plugins/joinus4health/includes/operations.php",
+                dataType: 'json',
+                data: {
+                    operation: 'consent-user',
+                    wpnonce: consent_wpnonce,
+                    consentids: consent_ids
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        
+                    }
+                }
+            });
+        });
+    }
 });

@@ -10,6 +10,7 @@ $admin_file_licenses = array(
     'cc0_1.0' => 'CC0 1.0',
     'cc-by_4.0' => 'CC-BY 4.0',
     'cc-by-nd_4.0' => 'CC-BY-ND 4.0',
+    'unsplash_license' => 'Unsplash-License',
 );
 
 function html_admin_date_input($title, $name, $value) {

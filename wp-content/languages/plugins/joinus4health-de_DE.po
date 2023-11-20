@@ -603,7 +603,7 @@ msgstr "Unsere Regeln"
 
 #: pages/home.php:772
 msgid "home.our.rules.description"
-msgstr "Vorschläge, Kommentare und Beiträge werden geprüft, um ein sicheres Umfeld für alle zu schaffen. Die Arbeiten im Team werden betreut (alle können die Betreuung eines Themas, einer Aufgabe oder einer Gruppe übernehmen - auch du. Helfe uns, verantwortungsvolles Arbeiten zu unerstützen, indem du zu JoinUs4Health-Aufgaben beiträgst!"
+msgstr "Vorschläge, Kommentare und Beiträge werden geprüft, um ein sicheres Umfeld für alle zu schaffen. Die Arbeiten im Team werden betreut (alle können die Betreuung eines Themas, einer Aufgabe oder einer Gruppe übernehmen - auch du). Helfe uns, verantwortungsvolles Arbeiten zu unterstützen, indem du zu JoinUs4Health-Aufgaben beiträgst!"
 
 #: pages/home.php:922
 msgid "Hot topics"
@@ -615,12 +615,12 @@ msgstr "Was sind Themen?"
 
 #: pages/home.php:968
 msgid "home.what.are.topics.description.paragraph.1"
-msgstr "Themen werden von betreut. Jede Nutzerin / jeder Nutzer der Plattform kann die Betreuung übernehmen, sofern die Bereitschaft besteht, den Austausch und die daraus entstehenden Teams und Aufgaben zu begleiten. In der Beschreibung wird ein Plan beschrieben. Plattform-Mitglieder haben zwei Wochen lang die Möglichkeit, diesen Plan zu überarbeiten, bevor Teams or Aufgaben darauf basierend enstehen können."
+msgstr "Jede Nutzerin / jeder Nutzer der Plattform kann die Betreuung übernehmen, sofern die Bereitschaft besteht, den Austausch und die daraus entstehenden Teams und Aufgaben zu begleiten. Ein Plan wird beschrieben, und Feedback wird über die Plattform eingeholt."
 
 #: pages/home.php:969
 msgid "home.what.are.topics.description.paragraph.2"
 msgstr ""
-"Das Thema bleibt mindestens zwei Wochen lang online, bevor Arbeiten dazu beginnen können, um Rückmeldung einholen und Freiwillige anwerben zu können.\n"
+"Das Thema bleibt mindestens zwei Wochen lang online, bevor Arbeiten dazu beginnen können, um Rückmeldung zu dem geplanten Vorgehen einholen und Freiwillige anwerben zu können.\n"
 "Danach können Freiwillige beitragen, indem sie an Aufgaben oder in Teams arbeiten. Der Betreuer / die Betreuerin steht monatlich mit einem hauptverantwortlichen Plattform-Mitglied (Moderator*in) in Kontakt."
 
 #: pages/home.php:974
@@ -634,7 +634,7 @@ msgstr "Was sind Vorschläge?"
 #: pages/home.php:995
 msgid "home.suggestion.description"
 msgstr ""
-"Vorschläge können ein Thema / Interesse, eine Forschungsfrage, Informations- oder Schulungsbedarf, ein Angebot, Beispiele von Guten Praxis oder andere Arten von Vorschlägen umfassen. \n"
+"Vorschläge können ein Thema / Interesse, eine Forschungsfrage, Informations- oder Schulungsbedarf, ein Angebot, Beispiele von Guter Praxis oder andere Arten von Vorschlägen umfassen. \n"
 "Bringe deine eigenen Vorschläge ein oder gib den Vorschlägne anderer deine Stimme.\n"
 "Es können nur einige Vorschläge bearbeitet werden. Alle Vorschläge bilden eine wertvolle Sammlung für künftige Plattform-Mitglieder, Wissenschaftler*innen und andere."
 
@@ -646,7 +646,7 @@ msgstr "Alle Aufgaben ansehen"
 msgid "home.task.description"
 msgstr ""
 "Aufgaben sind immer mit einem Thema verknüpft. Während sich einige Aufgaben auf das JoinUs4Health-Konzept beziehen (zum Beispiel Vorschläge prüfen, Betreuung von Themen / Teams / Aufgaben übernehmen, Thema bewerben), beziehen sich andere auf Themen, die sich mit konkreten gesundheitsbezogenen Gesichtspunkten befassen.\n"
-"Mit einem Mitwirkung von mindestens 15 Minuten kannst du bereits einen wertvollen Beitrag leisten."
+"Mit einem Beitrag von mindestens 15 Minuten kannst du bereits einen wertvollen Beitrag leisten!"
 
 #: joinus4health.php:231 pages/home.php:1029
 msgid "Working teams"
@@ -686,7 +686,7 @@ msgstr "Niederländisch"
 
 #: includes/metas.php:9
 msgid "English"
-msgstr "Engisch"
+msgstr "Englisch"
 
 #: includes/metas.php:10
 msgid "German"
@@ -962,3 +962,21 @@ msgstr "Land"
 
 msgid "footer.text"
 msgstr "JoinUs4Health wird gefördert durch das Horizon 2020 Rahmenprogramm der Europäischen Union unter der Grant Agreement No. 101006518. Die auf dieser Website geäußerten Ansichten und Meinungen sind ausschließlich die der Autoren und dürfen unter keinen Umständen als offizielle Position der Europäischen Kommission angesehen werden."
+
+msgid "Privacy statement"
+msgstr "Erklärung zum Datenschutz"
+
+msgid "Terms of use"
+msgstr "Nutzungsbedingungen"
+
+msgid "Legal notice"
+msgstr "Impressum"
+
+msgid "To report abuse please email to"
+msgstr "Um Missbrauch zu melden, schreiben Sie bitte eine E-Mail an"
+
+msgid "You will receive a message if important updates or activities occur."
+msgstr "Sie erhalten eine Nachricht im Falle wichtiger Aktualisierungen oder Aktivitäten."
+
+msgid "The facilitator will contact you with further information."
+msgstr "Sie werden mit weiteren Informationen kontaktiert."

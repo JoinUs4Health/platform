@@ -33,7 +33,7 @@ if (!is_user_logged_in()) {
 } else if ($get_var_operation == 'unfollow' && in_array(get_current_user_id(), $meta['m_follows'])) {
     delete_post_meta(get_the_ID(), 'm_follows', get_current_user_id());
 } else if ($get_var_operation == 'contribute' && !in_array(get_current_user_id(), $meta['m_contributes'])) {
-    add_post_meta(get_the_ID(), 'm_contributes', get_current_user_id());
+        add_post_meta(get_the_ID(), 'm_contributes', get_current_user_id());
 } else if ($get_var_operation == 'uncontribute' && in_array(get_current_user_id(), $meta['m_contributes'])) {
     delete_post_meta(get_the_ID(), 'm_contributes', get_current_user_id());
 } else {

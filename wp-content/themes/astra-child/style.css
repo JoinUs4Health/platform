@@ -464,7 +464,148 @@ Follow modal style - end
 */
 
 
+/*
+Follow modal style - start
+*/
+#modal-consent {
+    width: 650px;
+    max-width: 650px;
+    padding: 0;
+}
 
+#modal-consent h4 {
+    padding-left: 24px;
+    line-height: 72px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #3b4045;
+}
+
+#modal-consent div.text {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #3b4045;
+    padding: 0 25px;
+}
+
+#modal-consent div.buttons {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 0 24px 24px 24px;
+}
+
+#modal-consent div.buttons a {
+    display: inline-block;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 4px;
+    border: solid 1px #dde1e5;
+    background-color: #f9f9fa;
+    margin-right: 12px;
+    margin-top: 20px;
+    flex: 0 0 auto;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+    padding: 0 25px 0 25px;
+}
+
+
+#modal-consent div.buttons a.blackbtn {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.site-header { 
+    z-index: auto;
+}
+
+.main-header-bar {
+    z-index: auto;
+}
+/*
+Follow modal style - end
+*/
+
+
+/*
+Follow modal style - start
+*/
+#modal-consent-delete-account {
+    width: 650px;
+    max-width: 650px;
+    padding: 0;
+}
+
+#modal-consent-delete-account h4 {
+    padding-left: 24px;
+    line-height: 72px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #3b4045;
+}
+
+#modal-consent-delete-account div.text {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #3b4045;
+    padding: 0 25px;
+}
+
+#modal-consent-delete-account div.buttons {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 0 24px 24px 24px;
+}
+
+#modal-consent-delete-account div.buttons a {
+    display: inline-block;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 4px;
+    border: solid 1px #dde1e5;
+    background-color: #f9f9fa;
+    margin-right: 12px;
+    margin-top: 20px;
+    flex: 0 0 auto;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+    padding: 0 25px 0 25px;
+}
+
+
+#modal-consent-delete-account div.buttons a.blackbtn {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.site-header { 
+    z-index: auto;
+}
+
+.main-header-bar {
+    z-index: auto;
+}
+/*
+Follow modal style - end
+*/
 
 
 ul.sub-menu li {

@@ -3,13 +3,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: POEditor.com\n"
 "Project-Id-Version: JoinUs4Health\n"
 "Language: nl\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
 
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
@@ -591,7 +587,7 @@ msgstr "Wie is wie"
 
 #: pages/home.php:762
 msgid "home.who.we.are.description"
-msgstr "home.we.we.zijn.uitleg"
+msgstr "Het JoinUs4Health-consortium bestaat uit 11 partners uit drie Europese landen. Drie van deze partners zijn onderzoeksinstellingen die populatie onderzoek doen in hun studieregio's in Duitsland (Mecklenburg-Pommeren), Nederland (Rotterdam) en Polen (Bialystok)."
 
 #: pages/home.php:763 pages/home.php:768 pages/home.php:773
 msgid "Read more"
@@ -603,7 +599,7 @@ msgstr "Hoe u kunt meedoen"
 
 #: pages/home.php:767
 msgid "home.how.to.join.us.description"
-msgstr "home.hoe.kunt.u.mee.doen.uitleg"
+msgstr "U kunt suggesties indienen, stemmen op andere suggesties en bijdragen aan topics door taken uit te voeren of in teams te werken. Je kunt er ook voor kiezen om achterover te leunen en de website te verkennen! Hier vindt u een overzicht van activiteiten."
 
 #: pages/home.php:771
 msgid "Our rules"
@@ -611,7 +607,7 @@ msgstr "Onze regels"
 
 #: pages/home.php:772
 msgid "home.our.rules.description"
-msgstr "home.onze.regels.uitleg"
+msgstr "Suggesties, opmerkingen en bijdragen ondergaan een review om een veilige omgeving voor iedereen te bieden. Teaminteracties worden gecoördineerd door een facilitator, die iedereen kan zijn - ook jij. Help ons te zorgen voor verantwoorde interacties door bij te dragen aan JoinUs4Health-gerelateerde taken!"
 
 #: pages/home.php:922
 msgid "Hot topics"
@@ -623,11 +619,11 @@ msgstr "Wat zijn onderwerpen?"
 
 #: pages/home.php:968
 msgid "home.what.are.topics.description.paragraph.1"
-msgstr "home.wat.zijn.topics.uitleg.pragraaf.1"
+msgstr "Onderwerpen worden ondersteund door een begeleider (een facilitator). Elke platformgebruiker kan een begeleider worden. De begeleider heeft als taak de communicatie en de resulterende teams en taken te coördineren. Er moet een plan worden geschetst, dat via het platform wordt opengesteld voor feedback."
 
 #: pages/home.php:969
 msgid "home.what.are.topics.description.paragraph.2"
-msgstr "home.wat.zijn.topics.uitleg.pragraaf.2"
+msgstr "Het onderwerp blijft ten minste twee weken online voordat de interactie kan beginnen, zodat er tijd is voor feedback en het werven van vrijwilligers. Daarna dragen vrijwilligers bij aan taken of teams. De begeleider geeft maandelijks feedback aan een moderator, die als primair aanspreekpunt fungeert."
 
 #: pages/home.php:974
 msgid "Upcoming suggestions"
@@ -639,7 +635,9 @@ msgstr "Wat zijn suggesties?"
 
 #: pages/home.php:995
 msgid "home.suggestion.description"
-msgstr "home.topics.uitleg"
+msgstr "Suggesties kunnen zijn: een onderwerp/interessevraag, een voorgestelde onderzoeksvraag, informatie- of opleidingsbehoefte, een aanbod, voorbeelden van goede praktijken, of iets anders.\n"
+"Draag uw suggestie bij of stem op suggesties van anderen.\n"
+"Hoewel slechts enkele suggesties kunnen worden aangepakt via onderwerpen, teams of taken, vormen ze allemaal een waardevolle verzameling voor toekomstige platformgebruikers, wetenschappers en andere betrokkenen."
 
 #: pages/home.php:1004
 msgid "See all tasks"
@@ -647,7 +645,8 @@ msgstr "Bekijk alle taken"
 
 #: pages/home.php:1006
 msgid "home.task.description"
-msgstr "home.taak.uitleg"
+msgstr "Taken zijn altijd gekoppeld aan een onderwerp. Terwijl sommige taken betrekking hebben op het JoinUs4Health-concept (bijvoorbeeld suggesties bekijken, begeleider worden, een onderwerp promoten), zijn andere taken gericht op de inhoud zoals het uitzoeken van gezondheidsgerelateerde vraagstukken.\n"
+"Met minimaal 15 minuten van je tijd kun je al een waardevolle bijdrage leveren."
 
 #: joinus4health.php:231 pages/home.php:1029
 msgid "Working teams"
@@ -659,7 +658,7 @@ msgstr "Bekijk alle teams"
 
 #: pages/home.php:1032
 msgid "home.working.teams.description"
-msgstr "home.werk.groep.uitleg"
+msgstr "Teams zijn altijd gekoppeld aan een onderwerp. Onze teams streven ernaar hiërarchieën af te vlakken en waarderen een breed scala aan perspectieven. Ontdek nieuwe manieren van samenwerken, ga in discussie of wees creatief met andere teamleden. De resultaten van de samenwerking worden uiteindelijk gepresenteerd op het platform."
 
 #: pages/home.php:1046
 msgid "Events"
@@ -671,291 +670,299 @@ msgstr "Bekijk alle evenementen"
 
 #: pages/home.php:1049
 msgid "home.events.description"
-msgstr "home.evenementen.uitleg"
+msgstr "Online en offline evenementen worden geadverteerd via het platform. Verken evenementen, schrijf je in voor een gepland evenement of geef je timingsvoorkeuren aan."
 
 #: pages/home.php:1083
 msgid "home.call.to.register"
-msgstr "home.registereer.je"
+msgstr "Registreer je gratis en word lid van de JoinUs4Health community!"
 
 #: includes/metas.php:8
 msgid "Dutch"
-msgstr ""
+msgstr "Nederlands"
 
 #: includes/metas.php:9
 msgid "English"
-msgstr ""
+msgstr "Engels"
 
 #: includes/metas.php:10
 msgid "German"
-msgstr ""
+msgstr "Duits"
 
 #: includes/metas.php:11
 msgid "Polish"
-msgstr ""
+msgstr "Pools"
 
 #: includes/metas.php:15
 msgid "Germany"
-msgstr ""
+msgstr "Duitsland"
 
 #: includes/metas.php:16
 msgid "the Netherlands"
-msgstr ""
+msgstr "Nederland"
 
 #: includes/metas.php:17
 msgid "Poland"
-msgstr ""
+msgstr "Polen"
 
 #: includes/metas.php:18 includes/metas.php:53
+#, fuzzy
 msgid "other"
-msgstr ""
+msgstr "Anders"
 
 #: includes/metas.php:22
 msgid "citizens / citizens' organization"
-msgstr ""
+msgstr "Burgers / Burger Organisaties"
 
 #: includes/metas.php:23
 msgid "scientists"
-msgstr ""
+msgstr "Onderzoekers"
 
 #: includes/metas.php:24
 msgid "policy makers"
-msgstr ""
+msgstr "Beleidmakers"
 
 #: includes/metas.php:25
 msgid "business / industry"
-msgstr ""
+msgstr "Business / Industrie"
 
 #: includes/metas.php:26
 msgid "pupils / students"
-msgstr ""
+msgstr "Studenten"
 
 #: includes/metas.php:27
 msgid "other group"
-msgstr ""
+msgstr "Andere groepen"
 
 #: includes/metas.php:31
+#, fuzzy
 msgid "topic of interest"
-msgstr ""
+msgstr "Belangrijke onderwerpen"
 
 #: includes/metas.php:32
 msgid "research question"
-msgstr ""
+msgstr "Onderzoeksvraag"
 
 #: includes/metas.php:33
+#, fuzzy
 msgid "information need"
-msgstr ""
+msgstr "Behoefte aan informatie"
 
 #: includes/metas.php:34
 msgid "training need"
-msgstr ""
+msgstr "Behoefte voor training"
 
 #: includes/metas.php:35
+#, fuzzy
 msgid "offer"
-msgstr ""
+msgstr "Offerte"
 
 #: includes/metas.php:36 includes/metas.php:106
 msgid "suggestion"
-msgstr ""
+msgstr "Suggestie"
 
 #: includes/metas.php:37
 msgid "example"
-msgstr ""
+msgstr "Voorbeeld"
 
 #: includes/metas.php:41 includes/metas.php:160
 msgid "co-creation"
-msgstr ""
+msgstr "Co-creatie"
 
 #: includes/metas.php:42
 msgid "construction"
-msgstr ""
+msgstr "Constructie"
 
 #: includes/metas.php:43
 msgid "promotion"
-msgstr ""
+msgstr "Promotie"
 
 #: includes/metas.php:44 includes/metas.php:152
 msgid "dissemination"
-msgstr ""
+msgstr "Disseminatie"
 
 #: includes/metas.php:45
 msgid "reflection"
-msgstr ""
+msgstr "Refectie"
 
 #: includes/metas.php:49
 msgid "review posts"
-msgstr ""
+msgstr "Review posts"
 
 #: includes/metas.php:50
 msgid "translation"
-msgstr ""
+msgstr "Vertalen"
 
 #: includes/metas.php:51
 msgid "facilitation"
-msgstr ""
+msgstr "Faciliteren"
 
 #: includes/metas.php:52
 msgid "review contents"
-msgstr ""
+msgstr "Review inhoud"
 
 #: includes/metas.php:96
 msgid "group"
-msgstr ""
+msgstr "Groep"
 
 #: includes/metas.php:100 includes/metas.php:112
 msgid "platform user"
-msgstr ""
+msgstr "Platform gebruiker"
 
 #: includes/metas.php:102 includes/metas.php:108 includes/metas.php:114
 msgid "external source"
-msgstr ""
+msgstr "Externe bron"
 
 #: includes/metas.php:107 includes/metas.php:113
 msgid "administrator"
-msgstr ""
+msgstr "Adminstrator"
 
 #: includes/metas.php:118
 msgid "active"
-msgstr ""
+msgstr "Actief"
 
 #: includes/metas.php:119
 msgid "continuous"
-msgstr ""
+msgstr "Doorlopend"
 
 #: includes/metas.php:120
 msgid "closed"
-msgstr ""
+msgstr "Gesloten"
 
 #: includes/metas.php:145
 msgid "brainstorming"
-msgstr ""
+msgstr "Brainstormen"
 
 #: includes/metas.php:146
 msgid "planing"
-msgstr ""
+msgstr "Planing"
 
 #: includes/metas.php:147
 msgid "design"
-msgstr ""
+msgstr "Design"
 
 #: includes/metas.php:148
 msgid "collection"
-msgstr ""
+msgstr "Collectie"
 
 #: includes/metas.php:149
 msgid "analysis"
-msgstr ""
+msgstr "Analyse"
 
 #: includes/metas.php:150
 msgid "interpretation"
-msgstr ""
+msgstr "Interpretatie"
 
 #: includes/metas.php:151
 msgid "communication"
-msgstr ""
+msgstr "Communicatie"
 
 #: includes/metas.php:153
+#, fuzzy
 msgid "engagement"
-msgstr ""
+msgstr "Betrekken"
 
 #: includes/metas.php:154
 msgid "community building"
-msgstr ""
+msgstr "Gemeenschap bouwen"
 
 #: includes/metas.php:155
 msgid "monitoring/evaluation"
-msgstr ""
+msgstr "Monitoren/ Evalueren"
 
 #: includes/metas.php:159
 msgid "collaboration"
-msgstr ""
+msgstr "Samenwerken"
 
 #: includes/metas.php:161
 msgid "crowdsourcing"
-msgstr ""
+msgstr "Crowndsourcing"
 
 #: includes/metas.php:162
 msgid "epidemiology"
-msgstr ""
+msgstr "Epidemiologie"
 
 #: includes/metas.php:163
 msgid "participation"
-msgstr ""
+msgstr "Participatie"
 
 #: includes/metas.php:164
 msgid "Responsible Research and Innovation"
-msgstr ""
+msgstr "Responsible Research and Innovation"
 
 #: includes/metas.php:165
 msgid "systems thinking"
-msgstr ""
+msgstr "Systeem denken"
 
 #: includes/metas.php:166
 msgid "transdisciplinarity"
-msgstr ""
+msgstr "Transdisciplinair"
 
 #: includes/metas.php:169
 msgid "awarness raising"
-msgstr ""
+msgstr "Bewustmaking"
 
 #: includes/metas.php:170
 msgid "prevention"
-msgstr ""
+msgstr "Preventie"
 
 #: includes/metas.php:171
 msgid "diagnosis"
-msgstr ""
+msgstr "Diagnose"
 
 #: includes/metas.php:172
 msgid "surveillance"
-msgstr ""
+msgstr "Toezicht"
 
 #: includes/metas.php:173
 msgid "therapy"
-msgstr ""
+msgstr "Therapie"
 
 #: includes/metas.php:174
 msgid "working together"
-msgstr ""
+msgstr "Samenwerken"
 
 #: joinus4health.php:238
+#, fuzzy
 msgid "Register"
-msgstr ""
+msgstr "Registreren"
 
 #: joinus4health.php:240
 msgid "Log In"
-msgstr ""
+msgstr "Log in"
 
 #: joinus4health.php:241
 msgid "Join us"
-msgstr ""
+msgstr "Doe mee"
 
 #: joinus4health.php:242
 msgid "Home"
-msgstr ""
+msgstr "Startpagina"
 
 #: pages/home.php:871
 msgid "Main focus area"
-msgstr ""
+msgstr "Belangrijkste aandachtsgebied"
 
 #: pages/home.php:885 pages/home.php:902
 msgid "Learn more"
-msgstr ""
+msgstr "Lees verder"
 
 #: pages/home.php:910
 msgid "of"
-msgstr ""
+msgstr "van"
 
 #: pages/home.php:970
 msgid "Browse topics"
-msgstr ""
+msgstr "Ontdek topics"
 
 #: pages/home.php:996
 msgid "Browse suggestions"
-msgstr ""
+msgstr "Ontdek suggesties"
 
 #: pages/suggestion.php:734
 msgid "country"
-msgstr ""
+msgstr "Land"
 
+#: 
 msgid "footer.text"
 msgstr "JoinUs4Health wordt gefinancierd door het kaderprogramma Horizon 2020 van de Europese Unie onder subsidieovereenkomst nr. 101006518. De standpunten en meningen op deze website zijn uitsluitend die van de auteurs en mogen in geen geval worden beschouwd als een officieel standpunt van de Europese Commissie."
+

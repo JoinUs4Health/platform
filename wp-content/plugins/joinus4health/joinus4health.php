@@ -52,6 +52,8 @@ include_once 'includes/post/topic.php';
 include_once 'includes/post/task.php';
 include_once 'includes/post/slide.php';
 include_once 'includes/post/page.php';
+include_once 'includes/post/agreement.php';
+include_once 'includes/post/useragreement.php';
 
 //admin fields methods
 include_once 'includes/admin_fields.php';
@@ -249,6 +251,12 @@ function add_language_vars() {
     $join_us[3]->url = home_url()."/groups/";
     $join_us[3]->text = __('Working teams', 'joinus4health');
     
+    ?>
+<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/jquery.modal.min.css" />
+    <?php
+
+    
     echo '<script type="text/javascript">'.
             'var possible_languages = '.json_encode($possible_languages).';'.
             'var join_us_items = '.json_encode($join_us).';'.
@@ -270,32 +278,96 @@ function add_language_vars() {
             'var error_email_invalid = "'.__('E-mail format is invalid', 'joinus4health').'";'.
             'var deepl_url = "'. home_url().'/wp-content/plugins/joinus4health/deepl.php";'.
          '</script>';
+}
+add_action('wp_head', 'add_language_vars', 12, 1);
+
+function add_consent_vars() {
+    
+    global $meta_agreement_types, $meta_agreement_pages;
+    
+    $consent_agreement_type = '';
+    $is_consent_needed = false;
+    $consent_ids = [];
+    $user_id = 0;
+    $show_modal_consent_after_logout = false;
+    $current_page = get_post();
+    $parent_slug = null;
+    
+    if ($current_page && $current_page->post_parent) {
+        $parent_page = get_post($current_page->post_parent);
+        $parent_slug = $parent_page->post_name;
+    }
+    
+    if ($parent_slug == 'privacy-policy' || $parent_slug == 'terms-of-use') {
+        //nothing to do
+    } else if (is_user_logged_in()) {
+        $user = wp_get_current_user();
+        $user_id = $user->ID;
+        
+        $query_agreements = [];
+        foreach ($meta_agreement_types as $key => $value) {
+            $query_agreements[$key] = new WP_Query(array(
+                'post_type' => 'ju4hagreement', 
+                'posts_per_page' => 1, 
+                'orderby' => array('date' => 'DESC'), 
+                'meta_query' => array(array('key' => 'm_agreement_type', 'value' => $key))
+            ));
+        }
+
+        $user_needed_agreements = [];
+        foreach ($query_agreements as $query_index => $query_agreement) {
+            if ($query_agreement->have_posts()) {
+                $post = $query_agreement->post;
+                $consent_id = $post->ID;
+                $consent_ids[] = $consent_id;
+
+                $meta_query = array();
+                $meta_query['relation'] = 'AND';
+                $meta_query["m_consent_user_id_clause"] = array('key' => 'm_consent_user_id', 'value' => $user_id);
+                $meta_query["m_post_value_clause"] = array('key' => 'm_post_value', 'value' => '1');
+                $meta_query["m_consent_id_clause"] = array('key' => 'm_consent_id', 'value' => $consent_id);
+
+                $query_useragreement = new WP_Query(array('post_type' => 'ju4huseragreement', 'posts_per_page' => 1, 'meta_query' => $meta_query));
+                if (!$query_useragreement->have_posts()) {
+                    $user_needed_agreements[] = "<a target='_blank' href='".home_url().'/'.$meta_agreement_pages[$query_index]."/'>".__($meta_agreement_types[$query_index], 'joinus4health').'</a>';
+                }
+            }
+        }
+        
+        $is_consent_needed = !empty($user_needed_agreements);
+        $consent_agreement_type = implode(' & ', $user_needed_agreements);
+    }
 
     echo '<script type="text/javascript">'.
             'var is_consent_needed = '.($is_consent_needed ? 'true' : 'false').';'.
-            'var consent_id = '.$consent_id.';'.
+            'var consent_ids = '. json_encode($consent_ids).';'.
             'var consent_wpnonce = "'.wp_create_nonce('delete-user-id-'. $user_id).'";'.
+            'var consent_agreement_type = "'.$consent_agreement_type.'";'.
+            'var show_modal_consent_after_logout = '.($show_modal_consent_after_logout ? 'true' : 'false').';'.
          '</script>';
 }
 add_action('wp_head', 'add_consent_vars', 1, 1);
 
 function add_consent_modal() {
+    $translation = __('Welcome back to our platform! We have updated our %s and would like to ask you to accept them before you can continue. By clicking on "Agree and continue" you agree to the new document and can use our platform as usual. If you do not wish to accept the new changes, you can log out or delete your account.', 'joinus4health');
+    $translation = str_replace("%s", '<span id="consent-type"></span>', $translation);
     ?>
-<div id="modal-consent" class="modal">
-    <h4>Agreement</h4>
-    <div class="text">Do you agree to the new privacy policy?</div>
+<div id="modal-consent" class="modal" style="min-width: 1100px;">
+    <div class="text" style="padding-top: 20px;"><?= $translation ?></div>
     <div class="buttons">
-        <a href="#" rel="modal:close" id="consent-yes" class="blackbtn">Yes</a>
-        <a href="<?= wp_logout_url() ?>">No, sign out</a>
-        <a href="#" rel="modal:close" id="consent-delete-account">No, I want to delete my account</a>
+        <a href="#" rel="modal:close" id="consent-yes" class="blackbtn"><?= __('Agree and continue', 'joinus4health') ?></a>
+        <a href="<?= wp_logout_url() ?><?= rawurlencode("&") ?>show_modal_consent_after_logout=true"><?= __('Disagree and log out', 'joinus4health') ?></a>
+        <a href="#" rel="modal:close" id="consent-delete-account"><?= __('Disagree and delete my account', 'joinus4health') ?></a>
     </div>
 </div>
+<div id="modal-consent-logout" class="modal" style="min-width: 900px;">
+    <div class="text" style="padding-top: 20px;"></div>
+</div>
 <div id="modal-consent-delete-account" class="modal">
-    <h4>Agreement</h4>
-    <div class="text">Are you sure you want to delete your account?</div>
+    <div class="text" style="padding-top: 20px;"><?= __('We are very sorry that you do not agree to our changes and wish to delete your account. We would like to thank you for the time you have spent on our platform and wish you all the best for your future!', 'joinus4health') ?></div>
     <div class="buttons">
-        <a href="#" rel="modal:close" id="consent-delete-account-yes" class="blackbtn">Yes</a>
-        <a href="<?= wp_logout_url() ?>">No, sign out</a>
+        <a href="#" rel="modal:close" id="consent-delete-account-yes" class="blackbtn"><?= __('Yes') ?></a>
+        <a href="<?= wp_logout_url() ?>"><?= __('No') ?></a>
     </div>
 </div>
 <?php
@@ -722,3 +794,39 @@ function phpmailer_sender_update() {
     $phpmailer->Sender = 'noreply@platform.joinus4health.eu';
 }
 add_action('phpmailer_init', 'phpmailer_sender_update', 10, 999);
+
+
+function ju4h_add_agreement($user_id, $user_login, $user_password, $user_email, $usermeta) {
+    global $meta_agreement_types;
+
+    if (is_int($user_id)) {
+        $query_agreements = [];
+        foreach ($meta_agreement_types as $key => $value) {
+
+            $query_agreements[$key] = new WP_Query(array(
+                'post_type' => 'ju4hagreement', 
+                'posts_per_page' => 1, 
+                'orderby' => array('date' => 'DESC'), 
+                'meta_query' => array(array('key' => 'm_agreement_type', 'value' => $key))
+            ));
+        }
+
+        foreach ($query_agreements as $query_index => $query_agreement) {
+            if ($query_agreement->have_posts()) {
+                $post = $query_agreement->post;
+                $consent_id = $post->ID;
+                $new = array(
+                    'post_title'   => 'Consent of user #'.$user_id.' at '.time(),
+                    'post_status'  => 'publish',
+                    'post_type'    => 'ju4huseragreement',
+                );
+
+                $post_id = wp_insert_post($new);
+                add_post_meta($post_id, 'm_consent_user_id', $user_id);
+                add_post_meta($post_id, 'm_consent_id', $consent_id);
+                add_post_meta($post_id, 'm_post_value', '1');
+            }
+        }
+    }
+}
+add_filter('bp_core_signup_user', 'ju4h_add_agreement', 10, 5);

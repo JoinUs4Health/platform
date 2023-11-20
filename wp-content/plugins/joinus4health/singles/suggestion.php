@@ -9,10 +9,6 @@ $preferred_language = get_preferred_language();
 $suggestion_post = $post;
 $meta = get_post_meta(get_the_ID());
 get_header();
-?>
-<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/jquery.modal.min.css" />
-<?php
 echo get_js_script_voting(get_the_permalink());
 echo get_js_script_follow(get_the_permalink());
 echo get_js_script_contribute(get_the_permalink());
@@ -748,8 +744,8 @@ html_modal_follow();
                 <i data-feather="<?= $is_contributing ? 'check' : 'user-plus' ?>"></i>
                 <div class="text"><?= $is_contributing ? __('Contributing', 'joinus4health') : __("Contribute", 'joinus4health') ?></div>
             </div>
-        </div>
-    </div> 
+                        </div>
+                    </div>
     <div class="first-column">
         <div class="content column-common-border-style">
             <h2><?= get_translated_title($suggestion_post, 'm_title', $preferred_language) ?></h2>

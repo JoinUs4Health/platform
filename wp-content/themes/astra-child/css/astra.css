@@ -63,18 +63,6 @@
     border-bottom: 1px solid #e7e7e7;
 }
 
-#buddypress #item-header #item-actions {
-    display: none;
-}
-
-#buddypress div#item-header img.avatar {
-    margin: 0 0 19px 0 !important;
-}
-
-#buddypress #item-header #item-header-content {
-    padding-left: 15px;
-}
-
 .has-cover-image a img {
     display: none;
 }
@@ -304,10 +292,6 @@ div#item-header-content div#item-buttons div.group-button a.group-button {
     letter-spacing: normal;
     text-align: center;
     color: #ffffff;
-}
-
-div#item-header-content div#item-buttons div.group-button a.group-button.leave-group  {
-    background-color: #808a95;
 }
 
 #buddypress #item-body #bbpress-forums #bbpress-forums .bbp-topics {

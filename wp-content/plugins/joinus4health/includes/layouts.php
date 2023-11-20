@@ -111,25 +111,25 @@ function get_js_script_contribute($url) {
 <script type="text/javascript">
     $(document).ready(function() {
         $(document).on('click', ".item-contribute", function() {
-            elOperation = "contribute";
-            elId = $(".item-contribute").attr("data-id");
-            
-            $.ajax({
-                type: 'GET',
+                elOperation = "contribute";
+                elId = $(".item-contribute").attr("data-id");
+
+                $.ajax({
+                    type: 'GET',
                 url: "<?= $url ?>?operation=" + elOperation,
-                dataType: 'json',
-                success: function (data) {
-                    if (data.error) {
-                        alert(data.error);
-                    } else {
-                        $("#modal-contribute").modal();
-                        $('.item-contribute div.text').html("<?= __("Contributing", 'joinus4health') ?>");
-                        $('.item-contribute svg').replaceWith(feather.icons['check'].toSvg());            
-                        $('#item-contributes-' + elId).text(data.contributes);
-                        $("#item-contribute-" + elId).attr("class", "black-btn item-uncontribute");
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            $("#modal-contribute").modal();
+                            $('.item-contribute div.text').html("<?= __("Contributing", 'joinus4health') ?>");
+                            $('.item-contribute svg').replaceWith(feather.icons['check'].toSvg());            
+                            $('#item-contributes-' + elId).text(data.contributes);
+                            $("#item-contribute-" + elId).attr("class", "black-btn item-uncontribute");
+                        }
                     }
-                }
-            });
+                });
         });
         
         $(document).on('click', ".item-uncontribute", function() {
@@ -218,6 +218,7 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                         <?= nl2br($comment_txt) ?>
                     </div>
                     <?php else: ?>
+					<div class="txt" style="display: none"></div>
                     <div class="txt txt-full">
                         <?= nl2br($comment_txt) ?>
                     </div>
@@ -226,7 +227,7 @@ function html_comment($comment, $offset_left, $enabled_reply = true) {
                         <?php if ($enabled_reply && is_user_logged_in()): ?>
                         <a href="#reply-comment" class="comment-reply" id="comment-id-<?= $comment->comment_ID ?>">Reply</a>
                         <?php endif; ?>
-                        <?php /* <a href="" class="translate">Translate</a> */ ?>
+                        <a href="" class="translate">Translate</a>
                     </div>
                 </div>
             </div>

@@ -3,13 +3,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: POEditor.com\n"
 "Project-Id-Version: JoinUs4Health\n"
 "Language: pl\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
 
 #: includes/layouts.php:83 singles/suggestion.php:741
 #: singles/suggestion.php:884 singles/topic.php:780 singles/topic.php:918
@@ -661,8 +657,7 @@ msgstr "Zobacz wszystkie zadania"
 #. nie wiem co należy dodać o tych 15 minutach
 #: pages/home.php:1006
 msgid "home.task.description"
-msgstr ""
-"Zadania są zawsze powiązane z konkretnym tematem. Niektóre zadania powiązane bezpośrednio z projektem Wspólnie ku zdrowiu (np. recenzowanie pomysłów, zostanie facylitatorem, promowanie tematu), inne związane są po prostu z tematem zdrowia.\n"
+msgstr "Zadania są zawsze powiązane z konkretnym tematem. Niektóre zadania powiązane bezpośrednio z projektem Wspólnie ku zdrowiu (np. recenzowanie pomysłów, zostanie facylitatorem, promowanie tematu), inne związane są po prostu z tematem zdrowia.\n"
 "Wystarczy Twoje 15 minut, aby wnieść cenny wkład do tej inicjatywy. "
 
 #: joinus4health.php:231 pages/home.php:1029
@@ -986,5 +981,7 @@ msgstr "Przeglądaj pomysły"
 msgid "country"
 msgstr "Kraj"
 
+#: 
 msgid "footer.text"
 msgstr "JoinUs4Health jest finansowane przez Program Ramowy Unii Europejskiej Horyzont 2020 na podstawie umowy grantowej nr 101006518. Poglądy i opinie wyrażone na tej stronie są wyłącznie poglądami autorów i w żadnym wypadku nie mogą być traktowane jako oficjalne stanowisko Komisji Europejskiej."
+

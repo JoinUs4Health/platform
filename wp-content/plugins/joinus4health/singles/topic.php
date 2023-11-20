@@ -9,10 +9,6 @@ $topic_post = $post;
 $meta = get_post_meta(get_the_ID());
 get_header();
 $preferred_language = get_preferred_language();
-?>
-<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/jquery.modal.min.css" />
-<?php
 js_add_or_reply_comment();
 echo get_js_script_voting(get_the_permalink());
 echo get_js_script_follow(get_the_permalink());
@@ -165,6 +161,10 @@ html_modal_follow();
             cursor: pointer;
         }
         
+		.ast-container .top-column-2-colspan .title-and-buttons .btn-yellow {
+            background-color: #efe733;
+        }
+		
         .ast-container .top-column-2-colspan .title-and-buttons .btn:hover {
             background-color: #ededed;
         }
@@ -776,7 +776,7 @@ html_modal_follow();
             </div>
             <div class="title"></div>
             <?php if ($m_report_url != null && get_preferred_language() == 'pl'): ?>
-            <a href='<?= $m_report_url ?>' class="btn"><?= __('Pobierz raport teraz!', 'joinus4health') ?></a>
+            <a href='<?= $m_report_url ?>' class="btn btn-yellow"><?= __('Pobierz raport teraz!', 'joinus4health') ?></a>
             <?php endif; ?>
             <a href='#share' class="btn" rel="modal:open"><?= __('Share', 'joinus4health') ?></a>
             <?php $m_follows = get_post_meta($topic_post->ID, "m_follows"); ?>

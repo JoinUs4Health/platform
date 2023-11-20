@@ -8,10 +8,6 @@ the_post();
 $task = $post;
 $meta = get_post_meta(get_the_ID());
 get_header();
-?>
-<script src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/css/jquery.modal.min.css" />
-<?php
 echo get_js_script_voting(get_the_permalink());
 echo get_js_script_contribute(get_the_permalink());
 echo get_js_script_follow(get_the_permalink());

@@ -89,7 +89,7 @@ function add_meta_box_ju4hsuggestion_followers_contributors_voters_callback($pos
         }
         echo '</p>';
     }
-}
+                }
 
 /**
  * Adds meta box "Title"
