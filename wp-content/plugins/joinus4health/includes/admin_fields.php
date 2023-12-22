@@ -71,6 +71,15 @@ function html_admin_select_box($title, $name, $values, $key_selected = null, $wi
 <?php
 }
 
+function html_admin_button($title, $name, $value) {
+?>
+    <p>
+        <label for="<?= $name ?>" style="padding-right: 30px;"><?= $title ?></label>
+        <input type="button" value="Transfer" id="<?= $name ?>" data-id="<?= $value ?>" />
+    </p>
+<?php
+}
+
 function html_admin_text($name, $value) {
 ?>
     <p>

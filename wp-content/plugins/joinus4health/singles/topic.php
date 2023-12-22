@@ -161,10 +161,6 @@ html_modal_follow();
             cursor: pointer;
         }
         
-		.ast-container .top-column-2-colspan .title-and-buttons .btn-yellow {
-            background-color: #efe733;
-        }
-		
         .ast-container .top-column-2-colspan .title-and-buttons .btn:hover {
             background-color: #ededed;
         }
@@ -776,7 +772,7 @@ html_modal_follow();
             </div>
             <div class="title"></div>
             <?php if ($m_report_url != null && get_preferred_language() == 'pl'): ?>
-            <a href='<?= $m_report_url ?>' class="btn btn-yellow"><?= __('Pobierz raport teraz!', 'joinus4health') ?></a>
+            <a href='<?= $m_report_url ?>' class="btn"><?= __('Pobierz raport teraz!', 'joinus4health') ?></a>
             <?php endif; ?>
             <a href='#share' class="btn" rel="modal:open"><?= __('Share', 'joinus4health') ?></a>
             <?php $m_follows = get_post_meta($topic_post->ID, "m_follows"); ?>

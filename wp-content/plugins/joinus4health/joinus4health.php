@@ -22,6 +22,17 @@ $meta_translations = array(
     'pl' => 'Polish',
 );
 
+$capabilites = array(
+    'edit_post',
+    'read_post',
+    'delete_post',
+    'edit_posts',
+    'edit_others_posts', 
+    'publish_posts',
+    'read_private_posts',
+    'edit_published_posts'
+);
+
 $per_page_topic = 10;
 $per_page_task = 10;
 $per_page_suggestion = 10;
@@ -414,7 +425,7 @@ function add_jquery_feather_icons_script() {
     } else {
         wp_enqueue_script('ju4h-jquery', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery-2.1.0.min.js");
     }
-    
+    wp_enqueue_script('ju4h-modal', home_url()."/wp-content/plugins/joinus4health/assets/js/jquery.modal.min.js");
     wp_enqueue_script('ju4h-feather', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.min.js");
     wp_enqueue_script('ju4h-feather-replace', home_url()."/wp-content/plugins/joinus4health/assets/js/feather.replace.js");
     wp_enqueue_script('ju4h-js-cookies', home_url().'/wp-content/plugins/joinus4health/assets/js/js.cookie.min.js');
@@ -733,7 +744,7 @@ function admin_init_restrict_admin_ajax() {
 	
     $filename = basename($_SERVER['SCRIPT_FILENAME']);
     if ($filename == 'admin-ajax.php') {
-        if (!current_user_can('manage_options')) {
+        if (get_current_user_id() == 0) {
             exit;
         }
     }
@@ -845,6 +856,428 @@ add_action('manage_comments_custom_column', function ($column, $comment_id) {
     if ('attachment' === $column) {
         $attachment = get_comment_meta($comment_id, 'attachment', true);
         $attachment_name = get_comment_meta($comment_id, 'attachment_name', true);
-        echo "<a href='".home_url().'/wp-content/'.$attachment."'>".$attachment_name."</a>";
+        echo "<a href='".$attachment."'>".$attachment_name."</a>";
     }
 }, 10, 2);
+
+function generate_capabilites_array($post_type) {
+    global $capabilites;
+    
+    $return = array();
+    foreach($capabilites as $capability) {
+        $return[$capability] = $capability.'_'.$post_type;
+    }
+    
+    return $return;
+}
+
+$ju4h_capabilites = array();
+
+function add_custom_caps() {
+    global $capabilites, $ju4h_capabilites;
+    $post_types = array('ju4hsuggestion', 'ju4htopic', 'ju4htask');
+    
+
+    add_role('ju4h_administrator', __('JU4H Administrator/moderator'));
+    $admin_role = get_role('ju4h_administrator');
+    if ($admin_role) {
+        $admin_role->add_cap('read');
+        $admin_role->add_cap('upload_files');
+        foreach ($post_types as $post_type) {
+            $ju4h_capabilites[$post_type] = array();
+            foreach ($capabilites as $capability) {
+               $admin_role->add_cap($capability.'_'.$post_type);
+            }
+        }
+    }
+
+    $admin_post_types = array('ju4hsuggestion', 'ju4htopic', 'ju4htask', 'ju4hslide', 'ju4hagreement', 'ju4huseragreement');
+    $administrator = get_role('administrator');
+    if ($administrator) {
+        foreach ($admin_post_types as $post_type) {
+            $ju4h_capabilites[$post_type] = array();
+            foreach ($capabilites as $capability) {
+               $administrator->add_cap($capability.'_'.$post_type);
+            }
+        }
+    }
+    
+    remove_role('ju4h_moderator');
+    remove_role('ju4h_contributor');
+    remove_role('ju4h_facilitator');
+    
+    $role = get_role('subscriber');
+    if ($role) {
+        $role->add_cap('edit_posts_ju4hsuggestion');
+    }  
+    
+    $user = wp_get_current_user();
+    if (in_array('subscriber', (array)$user->roles)) {
+        $post_types_roles = array(
+            'ju4hsuggestion' => array('moderator', 'facilitator', 'contributor'),
+            'ju4htopic' => array('moderator', 'facilitator'),
+            'ju4htask' => array('moderator', 'facilitator')
+        );
+        
+        foreach ($post_types_roles as $post_type => $roles) {
+            foreach ($roles as $role) {
+                $query = new WP_Query(array(
+                    'post_type'      => $post_type,
+                    'posts_per_page' => -1,
+                    'meta_query'     => array(
+                        array(
+                            'key'     => 'm_capabilites_ju4h_'.$role,
+                            'value'   => get_current_user_id(),
+                            'compare' => '=',
+                        ),
+                    ),
+                ));
+
+                if ($query->have_posts()) {
+                    while ($query->have_posts()) {
+                        $query->the_post();
+                        $ju4h_capabilites[$post_type][] = get_the_ID();
+                    }
+                }
+
+                wp_reset_postdata();
+            }
+        }
+    }
+    
+    $query = new WP_Query(array(
+        'post_type'      => 'ju4hsuggestion',
+        'posts_per_page' => -1,
+        'author'         => get_current_user_id()
+    ));
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $ju4h_capabilites['ju4hsuggestion'][] = get_the_ID();
+        }
+    }
+
+    wp_reset_postdata();
+}
+add_action('init', 'add_custom_caps', 5 );
+
+function remove_add_new_custom_post_type_capability() {
+    global $pagenow;
+    $user = wp_get_current_user();
+    
+    if (in_array('subscriber', (array)$user->roles)) {
+        $custom_post_types = array('ju4hsuggestion', 'ju4htopic', 'ju4htask');
+
+        foreach($custom_post_types as $custom_post_type) {
+            remove_submenu_page("edit.php?post_type={$custom_post_type}", "post-new.php?post_type={$custom_post_type}");
+
+            if ('post-new.php' === $pagenow && isset($_GET['post_type']) && $_GET['post_type'] === $custom_post_type && !current_user_can('publish_posts')) {
+                wp_redirect(admin_url("edit.php?post_type={$custom_post_type}"));
+                exit;
+            }
+        }
+    }
+}
+add_action('admin_init', 'remove_add_new_custom_post_type_capability');
+
+function hide_add_new_custom_post_type_button() {
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return;
+    }
+    
+    $post_types = array('ju4hsuggestion', 'ju4htopic', 'ju4htask');
+
+    foreach ($post_types as $post_type) {
+        $screen = get_current_screen();
+        if (isset($screen->post_type) && $post_type === $screen->post_type) {
+            echo '<style type="text/css">
+                .page-title-action { display: none !important; }
+            </style>';
+        }
+    }
+}
+add_action('admin_head', 'hide_add_new_custom_post_type_button');
+
+function hide_comments_menu() {
+    if (!current_user_can('moderate_comments')) { // Check if user does not have 'moderate_comments' capability
+        remove_menu_page('edit-comments.php'); // Hide comments menu
+    }
+}
+add_action('admin_menu', 'hide_comments_menu');
+
+
+function remove_comments_column_for_custom_post_type($columns) {
+    unset($columns['comments']);
+    return $columns;
+}
+
+// Apply to specific post types only
+add_filter('manage_ju4hsuggestion_posts_columns', 'remove_comments_column_for_custom_post_type');
+add_filter('manage_ju4htopic_posts_columns', 'remove_comments_column_for_custom_post_type');
+add_filter('manage_ju4htask_posts_columns', 'remove_comments_column_for_custom_post_type');
+
+$cap_to_remove = array();
+
+function custom_permission_check_pre($allcaps, $caps, $args) {
+    global $ju4h_capabilites, $capabilites, $pagenow, $cap_to_remove;    
+    
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return $allcaps;
+    }
+    
+    $post_types = array('ju4hsuggestion', 'ju4htopic', 'ju4htask');
+
+    foreach ($cap_to_remove as $cap) {
+        unset($allcaps[$cap]);
+    }
+
+    if (is_admin() && $pagenow == 'edit.php' && isset($_GET['post_type'])) {
+        foreach ($post_types as $post_type) {
+            if (is_array($args) && count($args) == 2 && 
+                $args[0] == 'edit_posts_'.$post_type && 
+                isset($ju4h_capabilites[$post_type]) &&
+                !empty($ju4h_capabilites[$post_type])) {
+                $allcaps['edit_posts_'.$post_type] = true;
+                $allcaps['edit_others_posts_'.$post_type] = true;
+                $allcaps['edit_published_posts_'.$post_type] = true;
+            }
+            
+            if (is_array($args) && count($args) == 2 && 
+                $args[0] == 'edit_posts' &&
+                isset($ju4h_capabilites[$post_type]) &&
+                !empty($ju4h_capabilites[$post_type])) {
+                $allcaps['edit_posts_'.$post_type] = true;
+                $allcaps['edit_others_posts_'.$post_type] = true;
+                $allcaps['edit_published_posts_'.$post_type] = true;
+            }
+            
+            if (is_array($args) && count($args) == 3 && 
+                $args[0] == 'edit_post' &&
+                isset($ju4h_capabilites[$post_type]) &&
+                !empty($ju4h_capabilites[$post_type]) &&
+                in_array($args[2], $ju4h_capabilites[$post_type])) {
+                $allcaps['edit_posts_'.$post_type] = true;
+                $allcaps['edit_published_posts_'.$post_type] = true;
+                $allcaps['edit_others_posts_'.$post_type] = true;
+                $cap_to_remove[] = 'edit_published_posts_'.$post_type;
+                $cap_to_remove[] = 'edit_others_posts_'.$post_type;
+            }
+        }        
+    } else if (is_admin() && $pagenow == 'post.php' && isset($_GET['post'])) {
+        $post = get_post($_GET['post']);
+        $moderator_can = get_post_meta($_GET['post'], 'm_capabilites_ju4h_moderator', true) == get_current_user_id();
+        $facilitator_can = get_post_meta($_GET['post'], 'm_capabilites_ju4h_facilitator', true) == get_current_user_id();
+        $contributor_can = get_post_meta($_GET['post'], 'm_capabilites_ju4h_contributor', true) == get_current_user_id();
+        
+        if ($moderator_can) {
+            $allcaps['moderate_comments'] = true;
+        }
+        
+        if ($post->post_type == 'ju4hsuggestion' && ($moderator_can || $facilitator_can || $contributor_can)) {
+            $allcaps['edit_posts_'.$post->post_type] = true;
+            $allcaps['edit_published_posts_'.$post->post_type] = true;
+            $allcaps['edit_others_posts_'.$post->post_type] = true;
+            $allcaps['edit_post_'.$post->post_type] = true;
+        } else if ($post->post_type == 'ju4htopic' && ($moderator_can || $facilitator_can)) {
+            $allcaps['edit_posts_'.$post->post_type] = true;
+            $allcaps['edit_published_posts_'.$post->post_type] = true;
+            $allcaps['edit_others_posts_'.$post->post_type] = true;
+            $allcaps['edit_post_'.$post->post_type] = true;            
+        } else if ($post->post_type == 'ju4htask' && ($moderator_can || $facilitator_can)) {
+            $allcaps['edit_posts_'.$post->post_type] = true;
+            $allcaps['edit_published_posts_'.$post->post_type] = true;
+            $allcaps['edit_others_posts_'.$post->post_type] = true;
+            $allcaps['edit_post_'.$post->post_type] = true;            
+        }
+        
+        foreach ($post_types as $post_type) {
+            if (is_array($args) && count($args) == 2 && 
+                $args[0] == 'edit_posts_'.$post_type && 
+                $args[1] == get_current_user_id() &&
+                isset($ju4h_capabilites[$post_type]) &&
+                !empty($ju4h_capabilites[$post_type])) {
+                $allcaps['edit_posts_'.$post_type] = true;
+            }
+        }
+    } else if ($pagenow == 'upload.php') {
+        foreach ($ju4h_capabilites as $ju4h_capability) {
+            if (!empty($ju4h_capability)) {
+                $allcaps['upload_files'] = true;
+            }
+        }
+    } else if (is_admin() && $pagenow == 'post.php' && isset($_POST['post_ID'])) {
+        $post = get_post($_POST['post_ID']);
+        $moderator_can = get_post_meta($_POST['post_ID'], 'm_capabilites_ju4h_moderator', true) == get_current_user_id();
+        $facilitator_can = get_post_meta($_POST['post_ID'], 'm_capabilites_ju4h_facilitator', true) == get_current_user_id();
+        $contributor_can = get_post_meta($_POST['post_ID'], 'm_capabilites_ju4h_contributor', true) == get_current_user_id();
+        
+        if ($post->post_type == 'ju4hsuggestion' && ($moderator_can || $facilitator_can || $contributor_can)) {
+            $allcaps['edit_posts_'.$post->post_type] = true;
+            $allcaps['edit_published_posts_'.$post->post_type] = true;
+            $allcaps['edit_others_posts_'.$post->post_type] = true;
+            $allcaps['edit_post_'.$post->post_type] = true;
+        } else if ($post->post_type == 'ju4htopic' && ($moderator_can || $facilitator_can)) {
+            $allcaps['edit_posts_'.$post->post_type] = true;
+            $allcaps['edit_published_posts_'.$post->post_type] = true;
+            $allcaps['edit_others_posts_'.$post->post_type] = true;
+            $allcaps['edit_post_'.$post->post_type] = true;            
+        } else if ($post->post_type == 'ju4htask' && ($moderator_can || $facilitator_can)) {
+            $allcaps['edit_posts_'.$post->post_type] = true;
+            $allcaps['edit_published_posts_'.$post->post_type] = true;
+            $allcaps['edit_others_posts_'.$post->post_type] = true;
+            $allcaps['edit_post_'.$post->post_type] = true;
+        }
+        
+        foreach ($post_types as $post_type) {
+            if (is_array($args) && count($args) == 2 && 
+                $args[0] == 'edit_posts_'.$post_type && 
+                $args[1] == get_current_user_id() &&
+                isset($ju4h_capabilites[$post_type]) &&
+                !empty($ju4h_capabilites[$post_type])) {
+                $allcaps['edit_posts_'.$post_type] = true;
+            }
+        }
+    } else if (is_admin() && $pagenow == 'post-new.php') {
+    } else if (is_admin() && $pagenow == 'admin-ajax.php' && isset($_REQUEST['p'])) {
+        if (get_post_meta($_REQUEST['p'], 'm_capabilites_ju4h_moderator', true) == get_current_user_id()) {
+            $post = get_post($_REQUEST['p']);
+            $allcaps['moderate_comments'] = true;
+            $allcaps['edit_posts_'.$post->post_type] = true;
+            $allcaps['edit_published_posts_'.$post->post_type] = true;
+            $allcaps['edit_others_posts_'.$post->post_type] = true;
+            $allcaps['edit_post_'.$post->post_type] = true;
+        }
+    } else if (is_admin() && $pagenow == 'admin-ajax.php' && isset($_REQUEST['action']) && ($_REQUEST['action'] == 'replyto-comment' || $_REQUEST['action'] == 'edit-comment') && isset($_REQUEST['id'])) {
+        $post = get_post($_REQUEST['id']);
+        $roles = array(
+            'ju4hsuggestion' => array('moderator'),
+            'ju4htopic' => array('moderator', 'facilitator'),
+            'ju4htask' => array('moderator', 'facilitator')
+        );
+
+        if ($post) {
+            foreach ($roles[$post->post_type] as $role) {
+                if (get_post_meta($post->ID, 'm_capabilites_ju4h_'.$role, true) == get_current_user_id()) {
+                    $allcaps['moderate_comments'] = true;
+                    $allcaps['edit_posts_'.$post->post_type] = true;
+                    $allcaps['edit_published_posts_'.$post->post_type] = true;
+                    $allcaps['edit_others_posts_'.$post->post_type] = true;
+                    $allcaps['edit_post_'.$post->post_type] = true;
+                }
+            }
+        }
+    } else if (is_admin() && $pagenow == 'admin-ajax.php' && isset($_REQUEST['action']) && str_contains($_REQUEST['action'], '-comment') && isset($_REQUEST['id'])) {
+        $comment = get_comment($_REQUEST['id']);
+        
+        if ($comment) {
+            $roles = array(
+                'ju4hsuggestion' => array('moderator'),
+                'ju4htopic' => array('moderator', 'facilitator'),
+                'ju4htask' => array('moderator', 'facilitator')
+            );
+            $post_id = $comment->comment_post_ID;
+            $post = get_post($post_id);
+            
+            if ($post) {
+                foreach ($roles[$post->post_type] as $role) {
+                    if (get_post_meta($post->ID, 'm_capabilites_ju4h_'.$role, true) == get_current_user_id()) {
+                        $allcaps['moderate_comments'] = true;
+                        $allcaps['edit_posts_'.$post->post_type] = true;
+                        $allcaps['edit_published_posts_'.$post->post_type] = true;
+                        $allcaps['edit_others_posts_'.$post->post_type] = true;
+                        $allcaps['edit_post_'.$post->post_type] = true;
+                    }
+                }
+            }
+        }
+    } else if ($pagenow == 'transfer.php' && isset($_REQUEST['post_id'])) {
+        $post = get_post($_REQUEST['post_id']);
+
+        if ($post) {
+            foreach ($post_types as $post_type) {
+                $allcaps['edit_posts_'.$post_type] = true;
+                $allcaps['edit_published_posts_'.$post_type] = true;
+                $allcaps['edit_others_posts_'.$post_type] = true;
+                $allcaps['edit_post_'.$post_type] = true;
+            }
+        }
+    } else if (is_admin() && $pagenow == 'comment.php' && isset($_REQUEST['c'])) {
+        $comment = get_comment($_REQUEST['c']);
+        
+        if ($comment) {
+            $roles = array(
+                'ju4hsuggestion' => array('moderator'),
+                'ju4htopic' => array('moderator', 'facilitator'),
+                'ju4htask' => array('moderator', 'facilitator')
+            );
+            $post_id = $comment->comment_post_ID;
+            $post = get_post($post_id);
+            
+            if ($post) {
+                foreach ($roles[$post->post_type] as $role) {
+                    if (get_post_meta($post_id, 'm_capabilites_ju4h_'.$role, true) == get_current_user_id()) {
+                        $allcaps['moderate_comments'] = true;
+                        $allcaps['edit_posts_'.$post->post_type] = true;
+                        $allcaps['edit_published_posts_'.$post->post_type] = true;
+                        $allcaps['edit_others_posts_'.$post->post_type] = true;
+                        $allcaps['edit_post_'.$post->post_type] = true;
+                    }
+                }
+            }
+        }
+    } else if (is_admin()) {
+        foreach ($post_types as $post_type) {
+            if (is_array($args) && count($args) == 2 && 
+                $args[0] == 'edit_posts_'.$post_type && 
+                $args[1] == get_current_user_id() &&
+                isset($ju4h_capabilites[$post_type]) &&
+                !empty($ju4h_capabilites[$post_type])) {
+                $allcaps['edit_posts_'.$post_type] = true;
+            }
+        }
+    }
+    
+    return $allcaps;
+}
+add_filter('user_has_cap', 'custom_permission_check_pre', -10, 3);
+
+function ju4h_post_wide_range($query) {
+    global $ju4h_capabilites, $capabilites, $pagenow;
+    
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return;
+    }
+    
+    if (is_admin() && $pagenow == 'edit.php' && isset($_GET['post_type']) && $query->is_main_query()) {
+        $post_types = array('ju4hsuggestion', 'ju4htopic', 'ju4htask');
+        
+        foreach ($post_types as $post_type) {
+            if ($_GET['post_type'] == $post_type && $query->get('post_type') == $post_type && !empty($ju4h_capabilites[$post_type])) {
+                $query->set('post__in', $ju4h_capabilites[$post_type]);
+            }
+        }
+    }
+}
+add_action('pre_get_posts', 'ju4h_post_wide_range');
+
+function hide_posts_menu_for_specific_role() {
+    global $ju4h_capabilites, $capabilites, $pagenow;
+    
+    remove_menu_page('edit.php');
+    
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return;
+    }
+    
+    foreach ($ju4h_capabilites as $capability => $post_list) {
+        if (empty($post_list)) {
+            remove_menu_page('edit.php?post_type='.$capability);
+        }
+    }
+}
+add_action( 'admin_menu', 'hide_posts_menu_for_specific_role' );

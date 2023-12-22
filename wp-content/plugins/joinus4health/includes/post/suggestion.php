@@ -30,6 +30,9 @@ function ju4hsuggestion_custom_post_type() {
         'public'              => true,
         'show_ui'             => true,
         'show_in_menu'        => true,
+        'capability_type'     => 'ju4hsuggestion',
+        'map_meta_cap'        => true,
+        'capabilities'        => generate_capabilites_array('ju4hsuggestion'),
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 5,
@@ -46,12 +49,39 @@ function ju4hsuggestion_custom_post_type() {
 add_action('init', 'ju4hsuggestion_custom_post_type', 0);
 
 function add_meta_boxes_ju4hsuggestion_callback($post) {
+    $can_transfer = ju4h_user_can_transfer_suggestion($post);
+    
+    add_meta_box('container_capabilites', __('Capabilites'), 'add_meta_box_ju4hsuggestion_capabilites_callback', 'ju4hsuggestion', 'normal', 'low');
+    if ($can_transfer) {
+        add_meta_box('container_transfer', __('Transfer suggestion to topic (only moderators)'), 'add_meta_box_ju4hsuggestion_transfer_callback', 'ju4hsuggestion', 'normal', 'low');
+    }
     add_meta_box('container_followers_and_contributors', __('Followers, contributors & voters'), 'add_meta_box_ju4hsuggestion_followers_contributors_voters_callback', 'ju4hsuggestion', 'normal', 'low');
     add_meta_box('container_title', __('Title'), 'add_meta_box_ju4hsuggestion_title_callback', 'ju4hsuggestion', 'normal', 'low');
     add_meta_box('container_description', __('Description'), 'add_meta_box_ju4hsuggestion_description_callback', 'ju4hsuggestion', 'normal', 'low');
     add_meta_box('container_additional_fields', __('Additional fields'), 'add_meta_box_ju4hsuggestion_additional_fields_callback', 'ju4hsuggestion', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4hsuggestion', 'add_meta_boxes_ju4hsuggestion_callback');
+
+function add_meta_box_ju4hsuggestion_capabilites_callback($post) {
+    $roles = array(
+        'moderator' => __('Moderator'), 
+        'facilitator' => __('Facilitator'), 
+        'contributor' => __('Contributor')
+    );
+    
+    foreach ($roles as $role_index => $role_value) {
+        $users = get_users(array('role' => 'subscriber'));
+        $users_select = array("" => "None");
+        
+        foreach ($users as $user) {
+            $users_select[$user->ID] = $user->data->display_name;
+        }
+                
+        if (ju4h_can_add_someone_to_suggestion($role_index, $post)) {
+            html_admin_select_box($role_value, 'm_capabilites_ju4h_'.$role_index, $users_select, get_post_meta($post->ID, "m_capabilites_ju4h_".$role_index, true), false);
+        }
+    }
+}
 
 function add_meta_box_ju4hsuggestion_additional_fields_callback($post) {
     global $meta_countries, $meta_languages, $meta_suggestion_types, $meta_stakeholder_group, $meta_suggestion_duration, $meta_suggestion_source, $meta_process, $meta_methods, $meta_contents;
@@ -65,6 +95,33 @@ function add_meta_box_ju4hsuggestion_additional_fields_callback($post) {
     html_admin_select_box(__('Process'), 'm_infrastructure', $meta_process, get_post_meta($post->ID, "m_infrastructure", true));
     html_admin_select_box(__('Methodology'), 'm_methodology', $meta_methods, get_post_meta($post->ID, "m_methodology", true));
     html_admin_select_box(__('Content'), 'm_content', $meta_contents, get_post_meta($post->ID, "m_content", true));
+}
+
+function add_meta_box_ju4hsuggestion_transfer_callback($post) {
+    ?>
+    <script type="text/javascript" src="<?= home_url() ?>/wp-content/plugins/joinus4health/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#m_transfer').click(function() {
+                val_post_id = $(this).attr('data-id');
+                $.ajax({
+                    type: 'POST',
+                    url: "<?= home_url() ?>/wp-content/plugins/joinus4health/includes/transfer.php",
+                    dataType: 'json',
+                    data: {
+                        post_id: val_post_id
+                    },
+                    success: function (data) {
+                        if (data.url) {
+                            window.location.href = data.url;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <?php
+    html_admin_button(__('Transfer suggestion to topic'), 'm_transfer', $post->ID);
 }
 
 function add_meta_box_ju4hsuggestion_followers_contributors_voters_callback($post) {
@@ -89,7 +146,7 @@ function add_meta_box_ju4hsuggestion_followers_contributors_voters_callback($pos
         }
         echo '</p>';
     }
-                }
+}
 
 /**
  * Adds meta box "Title"
@@ -153,7 +210,21 @@ function save_post_ju4hsuggestion_callback($post_id) {
             if ($_REQUEST[$value] == '') {
                 delete_post_meta($post_id, $value);
             } else {
-                update_post_meta($post_id, $value, sanitize_text_field($_POST[$value]));
+                update_post_meta($post_id, $value, esc_html($_POST[$value]));
+            }
+        }
+    }
+    
+    $fields = array(
+        'moderator',
+        'facilitator',
+        'contributor'
+    );
+    
+    foreach ($fields as $value) {
+        if (isset($_REQUEST['m_capabilites_ju4h_'.$value])) {
+            if (ju4h_can_add_someone_to_suggestion($value, $post_id)) {
+                update_post_meta($post_id, 'm_capabilites_ju4h_'.$value, esc_html($_POST['m_capabilites_ju4h_'.$value]));
             }
         }
     }
@@ -201,3 +272,76 @@ function manage_ju4hsuggestion_posts_custom_column_callback($column, $post_id) {
     }
 }
 add_action('manage_ju4hsuggestion_posts_custom_column', 'manage_ju4hsuggestion_posts_custom_column_callback', 10, 2);
+
+function ju4h_user_can_transfer_suggestion($post) {
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return true;
+    }
+    
+    if (is_int($post)) {
+        $post_id = $post;
+    } else if (is_object($post)) {
+        $post_id = $post->ID;
+    } else {
+        return false;
+    }
+    
+    if (get_post_meta($post_id, 'm_capabilites_ju4h_moderator', true) == get_current_user_id()) {
+        return true;
+    }
+    
+    return false;
+}
+
+function ju4h_user_can_edit_specific_suggestion($post) {    
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return true;
+    }
+    
+    if (is_int($post)) {
+        $post_id = $post;
+    } else if (is_object($post)) {
+        $post_id = $post->ID;
+    } else {
+        return false;
+    }
+    
+    if (get_post_meta($post_id, 'm_capabilites_ju4h_moderator', true) == get_current_user_id()) {
+        return true;
+    }
+    
+    if (get_post_meta($post_id, 'm_capabilites_ju4h_facilitator', true) == get_current_user_id()) {
+        return true;
+    }
+    
+    return false;
+}
+
+function ju4h_can_add_someone_to_suggestion($someone, $post) {
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return true;
+    }
+    
+    if (is_int($post)) {
+        $post_id = $post;
+    } else if (is_object($post)) {
+        $post_id = $post->ID;
+    } else {
+        return false;
+    }
+    
+    $user = wp_get_current_user();
+    
+    if (in_array('subscriber', (array)$user->roles)) {
+        if (get_post_meta($post_id, 'm_capabilites_ju4h_moderator', true) == get_current_user_id() && ($someone == 'facilitator')) {
+            return true;
+        }
+
+        return false;
+    } else {
+        return true;
+    }
+}

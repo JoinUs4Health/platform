@@ -68,6 +68,9 @@ function ju4htopic_custom_post_type() {
         'public'              => true,
         'show_ui'             => true,
         'show_in_menu'        => true,
+        'capability_type'     => 'ju4htopic',
+        'map_meta_cap'        => true,
+        'capabilities'        => generate_capabilites_array('ju4htopic'),
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 5,
@@ -90,6 +93,7 @@ add_action('init', 'ju4htopic_custom_post_type', 0);
  */
 function add_meta_boxes_ju4htopic_callback($post) {
     $upload_max_size = ini_get('upload_max_filesize');
+    add_meta_box('container_capabilites', __('Capabilites'), 'add_meta_box_ju4htopic_capabilites_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_followers_and_contributors', __('Followers, contributors & voters'), 'add_meta_box_ju4htopic_followers_contributors_voters_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_topimage', __('Top image').' (best size: 1228x346) (max file size: '.$upload_max_size.')', 'add_meta_box_ju4htopic_topimage_callback', 'ju4htopic', 'normal', 'low');
     add_meta_box('container_title', __('Title'), 'add_meta_box_ju4htopic_title_callback', 'ju4htopic', 'normal', 'low');
@@ -104,6 +108,27 @@ function add_meta_boxes_ju4htopic_callback($post) {
     add_meta_box('container_groups', __('Related groups'), 'add_meta_box_ju4htopic_related_groups_callback', 'ju4htopic', 'normal', 'low');
 }
 add_action('add_meta_boxes_ju4htopic', 'add_meta_boxes_ju4htopic_callback');
+
+function add_meta_box_ju4htopic_capabilites_callback($post) {
+    $roles = array(
+        'moderator' => __('Moderator'), 
+        'facilitator' => __('Facilitator'), 
+        'contributor' => __('Contributor')
+    );
+    
+    foreach ($roles as $role_index => $role_value) {
+        $users = get_users(array('role' => 'subscriber'));
+        $users_select = array("" => "None");
+        
+        foreach ($users as $user) {
+            $users_select[$user->ID] = $user->data->display_name;
+        }
+        
+        if (ju4h_can_add_someone_to_topic($role_index, $post)) {
+            html_admin_select_box($role_value, 'm_capabilites_ju4h_'.$role_index, $users_select, get_post_meta($post->ID, "m_capabilites_ju4h_".$role_index, true), false);
+        }
+    }
+}
 
 /**
  * 
@@ -207,8 +232,13 @@ function add_meta_box_ju4htopic_additional_fields_callback($post) {
         }
     }
     
+    $meta_topic_status_copy = $meta_topic_status;
+    if (!ju4h_can_change_to_close_topic($post)) {
+        unset($meta_topic_status_copy[3]);
+    }
+    
     html_admin_select_box(__('Language'), 'm_language', $meta_languages, get_post_meta($post->ID, "m_language", true), false);
-    html_admin_select_box(__('Status'), 'm_status', $meta_topic_status, get_post_meta($post->ID, 'm_status', true));
+    html_admin_select_box(__('Status'), 'm_status', $meta_topic_status_copy, get_post_meta($post->ID, 'm_status', true));
     html_admin_select_box(__('Targeted stakeholder group'), 'm_target_group', $meta_stakeholder_group, get_post_meta($post->ID, "m_target_group", true));
     html_admin_select_box(__('Source'), 'm_source', $meta_topic_source, get_post_meta($post->ID, "m_source", true));
     html_admin_date_input(__('Valid thru'), 'm_valid_thru', get_post_meta($post->ID, 'm_valid_thru', true));
@@ -800,10 +830,22 @@ function save_post_ju4htopic_callback($post_id) {
     } else {
         update_post_meta($post_id, 'm_valid_thru', '');
     }
+    
+    $fields = array(
+        'moderator',
+        'facilitator',
+        'contributor'
+    );
+    
+    foreach ($fields as $value) {
+        if (isset($_REQUEST['m_capabilites_ju4h_'.$value])) {
+            if (ju4h_can_add_someone_to_topic($value, $post_id)) {
+                update_post_meta($post_id, 'm_capabilites_ju4h_'.$value, esc_html($_POST['m_capabilites_ju4h_'.$value]));
+            }
+        }
+    }
 }
 add_action('save_post_ju4htopic', 'save_post_ju4htopic_callback', 10, 2);
-
-
 
 function manage_ju4htopic_posts_columns_callback($columns) {
     $columns['status'] = __('Status');
@@ -830,3 +872,41 @@ function manage_ju4htopic_posts_custom_column_callback($column, $post_id) {
     }
 }
 add_action('manage_ju4htopic_posts_custom_column', 'manage_ju4htopic_posts_custom_column_callback', 10, 2);
+
+function ju4h_can_add_someone_to_topic($someone, $post) {
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return true;
+    }
+    
+    if (is_int($post)) {
+        $post_id = $post;
+    } else if (is_object($post)) {
+        $post_id = $post->ID;
+    } else {
+        return false;
+    }
+    
+    if (get_post_meta($post_id, 'm_capabilites_ju4h_moderator', true) == get_current_user_id() && ($someone == 'facilitator')) {
+        return true;
+    }
+
+    return false;
+}
+
+function ju4h_can_change_to_close_topic($post) {
+    $user = wp_get_current_user();
+    if (!in_array('subscriber', (array)$user->roles)) {
+        return true;
+    }
+    
+    if (is_int($post)) {
+        $post_id = $post;
+    } else if (is_object($post)) {
+        $post_id = $post->ID;
+    } else {
+        return false;
+    }
+    
+    return false;
+}

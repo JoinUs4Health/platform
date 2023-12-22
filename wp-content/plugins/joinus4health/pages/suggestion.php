@@ -637,7 +637,11 @@ if (isset($_GET['date_till'])) {
         </div>
         <?php
         $query_params = array('post_type' => 'ju4hsuggestion');
-        $meta_query = array();
+        $meta_query = array(
+            'relation' => 'AND',
+            '1st' => array('relation' => 'AND'),
+            '2nd' => array('relation' => 'OR'),
+        );
         $tax_query = array();
         $get_params = array();
 
@@ -679,6 +683,9 @@ if (isset($_GET['date_till'])) {
             'methodology' => $meta_methodology, 
             'content' => $meta_content,
         );
+        
+        $translatable_names = array('title', 'description');
+        
         foreach ($names as $name => $values) {
             if (isset($_GET[$name]) && $_GET[$name] != '') {
                 if ($name == 'sortby') {
@@ -692,8 +699,7 @@ if (isset($_GET['date_till'])) {
                         $get_params['sortby'] = '';
                     }
                 } else if (array_key_exists($_GET[$name], $values)) {
-                    $meta_query['relation'] = 'AND';
-                    $meta_query[$name."_clause"] = array(
+                    $meta_query['1st'][$name."_clause"] = array(
                         'key' => 'm_'.$name,
                         'value' => $_GET[$name]
                     );
@@ -701,17 +707,23 @@ if (isset($_GET['date_till'])) {
                 }
             }
         }
+        
+        foreach ($translatable_names as $name) {
+            foreach ($meta_languages as $lang => $language) {
+                $meta_query['2nd'][$name."_clause_".strtolower($lang)] = array(
+                    'key' => 'm_'.$name."_".strtolower($lang),
+                    'value' => esc_attr($_GET['search_content']),
+                    'compare' => 'LIKE'
+                );
+            }
+        }
+        
         if (!empty($meta_query)) {
             $query_params['meta_query'] = $meta_query;
         }
 
         if (!empty($tax_query)) {
             $query_params['tax_query'] = $tax_query;
-        }
-
-        if (isset($_GET['search_content']) && $_GET['search_content'] != '') {
-            $query_params['s'] = $_GET['search_content'];
-            $get_params['search_content'] = esc_attr($_GET['search_content']);
         }
 
         $page_ranges_left_right = 2;

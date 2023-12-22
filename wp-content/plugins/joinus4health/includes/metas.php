@@ -120,6 +120,11 @@ $meta_topic_status = array(
     3 => __("closed", 'joinus4health'),
 );
 
+$meta_task_status = array(
+    1 => __("active", 'joinus4health'), 
+    3 => __("closed", 'joinus4health'),
+);
+
 /**
  * Sort by
  */
